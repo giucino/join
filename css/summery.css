@@ -1,0 +1,21 @@
+.summery-container{
+    height: 912px;
+    width: 591px;
+    position: absolute;
+    top: 265px;
+    left: 380px;
+    gap: 72px;
+}
+
+.greetings{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 22px;
+}
+
+#user-name{
+    font-size: 64px;
+    line-height: 77px;
+    color: #4589FF;
+}
