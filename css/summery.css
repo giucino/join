@@ -210,6 +210,10 @@ body{
     align-items: center;
 }
 
+.center-text{
+    text-align: center;
+}
+
 .center-greetings{
     display: flex;
     justify-content: center;
