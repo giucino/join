@@ -5,17 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board</title>
     <link rel="stylesheet" href="./css/board.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="./img/join_logo.png">
+    <script src="./js/includeHTML.js"></script>
 </head>
-<body>
+<body onload="init()">
+    <div w3-include-html="./templates/header.html"></div>
+    <div w3-include-html="./templates/aside.html"></div>
     <div class="search-add-task">
-        <div class="input-conteiner">
-            <input class="input-field" type="text" placeholder="Find Task">
-            <div class="search-right">
-                <img src="./img/placeholder.png" alt="Platzhalter">
-                <img class="icon" src="./img/search.png" alt="Lupe">
+        <div class="search-add-task-container">
+            <div class="input-conteiner">
+                <input class="input-field" type="text" placeholder="Find Task">
+                <div class="search-right">
+                    <img src="./img/placeholder.png" alt="Platzhalter">
+                    <img class="icon" src="./img/search.png" alt="Lupe">
+                </div>
+            </div>
+            <button class="add-btn">Add Task<img class="plus-icon" src="./img/plus.png" alt="Plus"></button>
+        </div>
+    </div>
+    <div class="board-container">
+        <div class="to-do-container">
+            <div class="board-headline">
+                <span>To do</span>
+                <button class="board-add-btn"><img src="./img/plus-blue.png" alt="Plus"></button>
+            </div>
+            <div>
+                <div class="content-container">
+                    <div class="content-container-inner">
+                        <div class="category">Design</div>
+                        <div>
+                            <div class="title">Website redesign</div>
+                            <div class="content">Modify the contents of the main website...</div>
+                        </div>
+                        <div class="prio">Design</div>
+                    </div>
+                </div>
             </div>
         </div>
-        <button class="add-btn"><span>Add Task</span><img class="plus-icon" src="./img/plus.png" alt="Plus"></button>
+        <div>
+            <div class="board-headline">
+                <span>In progress</span>
+                <button class="board-add-btn"><img src="./img/plus-blue.png" alt="Plus"></button>
+            </div>
+            <div></div>
+        </div>
+        <div>
+            <div class="board-headline">
+                <span>Await feedback</span>
+                <button class="board-add-btn"><img src="./img/plus-blue.png" alt="Plus"></button>
+            </div>
+            <div></div>
+        </div>
+        <div>
+            <div class="board-headline">
+                <span>Done</span>
+            </div>
+            <div></div>
+        </div>
     </div>
     
 </body>

@@ -1,12 +1,12 @@
-*, *::before, *::after {
+/* *, *::before, *::after {
     box-sizing: border-box;
-}
+} */
 
 :root {
     --bg-color: #4589FF;
 }
 
-body {
+/* body {
     margin: 0;
     font-family: 'Open sans', sans-serif;
 }
@@ -70,6 +70,13 @@ span {
     border-radius: 559px;
     background: #FFF;
 }
+ */
+aside{
+    width: 232px;
+    
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    
+}
 
 .aside {
     display: flex;
@@ -77,11 +84,11 @@ span {
     align-items: center;
     flex-direction: column;
     width: 100%;
-    max-width: 232px;
-    height: 800px;
-    top: 92px;
+    width: 232px;
+    height: 932px;
+    /* top: 92px; */
     padding: 66px 0px;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    
     background: rgba(255, 255, 255, 1);
     gap: 235px;
 }

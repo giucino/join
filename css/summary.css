@@ -1,4 +1,4 @@
-body{
+body{    
     margin: 0;
     font-family: 'Open Sans', sans-serif;
 }
@@ -7,7 +7,8 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* gap: 72px; */
+    position: absolute;
+    top: 265px;
     width: 912px;
     height: 591px;
 }
@@ -222,9 +223,9 @@ body{
     height: 77px;
 }
 
-.vh-100{
+/* .vh-100{
     height: 100vh;
-}
+} */
 
 .w-124{
     width: 124px;
