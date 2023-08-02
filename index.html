@@ -1,12 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Join</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="icon" type="image/png" href="img/join_logo.png">
 </head>
+
 <body>
-    <h1>Join</h1>
-    <script src="js/script.js"></script>
+    <img class="logo-small" src="img/join_logo_blue.png" alt="Join Logo">
+    <img class="logo-large" src="img/join_logo_large.png" alt="Join Logo">
+    <main>
+        <div class="log-in-container">
+            <div class="log-in-main-header">
+                <div class="log-in-sub-header">
+                    <div class="log-in-header-title">Log in</div>
+                    <div class="log-in-header-line"></div>
+                </div>
+            </div>
+
+            <div class="log-in-formular">
+                <div class="log-in-info-box">
+                    <div class="log-in-input-frame">
+                        <input required type="text" class="log-in-text-input" placeholder="Email">
+                        <img class="log-in-icon" src="img/mail.png" alt="Email">
+                    </div>
+                </div>
+                <div class="log-in-info-box">
+                    <div class="log-in-input-frame">
+                        <input required type="text" class="log-in-text-input" placeholder="Password">
+                        <img class="log-in-icon" src="img/lock.png" alt="Password">
+                    </div>
+                </div>
+                <div class="password-match-error">Wrong password Ups! Try again</div>
+            </div>
+
+            <div class="remember-me-container">
+                <div class="remember-me-section">
+                    <img class="remember-me-icon" src="img/check-button.png" alt="Check Button">
+                    <p class="remember-me-text">Remember me</p>
+                </div>
+                <div class="forgot-password-container">
+                    <a class="forgot-password-link" href="forgot.html">I forgot my password</a>
+                </div>
+            </div>
+
+            <div class="log-in-btn-section">
+                <div class="log-in-btn-container">
+                    <button class="log-in-btn">Log in</button>
+                </div>
+                <div class="guest-log-in-btn-container">
+                    <button class="guest-log-in-btn">Guest log in</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="legal-notice-container">
+            <div class="legal-notice-sub-container">
+                <a class="legal-notice-text" href="privacy_policy.html" target="_blank">Privacy Policy</a>
+            </div>
+            <div class="legal-notice-sub-container">
+                <a class="legal-notice-text" href="legal_notice.html" target="_blank">Legal Notice</a>
+            </div>
+        </div>
+    </main>
+
+    <div class="sign-up-container">
+        <div class="not-a-user">Not a Join user?</div>
+        <div class="sign-up-btn-container">
+            <button class="sign-up-btn">Sign up</button>
+        </div>
+    </div>
+
 </body>
+
 </html>

@@ -16,13 +16,12 @@ body {
     font-family: 'Open sans', sans-serif;
 }
 
-.legal-notice-container {
+.help-container {
     gap: 30px;
     margin: 72px 88px;
-    /* margin-top: 72px; */
 }
 
-.legal-notice-header {
+.help-container-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -43,6 +42,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .arrow-left-icon {
@@ -50,24 +50,24 @@ h1 {
     height: 32px;
     flex-shrink: 0;
     cursor: pointer;
-    background-image: url("img/arrow-left-line.png");
+    background-image: url("/img/arrow-left-line.png");
     background-size: cover;
     transition: background-image 0.1s ease-in-out;
 }
 
 .arrow-left-icon:hover {
-    background-image: url("img/arrow-hover.png");
+    background-image: url("/img/arrow-hover.png");
 }
 
-main {
+.help-container-information {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    gap: 24px;
+    gap: 35px;
 }
 
-.imprint-container {
+.info-section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -75,31 +75,34 @@ main {
     align-self: stretch;
 }
 
-.imprint {
-    color: var(--version-2-main-color, #4589FF);
+h2 {
+    color: var(--ligth-blue, #4589FF);
     font-size: 33px;
     font-style: normal;
     font-weight: 700;
     line-height: 120%;
-    width: 346px;
+    margin: 0;
 }
 
-li {
-    color: var(--black, #000);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 120%;
-}
-
-.info-section {
+.info-list {
     display: flex;
-    flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
+    gap: 35px;
     align-self: stretch;
 }
 
+.info-index {
+    color: var(--ligth-blue, #005DFF);
+    font-size: 33px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+}
+
+.info-content {
+    display: flex;
+    flex-direction: column;
+}
 
 h3 {
     color: var(--ligth-blue, #005DFF);
@@ -111,20 +114,10 @@ h3 {
 }
 
 p {
-    align-self: stretch;
     color: #000;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 120%;
-    margin: 0;
-}
-
-h2 {
-    color: var(--ligth-blue, #005DFF);
-    font-size: 33px;
-    font-style: normal;
-    font-weight: 700;
     line-height: 120%;
     margin: 0;
 }

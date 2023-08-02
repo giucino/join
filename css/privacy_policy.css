@@ -16,20 +16,19 @@ body {
     font-family: 'Open sans', sans-serif;
 }
 
-.legal-notice-container {
+.privacy-container {
     gap: 30px;
     margin: 72px 88px;
-    /* margin-top: 72px; */
 }
 
-.legal-notice-header {
+.privacy-container-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 h1 {
-    color: var(--black, #000);
+    color: var(--black, #000);    
     font-size: 61px;
     font-style: normal;
     font-weight: 700;
@@ -50,46 +49,21 @@ h1 {
     height: 32px;
     flex-shrink: 0;
     cursor: pointer;
-    background-image: url("img/arrow-left-line.png");
+    background-image: url("/img/arrow-left-line.png");
     background-size: cover;
     transition: background-image 0.1s ease-in-out;
 }
 
 .arrow-left-icon:hover {
-    background-image: url("img/arrow-hover.png");
-}
+    background-image: url("/img/arrow-hover.png");
+} 
 
-main {
+.privacy-container-information {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    gap: 24px;
-}
-
-.imprint-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-    align-self: stretch;
-}
-
-.imprint {
-    color: var(--version-2-main-color, #4589FF);
-    font-size: 33px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 120%;
-    width: 346px;
-}
-
-li {
-    color: var(--black, #000);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 120%;
+    gap: 35px;
 }
 
 .info-section {
@@ -100,10 +74,9 @@ li {
     align-self: stretch;
 }
 
-
-h3 {
+h2 {
     color: var(--ligth-blue, #005DFF);
-    font-size: 19px;
+    font-size: 33px;
     font-style: normal;
     font-weight: 700;
     line-height: 120%;
@@ -116,15 +89,6 @@ p {
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 120%;
-    margin: 0;
-}
-
-h2 {
-    color: var(--ligth-blue, #005DFF);
-    font-size: 33px;
-    font-style: normal;
-    font-weight: 700;
     line-height: 120%;
     margin: 0;
 }
