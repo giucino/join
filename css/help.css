@@ -16,9 +16,14 @@ body {
     font-family: 'Open sans', sans-serif;
 }
 
+main {
+    display: flex;
+    overflow: scroll;
+}
+
 .help-container {
     gap: 30px;
-    margin: 72px 88px;
+    margin: 20px 88px;
 }
 
 .help-container-header {

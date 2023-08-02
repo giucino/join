@@ -16,6 +16,10 @@ body {
     font-family: 'Open sans', sans-serif;
 }
 
+.main {
+    display: flex;
+}
+
 .legal-notice-container {
     gap: 30px;
     margin: 72px 88px;
