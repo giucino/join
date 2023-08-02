@@ -7,11 +7,15 @@
     <title>Legal Notice</title>
     <link rel="stylesheet" href="css/legal_notice.css">
     <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="img/join_logo.png">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body>
+<body onload="init()">
+    <div w3-include-html="./templates/header.html"></div>
+    <div w3-include-html="./templates/aside.html"></div>
     <div class="legal-notice-container">
         <div class="legal-notice-header">
             <h1>Legal Notice</h1>
@@ -84,6 +88,7 @@
         </main>
     </div>
     <script src="js/register.js"></script>
+    <script src="./js/includeHTML.js"></script>
 </body>
 
 </html>

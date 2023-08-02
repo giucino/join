@@ -5,13 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/privacy_policy.css">
     <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="img/join_logo.png">
 </head>
 
-<body>
+<body onload="init()">
+    <div w3-include-html="./templates/header.html"></div>
+    <div w3-include-html="./templates/aside.html"></div>
     <div class="privacy-container">
         <div class="privacy-container-header">
             <h1>Privacy Police</h1>
@@ -43,7 +46,7 @@
             </div>
         </div>
     </div>
-
+    <script src="./js/includeHTML.js"></script>
 </body>
 
 </html>
