@@ -31,7 +31,7 @@
                 <span>To do</span>
                 <button class="board-add-btn"><img src="./img/plus-blue.png" alt="Plus"></button>
             </div>
-            <div>
+            <div class="drag-area" id="todo" ondrop="moveTo('open')" ondragleave="removeHighlight('open')" ondragover="allowDrop(event); highlight('open')">
                 <div class="content-container">
                     <div class="content-container-inner">
                         <div class="category">Design</div>
@@ -39,7 +39,19 @@
                             <div class="title">Website redesign</div>
                             <div class="content">Modify the contents of the main website...</div>
                         </div>
-                        <div class="prio">Design</div>
+                        <div class="subtasks-container">
+                            <div class="progress-bar-container">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <div class="subtasks">1/2 Subtasks</div>
+                        </div>
+                        <div class="prio-container">
+                            <div class="user-container">
+                                <div class="user-marked blue">SM</div>
+                                <div class="user-marked media negativ-gap">EF</div>
+                            </div>
+                            <div class="prio-icon"><img src="./img/prio-low.png" alt=""></div>
+                        </div>
                     </div>
                 </div>
             </div>
