@@ -16,6 +16,10 @@ body {
     font-family: 'Open sans', sans-serif;
 }
 
+.main {
+    display: flex;
+}
+
 .legal-notice-container {
     gap: 30px;
     margin: 72px 88px;
@@ -50,13 +54,13 @@ h1 {
     height: 32px;
     flex-shrink: 0;
     cursor: pointer;
-    background-image: url("img/arrow-left-line.png");
+    background-image: url("/img/arrow-left-line.png");
     background-size: cover;
     transition: background-image 0.1s ease-in-out;
 }
 
 .arrow-left-icon:hover {
-    background-image: url("img/arrow-hover.png");
+    background-image: url("/img/arrow-hover.png");
 }
 
 main {
