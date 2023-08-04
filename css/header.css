@@ -27,6 +27,14 @@ header{
     display: flex;
     align-items: center;
 }
+
+@media(max-width: 768px){
+    .header-container-right{
+        position: absolute;
+        right: 0;
+    }
+}
+
 #header-container-right-text{
     width: 301px;
     height: 23px;
@@ -40,10 +48,22 @@ header{
     line-height: 120%; /* 22.8px */
 }
 
+@media(max-width: 768px){
+    #header-container-right-text{
+        visibility: hidden;
+    }
+}
+
 .header-container-help {
     width: 32px;
     height: 32px;
     flex-shrink: 0;
+}
+
+@media(max-width: 768px){
+    .header-container-help{
+        visibility: hidden;
+    }
 }
 
 .header-container-right-user{

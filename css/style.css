@@ -78,6 +78,12 @@ aside{
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);    
 }
 
+@media(max-width: 650px){
+    aside{
+        display: none;
+    }
+}
+
 .aside {
     display: flex;
     justify-content: center;
