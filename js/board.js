@@ -27,7 +27,7 @@ let todos = [{
     'id': 5,
     'title': 'Einkaufen',
     'category': 'Backoffice',
-    'status': 'inprogress'
+    'status': 'feedback'
 }, {
     'id': 6,
     'title': 'Einkaufen',
@@ -43,6 +43,7 @@ function updateHTML() {
     inProgress();
     feedback();
     done();    
+    noTasks()
 }
 
 function todo() {
@@ -51,6 +52,9 @@ function todo() {
     for (let index = 0; index < todo.length; index++) {
         const element = todo[index];
         document.getElementById('todo').innerHTML += generateTodoHTML(element);
+    }
+    if (document.getElementById('todo').innerHTML == '') {
+        document.getElementById('todo').innerHTML += noTasks();
     }
 }
 
@@ -61,6 +65,9 @@ function inProgress(){
         const element = inProgress[index];
         document.getElementById('in-progress').innerHTML += generateTodoHTML(element);
     }
+    if (document.getElementById('in-progress').innerHTML == '') {
+        document.getElementById('in-progress').innerHTML += noTasks();
+    }
 }
 
 function feedback(){
@@ -69,6 +76,9 @@ function feedback(){
     for (let index = 0; index < feedback.length; index++) {
         const element = feedback[index];
         document.getElementById('feedback').innerHTML += generateTodoHTML(element);
+    }
+    if (document.getElementById('feedback').innerHTML == '') {
+        document.getElementById('feedback').innerHTML += noTasks();
     }
 }
 
@@ -79,6 +89,16 @@ function done(){
         const element = done[index];
         document.getElementById('done').innerHTML += generateTodoHTML(element);
     }
+    if (document.getElementById('done').innerHTML == '') {
+        document.getElementById('done').innerHTML += noTasks();
+    }
+}
+
+function noTasks(){
+    return /*html*/`
+        <div class="no-tasks-to-do">
+            <div class="no-tasks-to-do-text">No Tasks to do</div>
+        </div>`;
 }
 
 
@@ -110,8 +130,6 @@ function generateTodoHTML(element) {
             </div>
         </div>
     </div>`;
-
-   // return `<div draggable="true" ondragstart="startDragging(${element['id']})" class="todo">${element['title']}</div>`;
 }
 
 function allowDrop(ev) {
