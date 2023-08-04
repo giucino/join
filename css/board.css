@@ -150,7 +150,6 @@ body{
 
 .category{
     box-sizing: border-box;
-    width: 101px;
     height: 27px;
     display: flex;
     padding: 4px 25px;
