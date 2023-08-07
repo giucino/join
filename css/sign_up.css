@@ -9,6 +9,7 @@
     --icon: #A8A8A8;
     --menu: #42526E;
     --arrow-hover: #E3EEFF;
+    --error: #FF8190;
 }
 
 body {
@@ -69,7 +70,7 @@ body {
 
 .arrow-left-icon:hover {
     background-image: url("../img/arrow-hover.png");
-} 
+}
 
 .sign-up-main-header {
     display: flex;
@@ -264,14 +265,14 @@ body {
     width: 240px;
     height: 35px;
     flex-shrink: 0;
-    position: absolute; 
+    position: absolute;
     left: 50%;
-    transform: translateX(-50%); 
+    transform: translateX(-50%);
     bottom: 42.7px;
     justify-content: center;
 }
 
-.legal-notice-sub-container {  
+.legal-notice-sub-container {
     padding: 8px;
     display: flex;
     gap: 8px;
@@ -280,7 +281,7 @@ body {
 }
 
 .legal-notice-text {
-    color:  #FFFFFF;
+    color: #FFFFFF;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -290,4 +291,65 @@ body {
 
 .legal-notice-text:hover {
     color: #005DFF;
+}
+
+/* Stil für den Overlay-Hintergrund */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Stil für die Erfolgsmeldung*/
+.success-message {
+    display: flex;
+    width: 326px;
+    height: 74px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background: var(--bg-color, #4589FF);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.success-message p {
+    color: #FFF;
+    font-family: Open Sans;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        transform: translateX(5px);
+    }
+}
+
+.shake-password {
+    animation: shake 0.5s ease-in-out;
 }
