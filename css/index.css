@@ -20,7 +20,11 @@ body {
     animation-timing-function: ease-out;
 }
 
-main {
+#forgot-content, #reset-content {
+    display: none;
+}
+
+form {
     animation-name: animateBgOpacity;
     animation-duration: 800ms;
     animation-timing-function: ease-out;
@@ -28,13 +32,14 @@ main {
 }
 
 .logo-small {
-    position: absolute;
-    animation-name: animateZoomOutSmall;
+    animation-name: animateLogoSmall; 
     animation-duration: 800ms;
-    animation-timing-function: ease-out;
+    animation-timing-function: linear;
+    animation-delay: 0ms;
+    animation-direction: normal; 
+    animation-fill-mode: forwards;
     height: 120px;
-    top: 80px;
-    left: 77px;
+    z-index: 999;
 }
 
 .logo-large {
@@ -45,31 +50,9 @@ main {
     animation-duration: 200ms;
     animation-timing-function: ease-out;
     width: 265px;
-    height: 323.1px;
+    height: 323px;
     animation-fill-mode: forwards;
 }
-
-/* .logo-small {
-    position: absolute;
-    animation-name: animateZoomOutSmall;
-    animation-duration: 800ms;
-    animation-timing-function: ease-out;
-    height: 120px;
-    top: 80px;
-    left: 77px;
-}
-
-.logo-large {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation-name: animateZoomOutLarge;
-    animation-duration: 750ms;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;
-} */
-
 
 /******************* INTRO ANIMATION *******************/
 @keyframes animateBgColor {
@@ -86,7 +69,6 @@ main {
     }
 }
 
-
 @keyframes animateBgOpacity {
     0% {
         opacity: 0;
@@ -101,57 +83,13 @@ main {
     }
 }
 
-
-@keyframes animateZoomOutSmall {
-    0% {
-        height: 30vh;
-        width: 30vw;
-        left: 25vw;
-        top: 25vh;
-    }
-
-    50% {
-        height: 35vh;
-        width: 35vw;
-        left: 25vw;
-        top: 25vh;
+@keyframes animateLogoSmall {
+    0% {   
+        transform: translate(50vw, 50vh);
     }
 
     100% {
-        height: 120px;
-        width: 98px;
-        top: 80px;
-        left: 77px;
-    }
-}
-
-
-@keyframes animateZoomOutLarge {
-    0% {
-        height: 265px;
-        width: 323.1px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 1;
-    }
-
-    50% {
-        height: 265px;
-        width: 323.1px;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 1;
-    }
-
-    100% {
-        height: 120px;
-        width: 98px;
-        top: 80px;
-        left: 77px;
-        transform: translate(0, 0);
-        opacity: 0;
+        transform: translate(80px, 77px);
     }
 }
 
@@ -166,7 +104,6 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
     gap: 39px;
     border-radius: 30px;
     background: #FFFFFF;
@@ -216,18 +153,8 @@ main {
     gap: 32px;
 }
 
-/* .log-in-formular-container {
-    display: flex;
-    width: 422px;
-    height: 284px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 24px;
-} */
-
 .log-in-info-box {
     width: 422px;
-    height: 48px;
     padding: 12px 21px;
     display: flex;
     align-items: center;
@@ -283,6 +210,7 @@ main {
     word-wrap: break-word;
     color: #FF8190;
     display: none;
+    margin-top: -20px;
 }
 
 .remember-me-container {
@@ -319,7 +247,7 @@ main {
     line-height: 120%;
 }
 
-.forgot-password-container {
+.forgot-password-section {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -401,6 +329,7 @@ main {
     font-weight: 400;
     line-height: 120%;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .guest-log-in-btn:hover {
@@ -426,6 +355,9 @@ main {
     transform: translateX(-50%);
     bottom: 42.7px;
     justify-content: center;
+    animation-name: animateBgOpacity;
+    animation-duration: 800ms;
+    animation-timing-function: ease-out;
 }
 
 .legal-notice-sub-container {
@@ -489,6 +421,7 @@ main {
     font-weight: 400;
     line-height: 120%;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .sign-up-btn:hover {
@@ -501,4 +434,31 @@ main {
     background-color: white;
     color: var(--bg-color);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        transform: translateX(5px);
+    }
+}
+
+.shake-password {
+    animation: shake 0.5s ease-in-out;
 }

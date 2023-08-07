@@ -22,8 +22,7 @@ body {
 
 .legal-notice-container {
     gap: 30px;
-    margin: 72px 88px;
-    /* margin-top: 72px; */
+    margin: 168px 88px 0 320px;
 }
 
 .legal-notice-header {

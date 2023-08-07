@@ -18,11 +18,13 @@ body {
 
 main {
     display: flex;
+    /* width: 100vw;
+    height: 100vh; */
 }
 
 .privacy-container {
     gap: 30px;
-    margin: 72px 88px;
+    margin: 168px 88px 0 320px;
 }
 
 .privacy-container-header {
