@@ -1,5 +1,6 @@
 async function init() {
     await includeHTML();
+    markCurrentPage();
 }
 
 async function includeHTML() {
@@ -15,3 +16,20 @@ async function includeHTML() {
         }
     }
 }
+
+
+function markCurrentPage() {
+    const currentURL = window.location.href;
+    const links = document.querySelectorAll('.links');
+
+    links.forEach(link => {
+        if (currentURL.includes(link.href)) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
+
+// Rufe die Funktion auf, wenn das DOM vollständig geladen ist
+document.addEventListener('DOMContentLoaded', markCurrentPage);

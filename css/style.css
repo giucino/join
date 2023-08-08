@@ -40,6 +40,13 @@ aside {
     text-decoration: none;
 }
 
+.links.active {
+    box-sizing: border-box;
+    background: #D2E3FF;
+    border-radius: 8px;
+    width: 186px;
+}
+
 .aside__link {
     display: flex;
     align-items: center;
@@ -50,6 +57,7 @@ aside {
 }
 
 .aside__link:hover {
+    box-sizing: border-box;
     background: #D2E3FF;
 }
 
