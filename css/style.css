@@ -30,7 +30,7 @@ aside {
     width: 186px;
     height: 205px;
     gap: 15px;
-    padding-top: 66px;
+    margin-top: 66px;
 }
 
 .links {
@@ -75,21 +75,6 @@ aside {
 }
 
 .aside__policy-container a:hover {
-    color: #4589FF;
-}
-
-.policy-button {
-    display: flex;
-    padding: 8px;
-    align-items: center;
-    gap: 8px;
-    color: #42526E;
-    font-size: 16px;
-    font-weight: 400;
-    text-decoration: none;
-}
-
-.policy-button:hover {
     color: #4589FF;
 }
 

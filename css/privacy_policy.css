@@ -18,13 +18,11 @@ body {
 
 main {
     display: flex;
-    /* width: 100vw;
-    height: 100vh; */
 }
 
 .privacy-container {
     gap: 30px;
-    margin: 168px 88px 0 320px;
+    margin: 128px 88px 30px 320px;
 }
 
 .privacy-container-header {
@@ -34,7 +32,7 @@ main {
 }
 
 h1 {
-    color: var(--black, #000);    
+    color: var(--black, #000);
     font-size: 61px;
     font-style: normal;
     font-weight: 700;
@@ -62,7 +60,7 @@ h1 {
 
 .arrow-left-icon:hover {
     background-image: url("/img/arrow-hover.png");
-} 
+}
 
 .privacy-container-information {
     display: flex;
@@ -97,4 +95,40 @@ p {
     font-weight: 400;
     line-height: 120%;
     margin: 0;
+}
+
+.header-container-right-user-profile,
+.header-container-help {
+    display: none;
+}
+
+.header-container-right {
+    display: flex;
+    padding: 16.5px 0px 16.5px 132px;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: -40px;
+}
+
+.legal-button {
+    color: #42526E;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+    padding: 8px;
+    gap: 8px;
+}
+
+.privacy-button {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 8px;
+    background-color: #4589FF;
+    border-radius: 10px;
+}
+
+.legal-button:hover {
+    color: #4589FF;
 }

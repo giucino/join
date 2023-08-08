@@ -22,7 +22,7 @@ body {
 
 .legal-notice-container {
     gap: 30px;
-    margin: 168px 88px 0 320px;
+    margin: 128px 88px 30px 320px;
 }
 
 .legal-notice-header {
@@ -130,4 +130,40 @@ h2 {
     font-weight: 700;
     line-height: 120%;
     margin: 0;
+}
+
+.header-container-right-user-profile,
+.header-container-help {
+    display: none;
+}
+
+.header-container-right {
+    display: flex;
+    padding: 16.5px 0px 16.5px 132px;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: -40px;
+}
+
+.privacy-button {
+    color: #42526E;
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+    padding: 8px;
+    gap: 8px;
+}
+
+.legal-button {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 8px;
+    background-color: #4589FF;
+    border-radius: 10px;
+}
+
+.privacy-button:hover {
+    color: #4589FF;
 }

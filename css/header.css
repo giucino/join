@@ -1,8 +1,8 @@
-body{
+body {
     margin: 0;
 }
 
-header{
+header {
     position: fixed;
     width: 100%;
     z-index: 10;
@@ -14,17 +14,16 @@ header{
     justify-content: space-between;
     align-items: center;
     background: var(--version-2-main-color, #4589FF);
-
-    /* Barra superior */
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.10);
 }
-.header-container-logo{
+
+.header-container-logo {
     width: 45.93px;
     height: 56px;
     flex-shrink: 0;
 }
 
-.header-container-right{
+.header-container-right {
     width: 433px;
     height: 56px;
     flex-shrink: 0;
@@ -32,28 +31,26 @@ header{
     align-items: center;
 }
 
-@media(max-width: 768px){
-    .header-container-right{
+@media(max-width: 768px) {
+    .header-container-right {
         position: absolute;
         right: 0;
     }
 }
 
-#header-container-right-text{
+#header-container-right-text {
     width: 301px;
     height: 23px;
     color: var(--white, #FFF);
-
-    /* Version 2/t6 */
     font-family: Open Sans;
     font-size: 19px;
     font-style: normal;
     font-weight: 400;
-    line-height: 120%; /* 22.8px */
+    line-height: 120%;
 }
 
-@media(max-width: 768px){
-    #header-container-right-text{
+@media(max-width: 768px) {
+    #header-container-right-text {
         visibility: hidden;
     }
 }
@@ -62,21 +59,22 @@ header{
     width: 32px;
     height: 32px;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
-@media(max-width: 768px){
-    .header-container-help{
+@media(max-width: 768px) {
+    .header-container-help {
         visibility: hidden;
     }
 }
 
-.header-container-right-user{
+.header-container-right-user {
     display: inline-flex;
-align-items: center;
-gap: 16px;
+    align-items: center;
+    gap: 16px;
 }
 
-.header-container-right-user-profile{
+.header-container-right-user-profile {
     width: 56px;
     height: 56px;
 }

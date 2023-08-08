@@ -18,12 +18,11 @@ body {
 
 main {
     display: flex;
-    overflow: scroll;
 }
 
 .help-container {
     gap: 30px;
-    margin: 20px 88px;
+    margin: 120px 88px 30px 320px;
 }
 
 .help-container-header {
