@@ -41,14 +41,13 @@ body{
     gap: 22px;
 }
 
-/* @media(max-width: 1400px){
+@media(max-width: 1250px){
     .greetings{
         display: none;
     }
-} */
+}
 
 .greetings-left{
-    width: 338px;
     height: 58px;
     font-size: 48px;
     text-align: left;
@@ -273,8 +272,8 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 745px;
     height: 77px;
+    gap: 22px;
 }
 
 /* .vh-100{
