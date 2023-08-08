@@ -32,11 +32,11 @@ form {
 }
 
 .logo-small {
-    animation-name: animateLogoSmall; 
+    animation-name: animateLogoSmall;
     animation-duration: 800ms;
     animation-timing-function: linear;
     animation-delay: 0ms;
-    animation-direction: normal; 
+    animation-direction: normal;
     animation-fill-mode: forwards;
     height: 120px;
     z-index: 999;
@@ -84,7 +84,7 @@ form {
 }
 
 @keyframes animateLogoSmall {
-    0% {   
+    0% {
         transform: translate(50vw, 50vh);
     }
 
