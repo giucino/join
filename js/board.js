@@ -37,6 +37,7 @@ let todos = [{
 ];
 
 let currentDraggedElement;
+let currentFilter = '';
 
 function updateHTML() {
     todo();
@@ -47,50 +48,58 @@ function updateHTML() {
 }
 
 function todo() {
-    let todo = todos.filter(t => t['status'] == 'todo');
-    document.getElementById('todo').innerHTML = '';
-    for (let index = 0; index < todo.length; index++) {
-        const element = todo[index];
-        document.getElementById('todo').innerHTML += generateTodoHTML(element);
-    }
-    if (document.getElementById('todo').innerHTML == '') {
-        document.getElementById('todo').innerHTML += noTasks();
+    let filteredTodo = todos.filter(task => task['status'] === 'todo' && (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
+    const todoContainer = document.getElementById('todo');
+    todoContainer.innerHTML = '';
+
+    if (filteredTodo.length === 0) {
+        todoContainer.innerHTML += noTasks();
+    } else {
+        filteredTodo.forEach(task => {
+            todoContainer.innerHTML += generateTodoHTML(task);
+        });
     }
 }
 
 function inProgress(){
-    let inProgress = todos.filter(t => t['status'] == 'inprogress');
-    document.getElementById('in-progress').innerHTML = '';
-    for (let index = 0; index < inProgress.length; index++) {
-        const element = inProgress[index];
-        document.getElementById('in-progress').innerHTML += generateTodoHTML(element);
-    }
-    if (document.getElementById('in-progress').innerHTML == '') {
-        document.getElementById('in-progress').innerHTML += noTasks();
+    let filteredInProgress = todos.filter(task => task['status'] === 'inprogress' && (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
+    const inProgressContainer = document.getElementById('in-progress');
+    inProgressContainer.innerHTML = '';
+
+    if (filteredInProgress.length === 0) {
+        inProgressContainer.innerHTML += noTasks();
+    } else {
+        filteredInProgress.forEach(task => {
+            inProgressContainer.innerHTML += generateTodoHTML(task);
+        });
     }
 }
 
 function feedback(){
-    let feedback = todos.filter(t => t['status'] == 'feedback');
-    document.getElementById('feedback').innerHTML = '';
-    for (let index = 0; index < feedback.length; index++) {
-        const element = feedback[index];
-        document.getElementById('feedback').innerHTML += generateTodoHTML(element);
-    }
-    if (document.getElementById('feedback').innerHTML == '') {
-        document.getElementById('feedback').innerHTML += noTasks();
+    let filteredFeedback = todos.filter(task => task['status'] === 'feedback' && (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
+    const feedbackContainer = document.getElementById('feedback');
+    feedbackContainer.innerHTML = '';
+
+    if (filteredFeedback.length === 0) {
+        feedbackContainer.innerHTML += noTasks();
+    } else {
+        filteredFeedback.forEach(task => {
+            feedbackContainer.innerHTML += generateTodoHTML(task);
+        });
     }
 }
 
 function done(){
-    let done = todos.filter(t => t['status'] == 'done');
-    document.getElementById('done').innerHTML = '';
-    for (let index = 0; index < done.length; index++) {
-        const element = done[index];
-        document.getElementById('done').innerHTML += generateTodoHTML(element);
-    }
-    if (document.getElementById('done').innerHTML == '') {
-        document.getElementById('done').innerHTML += noTasks();
+    let filteredDone = todos.filter(task => task['status'] === 'done' && (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
+    const doneContainer = document.getElementById('done');
+    doneContainer.innerHTML = '';
+
+    if (filteredDone.length === 0) {
+        doneContainer.innerHTML += noTasks();
+    } else {
+        filteredDone.forEach(task => {
+            doneContainer.innerHTML += generateTodoHTML(task);
+        });
     }
 }
 
@@ -139,5 +148,19 @@ function allowDrop(ev) {
 function moveTo(status) {
     todos[currentDraggedElement]['status'] = status;
     updateHTML();
+}
+
+function filterTasks(searchTerm, status) {
+    let filteredTasks = todos.filter(task => {
+        return task.status === status && (task.title.includes(searchTerm) || task.category.includes(searchTerm));
+    });
+    return filteredTasks;
+}
+
+function setFilter() {
+    let searchText = document.getElementById('input-field');
+    currentFilter = searchText.value.toLowerCase();
+    updateHTML();
+    searchText.value = '';
 }
 
