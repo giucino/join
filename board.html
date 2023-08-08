@@ -11,16 +11,16 @@
     <script src="./js/includeHTML.js"></script>
     <script src="./js/board.js"></script>
 </head>
-<body onload="init()">
+<body onload="init(), updateHTML()">
     <div w3-include-html="./templates/header.html"></div>
     <div w3-include-html="./templates/aside.html"></div>
     <div class="search-add-task">
         <div class="search-add-task-container">
             <div class="input-conteiner">
-                <input class="input-field" type="text" placeholder="Find Task">
+                <input id="input-field" class="input-field" type="text" placeholder="Find Task">
                 <div class="search-right">
                     <img src="./img/placeholder.png" alt="Platzhalter">
-                    <img class="icon" src="./img/search.png" alt="Lupe">
+                    <img class="icon" onclick="setFilter()" src="./img/search.png" alt="Lupe">
                 </div>
             </div>
             <button class="add-btn">Add Task<img class="plus-icon" src="./img/plus.png" alt="Plus"></button>
