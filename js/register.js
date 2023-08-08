@@ -40,7 +40,7 @@ async function signUpUser() {
     users.push({
         name: username.value,
         email: email.value,
-        password: passWord.value,
+        password: password.value,
     });
     await setItem('users', JSON.stringify(users));
     showSuccessMessageAndRedirect();
@@ -77,11 +77,11 @@ function showPasswordMatchError() {
 }
 
 
-function onChangeConfirmPassword() {
+function errorTextSignUp() {
     passwordMatchError.style.display = 'none';
 }
 let confirmPassword = document.getElementById('confirmPassword');
-confirmPassword.addEventListener('input', onChangeConfirmPassword);
+confirmPassword.addEventListener('input', errorTextSignUp);
 
 
 function resetForm() {
@@ -109,32 +109,39 @@ function addFocusBlurEvents() {
 document.addEventListener('DOMContentLoaded', addFocusBlurEvents);
 
 
-let privacyCheck = document.getElementById('privacyCheck');
-privacyCheck.addEventListener('click', togglePrivacyCheck);
-
 let isChecked = false; // Variable, um den Zustand des Check-Bildes zu verfolgen
 
 function togglePrivacyCheck() {
     isChecked = !isChecked;
-    updateRegisterButtonState();
-
     if (isChecked) {
-        // Ändere das Bild zu 'checked.png', wenn es zuvor auf 'check-button.png' geklickt wurde
-        privacyCheck.src = 'img/checked.png';
-        // Ändere den Hover-Effekt, wenn das Bild auf 'checked.png' gewechselt wird
-        privacyCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
-        privacyCheck.removeEventListener('mouseleave', removeHoverCheckedBackground);
-        privacyCheck.addEventListener('mouseenter', applyHoverCheckedBackground);
-        privacyCheck.addEventListener('mouseleave', removeHoverCheckedBackground);
+        setCheckedState();
     } else {
-        // Ändere das Bild zu 'check-button.png', wenn es zuvor auf 'checked.png' geklickt wurde
-        privacyCheck.src = 'img/check-button.png';
-        // Ändere den Hover-Effekt, wenn das Bild auf 'check-button.png' gewechselt wird
-        privacyCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
-        privacyCheck.removeEventListener('mouseleave', removeHoverCheckedBackground);
-        privacyCheck.addEventListener('mouseenter', applyHoverButtonBackground);
-        privacyCheck.addEventListener('mouseleave', removeHoverButtonBackground);
+        setUncheckedState();
     }
+}
+
+
+const privacyCheck = document.getElementById('privacyCheck');
+privacyCheck.addEventListener('click', togglePrivacyCheck);
+
+
+// Ändere den Hover-Effekt, wenn das Bild auf 'checked.png' gewechselt wird
+function setCheckedState() {
+    privacyCheck.src = 'img/checked.png';
+    privacyCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
+    privacyCheck.removeEventListener('mouseleave', removeHoverCheckedBackground);
+    privacyCheck.addEventListener('mouseenter', applyHoverCheckedBackground);
+    privacyCheck.addEventListener('mouseleave', removeHoverCheckedBackground);
+}
+
+
+// Ändere den Hover-Effekt, wenn das Bild auf 'check-button.png' gewechselt wird
+function setUncheckedState() {
+    privacyCheck.src = 'img/check-button.png';
+    privacyCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
+    privacyCheck.removeEventListener('mouseleave', removeHoverCheckedBackground);
+    privacyCheck.addEventListener('mouseenter', applyHoverButtonBackground);
+    privacyCheck.addEventListener('mouseleave', removeHoverButtonBackground);
 }
 
 
@@ -162,21 +169,6 @@ function removeHoverButtonBackground() {
 }
 
 
-function updateRegisterButtonState() {
-    if (isChecked) {
-        // Wenn der privacyCheck aktiviert ist, wird der registerBtn aktiviert
-        registerBtn.disabled = false;
-        privacyCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
-        privacyCheck.removeEventListener('mouseleave', removeHoverCheckedBackground);
-    } else {
-        // Wenn der privacyCheck nicht aktiviert ist, wird der registerBtn deaktiviert
-        registerBtn.disabled = true;
-        privacyCheck.addEventListener('mouseenter', applyHoverCheckedBackground);
-        privacyCheck.addEventListener('mouseleave', removeHoverCheckedBackground);
-    }
-}
-
-
 let passwordInput = document.getElementById('password');
 let passwordIcon = document.getElementById('passwordIcon');
 
@@ -185,47 +177,114 @@ let confirmPasswordIcon = document.getElementById('confirmPasswordIcon');
 
 
 // Event Listener für die Eingabe in das Passwort-Feld
+// passwordInput.addEventListener('input', function () {
+//     if (passwordInput.value.length > 0) {
+//         passwordIcon.src = passwordInput.type === 'password' ? 'img/visibility_off.png' : 'img/visibility.png';
+//     } else {
+//         passwordIcon.src = 'img/lock.png';
+//     }
+// });
+
+// passwordInput.addEventListener('input', function () {
+//     if (passwordInput.value.length > 0) {
+//         if (passwordInput.type === 'password') {
+//             passwordIcon.src = 'img/visibility_off.png';
+//         } else {
+//             passwordIcon.src = 'img/visibility.png';
+//         }
+//     } else {
+//         passwordIcon.src = 'img/lock.png';
+//     }
+// });
+
+
+
+// // Event Listener für das Klicken auf das Passwort-Sichtbarkeits-Icon
+// passwordIcon.addEventListener('click', function () {
+//     if (passwordInput.type === 'password') {
+//         passwordInput.type = 'text';
+//         passwordIcon.src = 'img/visibility.png';
+//     } else {
+//         passwordInput.type = 'password';
+//         passwordIcon.src = 'img/visibility_off.png';
+//     }
+// });
+
+
+// // Event Listener für die Eingabe in das Bestätigungs-Passwort-Feld
+// // confirmPasswordInput.addEventListener('input', function () {
+// //     if (confirmPasswordInput.value.length > 0) {
+// //         confirmPasswordIcon.src = confirmPasswordInput.type === 'password' ? 'img/visibility_off.png' : 'img/visibility.png';
+// //     } else {
+// //         confirmPasswordIcon.src = 'img/lock.png';
+// //     }
+// // });
+
+
+// confirmPasswordInput.addEventListener('input', function () {
+//     if (confirmPasswordInput.value.length > 0) {
+//         if (confirmPasswordInput.type === 'password') {
+//             confirmPasswordIcon.src = 'img/visibility_off.png';
+//         } else {
+//             confirmPasswordIcon.src = 'img/visibility.png';
+//         }
+//     } else {
+//         confirmPasswordIcon.src = 'img/lock.png';
+//     }
+// });
+
+
+// // Event Listener für das Klicken auf das Bestätigungs-Passwort-Sichtbarkeits-Icon
+// confirmPasswordIcon.addEventListener('click', function () {
+//     if (confirmPasswordInput.type === 'password') {
+//         confirmPasswordInput.type = 'text';
+//         confirmPasswordIcon.src = 'img/visibility.png';
+//     } else {
+//         confirmPasswordInput.type = 'password';
+//         confirmPasswordIcon.src = 'img/visibility_off.png';
+//     }
+// });
+
+
+function handlePasswordInput(inputElement, iconElement) {
+    if (inputElement.value.length > 0) {
+        if (inputElement.type === 'password') {
+            iconElement.src = 'img/visibility_off.png';
+        } else {
+            iconElement.src = 'img/visibility.png';
+        }
+    } else {
+        iconElement.src = 'img/lock.png';
+    }
+}
+
 passwordInput.addEventListener('input', function () {
-    if (passwordInput.value.length > 0) {
-        passwordIcon.src = passwordInput.type === 'password' ? 'img/visibility_off.png' : 'img/visibility.png';
-    } else {
-        passwordIcon.src = 'img/lock.png';
-    }
+    handlePasswordInput(passwordInput, passwordIcon);
 });
 
-
-// Event Listener für das Klicken auf das Passwort-Sichtbarkeits-Icon
-passwordIcon.addEventListener('click', function () {
-    if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        passwordIcon.src = 'img/visibility.png';
-    } else {
-        passwordInput.type = 'password';
-        passwordIcon.src = 'img/visibility_off.png';
-    }
-});
-
-
-// Event Listener für die Eingabe in das Bestätigungs-Passwort-Feld
 confirmPasswordInput.addEventListener('input', function () {
-    if (confirmPasswordInput.value.length > 0) {
-        confirmPasswordIcon.src = confirmPasswordInput.type === 'password' ? 'img/visibility_off.png' : 'img/visibility.png';
-    } else {
-        confirmPasswordIcon.src = 'img/lock.png';
-    }
+    handlePasswordInput(confirmPasswordInput, confirmPasswordIcon);
 });
 
 
-// Event Listener für das Klicken auf das Bestätigungs-Passwort-Sichtbarkeits-Icon
+function togglePasswordVisibility(inputElement, iconElement) {
+    if (inputElement.type === 'password') {
+        inputElement.type = 'text';
+        iconElement.src = 'img/visibility.png';
+    } else {
+        inputElement.type = 'password';
+        iconElement.src = 'img/visibility_off.png';
+    }
+}
+
+passwordIcon.addEventListener('click', function () {
+    togglePasswordVisibility(passwordInput, passwordIcon);
+});
+
 confirmPasswordIcon.addEventListener('click', function () {
-    if (confirmPasswordInput.type === 'password') {
-        confirmPasswordInput.type = 'text';
-        confirmPasswordIcon.src = 'img/visibility.png';
-    } else {
-        confirmPasswordInput.type = 'password';
-        confirmPasswordIcon.src = 'img/visibility_off.png';
-    }
+    togglePasswordVisibility(confirmPasswordInput, confirmPasswordIcon);
 });
+
 
 
 function createSuccessMessageTemplate() {

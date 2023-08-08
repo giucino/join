@@ -1,6 +1,5 @@
 async function init() {
     await includeHTML();
-    // updateHTML();
 }
 
 async function includeHTML() {
