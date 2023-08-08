@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" type="image/png" href="./img/join_logo.png">
-    <script src="./js/includeHTML.js"></script>
-    <script src="./js/board.js"></script>
 </head>
 <body onload="init(), updateHTML()">
     <div w3-include-html="./templates/header.html"></div>
@@ -20,7 +18,7 @@
                 <input id="input-field" class="input-field" type="text" placeholder="Find Task">
                 <div class="search-right">
                     <img src="./img/placeholder.png" alt="Platzhalter">
-                    <img class="icon" onclick="setFilter()" src="./img/search.png" alt="Lupe">
+                    <img id="search" class="icon" onclick="setFilter()" src="./img/search.png" alt="Lupe">
                 </div>
             </div>
             <button class="add-btn">Add Task<img class="plus-icon" src="./img/plus.png" alt="Plus"></button>
@@ -61,6 +59,7 @@
             </div>
         </div>
     </div>
-    
+    <script src="./js/includeHTML.js"></script>
+    <script src="./js/board.js"></script>
 </body>
 </html>

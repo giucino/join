@@ -164,3 +164,11 @@ function setFilter() {
     searchText.value = '';
 }
 
+const input = document.getElementById('input-field');
+const inputBtn = document.getElementById('search');
+
+input.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        inputBtn.click();
+    }
+});
