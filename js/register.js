@@ -171,81 +171,11 @@ function removeHoverButtonBackground() {
 
 let passwordInput = document.getElementById('password');
 let passwordIcon = document.getElementById('passwordIcon');
-
 let confirmPasswordInput = document.getElementById('confirmPassword');
 let confirmPasswordIcon = document.getElementById('confirmPasswordIcon');
 
 
 // Event Listener für die Eingabe in das Passwort-Feld
-// passwordInput.addEventListener('input', function () {
-//     if (passwordInput.value.length > 0) {
-//         passwordIcon.src = passwordInput.type === 'password' ? 'img/visibility_off.png' : 'img/visibility.png';
-//     } else {
-//         passwordIcon.src = 'img/lock.png';
-//     }
-// });
-
-// passwordInput.addEventListener('input', function () {
-//     if (passwordInput.value.length > 0) {
-//         if (passwordInput.type === 'password') {
-//             passwordIcon.src = 'img/visibility_off.png';
-//         } else {
-//             passwordIcon.src = 'img/visibility.png';
-//         }
-//     } else {
-//         passwordIcon.src = 'img/lock.png';
-//     }
-// });
-
-
-
-// // Event Listener für das Klicken auf das Passwort-Sichtbarkeits-Icon
-// passwordIcon.addEventListener('click', function () {
-//     if (passwordInput.type === 'password') {
-//         passwordInput.type = 'text';
-//         passwordIcon.src = 'img/visibility.png';
-//     } else {
-//         passwordInput.type = 'password';
-//         passwordIcon.src = 'img/visibility_off.png';
-//     }
-// });
-
-
-// // Event Listener für die Eingabe in das Bestätigungs-Passwort-Feld
-// // confirmPasswordInput.addEventListener('input', function () {
-// //     if (confirmPasswordInput.value.length > 0) {
-// //         confirmPasswordIcon.src = confirmPasswordInput.type === 'password' ? 'img/visibility_off.png' : 'img/visibility.png';
-// //     } else {
-// //         confirmPasswordIcon.src = 'img/lock.png';
-// //     }
-// // });
-
-
-// confirmPasswordInput.addEventListener('input', function () {
-//     if (confirmPasswordInput.value.length > 0) {
-//         if (confirmPasswordInput.type === 'password') {
-//             confirmPasswordIcon.src = 'img/visibility_off.png';
-//         } else {
-//             confirmPasswordIcon.src = 'img/visibility.png';
-//         }
-//     } else {
-//         confirmPasswordIcon.src = 'img/lock.png';
-//     }
-// });
-
-
-// // Event Listener für das Klicken auf das Bestätigungs-Passwort-Sichtbarkeits-Icon
-// confirmPasswordIcon.addEventListener('click', function () {
-//     if (confirmPasswordInput.type === 'password') {
-//         confirmPasswordInput.type = 'text';
-//         confirmPasswordIcon.src = 'img/visibility.png';
-//     } else {
-//         confirmPasswordInput.type = 'password';
-//         confirmPasswordIcon.src = 'img/visibility_off.png';
-//     }
-// });
-
-
 function handlePasswordInput(inputElement, iconElement) {
     if (inputElement.value.length > 0) {
         if (inputElement.type === 'password') {
@@ -267,6 +197,7 @@ confirmPasswordInput.addEventListener('input', function () {
 });
 
 
+// Event Listener für das Klicken auf das Passwort-Sichtbarkeits-Icon
 function togglePasswordVisibility(inputElement, iconElement) {
     if (inputElement.type === 'password') {
         inputElement.type = 'text';

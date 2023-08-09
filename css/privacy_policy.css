@@ -97,19 +97,6 @@ p {
     margin: 0;
 }
 
-.header-container-right-user-profile,
-.header-container-help {
-    display: none;
-}
-
-.header-container-right {
-    display: flex;
-    padding: 16.5px 0px 16.5px 132px;
-    justify-content: flex-end;
-    align-items: center;
-    margin-right: -40px;
-}
-
 .legal-button {
     color: #42526E;
     font-size: 16px;
@@ -131,4 +118,17 @@ p {
 
 .legal-button:hover {
     color: #4589FF;
+}
+
+.header-container-right-user-profile,
+.header-container-help {
+    display: none;
+}
+
+.header-container-right {
+    display: flex;
+    padding: 16.5px 0px 16.5px 132px;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: -40px;
 }

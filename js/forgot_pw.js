@@ -2,28 +2,29 @@
 function generateForgotContent() {
     return /*html*/ `<img class="white-small-logo" src="img/join_logo_large.png" alt="Join Logo">
     <form onsubmit="showForgotRedirect()" id="resetPasswordForm" class="forgot-password-container">
-        <div class="arrow-container">
+        <section class="arrow-container">
             <a href="index.html" class="arrow-left-icon"></a>
-        </div>
-        <div class="forgot-info-container">
+        </section>
+        <section class="forgot-info-container">
             <div class="forgot-info-title">I forgot my password</div>
             <div class="forgot-info-line"></div>
-        </div>
-        <div class="forgot-password-info">Don't worry! We will send you an email with the instructions to reset your
-            password.</div>
+        </section>
+        <section class="forgot-password-info">Don't worry! We will send you an email with the instructions to reset your
+            password.
+        </section>
 
-        <div class="email-input-container">
+        <section class="email-input-container">
             <div class="email-input-section">
                 <div class="email-input-frame">
                     <input id="email" required type="email" class="email-input" placeholder="Email">
                     <img class="email-icon" src="img/mail.png" alt="Email">
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="send-email-container">
+        <section class="send-email-container">
             <button class="send-email-btn" id="sendEmailButton">Send me the email</button>
-        </div>
+        </section>
     </form>
     `;
 }
@@ -95,15 +96,15 @@ function createForgotTemplate() {
 function generateResetContent() {
     return /*html*/ `<img class="white-small-logo" src="img/join_logo_large.png" alt="Join Logo">
     <form onsubmit="showResetRedirect()" class="reset-password-container">
-        <div class="arrow-container">
+        <section class="arrow-container">
             <div class="arrow-left-icon"></div>
-        </div>
-        <div class="reset-info-container">
+        </section>
+        <section class="reset-info-container">
             <div class="reset-info-title">Reset your password</div>
             <div class="reset-info-line"></div>
-        </div>
-        <div class="change-password-info">Change your account password here</div>
-        <div class="password-input-container">
+        </section>
+        <section class="change-password-info">Change your account password here</section>
+        <section class="password-input-container">
             <div class="password-input-frame">
                 <div class="password-input-section">
                     <div class="password-input-line">
@@ -119,31 +120,13 @@ function generateResetContent() {
                 </div>
                 <div class="password-match-error">Your Passwords don´t match. Try again</div>
             </div>
-        </div>
-        <div class="continue-btn-container">
+        </section>
+        <section class="continue-btn-container">
             <button id="resetButton" class="continue-btn">Continue</button>
-        </div>
+        </section>
     </form>
     `;
 }
-
-
-// function showForgotRedirect() {
-//     document.body.innerHTML += createForgotTemplate();
-
-//     setTimeout(function () {
-//         let successOverlay = document.getElementById('forgotOverlay');
-//         document.body.removeChild(successOverlay);
-
-//         let forgotContainer = document.getElementById('forgot-content');
-//         forgotContainer.style.display = 'none';
-
-//         let resetContent = document.getElementById('reset-content');
-//         resetContent.innerHTML = generateResetContent();
-//         resetContent.style.display = 'flex';
-//         addBlurEvents();
-//     }, 800);
-// }
 
 
 function showForgotRedirect() {
@@ -215,4 +198,3 @@ function showResetRedirect() {
         window.location.href = 'index.html';
     }, 800);
 }
-

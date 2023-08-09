@@ -9,23 +9,33 @@
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/forgot.css">
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="icon" type="image/png" href="img/join_logo.png">
+    <link rel="icon" type="image/png" href="img/join_logo_blue.png">
 </head>
 
 <body onload="initLogIn()">
     <div class="index-container">
-        <img class="logo-small" src="img/join_logo_blue.png" alt="Join Logo">
-        <img class="logo-large" src="img/join_logo_large.png" alt="Join Logo">
+        <header>
+            <img class="logo-small" src="img/join_logo_blue.png" alt="Join Logo">
+            <img class="logo-large" src="img/join_logo_large.png" alt="Join Logo">
+
+            <div class="sign-up-container">
+                <div class="not-a-user">Not a Join user?</div>
+                <div class="sign-up-btn-container">
+                    <a class="sign-up-btn" href="sign_up.html">Sign up</a>
+                </div>
+            </div>
+        </header>
+
         <form id="logInForm">
-            <div class="log-in-container">
-                <div class="log-in-main-header">
+            <main class="log-in-container">
+                <section class="log-in-main-header">
                     <div class="log-in-sub-header">
                         <div class="log-in-header-title">Log in</div>
                         <div class="log-in-header-line"></div>
                     </div>
-                </div>
+                </section>
 
-                <div class="log-in-formular">
+                <section class="log-in-formular">
                     <div class="log-in-info-box">
                         <div class="log-in-input-frame">
                             <input id="email" required type="email" class="log-in-text-input" placeholder="Email">
@@ -40,9 +50,9 @@
                         </div>
                     </div>
                     <div class="password-match-error" id="passwordMatchError">Wrong password Ups! Try again</div>
-                </div>
+                </section>
 
-                <div class="remember-me-container">
+                <section class="remember-me-container">
                     <div class="remember-me-section">
                         <img class="remember-me-icon" id="rememberCheck" src="img/check-button.png" alt="Check Button">
                         <p class="remember-me-text">Remember me</p>
@@ -50,34 +60,27 @@
                     <div class="forgot-password-section">
                         <div class="forgot-password-link">I forgot my password</div>
                     </div>
-                </div>
+                </section>
 
-                <div class="log-in-btn-section">
+                <section class="log-in-btn-section">
                     <div class="log-in-btn-container">
                         <button id="loginBtn" class="log-in-btn">Log in</button>
                     </div>
                     <div class="guest-log-in-btn-container">
                         <a href="summary.html" class="guest-log-in-btn">Guest log in</a>
                     </div>
-                </div>
-            </div>
+                </section>
+            </main>
         </form>
 
-        <div class="legal-notice-container">
-            <div class="legal-notice-sub-container">
+        <footer class="legal-notice-container">
+            <section class="legal-notice-sub-container">
                 <a class="legal-notice-text" href="privacy_policy.html" target="_blank">Privacy Policy</a>
-            </div>
-            <div class="legal-notice-sub-container">
+            </section>
+            <section class="legal-notice-sub-container">
                 <a class="legal-notice-text" href="legal_notice.html" target="_blank">Legal Notice</a>
-            </div>
-        </div>
-
-        <div class="sign-up-container">
-            <div class="not-a-user">Not a Join user?</div>
-            <div class="sign-up-btn-container">
-                <a class="sign-up-btn" href="sign_up.html" >Sign up</a>
-            </div>
-        </div>
+            </section>
+        </footer>
     </div>
     <div id="forgot-content"></div>
     <div id="reset-content"></div>
