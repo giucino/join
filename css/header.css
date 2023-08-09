@@ -86,8 +86,8 @@ header {
 
 
 .logout-button  {
-    position: absolute;
-    top: 92px;
+    position: fixed;
+    top: 96px;
     right: 0;
     width: 152px;
     height: 117px;
@@ -98,7 +98,8 @@ header {
     border-radius: 20px 0px 20px 20px;
     background: var(--white, #FFF);
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.20);
-    display: none;
+    z-index: 999;
+    /* display: none; */
 }
 
 .nav-item {
