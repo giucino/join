@@ -125,3 +125,7 @@ p {
     line-height: 120%;
     margin: 0;
 }
+
+.logout-button {
+    box-sizing: content-box;
+}

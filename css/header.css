@@ -85,7 +85,7 @@ header {
 }
 
 
-.logout-button  {
+#logoutBtn  {
     position: fixed;
     top: 96px;
     right: 0;

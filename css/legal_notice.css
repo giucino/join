@@ -167,3 +167,7 @@ h2 {
 .privacy-button:hover {
     color: #4589FF;
 }
+
+.logout-button {
+    opacity: 0;
+}

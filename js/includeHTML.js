@@ -72,3 +72,27 @@ function markMobileLink() {
 window.addEventListener('resize', markMobileLink);
 
 
+// Funktion zum ein- und ausblenden des Menu
+function toggleMenu(event) {
+    let menuItems = document.getElementById("logoutBtn");
+
+    event.stopPropagation();
+
+    if (menuItems.style.display === "" || menuItems.style.display === "none") {
+        menuItems.style.display = "flex";
+    } else {
+        menuItems.style.display = "none";
+    }
+}
+
+
+function closeMenuOnClickAndOutside(event) {
+    let menuItems = document.getElementById("logoutBtn");
+    let clickedElement = event.target;
+
+    if (!menuItems.contains(clickedElement) || clickedElement.classList.contains("nav-link")) {
+        menuItems.style.display = "none";
+    }
+}
+
+document.addEventListener("click", closeMenuOnClickAndOutside);

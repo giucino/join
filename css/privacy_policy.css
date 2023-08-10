@@ -132,3 +132,7 @@ p {
     align-items: center;
     margin-right: -40px;
 }
+
+.logout-button {
+    opacity: 0;
+}
