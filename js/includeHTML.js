@@ -96,3 +96,11 @@ function closeMenuOnClickAndOutside(event) {
 }
 
 document.addEventListener("click", closeMenuOnClickAndOutside);
+
+
+function logOut() {
+    if (localStorage.getItem('rememberCheckState') !== 'checked') {
+        localStorage.clear();
+    }
+    window.location.replace('index.html');
+}
