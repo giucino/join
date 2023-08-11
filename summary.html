@@ -14,11 +14,11 @@
 <body onload="init(), getGreeting()">
     <div w3-include-html="./templates/header.html"></div>
     <div w3-include-html="./templates/aside.html"></div>
-    <div class="center vh-100">
+    <div class="center mobile">
         <div class="summery-container">                  
             <div class="greetings">
                 <div class="center-greetings">
-                    <span id="day-time" class="greetings-left">Good morning,</span>
+                    <span id="day-time" class="greetings-left"></span>
                     <span id="user-name" class="greetings-right">Sofia Müller</span>
                 </div>
             </div>
@@ -30,8 +30,8 @@
                                 <img class="image-76 urgend-border" src="./img/urgent.png" alt="Todo liste">
                                 <span id="urgent-task" class="todo-task">0</span>
                             </div>                            
-                            <div class="task-urgent-left-down">
-                                <span>Tasks Urgent</span>
+                            <div class="task-urgent-left-down text-w">
+                                <span class="text-small">Tasks Urgent</span>
                             </div>
                         </div>
                         <div class="placeholder"></div>
@@ -45,7 +45,7 @@
                             <img class="image-76" src="./img/to-do.png" alt="">
                             <span id="todo-task" class="todo-task">0</span>
                         </div>
-                        <div class="text-color-blue">
+                        <div class="text-color-blue text">
                             <span>Tasks To-do</span>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                                 <span class="todo-task">0</span>                  
                             </div>
                             <div class="center w-124 center-text">
-                                <span class="text-color-blue">Task in <br> Board</span>   
+                                <span class="text-color-blue text">Task in <br> Board</span>   
                             </div>
                         </div>
                         <div class="task-container">
@@ -67,7 +67,7 @@
                                 <span class="todo-task">0</span>
                             </div>
                             <div class="center w-124 center-text">
-                                <span class="text-color-blue">Task in <br> Progress</span>
+                                <span class="text-color-blue text">Task in <br> Progress</span>
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                                 <span class="todo-task">0</span>
                             </div>
                             <div class="center w-124 center-text">
-                                <span class="text-color-blue">Awaiting <br> Feedback</span>
+                                <span class="text-color-blue text">Awaiting <br> Feedback</span>
                             </div>
                         </div>
                         <div class="task-container">
@@ -87,7 +87,7 @@
                                 <span class="todo-task">0</span>
                             </div>
                             <div class="center w-124 center-text">
-                                <span class="text-color-blue">Tasks <br> Done</span>
+                                <span class="text-color-blue text">Tasks <br> Done</span>
                             </div>
                         </div>
                     </div>
