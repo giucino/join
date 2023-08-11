@@ -2,7 +2,6 @@ let users = [];
 let passwordMatchError = document.getElementById('passwordMatchError');
 
 
-
 async function initRegister() {
     await loadUsers();
 }
@@ -38,7 +37,7 @@ async function signUpUser() {
         return;
     }
     users.push({
-        name: username.value,
+        username: username.value,
         email: email.value,
         password: password.value,
     });

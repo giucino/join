@@ -1,12 +1,11 @@
 let users = [];
 let formSubmitted = false;
+let rememberLogIn = false;
 let passwordMatchError = document.getElementById('passwordMatchError');
 
 
 async function initLogIn() {
     await loadUsers();
-    handleLogIn();
-    addLoginButtonListener();
 }
 
 
@@ -53,15 +52,32 @@ function handleLogIn() {
     if (!email || !password) {
         return;
     }
+
     let isLoggedIn = logIn(email, password);
 
-    resetFormStyle();
-
     if (isLoggedIn) {
-        window.location.href = 'summary.html';
+        // Benutzerdaten aus dem bereits vorhandenen 'users' Array abrufen
+        let loggedInUser = users.find(user => user.email === email && user.password === password);
+
+        if (loggedInUser) {
+            let userData = {
+                email: email,
+                username: loggedInUser.username,
+                password: loggedInUser.password,
+                rememberStatus: rememberLogIn
+            };
+            saveLoggedInUserData(userData);
+            window.location.href = 'summary.html';
+        }
     } else {
+        resetFormStyle();
         showPasswordMatchError();
     }
+}
+
+
+function saveLoggedInUserData(userData) {
+    localStorage.setItem('loggedInUser', JSON.stringify(userData));
 }
 
 
@@ -83,15 +99,6 @@ function getPasswordInputValue() {
 }
 
 
-// function resetFormStyle() {
-//     let signUpInfoBoxes = document.querySelectorAll('.log-in-info-box');
-//     signUpInfoBoxes.forEach(box => {
-//         box.style.borderColor = '#D1D1D1';
-//     });
-//     passwordMatchError.style.display = 'none';
-// }
-
-
 function resetFormStyle() {
     let signUpInfoBoxes = document.querySelectorAll('.log-in-info-box');
     for (let i = 0; i < signUpInfoBoxes.length; i++) {
@@ -99,7 +106,6 @@ function resetFormStyle() {
     }
     passwordMatchError.style.display = 'none';
 }
-
 
 
 function showPasswordMatchError() {
@@ -169,43 +175,17 @@ passwordIcon.addEventListener('click', function () {
 });
 
 
-let isChecked = false; // Variable, um den Zustand des Check-Bildes zu verfolgen
-
 function togglerememberCheck() {
-    isChecked = !isChecked;
-    if (isChecked) {
+    rememberLogIn = !rememberLogIn;
+    if (rememberLogIn) {
         setCheckedState();
-        saveLoginData();
     } else {
         setUncheckedState();
-        removeLoginData();
     }
 }
 
-
 const rememberCheck = document.getElementById('rememberCheck');
 rememberCheck.addEventListener('click', togglerememberCheck);
-
-
-// Prüfen, ob der Zustand in Local Storage gespeichert ist
-if (localStorage.getItem('rememberCheckState') === 'checked') {
-    isChecked = true;
-    setCheckedState();
-}
-
-
-function saveLoginData() {
-    localStorage.setItem('loggedInUserEmail', emailInput.value);
-    localStorage.setItem('loggedInUserPassword', passwordInputCheck.value);
-    localStorage.setItem('rememberCheckState', 'checked');
-}
-
-
-function removeLoginData() {
-    localStorage.removeItem('loggedInUserEmail');
-    localStorage.removeItem('loggedInUserPassword');
-    localStorage.removeItem('rememberCheckState');
-}
 
 
 // Ändere den Hover-Effekt, wenn das Bild auf 'checked.png' gewechselt wird
@@ -258,65 +238,31 @@ const loginButton = document.getElementById('loginBtn');
 
 // Event Listener für den Login-Button
 loginButton.addEventListener('click', function () {
-    const userEmail = localStorage.getItem('loggedInUserEmail');
-    const userPassword = localStorage.getItem('loggedInUserPassword');
+    let userEmail = emailInput.value;
+    let userPassword = passwordInputCheck.value;
+    let rememberStatus = rememberLogIn;
 
-    if (userEmail && userPassword) {
-        emailInput.value = userEmail;
-        passwordInputCheck.value = userPassword;
-    }
+    if (rememberStatus) {
+        let userData = {
+            email: userEmail,
+            password: userPassword,
+            rememberStatus: rememberStatus
+        };
+        saveLoggedInUserData(userData);    }
 });
 
 
-// document.addEventListener('DOMContentLoaded', function () {
-//     const userEmail = localStorage.getItem('loggedInUserEmail');
-//     const userPassword = localStorage.getItem('loggedInUserPassword');
+// Funktion zum Füllen der Eingabefelder, wenn Remember-Status beim Laden der Seite true ist
+function fillInFromLocalStorage() {
+    let localStorageData = localStorage.getItem('loggedInUser');
+    if (localStorageData) {
+        let userData = JSON.parse(localStorageData);
+        if (userData.rememberStatus) {
+            emailInput.value = userData.email;
+            passwordInputCheck.value = userData.password;
+            togglerememberCheck();
+        }
+    }
+}
 
-//     if (userEmail && userPassword) {
-//         emailInput.value = userEmail;
-//         passwordInputCheck.value = userPassword;
-//     }
-// });
-
-
-// let rememberCheck = document.getElementById('rememberCheck');
-// rememberCheck.addEventListener('click', togglerememberCheck);
-
-// let isChecked = false; // Variable, um den Zustand des Check-Bildes zu verfolgen
-
-// // Prüfen, ob der Zustand in Local Storage gespeichert ist
-// if (localStorage.getItem('rememberCheckState') === 'checked') {
-//     isChecked = true;
-//     rememberCheck.src = 'img/checked.png';
-// }
-
-
-// function togglerememberCheck() {
-//     isChecked = !isChecked;
-//     if (isChecked) {
-//         // Ändere das Bild zu 'checked.png', wenn es zuvor auf 'check-button.png' geklickt wurde
-//         rememberCheck.src = 'img/checked.png';
-//         // Speichere die Login-Daten im Local Storage
-//         localStorage.setItem('loggedInUserEmail', emailInput.value);
-//         localStorage.setItem('loggedInUserPassword', passwordInputCheck.value);
-//         localStorage.setItem('rememberCheckState', 'checked');
-//         // Ändere den Hover-Effekt, wenn das Bild auf 'checked.png' gewechselt wird
-//         rememberCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
-//         rememberCheck.removeEventListener('mouseleave', removeHoverCheckedBackground);
-//         rememberCheck.addEventListener('mouseenter', applyHoverCheckedBackground);
-//         rememberCheck.addEventListener('mouseleave', removeHoverCheckedBackground);
-
-//     } else {
-//         // Ändere das Bild zu 'check-button.png', wenn es zuvor auf 'checked.png' geklickt wurde
-//         rememberCheck.src = 'img/check-button.png';
-//         // Entferne die Login-Daten aus dem Local Storage
-//         localStorage.removeItem('loggedInUserEmail');
-//         localStorage.removeItem('loggedInUserPassword');
-//         localStorage.removeItem('rememberCheckState');
-//         // Ändere den Hover-Effekt, wenn das Bild auf 'check-button.png' gewechselt wird
-//         rememberCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
-//         rememberCheck.removeEventListener('mouseleave', removeHoverCheckedBackground);
-//         rememberCheck.addEventListener('mouseenter', applyHoverButtonBackground);
-//         rememberCheck.addEventListener('mouseleave', removeHoverButtonBackground);
-//     }
-// }
+window.addEventListener('load', fillInFromLocalStorage);

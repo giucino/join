@@ -99,8 +99,12 @@ document.addEventListener("click", closeMenuOnClickAndOutside);
 
 
 function logOut() {
-    if (localStorage.getItem('rememberCheckState') !== 'checked') {
-        localStorage.clear();
+    let loggedInUserJSON = localStorage.getItem('loggedInUser');
+    if (loggedInUserJSON) {
+        let loggedInUser = JSON.parse(loggedInUserJSON);
+        if (!loggedInUser.rememberStatus) {
+            localStorage.clear();
+        }
     }
     window.location.replace('index.html');
 }
