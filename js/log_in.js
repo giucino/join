@@ -64,6 +64,7 @@ function handleLogIn() {
                 email: email,
                 username: loggedInUser.username,
                 password: loggedInUser.password,
+                initials: loggedInUser.initials,
                 rememberStatus: rememberLogIn
             };
             saveLoggedInUserData(userData);

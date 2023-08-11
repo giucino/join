@@ -23,6 +23,9 @@ document.getElementById('signUpForm').addEventListener('submit', function (event
 
 
 async function signUpUser() {
+    let username = document.getElementById('username').value;
+    let initials = extractInitials(username);
+
     let passWord = getPasswordInputValue();
     let confirmPassword = getConfirmPasswordInputValue();
 
@@ -37,13 +40,28 @@ async function signUpUser() {
         return;
     }
     users.push({
-        username: username.value,
+        username: username,
         email: email.value,
         password: password.value,
+        initials: initials,
     });
     await setItem('users', JSON.stringify(users));
     showSuccessMessageAndRedirect();
     resetForm();
+}
+
+
+function extractInitials(username) {
+    let nameParts = username.trim().split(' ');
+    let initials = '';
+
+    for (let i = 0; i < nameParts.length; i++) {
+        let part = nameParts[i];
+        if (part) {
+            initials += part[0].toUpperCase();
+        }
+    }
+    return initials;
 }
 
 
