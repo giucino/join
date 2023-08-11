@@ -2,6 +2,7 @@ body{
     margin: 0;
     font-family: 'Open Sans', sans-serif;
 }
+
 .summery-container{
     display: flex;
     flex-direction: column;
@@ -91,8 +92,12 @@ body{
     flex-shrink: 0;
     border-radius: 30px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    cursor: pointer;
 }
 
+.task-urgent-container:hover{
+    transform: scale(1.1);
+}
 
 @media(max-width: 1400px){
     .task-urgent-container{
@@ -257,6 +262,11 @@ body{
     padding: 40px;
     background-color: #D2E2FF;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    cursor: pointer;
+}
+
+.task-todo:hover{
+    transform: scale(1.1);
 }
 
 .task-todo-inner{
@@ -337,6 +347,11 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+}
+
+.task-container:hover{
+    transform: scale(1.1);
 }
 
 .task-container-inner{
