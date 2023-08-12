@@ -86,17 +86,6 @@ aside {
     color: #4589FF;
 }
 
-.aside__link-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    width: 186px;
-    height: 205px;
-    gap: 15px;
-    margin-top: 66px;
-}
-
 /* Media Query für Bildschirmbreite von maximal 767px */
 @media(max-width: 767px) {
     aside {

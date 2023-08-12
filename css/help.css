@@ -129,3 +129,19 @@ p {
 .logout-button {
     box-sizing: content-box;
 }
+
+
+@media(max-width: 768px) {
+    .help-container {
+        gap: 30px;
+        margin: 144px 16px 90px 16px;
+    }
+
+    h1 {
+        font-size: 47px;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+}

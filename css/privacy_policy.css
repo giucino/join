@@ -120,6 +120,10 @@ p {
     color: #4589FF;
 }
 
+.logout-button {
+    opacity: 0;
+}
+
 .header-container-right-user-profile,
 .header-container-help {
     display: none;
@@ -133,6 +137,24 @@ p {
     margin-right: -40px;
 }
 
-.logout-button {
-    opacity: 0;
+
+@media(max-width: 768px) {
+    .privacy-container {
+        gap: 30px;
+        margin: 144px 16px 90px 16px;
+    }
+
+    h1 {
+        font-size: 47px;
+    }
+
+    h2 {
+        font-size: 23px;
+    }
+}
+
+@media(max-width: 390px) {
+    h1 {
+        font-size: 37px;
+    }
 }

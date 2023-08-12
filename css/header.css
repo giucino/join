@@ -84,8 +84,7 @@ header {
     cursor: pointer;
 }
 
-
-#logoutBtn  {
+#logoutBtn {
     position: fixed;
     top: 96px;
     right: 0;
@@ -125,4 +124,23 @@ header {
 .nav-link:hover {
     box-sizing: border-box;
     background: #D2E3FF;
+}
+
+.nav-item:first-child {
+    display: none;
+}
+
+
+@media(max-width: 768px) {
+    #logoutBtn {
+        height: auto;
+    }
+
+    .nav-link {
+        color: #4589FF;
+    }
+    
+    .nav-link:first-child {
+        display: flex;
+    }
 }
