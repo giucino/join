@@ -347,7 +347,6 @@
 .button-clear {
     display: flex;
     width: 116px;
-    height: 29px;
     padding: 16px 10px;
     justify-content: center;
     align-items: center;
@@ -377,7 +376,6 @@
 
 .button-create-task {
     display: flex;
-    height: 30px;
     padding: 16px 10px;
     justify-content: center;
     align-items: center;

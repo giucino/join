@@ -19,7 +19,7 @@
         <div class="add-task-container-first">
             <div class="add-task-container-titel">
                 <div class="add-task-titel-textcontainer">
-                    <input class="add-task-titel-textfield" placeholder="Enter a title"></input>
+                    <input id="taskTitle" class="add-task-titel-textfield" placeholder="Enter a title"></input>
                 </div>
                 <div class="add-task-field-required">
                     This field is required
@@ -28,7 +28,7 @@
             <div class="add-task-container-describtion">
                 <div class="add-task-describtion-header">Description</div>
                 <div class="add-task-describtion-inner">
-                    <input class="add-task-describtion-textfield" placeholder="Enter a Description"></input>
+                    <input id="taskDescription" class="add-task-describtion-textfield" placeholder="Enter a Description"></input>
                     <div class="add-task-describtion-textfield-inner">
                         <div class="expand-describtion-field-picture">
                             <img src="./img/recurso.png">
@@ -43,7 +43,7 @@
                 <div class="due-date-header">
                     Due date
                 </div>
-                <input class="due-date-textfield" type="date" placeholder="dd/mm/yyyy"></input>
+                <input id="dueDate" class="due-date-textfield" type="date" placeholder="dd/mm/yyyy"></input>
             </div>
         </div>
         <div class="add-task-container-priority">
@@ -117,19 +117,19 @@
     </div>
     <div class="add-task-buttons">
         <div class="add-task-buttons-inner">
-            <div class="button-clear">
+            <button class="button-clear">
                 <div class="button-clear-text"> Clear </div>
                 <div class="button-clear-pic"> <img src="./img/cancel-icon.svg"></div>
-            </div>
-            <div class="button-create-task" onclick="createTask()">
+            </button>
+            <button id="createTaskButton" class="button-create-task" onclick="createTask()">
                 <div class="button-create-task-text "> Create Task </div>
                 <div class="button-create-task-pic"> <img src="./img/check.svg"></div>
-            </div>
+            </button>
 
         </div>
 
     </div>
-
+    <pre id="tasksOutput"></pre>
 </body>
 
 </html>
