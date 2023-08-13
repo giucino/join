@@ -9,11 +9,16 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" type="image/png" href="./img/join_logo.png">
     <script src="./js/includeHTML.js"></script>
-    <script src="./js/summary.js"></script>
 </head>
-<body onload="init(), getGreeting()">
+<body onload="init()">
     <div w3-include-html="./templates/header.html"></div>
     <div w3-include-html="./templates/aside.html"></div>
+    <div id="mobile-container" class="greetings-mobile mobile-ani">
+        <div id="greetings-mobile" class="mobile-greeting-container">
+            <span id="mobile-day-time" class="greetings-left-mobile"></span>
+            <span id="user-name-mobile" class="greetings-right-mobile">Sofia Müller</span>
+        </div>
+    </div>
     <div class="center mobile">
         <div class="summery-container">                  
             <div class="greetings">
@@ -95,5 +100,6 @@
             </div>                               
         </div>  
     </div>  
+    <script src="./js/summary.js"></script>
 </body>
 </html>
