@@ -41,6 +41,7 @@ function getGreeting(id) {
     }
   }
   showGreeting(isGuest);
+  hideUserName(isGuest);
 }
   
 function toggleActiveClass() {
@@ -92,4 +93,16 @@ function showGreeting(isGuest) {
       userNameMobile.textContent = userName;
     }
   }
+}
+
+function hideUserName(isGuest) { 
+  const userDesktop = document.getElementById('user-name');
+  const userMobile = document.getElementById('user-name-mobile');
+  if (isGuestUser(isGuest)) {
+    userDesktop.classList.add('d-none');
+    userMobile.classList.add('d-none');
+  } else{
+    userDesktop.classList.remove('d-none');
+    userMobile.classList.remove('d-none');
+  }  
 }
