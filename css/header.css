@@ -142,6 +142,29 @@ header {
         align-items: flex-start;
         height: auto;
         display: none;
+
+        animation-name: slideInFromRight;
+        animation-duration: 0.1s;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes slideInFromRight {
+        from {
+            right: -150px;
+        }
+        to {
+            right: 20px;
+        }
+    }
+
+    @keyframes slideOutToRight {
+        from {
+            right: 20px;
+        }
+        to {
+            right: -150px;
+        }
     }
 
     .nav-link {

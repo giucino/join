@@ -465,6 +465,11 @@ form {
 
 
 @media (max-width: 768px) {
+    .logo-large {
+        width: 100px;
+        height: 122px;
+    }
+
     .logo-small {
         width: 64px;
         height: 78px;

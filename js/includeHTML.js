@@ -72,7 +72,6 @@ function markMobileLink() {
 window.addEventListener('resize', markMobileLink);
 
 
-// Funktion zum ein- und ausblenden des Menu
 function toggleMenu(event) {
     let menuItems = document.getElementById("logoutBtn");
 
@@ -80,8 +79,12 @@ function toggleMenu(event) {
 
     if (menuItems.style.display === "" || menuItems.style.display === "none") {
         menuItems.style.display = "flex";
+        menuItems.style.animationName = "slideInFromRight";
     } else {
-        menuItems.style.display = "none";
+        menuItems.style.animationName = "slideOutToRight";
+        setTimeout(() => {
+            menuItems.style.display = "none";
+        }, 100);
     }
 }
 
