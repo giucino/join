@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,19 +18,33 @@
     <div w3-include-html="./templates/aside.html"></div>
 
     <div class="container">
-        <button class="add-person-button">
+        <button id="addContactBtn" onclick="openModal()" class="add-person-button">
             <div class="add-person-text">Add new contact</div>
             <div><img src="./img/person_add.svg"></div>
         </button>
-        <div id="container-letter" class="container-letters">
-            <div id="container-contact" class="container-contacts">
-            </div>
+        <div class="container-contact-all">
+            <div id="container-letter" class="container-letters"></div>
+        </div>
+    </div>
+    <!-- Das Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Add New Contact</h2>
+            <label>Name:</label>
+            <input type="text" id="newName">
+            <label>Surename:</label>
+            <input type="text" id="newSurename">
+            <label>Email:</label>
+            <input type="text" id="newEmail">
+            <label>Telefon:</label>
+            <input type="text" id="newTelefon">
+            <button id="saveContactBtn" onclick="saveNewContact()">Save</button>
         </div>
     </div>
 
 
 
-    
     <script src="./js/includeHTML.js"></script>
 </body>
 
