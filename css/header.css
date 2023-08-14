@@ -133,13 +133,21 @@ header {
 
 @media(max-width: 768px) {
     #logoutBtn {
+        top: 76px;
+        right: 20px;
+        width: 135px;
+        display: inline-flex;
+        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
         height: auto;
+        display: none;
     }
 
     .nav-link {
         color: #4589FF;
     }
-    
+
     .nav-link:first-child {
         display: flex;
     }
