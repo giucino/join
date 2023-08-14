@@ -9,9 +9,10 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="icon" type="image/png" href="./img/join_logo.png">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./js/contact.js"></script>
 </head>
 
-<body onload="init()">
+<body onload="init(), initContact()">
     <div w3-include-html="./templates/header.html"></div>
     <div w3-include-html="./templates/aside.html"></div>
 
@@ -20,6 +21,10 @@
             <div class="add-person-text">Add new contact</div>
             <div><img src="./img/person_add.svg"></div>
         </button>
+        <div id="container-letter" class="container-letters">
+            <div id="container-contact" class="container-contacts">
+            </div>
+        </div>
     </div>
 
 
