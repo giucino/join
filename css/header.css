@@ -31,6 +31,10 @@ header {
     align-items: center;
 }
 
+.help{
+    margin-right: 18px;
+}
+
 @media(max-width: 768px) {
     .header-container-right {
         position: absolute;
