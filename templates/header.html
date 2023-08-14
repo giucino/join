@@ -3,10 +3,18 @@
         <img class="header-container-logo" src="./img/join_logo.png">
         <div class="header-container-right">
             <span id="header-container-right-text">Kanban Project Management Tool</span>
-            <a href="help.html">
+            <a class="help" href="help.html">
                 <img class="header-container-help" src="./img/help.svg" title="Need Help?">
             </a>
-            <img onclick="toggleMenu(event)" id="user-profile" class="header-container-right-user-profile" src="./img/user-profile.png">
+            <div onclick="toggleMenu(event)" id="user-profile" class="header-container-right-user-profile header-container-right-user">
+                <div class="user-container">
+                    <div class="user-initials">
+                        <span id="initials" class="initals">SM</span>
+                        <div class="elipse"></div>
+                    </div>
+                    
+                </div>
+            </div>
         </div>
     </div>
     <div class="logout-button" id="logoutBtn">

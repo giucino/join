@@ -31,6 +31,10 @@ header {
     align-items: center;
 }
 
+.help{
+    margin-right: 18px;
+}
+
 @media(max-width: 768px) {
     .header-container-right {
         position: absolute;
@@ -73,15 +77,63 @@ header {
 }
 
 .header-container-right-user {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 16px;
+    z-index: 1;
+    position: relative;
 }
 
 .header-container-right-user-profile {
     width: 56px;
     height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
     cursor: pointer;
+    
+}
+
+.user-container{
+    z-index: 2;
+}
+
+.initals{
+    width: 28px;
+    height: 15px;
+    flex-shrink: 0;
+    color: #005DFF;
+    z-index: 5;
+    position: absolute;
+    text-align: center;
+}
+
+.user-initials{
+    box-sizing: border-box;
+    display: flex;
+    width: 46px;
+    height: 46px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border-radius: 559px;
+    background: #FFF;
+    z-index: 3;
+    position: relative;
+}
+
+.elipse{
+    box-sizing: border-box;
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    stroke-width: 3px;
+    stroke: #FFF;
+    z-index: 4;
+    border: 3px solid white;
+    border-radius: 50%;
 }
 
 #logoutBtn {
