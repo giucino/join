@@ -3,46 +3,49 @@ document.addEventListener('DOMContentLoaded', function() {
   getGreeting('mobile-day-time');
 });
 
-// function getGreeting(id) {
-//   const dayTime = document.getElementById(id);
-//   const currentHour = new Date().getHours();
-
-//   if (currentHour >= 5 && currentHour < 12) {
-//     dayTime.innerHTML = "Good morning, ";    
-//   } else if (currentHour >= 12 && currentHour < 18) {
-//     dayTime.innerHTML = "Good afternoon, ";    
-//   } else {
-//     dayTime.innerHTML = "Good evening, ";    
-//   }
-// }
 
 function getGreeting(id) {
   const dayTime = document.getElementById(id);
   const currentHour = new Date().getHours();
   const isGuest = isGuestUser();
   
+  morning(dayTime, currentHour, isGuest);
+  afternoon(dayTime, currentHour, isGuest);
+  evening(dayTime, currentHour, isGuest);
+
+  showGreeting(isGuest);
+  hideUserName(isGuest);
+}
+
+function morning(dayTime, currentHour, isGuest){
   if (currentHour >= 5 && currentHour < 12) {
     if (isGuest) {
       dayTime.innerHTML = "Good morning";
     } else {
       dayTime.innerHTML = "Good morning, ";
     }
-  } else if (currentHour >= 12 && currentHour < 18) {
+  }
+}
+
+function afternoon(dayTime, currentHour, isGuest){
+  if (currentHour >= 12 && currentHour < 18) {
     if (isGuest) {
       dayTime.innerHTML = "Good afternoon";
     } else {
       dayTime.innerHTML = "Good afternoon, ";
     }
-  } else {
+  }
+}
+
+function evening(dayTime, currentHour, isGuest){
+  if (currentHour >= 18 && currentHour < 24)
     if (isGuest) {
       dayTime.innerHTML = "Good evening";
     } else {
       dayTime.innerHTML = "Good evening, ";
-    }
   }
-  showGreeting(isGuest);
-  hideUserName(isGuest);
 }
+
   
 function toggleActiveClass() {
   const greetingsMobile = document.getElementById('greetings-mobile');
