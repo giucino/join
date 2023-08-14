@@ -3,17 +3,44 @@ document.addEventListener('DOMContentLoaded', function() {
   getGreeting('mobile-day-time');
 });
 
+// function getGreeting(id) {
+//   const dayTime = document.getElementById(id);
+//   const currentHour = new Date().getHours();
+
+//   if (currentHour >= 5 && currentHour < 12) {
+//     dayTime.innerHTML = "Good morning, ";    
+//   } else if (currentHour >= 12 && currentHour < 18) {
+//     dayTime.innerHTML = "Good afternoon, ";    
+//   } else {
+//     dayTime.innerHTML = "Good evening, ";    
+//   }
+// }
+
 function getGreeting(id) {
   const dayTime = document.getElementById(id);
   const currentHour = new Date().getHours();
-
+  const isGuest = isGuestUser();
+  
   if (currentHour >= 5 && currentHour < 12) {
-    dayTime.innerHTML = "Good morning, ";    
+    if (isGuest) {
+      dayTime.innerHTML = "Good morning";
+    } else {
+      dayTime.innerHTML = "Good morning, ";
+    }
   } else if (currentHour >= 12 && currentHour < 18) {
-    dayTime.innerHTML = "Good afternoon, ";    
+    if (isGuest) {
+      dayTime.innerHTML = "Good afternoon";
+    } else {
+      dayTime.innerHTML = "Good afternoon, ";
+    }
   } else {
-    dayTime.innerHTML = "Good evening, ";    
+    if (isGuest) {
+      dayTime.innerHTML = "Good evening";
+    } else {
+      dayTime.innerHTML = "Good evening, ";
+    }
   }
+  showGreeting(isGuest);
 }
   
 function toggleActiveClass() {
@@ -35,3 +62,34 @@ function toggleActiveClass() {
 toggleActiveClass();
 
 window.addEventListener('resize', toggleActiveClass);
+
+function getLoggedInUserName() {
+  let userData = JSON.parse(localStorage.getItem('loggedInUser'));
+
+  if (userData && userData.username) {
+    return userData.username;
+
+  } else {
+    return '';
+  }
+}
+
+function isGuestUser() {
+  let userName = getLoggedInUserName();
+  return !userName;
+}
+
+function showGreeting(isGuest) {
+  let userName = getLoggedInUserName();
+  let userNameDesktop = document.getElementById('user-name');
+  let userNameMobile = document.getElementById('user-name-mobile');
+
+  if (!isGuest) {
+    if (userNameDesktop) {
+      userNameDesktop.textContent = userName;
+    }
+    if (userNameMobile) {
+      userNameMobile.textContent = userName;
+    }
+  }
+}
