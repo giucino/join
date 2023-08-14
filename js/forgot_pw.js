@@ -81,8 +81,8 @@ document.addEventListener('DOMContentLoaded', addBlurEvents);
 
 function createForgotTemplate() {
     return /*html*/ `
-        <div id="forgotOverlay" class="forgot-overlay">
-            <div class="forgot-message">
+        <div id="forgotOverlay" class="overlay">
+            <div class="message">
                 <img class="send-check" src="img/send_check.png" alt="">
                 <p>An E-Mail has been sent to you</p>
             </div>
@@ -97,7 +97,7 @@ function generateResetContent() {
     return /*html*/ `<img class="white-small-logo" src="img/join_logo_large.png" alt="Join Logo">
     <form onsubmit="showResetRedirect()" class="reset-password-container">
         <section class="arrow-container">
-            <div class="arrow-left-icon"></div>
+        <a href="index.html" class="arrow-left-icon"></a>
         </section>
         <section class="reset-info-container">
             <div class="reset-info-title">Reset your password</div>
@@ -176,8 +176,8 @@ function hideAndShowContainers(hideId, showId) {
 
 function createResetTemplate() {
     return /*html*/ `
-        <div id="resetOverlay" class="reset-overlay">
-            <div class="reset-message">
+        <div id="resetOverlay" class="overlay">
+            <div class="message">
                 <p>You reset your password</p>
             </div>
         </div>

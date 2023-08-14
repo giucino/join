@@ -246,13 +246,30 @@ function createSuccessMessageTemplate() {
 }
 
 
+// function showSuccessMessageAndRedirect() {
+//     document.body.innerHTML += createSuccessMessageTemplate();
+
+//     setTimeout(function () {
+//         let successOverlay = document.getElementById('successOverlay');
+//         document.body.removeChild(successOverlay);
+
+//         window.location.href = 'index.html';
+//     }, 800);
+// }
+
 function showSuccessMessageAndRedirect() {
-    document.body.innerHTML += createSuccessMessageTemplate();
+    // Erstelle die Erfolgsmeldung und füge sie zum Body hinzu
+    let successMessage = createSuccessMessageTemplate();
+    document.body.appendChild(successMessage);
+
+    // Füge die Klasse slide-in hinzu, um die Slide-In-Animation zu triggern
+    successMessage.classList.add('slide-in');
 
     setTimeout(function () {
-        let successOverlay = document.getElementById('successOverlay');
-        document.body.removeChild(successOverlay);
+        // Entferne die Erfolgsmeldung
+        document.body.removeChild(successMessage);
 
+        // Führe die Weiterleitung durch
         window.location.href = 'index.html';
     }, 800);
 }

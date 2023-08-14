@@ -1,6 +1,6 @@
 .white-small-logo {
-    width: 100.034px;
-    height: 121.966px;
+    width: 100px;
+    height: 122px;
     flex-shrink: 0;
     position: absolute;
     top: 80px;
@@ -15,7 +15,7 @@
     transform: translate(-50%, -50%);
     width: 100%;
     max-width: 765px;
-    height: 418px;
+    /* height: 418px; */
     padding: 48px 88px;
     display: inline-flex;
     flex-direction: column;
@@ -43,14 +43,14 @@
     height: 32px;
     flex-shrink: 0;
     cursor: pointer;
-    background-image: url("/img/arrow-left-line.png");
+    background-image: url("../img/arrow-left-line.png");
     background-size: cover;
     transition: background-image 0.1s ease-in-out;
 }
 
 .arrow-left-icon:hover {
-    background-image: url("/img/arrow-hover.png");
-} 
+    background-image: url("../img/arrow-hover.png");
+}
 
 .forgot-info-container {
     display: flex;
@@ -90,7 +90,7 @@
     align-items: flex-start;
     width: 100%;
     max-width: 422px;
-    height: 48px;
+    /* height: 48px; */
     gap: 32px;
     cursor: pointer;
 }
@@ -98,7 +98,7 @@
 .email-input-section {
     display: flex;
     align-items: center;
-    width: 422px;
+    width: 100%;
     height: 48px;
     padding: 12px 21px;
     gap: 10px;
@@ -160,7 +160,6 @@
     background: var(--bg-color);
     color: #FFFFFF;
     border: none;
-    font-family: 'Open sans', sans-serif;
     font-size: 23px;
     font-style: normal;
     font-weight: 400;
@@ -180,8 +179,7 @@
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-/* Stil für den Overlay-Hintergrund */
-.forgot-overlay {
+.overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -194,8 +192,7 @@
     z-index: 9999;
 }
 
-/* Stil für die Erfolgsmeldung*/
-.forgot-message {
+.message {
     width: 431px;
     height: 74px;
     display: flex;
@@ -208,9 +205,8 @@
     gap: 13px;
 }
 
-.forgot-message p {
+.message p {
     color: #FFF;
-    font-family: Open Sans;
     font-size: 23px;
     font-style: normal;
     font-weight: 400;
@@ -220,4 +216,77 @@
 .send-check {
     width: 40px;
     height: 40px;
+}
+
+
+@media (max-width: 768px) {
+    .white-small-logo {
+        width: 64px;
+        height: 78px;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        position: absolute;
+        /* left: calc(50% - 176px);
+        top: calc(50% - 340px); */
+        left: 10%;
+        top: 1.5%;
+    }
+
+    .forgot-password-container {
+        padding: 32px 32px;
+        width: 90%;
+    }
+
+    .arrow-container {
+        left: 40px;
+        top: 40px;
+    }
+
+    .forgot-info-title {
+        font-size: 40px;
+    }
+
+    .forgot-info-line {
+        width: 88px;
+    }
+
+    .forgot-password-info {
+        font-size: 19px;
+        margin-top: -8px;
+    }
+
+    .send-email-btn {
+        font-size: 19px;
+        padding: 10px 25px;
+    }
+
+    .message {
+        width: 326px;
+    }
+
+    .message p {
+        font-size: 19px;
+    }
+
+    .send-check {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 600px) {
+    .arrow-container {
+        left: 1%;
+        top: 40px;
+    }
+}
+
+@media (min-width: 300px) and (max-width: 400px) {
+    .arrow-container {
+        left: 1%;
+        top: 40px;
+    }
 }
