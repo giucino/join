@@ -101,6 +101,7 @@ header {
     color: #005DFF;
     z-index: 5;
     position: absolute;
+    text-align: center;
 }
 
 .user-initials{
