@@ -297,7 +297,6 @@ body {
     color: #005DFF;
 }
 
-/* Stil für den Overlay-Hintergrund */
 .overlay {
     position: fixed;
     top: 0;
@@ -311,7 +310,6 @@ body {
     z-index: 9999;
 }
 
-/* Stil für die Erfolgsmeldung*/
 .success-message {
     display: flex;
     width: 326px;
@@ -321,13 +319,20 @@ body {
     border-radius: 20px;
     background: var(--bg-color, #4589FF);
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
-
-    transform: translateY(100%);
-    transition: transform 0.3s ease-in-out;
+    animation-name: slideInFromOutside;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
 }
 
-.success-message.slide-in {
-    transform: translateY(0);
+@keyframes slideInFromOutside {
+    from {
+        transform: translateY(200px);
+    }
+
+    to {
+        transform: translateY(50%);
+    }
 }
 
 .success-message p {

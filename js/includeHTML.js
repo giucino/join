@@ -2,6 +2,7 @@ async function init() {
     await includeHTML();
     markDesktopLink();
     markMobileLink();
+    showLoggedInUserInitials();
 }
 
 async function includeHTML() {
@@ -110,4 +111,26 @@ function logOut() {
         }
     }
     window.location.replace('index.html');
+}
+
+
+function getInitials() {
+    let userData = JSON.parse(localStorage.getItem('loggedInUser'));
+
+    if (userData && userData.initials) {
+        return userData.initials;
+
+    } else {
+        return 'G';
+    }
+}
+
+
+function showLoggedInUserInitials() {
+    let loggedInUserData = getInitials();
+    let initials = document.getElementById('initials');
+
+    if (initials) {
+        initials.textContent = loggedInUserData;
+    } 
 }

@@ -203,6 +203,20 @@
     background: var(--bg-color, #4589FF);
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
     gap: 13px;
+    animation-name: slideInFromOutside;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes slideInFromOutside {
+    from {
+        transform: translateY(200px);
+    }
+
+    to {
+        transform: translateY(50%);
+    }
 }
 
 .message p {

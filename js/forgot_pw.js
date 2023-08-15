@@ -108,14 +108,14 @@ function generateResetContent() {
             <div class="password-input-frame">
                 <div class="password-input-section">
                     <div class="password-input-line">
-                        <input id="resetPassword" required type="password" class="password-input" placeholder="New password" autocomplete="current-password" minlength="4">
+                        <input id="resetPassword" required type="text" class="password-input" placeholder="New password" autocomplete="current-password" minlength="4">
                     </div>
                 </div>
             </div>
             <div class="confirm-password-frame">
                 <div class="password-input-section">
                     <div class="password-input-line">
-                        <input id="confirmResetPassword" required type="password" class="password-input" placeholder="Confirm password" autocomplete="current-password" minlength="4">
+                        <input id="confirmResetPassword" required type="text" class="password-input" placeholder="Confirm password" autocomplete="current-password" minlength="4">
                     </div>
                 </div>
                 <div class="password-match-error">Your Passwords don´t match. Try again</div>
@@ -137,7 +137,7 @@ function showForgotRedirect() {
 
 function createAndShowSuccessOverlay() {
     document.body.innerHTML += createForgotTemplate();
-    setTimeout(removeSuccessOverlay, 800);
+    setTimeout(removeSuccessOverlay, 1600);
 }
 
 
@@ -196,5 +196,5 @@ function showResetRedirect() {
         document.body.removeChild(successOverlay);
 
         window.location.href = 'index.html';
-    }, 800);
+    }, 1600);
 }

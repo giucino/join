@@ -56,15 +56,16 @@ function handleLogIn() {
     let isLoggedIn = logIn(email, password);
 
     if (isLoggedIn) {
-        // Benutzerdaten aus dem bereits vorhandenen 'users' Array abrufen
         let loggedInUser = users.find(user => user.email === email && user.password === password);
 
         if (loggedInUser) {
+            let initials = extractInitials(loggedInUser.username);
+
             let userData = {
-                email: email,
+                email: loggedInUser.email,
                 username: loggedInUser.username,
                 password: loggedInUser.password,
-                initials: loggedInUser.initials,
+                initials: initials,
                 rememberStatus: rememberLogIn
             };
             saveLoggedInUserData(userData);
@@ -74,6 +75,19 @@ function handleLogIn() {
         resetFormStyle();
         showPasswordMatchError();
     }
+}
+
+function extractInitials(username) {
+    let nameParts = username.trim().split(' ');
+    let initials = '';
+
+    for (let i = 0; i < nameParts.length; i++) {
+        let part = nameParts[i];
+        if (part) {
+            initials += part.charAt(0).toUpperCase();
+        }
+    }
+    return initials;
 }
 
 

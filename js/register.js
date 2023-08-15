@@ -43,7 +43,7 @@ async function signUpUser() {
         username: username,
         email: email.value,
         password: password.value,
-        initials: initials,
+        initials: initials
     });
     await setItem('users', JSON.stringify(users));
     showSuccessMessageAndRedirect();
@@ -58,7 +58,7 @@ function extractInitials(username) {
     for (let i = 0; i < nameParts.length; i++) {
         let part = nameParts[i];
         if (part) {
-            initials += part[0].toUpperCase();
+            initials += part.charAt(0).toUpperCase();
         }
     }
     return initials;
@@ -246,30 +246,13 @@ function createSuccessMessageTemplate() {
 }
 
 
-// function showSuccessMessageAndRedirect() {
-//     document.body.innerHTML += createSuccessMessageTemplate();
-
-//     setTimeout(function () {
-//         let successOverlay = document.getElementById('successOverlay');
-//         document.body.removeChild(successOverlay);
-
-//         window.location.href = 'index.html';
-//     }, 800);
-// }
-
 function showSuccessMessageAndRedirect() {
-    // Erstelle die Erfolgsmeldung und füge sie zum Body hinzu
-    let successMessage = createSuccessMessageTemplate();
-    document.body.appendChild(successMessage);
-
-    // Füge die Klasse slide-in hinzu, um die Slide-In-Animation zu triggern
-    successMessage.classList.add('slide-in');
+    document.body.innerHTML += createSuccessMessageTemplate();
 
     setTimeout(function () {
-        // Entferne die Erfolgsmeldung
-        document.body.removeChild(successMessage);
+        let successOverlay = document.getElementById('successOverlay');
+        document.body.removeChild(successOverlay);
 
-        // Führe die Weiterleitung durch
         window.location.href = 'index.html';
-    }, 800);
+    }, 1600);
 }
