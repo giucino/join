@@ -39,7 +39,7 @@ let todos = [{
 let currentDraggedElement;
 let currentFilter = '';
 
-function updateHTML() {
+async function updateHTML() {
     todo();
     inProgress();
     feedback();
@@ -117,12 +117,12 @@ function startDragging(id) {
 
 function generateTodoHTML(element) {
     return /*html*/`
-    <div draggable="true" ondragstart="startDragging(${element['id']})" class="content-container">
+    <div id="board-card" onclick="slideCard()" draggable="true" ondragstart="startDragging(${element['id']})" class="content-container">
         <div class="content-container-inner">
             <div class="category">${element.category}</div>
             <div class="title-content">
                 <div class="title">${element.title}</div>
-                <div class="content">Modify the contents of the main website...</div>
+                <div id="description" class="content">${element.description}</div>
             </div>
             <div class="subtasks-container">
                 <div class="progress-bar-container">
@@ -172,3 +172,11 @@ input.addEventListener('keypress', function(event) {
         inputBtn.click();
     }
 });
+
+function closeCard(){
+    document.getElementById('task-slide').classList.remove('slide-in');
+}
+
+function slideCard(){
+    document.getElementById('task-slide').classList.add('slide-in');
+}
