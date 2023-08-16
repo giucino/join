@@ -1,18 +1,29 @@
 let passwordMatchError = document.getElementById('passwordMatchError');
 
 
+/**
+ * Retrieves the value of the password input field.
+ * @returns {string} The value of the password input field.
+ */
 function getPasswordInputValue() {
     let passwordInput = document.getElementById('password');
     return passwordInput.value;
 }
 
 
+/**
+ * Retrieves the value of the confirm password input field.
+ * @returns {string} The value of the confirm password input field.
+ */
 function getConfirmPasswordInputValue() {
     let confirmPasswordInput = document.getElementById('confirmPassword');
     return confirmPasswordInput.value;
 }
 
 
+/**
+ * Resets the style of the form inputs and hides the password match error message.
+ */
 function resetSignUpFormStyle() {
     let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
     signUpInfoBoxes.forEach(box => {
@@ -22,6 +33,9 @@ function resetSignUpFormStyle() {
 }
 
 
+/**
+ * Displays the password match error message and highlights the last sign-up info box.
+ */
 function showPasswordMatchError() {
     passwordMatchError.style.display = 'block';
     let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
@@ -30,6 +44,9 @@ function showPasswordMatchError() {
 }
 
 
+/**
+ * Hides the password match error text.
+ */
 function errorTextSignUp() {
     passwordMatchError.style.display = 'none';
 }
@@ -37,6 +54,9 @@ let confirmPassword = document.getElementById('confirmPassword');
 confirmPassword.addEventListener('input', errorTextSignUp);
 
 
+/**
+ * Resets the input fields of the registration form.
+ */
 function resetForm() {
     username.value = '';
     email.value = '';
@@ -45,6 +65,10 @@ function resetForm() {
 }
 
 
+/**
+ * Adds blur event listeners to log-in input sections.
+ * Changes the border color of the input section when focused and blurred.
+ */
 function addFocusBlurEvents() {
     let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
     signUpInfoBoxes.forEach(box => {
@@ -62,6 +86,9 @@ function addFocusBlurEvents() {
 document.addEventListener('DOMContentLoaded', addFocusBlurEvents);
 
 
+/**
+ * Toggle the checked state of the privacy check checkbox.
+ */
 function togglePrivacyCheck() {
     isChecked = !isChecked;
     if (isChecked) {
@@ -72,11 +99,17 @@ function togglePrivacyCheck() {
 }
 
 
+/**
+* The privacy check element.
+* @type {HTMLImageElement}
+*/
 const privacyCheck = document.getElementById('privacyCheck');
 privacyCheck.addEventListener('click', togglePrivacyCheck);
 
 
-// Ändere den Hover-Effekt, wenn das Bild auf 'checked.png' gewechselt wird
+/**
+ * Sets the checked state for the privacy check checkbox and adds/removes event listeners for hover effects.
+ */
 function setCheckedState() {
     privacyCheck.src = 'img/checked.png';
     privacyCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
@@ -86,7 +119,9 @@ function setCheckedState() {
 }
 
 
-// Ändere den Hover-Effekt, wenn das Bild auf 'check-button.png' gewechselt wird
+/**
+ * Sets the unchecked state for the privacy check checkbox and adds/removes event listeners for hover effects.
+ */
 function setUncheckedState() {
     privacyCheck.src = 'img/check-button.png';
     privacyCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
@@ -96,25 +131,33 @@ function setUncheckedState() {
 }
 
 
-// Anpassung des Hover-Effekts auf 'hover_checked.png', wenn das Bild 'checked.png' ist
+/**
+ * Apply a hover background image to the privacy check checkbox when checked.
+ */
 function applyHoverCheckedBackground() {
     privacyCheck.style.backgroundImage = 'url(../img/hover_checked.png)';
 }
 
 
-// Anpassung des Hover-Effekts auf 'check-button-hover.png', wenn das Bild 'checked.png' ist
+/**
+ * Apply a hover background image to the privacy check checkbox when unchecked.
+ */
 function applyHoverButtonBackground() {
     privacyCheck.style.backgroundImage = 'url(../img/check-button-hover.png)';
 }
 
 
-// Entfernen des angepassten Hover-Effekts, wenn das Bild 'checked.png' ist
+/**
+ * Remove the hover background image from the privacy check checkbox when checked.
+ */
 function removeHoverCheckedBackground() {
     privacyCheck.style.backgroundImage = 'none';
 }
 
 
-// Entfernen des angepassten Hover-Effekts, wenn das Bild 'check-button.png' ist
+/**
+ * Remove the hover background image from the privacy check checkbox when unchecked.
+ */
 function removeHoverButtonBackground() {
     privacyCheck.style.backgroundImage = 'none';
 }
@@ -126,7 +169,11 @@ let confirmPasswordInput = document.getElementById('confirmPassword');
 let confirmPasswordIcon = document.getElementById('confirmPasswordIcon');
 
 
-// Event Listener für die Eingabe in das Passwort-Feld
+/**
+ * Handle the visibility icon based on the input value.
+ * @param {HTMLElement} inputElement - The password input element.
+ * @param {HTMLElement} iconElement - The visibility icon element.
+ */
 function handlePasswordInput(inputElement, iconElement) {
     if (inputElement.value.length > 0) {
         if (inputElement.type === 'password') {
@@ -140,17 +187,29 @@ function handlePasswordInput(inputElement, iconElement) {
 }
 
 
+/**
+ * Event listener for the password input field.
+ * Calls the handlePasswordInput function to update the visibility icon.
+ */
 passwordInput.addEventListener('input', function () {
     handlePasswordInput(passwordInput, passwordIcon);
 });
 
 
+/**
+ * Event listener for the confirm-password input field.
+ * Calls the handlePasswordInput function to update the visibility icon.
+ */
 confirmPasswordInput.addEventListener('input', function () {
     handlePasswordInput(confirmPasswordInput, confirmPasswordIcon);
 });
 
 
-// Event Listener für das Klicken auf das Passwort-Sichtbarkeits-Icon
+/**
+ * Toggles the visibility of a password input field and updates the icon.
+ * @param {HTMLInputElement} inputElement - The password input element to toggle.
+ * @param {HTMLImageElement} iconElement - The icon element associated with the input.
+ */
 function togglePasswordVisibility(inputElement, iconElement) {
     if (inputElement.type === 'password') {
         inputElement.type = 'text';
@@ -162,16 +221,28 @@ function togglePasswordVisibility(inputElement, iconElement) {
 }
 
 
+/**
+ * Event listener for the password input field.
+ * Calls the togglePasswordVisibility function to update the password visibility.
+ */
 passwordIcon.addEventListener('click', function () {
     togglePasswordVisibility(passwordInput, passwordIcon);
 });
 
 
+/**
+ * Event listener for the confirm-password input field.
+ * Calls the togglePasswordVisibility function to update the password visibility.
+ */
 confirmPasswordIcon.addEventListener('click', function () {
     togglePasswordVisibility(confirmPasswordInput, confirmPasswordIcon);
 });
 
 
+/**
+ * Creates a success message template.
+ * @returns {string} - The HTML template for a success message overlay.
+ */
 function createSuccessMessageTemplate() {
     return /*html*/ `
         <div id="successOverlay" class="overlay">
@@ -183,6 +254,9 @@ function createSuccessMessageTemplate() {
 }
 
 
+/**
+ * Shows a success message overlay and redirects to the index page.
+ */
 function showSuccessMessageAndRedirect() {
     document.body.innerHTML += createSuccessMessageTemplate();
 

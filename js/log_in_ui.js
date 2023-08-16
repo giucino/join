@@ -1,18 +1,29 @@
 let passwordMatchError = document.getElementById('passwordMatchError');
 
 
+/**
+ * Retrieves the value of the email input field.
+ * @returns {string} - The value of the email input field.
+ */
 function getEmailInputValue() {
     let emailInput = document.getElementById('email');
     return emailInput.value;
 }
 
 
+/**
+ * Retrieves the value of the password input field.
+ * @returns {string} - The value of the password input field.
+ */
 function getPasswordInputValue() {
     let passwordInput = document.getElementById('passwordLogin');
     return passwordInput.value;
 }
 
 
+/**
+ * Resets the style of the form inputs and hides the password match error message.
+ */
 function resetFormStyle() {
     let signUpInfoBoxes = document.querySelectorAll('.log-in-info-box');
     for (let i = 0; i < signUpInfoBoxes.length; i++) {
@@ -22,6 +33,9 @@ function resetFormStyle() {
 }
 
 
+/**
+ * Displays the password match error message and highlights the last sign-up info box.
+ */
 function showPasswordMatchError() {
     passwordMatchError.style.display = 'block';
     let signUpInfoBoxes = document.querySelectorAll('.log-in-info-box');
@@ -30,6 +44,9 @@ function showPasswordMatchError() {
 }
 
 
+/**
+ * Applies a shake animation to the password input frame element.
+ */
 function shakePasswordInput() {
     let passwordInput = document.getElementById('log-in-input-frame');
     passwordInput.classList.add('shake-password');
@@ -40,6 +57,9 @@ function shakePasswordInput() {
 }
 
 
+/**
+ * Hides the password match error text.
+ */
 function errorTextLogIn() {
     passwordMatchError.style.display = 'none';
 }
@@ -47,6 +67,10 @@ let password = document.getElementById('passwordLogin');
 password.addEventListener('input', errorTextLogIn);
 
 
+/**
+ * Adds blur event listeners to log-in input sections.
+ * Changes the border color of the input section when focused and blurred.
+ */
 function addFocusBlurEvents() {
     let signUpInfoBoxes = document.querySelectorAll('.log-in-info-box');
     signUpInfoBoxes.forEach(box => {
@@ -67,7 +91,11 @@ document.addEventListener('DOMContentLoaded', addFocusBlurEvents);
 let passwordInput = document.getElementById('passwordLogin');
 let passwordIcon = document.getElementById('passwordIcon');
 
-// Funktion für die Eingabe in das Passwort-Feld
+/**
+ * Updates the visibility icon of a password input field based on its current state.
+ * @param {HTMLInputElement} passwordInput - The password input element.
+ * @param {HTMLImageElement} passwordIcon - The visibility icon associated with the password input.
+ */
 function updatePasswordVisibility(passwordInput, passwordIcon) {
     if (passwordInput.value.length > 0) {
         passwordIcon.src = passwordInput.type === 'password' ? 'img/visibility_off.png' : 'img/visibility.png';
@@ -77,7 +105,11 @@ function updatePasswordVisibility(passwordInput, passwordIcon) {
 }
 
 
-// Funktion für das Klicken auf das Passwort-Sichtbarkeits-Icon
+/**
+ * Toggles the visibility of a password input between masked and visible.
+ * @param {HTMLInputElement} passwordInput - The password input element.
+ * @param {HTMLImageElement} passwordIcon - The visibility icon associated with the password input.
+ */
 function togglePasswordVisibility(passwordInput, passwordIcon) {
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
@@ -89,19 +121,26 @@ function togglePasswordVisibility(passwordInput, passwordIcon) {
 }
 
 
-// Event Listener für die Eingabe in das Passwort-Feld
+/**
+ * Event listener for input changes in a password field to update its visibility icon.
+ */
 passwordInput.addEventListener('input', function () {
     updatePasswordVisibility(passwordInput, passwordIcon);
 });
 
 
-// Event Listener für das Klicken auf das Passwort-Sichtbarkeits-Icon
+/**
+ * Event listener for the click event on the password visibility icon.
+ */
 passwordIcon.addEventListener('click', function () {
     togglePasswordVisibility(passwordInput, passwordIcon);
 });
 
 
 
+/**
+ * Toggles the state of the remember check element.
+ */
 function togglerememberCheck() {
     rememberLogIn = !rememberLogIn;
     if (rememberLogIn) {
@@ -111,11 +150,18 @@ function togglerememberCheck() {
     }
 }
 
+
+/**
+* The remember check element.
+* @type {HTMLImageElement}
+*/
 const rememberCheck = document.getElementById('rememberCheck');
 rememberCheck.addEventListener('click', togglerememberCheck);
 
 
-// Ändere den Hover-Effekt, wenn das Bild auf 'checked.png' gewechselt wird
+/**
+ * Sets the checked state for the remember check element.
+ */
 function setCheckedState() {
     rememberCheck.src = 'img/checked.png';
     rememberCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
@@ -125,7 +171,9 @@ function setCheckedState() {
 }
 
 
-// Ändere den Hover-Effekt, wenn das Bild auf 'check-button.png' gewechselt wird
+/**
+ * Sets the unchecked state for the remember check element.
+ */
 function setUncheckedState() {
     rememberCheck.src = 'img/check-button.png';
     rememberCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
@@ -135,30 +183,44 @@ function setUncheckedState() {
 }
 
 
-// Anpassung des Hover-Effekts auf 'hover_checked.png', wenn das Bild 'checked.png' ist
+/**
+ * Applies a hover background to the remember check element when checked.
+ */
 function applyHoverCheckedBackground() {
     rememberCheck.style.backgroundImage = 'url(../img/hover_checked.png)';
 }
 
 
-// Anpassung des Hover-Effekts auf 'check-button-hover.png', wenn das Bild 'checked.png' ist
+/**
+ * Applies a hover background to the remember check element when unchecked.
+ */
 function applyHoverButtonBackground() {
     rememberCheck.style.backgroundImage = 'url(../img/check-button-hover.png)';
 }
 
 
-// Entfernen des angepassten Hover-Effekts, wenn das Bild 'checked.png' ist
+/**
+ * Removes the hover background from the remember check element when unchecked.
+ */
 function removeHoverCheckedBackground() {
     rememberCheck.style.backgroundImage = 'none';
 }
 
 
-// Entfernen des angepassten Hover-Effekts, wenn das Bild 'check-button.png' ist
+/**
+ * Removes the hover background from the remember check button element.
+ */
 function removeHoverButtonBackground() {
     rememberCheck.style.backgroundImage = 'none';
 }
 
 
+/**
+ * Saves user data upon login.
+ * @param {string} userEmail - The user's email.
+ * @param {string} userPassword - The user's password.
+ * @param {boolean} rememberStatus - The remember me status.
+ */
 function saveUserDataOnLogin(userEmail, userPassword, rememberStatus) {
     if (rememberStatus) {
         let userData = {
@@ -175,6 +237,11 @@ const emailInput = document.getElementById('email');
 const passwordInputCheck = document.getElementById('passwordLogin');
 const loginButton = document.getElementById('loginBtn');
 
+
+/**
+ * Adds a click event listener to the login button.
+ * Retrieves user email and password input, and calls the function to save user data on login.
+ */
 loginButton.addEventListener('click', function () {
     let userEmail = emailInput.value;
     let userPassword = passwordInputCheck.value;
@@ -183,7 +250,10 @@ loginButton.addEventListener('click', function () {
 });
 
 
-// Funktion zum Füllen der Eingabefelder, wenn Remember-Status beim Laden der Seite true ist
+/**
+ * Fills in the email and password input fields with saved user data from local storage on page load.
+ * If user data with remember status exists, populates the input fields and updates the remember checkbox.
+ */
 function fillInFromLocalStorage() {
     let localStorageData = localStorage.getItem('loggedInUser');
     if (localStorageData) {
