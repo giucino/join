@@ -46,6 +46,7 @@
     line-height: 38.40px;
     word-wrap: break-word;
     border: none;
+    outline: none;
 }
 
 .add-task-field-required {
