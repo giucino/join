@@ -1,3 +1,6 @@
+/**
+ * Marks the active link in the navigation based on the current URL.
+ */
 function markDesktopLink() {
     let currentURL = window.location.href;
     let links = document.querySelectorAll('.links');
@@ -13,6 +16,9 @@ function markDesktopLink() {
 document.addEventListener('DOMContentLoaded', markDesktopLink);
 
 
+/**
+ * Adjusts the mobile navigation links images based on the current screen width.
+ */
 function markMobileLink() {
     let screenWidth = window.innerWidth;
     let links = document.querySelectorAll('.links');
@@ -51,6 +57,10 @@ function markMobileLink() {
 window.addEventListener('resize', markMobileLink);
 
 
+/**
+ * Toggles the display of a menu.
+ * @param {Event} event - The event triggered by the toggle action.
+ */
 function toggleMenu(event) {
     let menuItems = document.getElementById("logoutBtn");
 
@@ -68,6 +78,10 @@ function toggleMenu(event) {
 }
 
 
+/**
+ * Closes the menu when clicking outside of it or on certain navigation links.
+ * @param {Event} event - The event triggered by the click action.
+ */
 function closeMenuOnClickAndOutside(event) {
     let menuItems = document.getElementById("logoutBtn");
     let clickedElement = event.target;
@@ -83,6 +97,9 @@ function closeMenuOnClickAndOutside(event) {
 document.addEventListener("click", closeMenuOnClickAndOutside);
 
 
+/**
+ * Logs the user out by clearing stored data and redirecting to the login page.
+ */
 function logOut() {
     let loggedInUserJSON = localStorage.getItem('loggedInUser');
     if (loggedInUserJSON) {
@@ -95,6 +112,10 @@ function logOut() {
 }
 
 
+/**
+ * Retrieves the user's initials from local storage.
+ * @returns {string} - User's initials or 'G' if not available.
+ */
 function getInitials() {
     let userData = JSON.parse(localStorage.getItem('loggedInUser'));
 
@@ -107,6 +128,9 @@ function getInitials() {
 }
 
 
+/**
+ * Displays the user's initials in the designated HTML element.
+ */
 function showLoggedInUserInitials() {
     let loggedInUserData = getInitials();
     let initials = document.getElementById('initials');

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: log_in.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: log_in.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let users = [];
+let formSubmitted = false;
+let rememberLogIn = false;
+
+
+/**
+ * Initializes the login process by loading user data.
+ */
+async function initLogIn() {
+    await loadUsers();
+}
+
+
+/**
+ * Loads users from storage
+ */
+async function loadUsers() {
+    try {
+        users = JSON.parse(await getItem('users'));
+    } catch (e) {
+        console.error('Loading error:', e);
+    }
+}
+
+
+/**
+ * Listens for the form submission event and handles login process.
+ */
+document.getElementById('logInForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    formSubmitted = true;
+    handleLogIn()
+}
+);
+
+
+/**
+ * Attempts to log in the user with the email and password.
+ * @param {string} email - The user's email.
+ * @param {string} password - The user's password.
+ * @returns {boolean} - Returns true if the login is successful, false otherwise.
+ */
+function logIn(email, password) {
+    let isLoggedIn = false;
+    for (let i = 0; i &lt; users.length; i++) {
+        const user = users[i];
+        if (user.email === email &amp;&amp; user.password === password) {
+            isLoggedIn = true;
+            break;
+        }
+    }
+    if (!isLoggedIn &amp;&amp; formSubmitted) {
+        shakePasswordInput();
+    }
+    formSubmitted = false;
+    return isLoggedIn;
+}
+
+
+/**
+ * Handles the user login process.
+ * @returns {void}
+ */
+function handleLogIn() {
+    let email = getEmailInputValue();
+    let password = getPasswordInputValue();
+
+    if (!email || !password) {
+        return;
+    }
+
+    let isLoggedIn = logIn(email, password);
+
+    if (isLoggedIn) {
+        let loggedInUser = users.find(user => user.email === email &amp;&amp; user.password === password);
+
+        if (loggedInUser) {
+            let initials = extractInitials(loggedInUser.username);
+
+            let userData = {
+                email: loggedInUser.email,
+                username: loggedInUser.username,
+                password: loggedInUser.password,
+                initials: initials,
+                rememberStatus: rememberLogIn
+            };
+            saveLoggedInUserData(userData);
+            window.location.href = 'summary.html';
+        }
+    } else {
+        resetFormStyle();
+        showPasswordMatchError();
+    }
+}
+
+
+/**
+ * This function extracts initials from a username.
+ * @param {string} username - The username from which initials are extracted.
+ * @returns {string} - The extracted initials in uppercase letters.
+ */
+function extractInitials(username) {
+    let nameParts = username.trim().split(' ');
+    let initials = '';
+
+    for (let i = 0; i &lt; nameParts.length; i++) {
+        let part = nameParts[i];
+        if (part) {
+            initials += part.charAt(0).toUpperCase();
+        }
+    }
+    return initials;
+}
+
+
+/**
+ * Saves the logged-in user data to the browser's local storage.
+ * @param {Object} userData - The user data to be saved.
+ */
+function saveLoggedInUserData(userData) {
+    localStorage.setItem('loggedInUser', JSON.stringify(userData));
+}
+
+
+/**
+ * Adds a click event listener to the login button.
+ */
+function addLoginButtonListener() {
+    let loginButton = document.getElementById('loginBtn');
+    loginButton.addEventListener('click', handleLogIn);
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addBlurEvents">addBlurEvents</a></li><li><a href="global.html#addBlurrEvents">addBlurrEvents</a></li><li><a href="global.html#addFocusBlurEvents">addFocusBlurEvents</a></li><li><a href="global.html#addLoginButtonListener">addLoginButtonListener</a></li><li><a href="global.html#applyBackgroundColor">applyBackgroundColor</a></li><li><a href="global.html#applyHoverButtonBackground">applyHoverButtonBackground</a></li><li><a href="global.html#applyHoverCheckedBackground">applyHoverCheckedBackground</a></li><li><a href="global.html#closeMenuOnClickAndOutside">closeMenuOnClickAndOutside</a></li><li><a href="global.html#createAndShowSuccessOverlay">createAndShowSuccessOverlay</a></li><li><a href="global.html#createForgotTemplate">createForgotTemplate</a></li><li><a href="global.html#createResetTemplate">createResetTemplate</a></li><li><a href="global.html#createSuccessMessageTemplate">createSuccessMessageTemplate</a></li><li><a href="global.html#errorTextLogIn">errorTextLogIn</a></li><li><a href="global.html#errorTextSignUp">errorTextSignUp</a></li><li><a href="global.html#extractInitials">extractInitials</a></li><li><a href="global.html#fillInFromLocalStorage">fillInFromLocalStorage</a></li><li><a href="global.html#forgotPasswordLink">forgotPasswordLink</a></li><li><a href="global.html#generateForgotContent">generateForgotContent</a></li><li><a href="global.html#generateResetContent">generateResetContent</a></li><li><a href="global.html#getConfirmPasswordInputValue">getConfirmPasswordInputValue</a></li><li><a href="global.html#getEmailInputValue">getEmailInputValue</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getPasswordInputValue">getPasswordInputValue</a></li><li><a href="global.html#handleForgotPasswordClick">handleForgotPasswordClick</a></li><li><a href="global.html#handleLogIn">handleLogIn</a></li><li><a href="global.html#handlePasswordInput">handlePasswordInput</a></li><li><a href="global.html#hideIndexContainer">hideIndexContainer</a></li><li><a href="global.html#initLogIn">initLogIn</a></li><li><a href="global.html#initRegister">initRegister</a></li><li><a href="global.html#loadUsers">loadUsers</a></li><li><a href="global.html#logIn">logIn</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#markDesktopLink">markDesktopLink</a></li><li><a href="global.html#markMobileLink">markMobileLink</a></li><li><a href="global.html#privacyCheck">privacyCheck</a></li><li><a href="global.html#rememberCheck">rememberCheck</a></li><li><a href="global.html#removeHoverButtonBackground">removeHoverButtonBackground</a></li><li><a href="global.html#removeHoverCheckedBackground">removeHoverCheckedBackground</a></li><li><a href="global.html#removeSuccessOverlay">removeSuccessOverlay</a></li><li><a href="global.html#resetForm">resetForm</a></li><li><a href="global.html#resetFormStyle">resetFormStyle</a></li><li><a href="global.html#resetSignUpFormStyle">resetSignUpFormStyle</a></li><li><a href="global.html#saveLoggedInUserData">saveLoggedInUserData</a></li><li><a href="global.html#saveUserDataOnLogin">saveUserDataOnLogin</a></li><li><a href="global.html#setCheckedState">setCheckedState</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#setUncheckedState">setUncheckedState</a></li><li><a href="global.html#shakePasswordInput">shakePasswordInput</a></li><li><a href="global.html#showForgotContent">showForgotContent</a></li><li><a href="global.html#showForgotRedirect">showForgotRedirect</a></li><li><a href="global.html#showLoggedInUserInitials">showLoggedInUserInitials</a></li><li><a href="global.html#showPasswordMatchError">showPasswordMatchError</a></li><li><a href="global.html#showResetContent">showResetContent</a></li><li><a href="global.html#showResetRedirect">showResetRedirect</a></li><li><a href="global.html#showSuccessMessageAndRedirect">showSuccessMessageAndRedirect</a></li><li><a href="global.html#signUpUser">signUpUser</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#togglePasswordVisibility">togglePasswordVisibility</a></li><li><a href="global.html#togglePrivacyCheck">togglePrivacyCheck</a></li><li><a href="global.html#togglerememberCheck">togglerememberCheck</a></li><li><a href="global.html#updatePasswordVisibility">updatePasswordVisibility</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Wed Aug 16 2023 22:22:09 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

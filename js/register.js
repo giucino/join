@@ -1,11 +1,18 @@
-let isChecked = false; // Variable, um den Zustand des Check-Bildes zu verfolgen
+let isChecked = false;
 
 
+/**
+ * Initializes the registration process by loading user data.
+ */
 async function initRegister() {
     await loadUsers();
 }
 
 
+/**
+ * Loads users from storage
+ * @returns {Promise<void>} - A promise that resolves once the user data is loaded.
+ */
 async function loadUsers() {
     try {
         users = JSON.parse(await getItem('users'));
@@ -15,12 +22,19 @@ async function loadUsers() {
 }
 
 
+/**
+ * Listens for the form submission event and handles registration process.
+ */
 document.getElementById('signUpForm').addEventListener('submit', function (event) {
     event.preventDefault();
     signUpUser();
 });
 
 
+/**
+ * Registers a new user storing the user's information in the "users" array.
+ * @returns {Promise<void>} - A Promise that resolves once the user registration process is completed.
+ */
 async function signUpUser() {
     let username = document.getElementById('username').value;
     let initials = extractInitials(username);
@@ -35,7 +49,6 @@ async function signUpUser() {
         return;
     }
     if (!isChecked) {
-        // Wenn privacyCheck nicht aktiviert ist (Bild ist check-button.png), beende die Funktion
         return;
     }
     users.push({
@@ -50,6 +63,11 @@ async function signUpUser() {
 }
 
 
+/**
+ * This function extracts initials from a username.
+ * @param {string} username - The username from which initials are extracted.
+ * @returns {string} - The extracted initials in uppercase letters.
+ */
 function extractInitials(username) {
     let nameParts = username.trim().split(' ');
     let initials = '';

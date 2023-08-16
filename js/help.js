@@ -1,3 +1,8 @@
+/**
+ * This function uses jQuery to find and modify specific text within paragraphs.
+ * It replaces occurrences of "Developer Akademie GmbH," "Developer Akademie," and "Join" 
+ * with the same text enclosed in <span> tags, applying color and font size styling.
+ */
 $(document).ready(function () {
     $("p:contains('Developer Akademie GmbH'), p:contains('Developer Akademie'), p:contains('Join')").each(function () {
         $(this).html(

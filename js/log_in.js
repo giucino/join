@@ -3,11 +3,17 @@ let formSubmitted = false;
 let rememberLogIn = false;
 
 
+/**
+ * Initializes the login process by loading user data.
+ */
 async function initLogIn() {
     await loadUsers();
 }
 
 
+/**
+ * Loads users from storage
+ */
 async function loadUsers() {
     try {
         users = JSON.parse(await getItem('users'));
@@ -17,7 +23,9 @@ async function loadUsers() {
 }
 
 
-// Überprüft Anmeldeinformationen und leitet weiter
+/**
+ * Listens for the form submission event and handles login process.
+ */
 document.getElementById('logInForm').addEventListener('submit', function (event) {
     event.preventDefault();
     formSubmitted = true;
@@ -26,7 +34,12 @@ document.getElementById('logInForm').addEventListener('submit', function (event)
 );
 
 
-// Funktion zum Überprüfen der Anmeldeinformationen
+/**
+ * Attempts to log in the user with the email and password.
+ * @param {string} email - The user's email.
+ * @param {string} password - The user's password.
+ * @returns {boolean} - Returns true if the login is successful, false otherwise.
+ */
 function logIn(email, password) {
     let isLoggedIn = false;
     for (let i = 0; i < users.length; i++) {
@@ -44,6 +57,10 @@ function logIn(email, password) {
 }
 
 
+/**
+ * Handles the user login process.
+ * @returns {void}
+ */
 function handleLogIn() {
     let email = getEmailInputValue();
     let password = getPasswordInputValue();
@@ -76,6 +93,12 @@ function handleLogIn() {
     }
 }
 
+
+/**
+ * This function extracts initials from a username.
+ * @param {string} username - The username from which initials are extracted.
+ * @returns {string} - The extracted initials in uppercase letters.
+ */
 function extractInitials(username) {
     let nameParts = username.trim().split(' ');
     let initials = '';
@@ -90,11 +113,18 @@ function extractInitials(username) {
 }
 
 
+/**
+ * Saves the logged-in user data to the browser's local storage.
+ * @param {Object} userData - The user data to be saved.
+ */
 function saveLoggedInUserData(userData) {
     localStorage.setItem('loggedInUser', JSON.stringify(userData));
 }
 
 
+/**
+ * Adds a click event listener to the login button.
+ */
 function addLoginButtonListener() {
     let loginButton = document.getElementById('loginBtn');
     loginButton.addEventListener('click', handleLogIn);

@@ -1,4 +1,7 @@
-// Funktion, die den Inhalt für die forgot.html Seite generiert
+/**
+ * Generates the HTML content for the "Forgot Password" form.
+ * @returns {string} - The generated HTML content for the form.
+ */
 function generateForgotContent() {
     return /*html*/ `<img class="white-small-logo" src="img/join_logo_large.png" alt="Join Logo">
     <form onsubmit="showForgotRedirect()" id="resetPasswordForm" class="forgot-password-container">
@@ -30,6 +33,10 @@ function generateForgotContent() {
 }
 
 
+/**
+ * Creates the HTML template for the "Forgot Password" overlay message.
+ * @returns {string} - The generated HTML content for the overlay message.
+ */
 function createForgotTemplate() {
     return /*html*/ `
         <div id="forgotOverlay" class="overlay">
@@ -42,7 +49,10 @@ function createForgotTemplate() {
 }
 
 
-// Funktion, die den Inhalt für die reset.html Seite generiert
+/**
+ * Generates the HTML content for the "Reset Password" form.
+ * @returns {string} - The generated HTML content for the reset form.
+ */
 function generateResetContent() {
     return /*html*/ `<img class="white-small-logo" src="img/join_logo_large.png" alt="Join Logo">
     <form onsubmit="showResetRedirect()" class="reset-password-container">
@@ -79,6 +89,10 @@ function generateResetContent() {
 }
 
 
+/**
+ * Creates the HTML template for the "Reset Password" overlay message.
+ * @returns {string} - The generated HTML content for the overlay message.
+ */
 function createResetTemplate() {
     return /*html*/ `
         <div id="resetOverlay" class="overlay">
