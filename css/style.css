@@ -101,7 +101,7 @@ aside {
         justify-content: space-evenly;
         background: var(--white, #FFF);
         box-shadow: 0px -1px 6px 0px rgba(0, 0, 0, 0.10);
-        z-index: 999;
+        z-index: 5;
     }
 
     .aside__link-container {

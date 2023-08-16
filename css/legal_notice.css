@@ -158,7 +158,8 @@ h2 {
 }
 
 .header-container-right-user-profile,
-.header-container-help {
+.header-container-help,
+.user-container {
     display: none;
 }
 
