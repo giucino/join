@@ -76,24 +76,28 @@ function initLetters() {
 function loadContacts() {
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
+        
+        // Setze die bgcolor Eigenschaft, falls sie noch nicht existiert
+        if (!contact.bgcolor) {
+            contact.bgcolor = getRandomColor();
+        }
+
         let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
         let firstLetter = contact.name.charAt(0).toUpperCase();
         let contactsList = document.getElementById(`container-contact-${firstLetter}`);
+        let color = contact.bgcolor;
 
         contactsList.innerHTML += `
-            
-              <div class="contact">
-                <div class="initial">${initials}</div>
-                <div>
-                    <div class="name">${contact.name} ${contact.surename}</div>
-                    <div class="email">${contact.email}</div>
-                </div>
-              </div>
-              `;
+          <div class="contact">
+            <div class="initial" style="background-color: ${color}">${initials}</div>
+            <div class="container-name-email">
+                <div class="name">${contact.name} ${contact.surename}</div>
+                <div class="email">${contact.email}</div>
+            </div>
+          </div>
+          `;
     }
 }
-
-
 
 function removeEmptyLetters() {
     for (let i = 0; i < letters.length; i++) {
@@ -194,4 +198,14 @@ function saveNewContact() {
     newSurenameInput.value = "";
     newEmailInput.value = "";
     newTelefonInput.value = "";
+}
+
+//Hintergrundfarben für die Initialien generieren
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
