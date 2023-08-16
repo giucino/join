@@ -4,19 +4,24 @@
 
 .task-slide{
     background-color: rgba(0, 0, 0, 0.2);
-    left: -4000px;
+    position: absolute;
     width: 100vw;
     height: 100vh;
-    position: fixed;
-    transition: 2s;
     z-index: 15;
 }
 
 .slide-in{
-    left: 0;
-    transition: 1s;
+    left: 0 !important;
+    transition: 1.5s;
 }
 
+.slide-container{
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: -4000px;
+    transition: 2s;
+}
 
 .task-slide-container{
     box-sizing: border-box;

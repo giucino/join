@@ -173,10 +173,17 @@ input.addEventListener('keypress', function(event) {
     }
 });
 
-function closeCard(){
-    document.getElementById('task-slide').classList.remove('slide-in');
+function closeCard(){    
+    document.getElementById('slide-container').classList.remove('slide-in');
+    setTimeout(() => {
+        document.getElementById('task-slide').classList.add('d-none');
+    }, 800);
 }
 
 function slideCard(){
-    document.getElementById('task-slide').classList.add('slide-in');
+    document.getElementById('task-slide').classList.remove('d-none');
+    setTimeout(() => {
+        document.getElementById('slide-container').classList.add('slide-in');
+    }, 100);
+    
 }
