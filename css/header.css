@@ -35,13 +35,6 @@ header {
     margin-right: 18px;
 }
 
-@media(max-width: 768px) {
-    .header-container-right {
-        position: absolute;
-        right: 0;
-    }
-}
-
 #header-container-right-text {
     width: 301px;
     height: 23px;
@@ -53,12 +46,6 @@ header {
     line-height: 120%;
 }
 
-@media(max-width: 768px) {
-    #header-container-right-text {
-        visibility: hidden;
-    }
-}
-
 .header-container-help {
     width: 32px;
     height: 32px;
@@ -68,12 +55,6 @@ header {
 
 .header-container-help:hover {
     scale: 1.2;
-}
-
-@media(max-width: 768px) {
-    .header-container-help {
-        visibility: hidden;
-    }
 }
 
 .header-container-right-user {
@@ -183,6 +164,41 @@ header {
 
 
 @media(max-width: 768px) {
+    .header-container {
+        height: 40px;
+    }
+
+    .header-container-right {
+        position: absolute;
+        right: -15px;
+    }
+
+    #header-container-right-text {
+        visibility: hidden;
+    }
+
+    .header-container-help {
+        visibility: hidden;
+    }
+
+    .header-container-logo {
+        width: 32px;
+        height: 39px;
+        position: absolute;
+        left: 25px;
+    }
+
+    .user-initials {
+        width: 40px;
+        height: 40px;
+    }
+
+    .elipse {
+        box-sizing: border-box;
+        width: 50px;
+        height: 50px;
+    }
+
     #logoutBtn {
         top: 76px;
         right: 20px;

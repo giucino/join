@@ -126,16 +126,16 @@ p {
 
 .header-container-right-user-profile,
 .header-container-help,
-.user-container {
+.user-initials-container  {
     display: none;
 }
 
 .header-container-right {
     display: flex;
-    padding: 16.5px 0px 16.5px 132px;
+    /* padding: 16.5px 0px 16.5px 132px; */
     justify-content: flex-end;
     align-items: center;
-    margin-right: -40px;
+    margin-right: -120px;
 }
 
 
