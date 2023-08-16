@@ -86,8 +86,8 @@ aside {
     color: #4589FF;
 }
 
-/* Media Query für Bildschirmbreite von maximal 767px */
-@media(max-width: 767px) {
+/* Media Query für Bildschirmbreite von maximal 768px */
+@media(max-width: 768px) {
     aside {
         position: fixed;
         top: revert;

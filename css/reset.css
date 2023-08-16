@@ -156,6 +156,7 @@
 }
 
 
+/* Media Query für Bildschirmbreite von maximal 768px */
 @media (max-width: 768px) {
     .reset-password-container {
         padding: 32px 32px; 

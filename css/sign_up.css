@@ -371,6 +371,7 @@ body {
 }
 
 
+/* Media Query für Bildschirmbreite von maximal 768px */
 @media (max-width: 768px) {
     .white-small-logo {
         width: 64px;
@@ -463,6 +464,7 @@ body {
 }
 
 
+/* Media Query für Bildschirmbreite von maximal 450px */
 @media (max-width: 450px) {
     .white-small-logo {
         width: 44px;

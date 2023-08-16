@@ -464,6 +464,7 @@ form {
 }
 
 
+/* Media Query für Bildschirmbreite von maximal 768px */
 @media (max-width: 768px) {
     .logo-large {
         width: 100px;
@@ -577,6 +578,7 @@ form {
 }
 
 
+/* Media Query für Bildschirmbreite von maximal 450px */
 @media (max-width: 450px) {
     .logo-small {
         width: 44px;

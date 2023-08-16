@@ -172,6 +172,7 @@ h2 {
 }
 
 
+/* Media Query für Bildschirmbreite von maximal 768px */
 @media(max-width: 768px) {
     .legal-notice-container {
         gap: 30px;
@@ -187,6 +188,7 @@ h2 {
     }
 }
 
+/* Media Query für Bildschirmbreite von maximal 390px */
 @media(max-width: 390px) {
     h1 {
         font-size: 37px;

@@ -139,6 +139,7 @@ p {
 }
 
 
+/* Media Query für Bildschirmbreite von maximal 768px */
 @media(max-width: 768px) {
     .privacy-container {
         gap: 30px;
@@ -154,6 +155,7 @@ p {
     }
 }
 
+/* Media Query für Bildschirmbreite von maximal 390px */
 @media(max-width: 390px) {
     h1 {
         font-size: 37px;

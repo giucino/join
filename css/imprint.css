@@ -41,7 +41,7 @@ aside {
 }
 
 
-/* Media Query für Bildschirmbreite von maximal 767px */
+/* Media Query für Bildschirmbreite von maximal 768px */
 @media(max-width: 768px) {
     aside {
         position: fixed;
