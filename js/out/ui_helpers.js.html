@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: storage.js</title>
+    <title>JSDoc: Source: ui_helpers.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: storage.js</h1>
+    <h1 class="page-title">Source: ui_helpers.js</h1>
 
     
 
@@ -26,35 +26,146 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const STORAGE_TOKEN = 'LGDOVY1L7ICOV660H27VIF5G9HUMBEBVL9LD86JP';
-const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
+            <pre class="prettyprint source linenums"><code>/**
+ * Marks the active link in the navigation based on the current URL.
+ */
+function markDesktopLink() {
+    let currentURL = window.location.href;
+    let links = document.querySelectorAll('.links');
+
+    links.forEach(link => {
+        if (currentURL.includes(link.href)) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
+document.addEventListener('DOMContentLoaded', markDesktopLink);
+
 
 /**
- * Sets an item using a key-value pair in the storage.
- * @param {string} key - The key for the item.
- * @param {*} value - The value to be stored.
- * @returns {Promise&lt;Object>} - A Promise containing the JSON response object.
+ * Adjusts the mobile navigation links images based on the current screen width.
  */
-async function setItem(key, value) {
-    const payload = { key, value, token: STORAGE_TOKEN };
-    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
-        .then(res => res.json());
+function markMobileLink() {
+    let screenWidth = window.innerWidth;
+    let links = document.querySelectorAll('.links');
+
+    if (screenWidth &lt; 767) {
+        for (let i = 0; i &lt; links.length; i++) {
+            let link = links[i];
+            let image = link.querySelector('img');
+            let isActive = link.classList.contains('active');
+
+            if (isActive) {
+                if (link.id === 'summary-link') {
+                    image.src = 'img/summary_mobile.png';
+                } else if (link.id === 'add_task-link') {
+                    image.src = 'img/edit_square_mobile.png';
+                } else if (link.id === 'board-link') {
+                    image.src = 'img/board_sidebar_mobile.png';
+                } else if (link.id === 'contact-link') {
+                    image.src = 'img/contacts_mobile.png';
+                }
+            } else {
+                if (link.id === 'summary-link') {
+                    image.src = 'img/summary.png';
+                } else if (link.id === 'add_task-link') {
+                    image.src = 'img/edit_square.png';
+                } else if (link.id === 'board-link') {
+                    image.src = 'img/board_sidebar.png';
+                } else if (link.id === 'contact-link') {
+                    image.src = 'img/contacts.png';
+                }
+            }
+        }
+    }
+}
+
+window.addEventListener('resize', markMobileLink);
+
+
+/**
+ * Toggles the display of a menu.
+ * @param {Event} event - The event triggered by the toggle action.
+ */
+function toggleMenu(event) {
+    let menuItems = document.getElementById("logoutBtn");
+
+    event.stopPropagation();
+
+    if (menuItems.style.display === "" || menuItems.style.display === "none") {
+        menuItems.style.display = "flex";
+        menuItems.style.animationName = "slideInFromRight";
+    } else {
+        menuItems.style.animationName = "slideOutToRight";
+        setTimeout(() => {
+            menuItems.style.display = "none";
+        }, 100);
+    }
 }
 
 
 /**
- * Gets the value linked to the given key from storage.
- * @param {string} key - The key used for searching..
- * @returns {Promise&lt;any>} - A Promise that resolves to the retrieved value.
- * @throws {string} - If data with the given key is not found.
+ * Closes the menu when clicking outside of it or on certain navigation links.
+ * @param {Event} event - The event triggered by the click action.
  */
-async function getItem(key) {
-    const url = `${STORAGE_URL}?key=${key}&amp;token=${STORAGE_TOKEN}`;
-    return fetch(url).then(res => res.json()).then(res => {
-        if (res.data) { 
-            return res.data.value;
-        } throw `Could not find data with key "${key}".`;
-    });
+function closeMenuOnClickAndOutside(event) {
+    let menuItems = document.getElementById("logoutBtn");
+    let clickedElement = event.target;
+
+    if (!menuItems.contains(clickedElement) || clickedElement.classList.contains("nav-link")) {
+        menuItems.style.animationName = "slideOutToRight";
+        setTimeout(() => {
+            menuItems.style.display = "none";
+        }, 100);
+    }
+}
+
+document.addEventListener("click", closeMenuOnClickAndOutside);
+
+
+/**
+ * Logs the user out by clearing stored data and redirecting to the login page.
+ */
+function logOut() {
+    let loggedInUserJSON = localStorage.getItem('loggedInUser');
+    if (loggedInUserJSON) {
+        let loggedInUser = JSON.parse(loggedInUserJSON);
+        if (!loggedInUser.rememberStatus) {
+            localStorage.clear();
+        }
+    }
+    window.location.replace('index.html');
+}
+
+
+/**
+ * Retrieves the user's initials from local storage.
+ * @returns {string} - User's initials or 'G' if not available.
+ */
+function getInitials() {
+    let userData = JSON.parse(localStorage.getItem('loggedInUser'));
+
+    if (userData &amp;&amp; userData.initials) {
+        return userData.initials;
+
+    } else {
+        return 'G';
+    }
+}
+
+
+/**
+ * Displays the user's initials in the designated HTML element.
+ */
+function showLoggedInUserInitials() {
+    let loggedInUserData = getInitials();
+    let initials = document.getElementById('initials');
+
+    if (initials) {
+        initials.textContent = loggedInUserData;
+    }
 }</code></pre>
         </article>
     </section>
