@@ -131,8 +131,8 @@ function generateTodoHTML(element) {
                 <div class="subtasks">1/2 Subtasks</div>
             </div>
             <div class="prio-container">
-                <div class="user-container">
-                    <div class="user-marked blue">SM</div>
+                <div class="user-container-board">
+                    <div id="assigned-to" class="user-marked blue">${element.assignedTo}</div>
                     <div class="user-marked media negativ-gap">EF</div>
                 </div>
                 <div class="prio-icon"><img src="./img/prio-low.png" alt=""></div>
@@ -181,9 +181,77 @@ function closeCard(){
 }
 
 function slideCard(){
+    const slideCard = document.getElementById('task-slide');
+    slideCard.innerHTML = renderSlideCard();
     document.getElementById('task-slide').classList.remove('d-none');
     setTimeout(() => {
         document.getElementById('slide-container').classList.add('slide-in');
-    }, 100);
-    
+    }, 100);    
+}
+
+async function getItem(key){
+    const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
+    return fetch(url).then(res => res.json());
+}
+
+function renderSlideCard(){
+    return /*html*/ `
+        <div id="slide-container" class="slide-container">
+        <div id="task-slide-container" class="task-slide-container">
+            <div class="task-slide-headline">
+                <div class="task-slide-headline-left"><span class="task-slide-category">User Story</span></div>
+                <div id="task-slide-close" onclick="closeCard()" class="task-slide-headline-right"><img src="./img/close.png" alt="Schließen"></div>
+            </div>
+            <span id="task-slide-title" class="task-slide-title">Kochwelt Page & Recipe Recommender</span>
+            <span id="task-slide-description" class="task-slide-description">Build start page with recipe recommendation.</span>
+            <div class="task-slide-due-date-container">
+                <span class="task-slide-due-date">Due date: </span>
+                <span id="task-slide-due-date" class="task-slide-due-date-date">10/05/2023</span>
+            </div>
+            <div class="task-slide-prio-container">
+                <span class="task-slide-prio-text">Priority: </span>
+                <div class="task-slide-prio-text-img">
+                    <span class="task-slide-prio-text-">Medium</span>
+                    <img id="task-slide-prio-img" src="./img/prio-medium.png" alt="">
+                </div>
+            </div>
+            <div class="task-slide-assigned-container">
+                <span class="task-slide-assigned-test">Assigned To:</span>
+                <div class="task-slide-assigned-user-container">
+                    <div class="task-slide-assigned-user-contact">
+                        <div class="task-slide-assigned-user">
+                            <div class="user-marked blue">SM</div>
+                            <span class="task-slide-assigned-user-name">Sofia Müller</span>
+                        </div>
+                        <button class="task-slide-btn" type="checkbox" disabled></button>
+                    </div>
+                </div>
+            </div>
+            <div class="task-slide-subtasks-container">
+                <span class="task-slide-subtasks-text">Subtasks</span>
+                <div class="task-slide-subtasks-tasks">
+                    <div class="task-slide-subtask">
+                        <button class="task-slide-subtask-btn" type="checkbox"></button>
+                        <span class="task-slide-subtask-text">Implement Recipe Recommendation</span>
+                    </div>
+                    <div class="task-slide-subtask">
+                        <button class="task-slide-subtask-btn" type="checkbox"></button>
+                        <span class="task-slide-subtask-text">Start Page Layout</span>
+                    </div>
+                </div>
+            </div>
+            <div class="task-slide-delete-edit-container">
+                <div class="task-slide-delete">
+                    <img class="task-slide-delete-edit-img" src="./img/delete.png" alt="">
+                    <span class="task-slide-delete-text">Delete</span>
+                </div>
+                <div class="task-slide-placeholder"></div>
+                <div class="task-slide-edit">
+                    <img class="task-slide-delete-edit-img" src="./img/edit.png" alt="">
+                    <span class="task-slide-edit-text">Edit</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    `
 }

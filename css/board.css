@@ -223,7 +223,7 @@ body{
     gap: 83px;
 }
 
-.user-container{
+.user-container-board{
     box-sizing: border-box;
     display: flex;
     align-items: flex-start;
