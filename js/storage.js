@@ -1,5 +1,5 @@
 const STORAGE_TOKEN = TOKEN;
-const STORAGE_URL = STORAGE_URL;
+const STORAGE_URL = BACKEND_URL;
 /**
  * Sets an item using a key-value pair in the storage.
  * @param {string} key - The key for the item.
