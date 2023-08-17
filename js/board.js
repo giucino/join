@@ -189,7 +189,7 @@ function slideCard(){
     }, 100);    
 }
 
-console.log(API_KEY);
+console.log(TOKEN);
 
 async function getItem(key){
     const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
