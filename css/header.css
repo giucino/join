@@ -166,7 +166,8 @@ header {
 /* Media Query für Bildschirmbreite von maximal 768px */
 @media(max-width: 768px) {
     .header-container {
-        height: 40px;
+        height: 80px;
+        box-sizing: border-box;
     }
 
     .header-container-right {
