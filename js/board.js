@@ -189,6 +189,8 @@ function slideCard(){
     }, 100);    
 }
 
+console.log(API_KEY);
+
 async function getItem(key){
     const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
     return fetch(url).then(res => res.json());
@@ -231,11 +233,11 @@ function renderSlideCard(){
                 <span class="task-slide-subtasks-text">Subtasks</span>
                 <div class="task-slide-subtasks-tasks">
                     <div class="task-slide-subtask">
-                        <button class="task-slide-subtask-btn" type="checkbox"></button>
+                        <input class="task-slide-subtask-btn" type="checkbox">
                         <span class="task-slide-subtask-text">Implement Recipe Recommendation</span>
                     </div>
                     <div class="task-slide-subtask">
-                        <button class="task-slide-subtask-btn" type="checkbox"></button>
+                        <input class="task-slide-subtask-btn" type="checkbox">
                         <span class="task-slide-subtask-text">Start Page Layout</span>
                     </div>
                 </div>
