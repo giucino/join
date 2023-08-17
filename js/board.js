@@ -39,6 +39,10 @@ let todos = [{
 let currentDraggedElement;
 let currentFilter = '';
 
+/**
+ * Update the HTML for all task categories.
+ * Calls functions to update HTML for each category.
+ */
 async function updateHTML() {
     todo();
     inProgress();
@@ -47,6 +51,9 @@ async function updateHTML() {
     noTasks()
 }
 
+/**
+ * Update the HTML for the "Todo" category based on the current filter.
+ */
 function todo() {
     let filteredTodo = todos.filter(task => task['status'] === 'todo' && (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
     const todoContainer = document.getElementById('todo');
@@ -61,6 +68,9 @@ function todo() {
     }
 }
 
+/**
+ * Update the HTML for the "In Progress" category based on the current filter.
+ */
 function inProgress(){
     let filteredInProgress = todos.filter(task => task['status'] === 'inprogress' && (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
     const inProgressContainer = document.getElementById('in-progress');
@@ -75,6 +85,9 @@ function inProgress(){
     }
 }
 
+/**
+ * Update the HTML for the "Feedback" category based on the current filter.
+ */
 function feedback(){
     let filteredFeedback = todos.filter(task => task['status'] === 'feedback' && (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
     const feedbackContainer = document.getElementById('feedback');
@@ -89,6 +102,9 @@ function feedback(){
     }
 }
 
+/**
+ * Update the HTML for the "Done" category based on the current filter.
+ */
 function done(){
     let filteredDone = todos.filter(task => task['status'] === 'done' && (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
     const doneContainer = document.getElementById('done');
@@ -103,6 +119,10 @@ function done(){
     }
 }
 
+/**
+ * Generate HTML for the "No Tasks" message.
+ * @returns {string} HTML markup for no tasks message.
+ */
 function noTasks(){
     return /*html*/`
         <div class="no-tasks-to-do">
@@ -110,11 +130,19 @@ function noTasks(){
         </div>`;
 }
 
-
+/**
+ * Set the currently dragged element.
+ * @param {number} id - The id of the element being dragged.
+ */
 function startDragging(id) {
     currentDraggedElement = id;
 }
 
+/**
+ * Generate HTML markup for a task element.
+ * @param {Task} element - The task object to generate HTML for.
+ * @returns {string} HTML markup for the task element.
+ */
 function generateTodoHTML(element) {
     return /*html*/`
     <div id="board-card" onclick="slideCard()" draggable="true" ondragstart="startDragging(${element['id']})" class="content-container">
@@ -141,15 +169,29 @@ function generateTodoHTML(element) {
     </div>`;
 }
 
+/**
+ * Allow dropping elements on drop zones.
+ * @param {Event} ev - The dragover event.
+ */
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
+/**
+ * Move a task to a specified status.
+ * @param {string} status - The status to move the task to.
+ */
 function moveTo(status) {
     todos[currentDraggedElement]['status'] = status;
     updateHTML();
 }
 
+/**
+ * Filter tasks based on a search term and status.
+ * @param {string} searchTerm - The search term to filter tasks.
+ * @param {string} status - The status to filter tasks.
+ * @returns {Task[]} Array of filtered tasks.
+ */
 function filterTasks(searchTerm, status) {
     let filteredTasks = todos.filter(task => {
         return task.status === status && (task.title.includes(searchTerm) || task.category.includes(searchTerm));
@@ -157,6 +199,9 @@ function filterTasks(searchTerm, status) {
     return filteredTasks;
 }
 
+/**
+ * Set the current filter based on input value.
+ */
 function setFilter() {
     let searchText = document.getElementById('input-field');
     currentFilter = searchText.value.toLowerCase();
@@ -173,6 +218,9 @@ input.addEventListener('keypress', function(event) {
     }
 });
 
+/**
+ * Close the task card.
+ */
 function closeCard(){    
     document.getElementById('slide-container').classList.remove('slide-in');
     setTimeout(() => {
@@ -180,6 +228,9 @@ function closeCard(){
     }, 800);
 }
 
+/**
+ * Slide open the task card.
+ */
 function slideCard(){
     const slideCard = document.getElementById('task-slide');
     slideCard.innerHTML = renderSlideCard();
@@ -189,13 +240,10 @@ function slideCard(){
     }, 100);    
 }
 
-console.log(API_KEY);
-
-async function getItem(key){
-    const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
-    return fetch(url).then(res => res.json());
-}
-
+/**
+ * Generate HTML markup for the task slide card.
+ * @returns {string} HTML markup for the task slide card.
+ */
 function renderSlideCard(){
     return /*html*/ `
         <div id="slide-container" class="slide-container">
