@@ -6,7 +6,7 @@ let passwordMatchError = document.getElementById('passwordMatchError');
  * @returns {string} - The value of the email input field.
  */
 function getEmailInputValue() {
-    let emailInput = document.getElementById('email');
+    let emailInput = document.getElementById('emailLogin');
     return emailInput.value;
 }
 
@@ -233,7 +233,7 @@ function saveUserDataOnLogin(userEmail, userPassword, rememberStatus) {
 }
 
 
-const emailInput = document.getElementById('email');
+const emailInput = document.getElementById('emailLogin');
 const passwordInputCheck = document.getElementById('passwordLogin');
 const loginButton = document.getElementById('loginBtn');
 
