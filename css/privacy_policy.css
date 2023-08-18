@@ -4,11 +4,8 @@
 
 :root {
     --bg-color: #4589FF;
-    --btn-hover: #005DFF;
-    --style: #D1D1D1;
-    --icon: #A8A8A8;
+    --ligth-blue: #005DFF;
     --menu: #42526E;
-    --arrow-hover: #E3EEFF;
 }
 
 body {
@@ -32,7 +29,7 @@ main {
 }
 
 h1 {
-    color: var(--black, #000);
+    color: #000;
     font-size: 61px;
     font-style: normal;
     font-weight: 700;
@@ -53,13 +50,13 @@ h1 {
     height: 32px;
     flex-shrink: 0;
     cursor: pointer;
-    background-image: url("/img/arrow-left-line.png");
+    background-image: url("../img/arrow-left-line.png");
     background-size: cover;
     transition: background-image 0.1s ease-in-out;
 }
 
 .arrow-left-icon:hover {
-    background-image: url("/img/arrow-hover.png");
+    background-image: url("../img/arrow-hover.png");
 }
 
 .privacy-container-information {
@@ -98,7 +95,7 @@ p {
 }
 
 .legal-button {
-    color: #42526E;
+    color: var(--menu, #42526E);
     font-size: 16px;
     font-weight: 400;
     text-decoration: none;
@@ -112,12 +109,12 @@ p {
     font-weight: 700;
     text-decoration: none;
     padding: 8px;
-    background-color: #4589FF;
+    background-color: var(--bg-color, #4589FF);
     border-radius: 10px;
 }
 
 .legal-button:hover {
-    color: #4589FF;
+    color: var(--bg-color, #4589FF);
 }
 
 .logout-button {

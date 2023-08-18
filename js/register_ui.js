@@ -1,4 +1,4 @@
-let passwordMatchError = document.getElementById('passwordMatchError');
+let passwordMatchError = document.getElementById('signUpMatchError');
 
 
 /**
@@ -66,7 +66,7 @@ function resetForm() {
 
 
 /**
- * Adds blur event listeners to log-in input sections.
+ * Adds blur event listeners to sign-up input sections.
  * Changes the border color of the input section when focused and blurred.
  */
 function addFocusBlurEvents() {

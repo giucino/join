@@ -10,6 +10,7 @@
     --menu: #42526E;
     --arrow-hover: #E3EEFF;
     --guest-log-in: #647188;
+    --error: #FF8190;
 }
 
 body {
@@ -57,11 +58,11 @@ form {
 /******************* INTRO ANIMATION *******************/
 @keyframes animateBgColor {
     0% {
-        background-color: var(--bg-color);
+        background-color: var(--bg-color, #4589FF);
     }
 
     50% {
-        background-color: var(--bg-color);
+        background-color: var(--bg-color, #4589FF);
     }
 
     100% {
@@ -142,7 +143,7 @@ form {
 .log-in-header-line {
     width: 150px;
     height: 2px;
-    background-color: var(--bg-color);
+    background-color: var(--bg-color, #4589FF);
 }
 
 .log-in-formular {
@@ -219,7 +220,7 @@ form {
     font-weight: 400;
     line-height: 22.80px;
     word-wrap: break-word;
-    color: #FF8190;
+    color: var(--error, #FF8190);
     display: none;
     margin-top: -20px;
 }
@@ -299,7 +300,7 @@ form {
     padding: 10px 35px;
     background: var(--bg-color, #4589FF);
     border-radius: 8px;
-    color: #FFF;
+    color: #FFFFFF;
     font-size: 23px;
     font-style: normal;
     font-weight: 400;
@@ -316,17 +317,17 @@ form {
 
 .log-in-btn:active {
     transition: ease-in-out 100ms;
-    background-color: white;
-    color: var(--bg-color);
+    background: #FFFFFF;
+    color: var(--bg-color, #4589FF);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .guest-log-in-btn {
     padding: 10px 35px;
-    background: var(--white, #FFF);
+    background: #FFFFFF;
     border-radius: 8px;
     border: 1px solid #647188;
-    color: var(--guest-log-in);
+    color: var(--guest-log-in, #647188);
     font-size: 23px;
     font-style: normal;
     font-weight: 400;
@@ -372,7 +373,7 @@ form {
 }
 
 .legal-notice-text {
-    color: var(--menu);
+    color: var(--menu, #42526E);
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -381,7 +382,7 @@ form {
 }
 
 .legal-notice-text:hover {
-    color: #005DFF;
+    color: var(--ligth-blue, #005DFF);
 }
 
 .sign-up-container {
@@ -414,7 +415,7 @@ form {
 .sign-up-btn {
     padding: 10px 21px;
     border-radius: 8px;
-    background: var(--bg-color);
+    background: var(--bg-color, #4589FF);
     color: #FFFFFF;
     border: none;
     font-size: 23px;
@@ -432,8 +433,8 @@ form {
 }
 
 .sign-up-btn:active {
-    background-color: white;
-    color: var(--bg-color);
+    background-color: #FFFFFF;
+    color: var(--bg-color, #4589FF);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 

@@ -1,4 +1,3 @@
-let users = [];
 let formSubmitted = false;
 let rememberLogIn = false;
 
@@ -13,6 +12,7 @@ async function initLogIn() {
 
 /**
  * Loads users from storage
+ * @returns {Promise<void>} - A promise that resolves once the user data is loaded.
  */
 async function loadUsers() {
     try {

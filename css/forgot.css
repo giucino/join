@@ -72,7 +72,7 @@
 .forgot-info-line {
     width: 150px;
     height: 2px;
-    background-color: var(--bg-color);
+    background-color: var(--bg-color, #4589FF);
 }
 
 .forgot-password-info {
@@ -157,7 +157,7 @@
     gap: 10px;
     padding: 10px 35px;
     border-radius: 8px;
-    background: var(--bg-color);
+    background: var(--bg-color, #4589FF);
     color: #FFFFFF;
     border: none;
     font-size: 23px;
@@ -174,8 +174,8 @@
 }
 
 .send-email-btn:active {
-    background-color: white;
-    color: var(--bg-color);
+    background-color: #FFFFFF;
+    color: var(--bg-color, #4589FF);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
@@ -220,7 +220,7 @@
 }
 
 .message p {
-    color: #FFF;
+    color: #FFFFFF;
     font-size: 23px;
     font-style: normal;
     font-weight: 400;
@@ -244,8 +244,6 @@
         align-items: flex-start;
         justify-content: flex-start;
         position: absolute;
-        /* left: calc(50% - 176px);
-        top: calc(50% - 340px); */
         left: 10%;
         top: 1.5%;
     }

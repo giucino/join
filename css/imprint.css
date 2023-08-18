@@ -1,5 +1,6 @@
 :root {
     --bg-color: #4589FF;
+    --menu: #42526E;
 }
 
 body {
@@ -85,7 +86,7 @@ aside {
     }
 
     .links.active {
-        color: #4589FF;
+        color: var(--bg-color, #4589FF);
         width: auto;
         background: none;
         border-radius: 8px;
@@ -93,7 +94,7 @@ aside {
     }
 
     .links {
-        color: #42526E;
+        color: var(--menu, #42526E);
         font-size: 15px;
         font-weight: 400;
         text-decoration: none;
