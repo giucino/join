@@ -15,7 +15,6 @@
     transform: translate(-50%, -50%);
     width: 100%;
     max-width: 765px;
-    /* height: 418px; */
     padding: 48px 88px;
     display: inline-flex;
     flex-direction: column;
@@ -90,7 +89,6 @@
     align-items: flex-start;
     width: 100%;
     max-width: 422px;
-    /* height: 48px; */
     gap: 32px;
     cursor: pointer;
 }

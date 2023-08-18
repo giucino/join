@@ -154,7 +154,6 @@ h2 {
 
 .header-container-right {
     display: flex;
-    /* padding: 16.5px 0px 16.5px 132px; */
     justify-content: flex-end;
     align-items: center;
     margin-right: -120px;

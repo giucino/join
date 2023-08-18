@@ -75,9 +75,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* gap: 16px;
-    width: 315px;
-    height: 74px; */
 }
 
 .sign-up-sub-header {
@@ -85,8 +82,6 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    /* width: 315px;
-    height: 72px; */
 }
 
 .sign-up-header-title {
@@ -106,8 +101,6 @@ body {
 }
 
 .sign-up-formular {
-    /* width: 422px;
-    height: 324px; */
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -119,8 +112,6 @@ body {
     display: flex;
     padding: 12px 21px;
     width: 100%;
-    /* width: 422px;
-    height: 284px; */
     flex-direction: column;
     align-items: center;
     gap: 24px;
@@ -139,7 +130,6 @@ body {
 
 .sign-up-input-frame {
     width: 100%;
-    /* max-width: 380px; */
     height: 24px;
     display: flex;
     justify-content: space-between;
@@ -149,7 +139,6 @@ body {
 
 .sign-up-text-input {
     width: 100%;
-    /* max-width: 380px; */
     color: var(--style, #D1D1D1);
     font-size: 19px;
     font-style: normal;
@@ -190,7 +179,6 @@ body {
 .privacy-check-container {
     display: flex;
     padding-top: 20px;
-    /* width: 231px; */
     height: 24px;
     align-items: center;
     gap: 8px;
@@ -381,8 +369,6 @@ body {
         align-items: flex-start;
         justify-content: flex-start;
         position: absolute;
-        /* left: calc(50% - 176px);
-        top: calc(50% - 340px); */
         left: 10%;
         top: 1.5%;
     }
@@ -402,8 +388,6 @@ body {
 
     .sign-up-main-header {
         gap: 12px;
-        /* width: 364px; */
-        /* height: 409px; */
     }
 
     .sign-up-header-title {
@@ -414,15 +398,7 @@ body {
         width: 88px;
     }
 
-    /* .sign-up-formular {
-        width: 364px;
-        height: 313px;
-        gap: 3px;
-    } */
-
     .sign-up-formular-container {
-        /* width: 364px; */
-        /* height: 313px; */
         gap: 12px;
     }
 
@@ -468,8 +444,6 @@ body {
     .white-small-logo {
         width: 44px;
         height: 58px;
-        /* left: 10%;
-        top: 1.5%; */
     }
 
     .sign-up-container {

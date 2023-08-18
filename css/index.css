@@ -4,11 +4,10 @@
 
 :root {
     --bg-color: #4589FF;
+    --ligth-blue: #005DFF;
     --btn-hover: #005DFF;
     --style: #D1D1D1;
-    --icon: #A8A8A8;
     --menu: #42526E;
-    --arrow-hover: #E3EEFF;
     --guest-log-in: #647188;
     --error: #FF8190;
 }
@@ -116,9 +115,6 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* gap: 16px;
-    width: 315px;
-    height: 74px; */
 }
 
 .log-in-sub-header {
@@ -126,8 +122,6 @@ form {
     flex-direction: column;
     align-items: center;
     gap: 16px;
-    /* width: 315px;
-    height: 72px; */
 }
 
 .log-in-header-title {
@@ -147,7 +141,6 @@ form {
 }
 
 .log-in-formular {
-    /* width: 422px; */
     height: 152px;
     width: 100%;
     display: flex;
@@ -177,7 +170,6 @@ form {
 
 .log-in-input-frame {
     width: 100%;
-    /* max-width: 380px; */
     height: 24px;
     display: flex;
     justify-content: space-between;
@@ -187,7 +179,6 @@ form {
 
 .log-in-text-input {
     width: 100%;
-    /* max-width: 380px; */
     color: var(--style, #D1D1D1);
     font-size: 19px;
     font-style: normal;
@@ -481,8 +472,6 @@ form {
         align-items: flex-start;
         justify-content: flex-start;
         position: absolute;
-        /* left: calc(50% - 176px);
-        top: calc(50% - 340px); */
         left: 2%;
         top: -8%;
     }
