@@ -101,6 +101,7 @@
     line-height: 22.80px;
     word-wrap: break-word;
     border: none;
+    outline: none;
 }
 
 .add-task-describtion-textfield-inner {
@@ -148,6 +149,7 @@
     border-right: none;
     border-bottom: 1px solid var(--style, #D1D1D1);
     background: #FFF;
+    outline: none;
 }
 
 .add-task-container-priority {

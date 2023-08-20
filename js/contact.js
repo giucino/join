@@ -88,7 +88,7 @@ function loadContacts() {
         let color = contact.bgcolor;
 
         contactsList.innerHTML += `
-          <div class="contact">
+          <div class="contact" onclick="showContactDetails(${i})">
             <div class="initial" style="background-color: ${color}">${initials}</div>
             <div class="container-name-email">
                 <div class="name">${contact.name} ${contact.surename}</div>
@@ -130,6 +130,33 @@ var btn = document.getElementById("addContactBtn");
 var span = document.getElementsByClassName("close")[0];
 var saveBtn = document.getElementById("saveContactBtn");
 
+function showContactDetails(index) {
+    const contact = contacts[index];
+    const initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+    const detailsContainer = document.getElementById('contact-details');
+    detailsContainer.innerHTML = `
+    <div class="contact-detailed-container">
+        <div class="contact-detailed-top">
+            <div>
+            <div class="initial-big" style="background-color: ${contact.bgcolor || getRandomColor()}">${initials}</div>
+            </div>
+            <div>
+                <div class="contact-detailed-name">${contact.name} ${contact.surename}</div>
+                <div class="contact-detailed-edit-delete">
+                    <div class="contact-detailed-images"><img src="./img/edit.png">Edit</div>
+                    <div class="contact-detailed-images"><img src="./img/delete.png">Delete</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="contact-detailed-information"> Contact Information </div>
+            <div>Email: </div> <div> ${contact.email}</p>
+            <div>Telefon: </div> <div> ${contact.telefon}</p>
+        </div>
+    </div>
+    `;
+    detailsContainer.style.display = 'block'; // den Container anzeigen
+}
 
 function openModal() {
     var modal = document.getElementById("contactModal");
