@@ -36,15 +36,17 @@ let todos = [{
 }
 ];
 
-
-await setItem('tasks', JSON.stringify(todos));
+async function pushData(){
+    await setItem('tasks', JSON.stringify(todos));
+}
 
 
 /* let todos = []; */
-
-const getTodos = await getItem('tasks');
-todos = JSON.parse(getTodos);
-console.log(getTodos);
+async function loadData(){
+    const getTodos = await getItem('tasks');
+    todos = JSON.parse(getTodos);
+    console.log(getTodos);
+}
 
 /* const getdataContacts = await getElement('contacts');
 contacts = JSON.parse(getdataContacts);
@@ -70,6 +72,8 @@ let currentFilter = '';
  * Calls functions to update HTML for each category.
  */
 async function updateHTML() {
+    pushData();
+    loadData();
     todo();
     inProgress();
     feedback();
