@@ -201,6 +201,7 @@ form {
     width: 24px;
     height: 24px;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .password-match-error {
@@ -268,7 +269,7 @@ form {
 
 .forgot-password-link:hover {
     text-decoration: underline;
-    font-weight: 600;
+    scale: 1.06;
 }
 
 .log-in-btn-section {

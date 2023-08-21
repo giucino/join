@@ -70,7 +70,7 @@ password.addEventListener('input', errorTextLogIn);
  * Adds blur event listeners to log-in input sections.
  * Changes the border color of the input section when focused and blurred.
  */
-function addFocusBlurEvents() {
+function addLoginBlurEvents() {
     let signUpInfoBoxes = document.querySelectorAll('.log-in-info-box');
     signUpInfoBoxes.forEach(box => {
         let input = box.querySelector('.log-in-text-input');
@@ -84,7 +84,7 @@ function addFocusBlurEvents() {
         });
     });
 }
-document.addEventListener('DOMContentLoaded', addFocusBlurEvents);
+document.addEventListener('DOMContentLoaded', addLoginBlurEvents);
 
 
 let passwordInput = document.getElementById('passwordLogin');
