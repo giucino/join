@@ -29,7 +29,7 @@ async function loadUsers() {
 document.getElementById('logInForm').addEventListener('submit', function (event) {
     event.preventDefault();
     formSubmitted = true;
-    handleLogIn()
+    handleLogIn();
 }
 );
 

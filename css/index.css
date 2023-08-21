@@ -213,7 +213,7 @@ form {
     word-wrap: break-word;
     color: var(--error, #FF8190);
     display: none;
-    margin-top: -20px;
+    margin-top: -40px;
 }
 
 .remember-me-container {

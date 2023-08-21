@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: board.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: board.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let todos = [{
+    'id': 0,
+    'title': 'Putzen',
+    'category': 'Design',
+    'status': 'todo'
+}, {
+    'id': 1,
+    'title': 'Kochen',
+    'category': 'Sales',
+    'status': 'todo'
+}, {
+    'id': 2,
+    'title': 'Einkaufen',
+    'category': 'Tech',
+    'status': 'todo'
+}, {
+    'id': 3,
+    'title': 'Einkaufen',
+    'category': 'Tech',
+    'status': 'feedback'
+}, {
+    'id': 4,
+    'title': 'Putzen',
+    'category': 'Sales',
+    'status': 'todo'
+}, {
+    'id': 5,
+    'title': 'Einkaufen',
+    'category': 'Backoffice',
+    'status': 'feedback'
+}, {
+    'id': 6,
+    'title': 'Einkaufen',
+    'category': 'Tech',
+    'status': 'done'
+}
+];
+
+let currentDraggedElement;
+let currentFilter = '';
+
+/**
+ * Update the HTML for all task categories.
+ * Calls functions to update HTML for each category.
+ */
+async function updateHTML() {
+    todo();
+    inProgress();
+    feedback();
+    done();    
+    noTasks()
+}
+
+/**
+ * Update the HTML for the "Todo" category based on the current filter.
+ */
+function todo() {
+    let filteredTodo = todos.filter(task => task['status'] === 'todo' &amp;&amp; (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
+    const todoContainer = document.getElementById('todo');
+    todoContainer.innerHTML = '';
+
+    if (filteredTodo.length === 0) {
+        todoContainer.innerHTML += noTasks();
+    } else {
+        filteredTodo.forEach(task => {
+            todoContainer.innerHTML += generateTodoHTML(task);
+        });
+    }
+}
+
+/**
+ * Update the HTML for the "In Progress" category based on the current filter.
+ */
+function inProgress(){
+    let filteredInProgress = todos.filter(task => task['status'] === 'inprogress' &amp;&amp; (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
+    const inProgressContainer = document.getElementById('in-progress');
+    inProgressContainer.innerHTML = '';
+
+    if (filteredInProgress.length === 0) {
+        inProgressContainer.innerHTML += noTasks();
+    } else {
+        filteredInProgress.forEach(task => {
+            inProgressContainer.innerHTML += generateTodoHTML(task);
+        });
+    }
+}
+
+/**
+ * Update the HTML for the "Feedback" category based on the current filter.
+ */
+function feedback(){
+    let filteredFeedback = todos.filter(task => task['status'] === 'feedback' &amp;&amp; (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
+    const feedbackContainer = document.getElementById('feedback');
+    feedbackContainer.innerHTML = '';
+
+    if (filteredFeedback.length === 0) {
+        feedbackContainer.innerHTML += noTasks();
+    } else {
+        filteredFeedback.forEach(task => {
+            feedbackContainer.innerHTML += generateTodoHTML(task);
+        });
+    }
+}
+
+/**
+ * Update the HTML for the "Done" category based on the current filter.
+ */
+function done(){
+    let filteredDone = todos.filter(task => task['status'] === 'done' &amp;&amp; (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
+    const doneContainer = document.getElementById('done');
+    doneContainer.innerHTML = '';
+
+    if (filteredDone.length === 0) {
+        doneContainer.innerHTML += noTasks();
+    } else {
+        filteredDone.forEach(task => {
+            doneContainer.innerHTML += generateTodoHTML(task);
+        });
+    }
+}
+
+/**
+ * Generate HTML for the "No Tasks" message.
+ * @returns {string} HTML markup for no tasks message.
+ */
+function noTasks(){
+    return /*html*/`
+        &lt;div class="no-tasks-to-do">
+            &lt;div class="no-tasks-to-do-text">No Tasks to do&lt;/div>
+        &lt;/div>`;
+}
+
+/**
+ * Set the currently dragged element.
+ * @param {number} id - The id of the element being dragged.
+ */
+function startDragging(id) {
+    currentDraggedElement = id;
+}
+
+/**
+ * Generate HTML markup for a task element.
+ * @param {Task} element - The task object to generate HTML for.
+ * @returns {string} HTML markup for the task element.
+ */
+function generateTodoHTML(element) {
+    return /*html*/`
+    &lt;div id="board-card" onclick="slideCard()" draggable="true" ondragstart="startDragging(${element['id']})" class="content-container">
+        &lt;div class="content-container-inner">
+            &lt;div class="category">${element.category}&lt;/div>
+            &lt;div class="title-content">
+                &lt;div class="title">${element.title}&lt;/div>
+                &lt;div id="description" class="content">${element.description}&lt;/div>
+            &lt;/div>
+            &lt;div class="subtasks-container">
+                &lt;div class="progress-bar-container">
+                    &lt;div class="progress-bar">&lt;/div>
+                &lt;/div>
+                &lt;div class="subtasks">1/2 Subtasks&lt;/div>
+            &lt;/div>
+            &lt;div class="prio-container">
+                &lt;div class="user-container-board">
+                    &lt;div id="assigned-to" class="user-marked blue">${element.assignedTo}&lt;/div>
+                    &lt;div class="user-marked media negativ-gap">EF&lt;/div>
+                &lt;/div>
+                &lt;div class="prio-icon">&lt;img src="./img/prio-low.png" alt="">&lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>`;
+}
+
+/**
+ * Allow dropping elements on drop zones.
+ * @param {Event} ev - The dragover event.
+ */
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+/**
+ * Move a task to a specified status.
+ * @param {string} status - The status to move the task to.
+ */
+function moveTo(status) {
+    todos[currentDraggedElement]['status'] = status;
+    updateHTML();
+}
+
+/**
+ * Filter tasks based on a search term and status.
+ * @param {string} searchTerm - The search term to filter tasks.
+ * @param {string} status - The status to filter tasks.
+ * @returns {Task[]} Array of filtered tasks.
+ */
+function filterTasks(searchTerm, status) {
+    let filteredTasks = todos.filter(task => {
+        return task.status === status &amp;&amp; (task.title.includes(searchTerm) || task.category.includes(searchTerm));
+    });
+    return filteredTasks;
+}
+
+/**
+ * Set the current filter based on input value.
+ */
+function setFilter() {
+    let searchText = document.getElementById('input-field');
+    currentFilter = searchText.value.toLowerCase();
+    updateHTML();
+    searchText.value = '';
+}
+
+const input = document.getElementById('input-field');
+const inputBtn = document.getElementById('search');
+
+input.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        inputBtn.click();
+    }
+});
+
+/**
+ * Close the task card.
+ */
+function closeCard(){    
+    document.getElementById('slide-container').classList.remove('slide-in');
+    setTimeout(() => {
+        document.getElementById('task-slide').classList.add('d-none');
+    }, 800);
+}
+
+/**
+ * Slide open the task card.
+ */
+function slideCard(){
+    const slideCard = document.getElementById('task-slide');
+    slideCard.innerHTML = renderSlideCard();
+    document.getElementById('task-slide').classList.remove('d-none');
+    setTimeout(() => {
+        document.getElementById('slide-container').classList.add('slide-in');
+    }, 100);    
+}
+
+/**
+ * Generate HTML markup for the task slide card.
+ * @returns {string} HTML markup for the task slide card.
+ */
+function renderSlideCard(){
+    return /*html*/ `
+        &lt;div id="slide-container" class="slide-container">
+        &lt;div id="task-slide-container" class="task-slide-container">
+            &lt;div class="task-slide-headline">
+                &lt;div class="task-slide-headline-left">&lt;span class="task-slide-category">User Story&lt;/span>&lt;/div>
+                &lt;div id="task-slide-close" onclick="closeCard()" class="task-slide-headline-right">&lt;img src="./img/close.png" alt="Schließen">&lt;/div>
+            &lt;/div>
+            &lt;span id="task-slide-title" class="task-slide-title">Kochwelt Page &amp; Recipe Recommender&lt;/span>
+            &lt;span id="task-slide-description" class="task-slide-description">Build start page with recipe recommendation.&lt;/span>
+            &lt;div class="task-slide-due-date-container">
+                &lt;span class="task-slide-due-date">Due date: &lt;/span>
+                &lt;span id="task-slide-due-date" class="task-slide-due-date-date">10/05/2023&lt;/span>
+            &lt;/div>
+            &lt;div class="task-slide-prio-container">
+                &lt;span class="task-slide-prio-text">Priority: &lt;/span>
+                &lt;div class="task-slide-prio-text-img">
+                    &lt;span class="task-slide-prio-text-">Medium&lt;/span>
+                    &lt;img id="task-slide-prio-img" src="./img/prio-medium.png" alt="">
+                &lt;/div>
+            &lt;/div>
+            &lt;div class="task-slide-assigned-container">
+                &lt;span class="task-slide-assigned-test">Assigned To:&lt;/span>
+                &lt;div class="task-slide-assigned-user-container">
+                    &lt;div class="task-slide-assigned-user-contact">
+                        &lt;div class="task-slide-assigned-user">
+                            &lt;div class="user-marked blue">SM&lt;/div>
+                            &lt;span class="task-slide-assigned-user-name">Sofia Müller&lt;/span>
+                        &lt;/div>
+                        &lt;button class="task-slide-btn" type="checkbox" disabled>&lt;/button>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+            &lt;div class="task-slide-subtasks-container">
+                &lt;span class="task-slide-subtasks-text">Subtasks&lt;/span>
+                &lt;div class="task-slide-subtasks-tasks">
+                    &lt;div class="task-slide-subtask">
+                        &lt;input class="task-slide-subtask-btn" type="checkbox">
+                        &lt;span class="task-slide-subtask-text">Implement Recipe Recommendation&lt;/span>
+                    &lt;/div>
+                    &lt;div class="task-slide-subtask">
+                        &lt;input class="task-slide-subtask-btn" type="checkbox">
+                        &lt;span class="task-slide-subtask-text">Start Page Layout&lt;/span>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+            &lt;div class="task-slide-delete-edit-container">
+                &lt;div class="task-slide-delete">
+                    &lt;img class="task-slide-delete-edit-img" src="./img/delete.png" alt="">
+                    &lt;span class="task-slide-delete-text">Delete&lt;/span>
+                &lt;/div>
+                &lt;div class="task-slide-placeholder">&lt;/div>
+                &lt;div class="task-slide-edit">
+                    &lt;img class="task-slide-delete-edit-img" src="./img/edit.png" alt="">
+                    &lt;span class="task-slide-edit-text">Edit&lt;/span>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    `
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addBlurEvents">addBlurEvents</a></li><li><a href="global.html#addBlurrEvents">addBlurrEvents</a></li><li><a href="global.html#addFocusBlurEvents">addFocusBlurEvents</a></li><li><a href="global.html#addLoginButtonListener">addLoginButtonListener</a></li><li><a href="global.html#afternoon">afternoon</a></li><li><a href="global.html#allowDrop">allowDrop</a></li><li><a href="global.html#applyBackgroundColor">applyBackgroundColor</a></li><li><a href="global.html#applyHoverButtonBackground">applyHoverButtonBackground</a></li><li><a href="global.html#applyHoverCheckedBackground">applyHoverCheckedBackground</a></li><li><a href="global.html#closeCard">closeCard</a></li><li><a href="global.html#closeMenuOnClickAndOutside">closeMenuOnClickAndOutside</a></li><li><a href="global.html#createAndShowSuccessOverlay">createAndShowSuccessOverlay</a></li><li><a href="global.html#createForgotTemplate">createForgotTemplate</a></li><li><a href="global.html#createResetTemplate">createResetTemplate</a></li><li><a href="global.html#createSuccessMessageTemplate">createSuccessMessageTemplate</a></li><li><a href="global.html#done">done</a></li><li><a href="global.html#errorTextLogIn">errorTextLogIn</a></li><li><a href="global.html#errorTextReset">errorTextReset</a></li><li><a href="global.html#errorTextSignUp">errorTextSignUp</a></li><li><a href="global.html#evening">evening</a></li><li><a href="global.html#extractInitials">extractInitials</a></li><li><a href="global.html#feedback">feedback</a></li><li><a href="global.html#fillInFromLocalStorage">fillInFromLocalStorage</a></li><li><a href="global.html#filterTasks">filterTasks</a></li><li><a href="global.html#forgotPasswordLink">forgotPasswordLink</a></li><li><a href="global.html#generateForgotContent">generateForgotContent</a></li><li><a href="global.html#generateResetContent">generateResetContent</a></li><li><a href="global.html#generateTodoHTML">generateTodoHTML</a></li><li><a href="global.html#getConfirmPasswordInputValue">getConfirmPasswordInputValue</a></li><li><a href="global.html#getConfirmPasswordResetValue">getConfirmPasswordResetValue</a></li><li><a href="global.html#getEmailInputValue">getEmailInputValue</a></li><li><a href="global.html#getGreeting">getGreeting</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getItem">getItem</a></li><li><a href="global.html#getLoggedInUserName">getLoggedInUserName</a></li><li><a href="global.html#getPasswordInputValue">getPasswordInputValue</a></li><li><a href="global.html#getPasswordResetValue">getPasswordResetValue</a></li><li><a href="global.html#handleForgotPasswordClick">handleForgotPasswordClick</a></li><li><a href="global.html#handleLogIn">handleLogIn</a></li><li><a href="global.html#handlePasswordInput">handlePasswordInput</a></li><li><a href="global.html#handlePasswordResetSubmission">handlePasswordResetSubmission</a></li><li><a href="global.html#hideIndexContainer">hideIndexContainer</a></li><li><a href="global.html#hideUserName">hideUserName</a></li><li><a href="global.html#inProgress">inProgress</a></li><li><a href="global.html#includeHTML">includeHTML</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initLogIn">initLogIn</a></li><li><a href="global.html#initRegister">initRegister</a></li><li><a href="global.html#isGuestUser">isGuestUser</a></li><li><a href="global.html#loadUsers">loadUsers</a></li><li><a href="global.html#logIn">logIn</a></li><li><a href="global.html#logOut">logOut</a></li><li><a href="global.html#markDesktopLink">markDesktopLink</a></li><li><a href="global.html#markMobileLink">markMobileLink</a></li><li><a href="global.html#morning">morning</a></li><li><a href="global.html#moveTo">moveTo</a></li><li><a href="global.html#noTasks">noTasks</a></li><li><a href="global.html#privacyCheck">privacyCheck</a></li><li><a href="global.html#rememberCheck">rememberCheck</a></li><li><a href="global.html#removeHoverButtonBackground">removeHoverButtonBackground</a></li><li><a href="global.html#removeHoverCheckedBackground">removeHoverCheckedBackground</a></li><li><a href="global.html#removeSuccessOverlay">removeSuccessOverlay</a></li><li><a href="global.html#renderSlideCard">renderSlideCard</a></li><li><a href="global.html#resetForm">resetForm</a></li><li><a href="global.html#resetFormStyle">resetFormStyle</a></li><li><a href="global.html#resetResetStyle">resetResetStyle</a></li><li><a href="global.html#resetSignUpFormStyle">resetSignUpFormStyle</a></li><li><a href="global.html#saveLoggedInUserData">saveLoggedInUserData</a></li><li><a href="global.html#saveUserDataOnLogin">saveUserDataOnLogin</a></li><li><a href="global.html#setCheckedState">setCheckedState</a></li><li><a href="global.html#setFilter">setFilter</a></li><li><a href="global.html#setItem">setItem</a></li><li><a href="global.html#setUncheckedState">setUncheckedState</a></li><li><a href="global.html#shakePasswordInput">shakePasswordInput</a></li><li><a href="global.html#showForgotContent">showForgotContent</a></li><li><a href="global.html#showForgotRedirect">showForgotRedirect</a></li><li><a href="global.html#showGreeting">showGreeting</a></li><li><a href="global.html#showLoggedInUserInitials">showLoggedInUserInitials</a></li><li><a href="global.html#showPasswordMatchError">showPasswordMatchError</a></li><li><a href="global.html#showResetContent">showResetContent</a></li><li><a href="global.html#showResetMatchError">showResetMatchError</a></li><li><a href="global.html#showResetRedirect">showResetRedirect</a></li><li><a href="global.html#showSuccessMessageAndRedirect">showSuccessMessageAndRedirect</a></li><li><a href="global.html#signUpReset">signUpReset</a></li><li><a href="global.html#signUpUser">signUpUser</a></li><li><a href="global.html#slideCard">slideCard</a></li><li><a href="global.html#startDragging">startDragging</a></li><li><a href="global.html#todo">todo</a></li><li><a href="global.html#toggleActiveClass">toggleActiveClass</a></li><li><a href="global.html#toggleMenu">toggleMenu</a></li><li><a href="global.html#togglePasswordVisibility">togglePasswordVisibility</a></li><li><a href="global.html#togglePrivacyCheck">togglePrivacyCheck</a></li><li><a href="global.html#togglerememberCheck">togglerememberCheck</a></li><li><a href="global.html#updateHTML">updateHTML</a></li><li><a href="global.html#updatePasswordVisibility">updatePasswordVisibility</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Aug 21 2023 14:29:09 GMT+0200 (Central European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -46,6 +46,7 @@ async function signUpUser() {
 
     if (passWord !== confirmPassword) {
         showPasswordMatchError();
+        shakePasswordInput();
         return;
     }
     if (!isChecked) {

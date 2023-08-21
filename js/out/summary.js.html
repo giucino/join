@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: ui_helpers.js</title>
+    <title>JSDoc: Source: summary.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: ui_helpers.js</h1>
+    <h1 class="page-title">Source: summary.js</h1>
 
     
 
@@ -26,146 +26,162 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Marks the active link in the navigation based on the current URL.
- */
-function markDesktopLink() {
-    let currentURL = window.location.href;
-    let links = document.querySelectorAll('.links');
-
-    links.forEach(link => {
-        if (currentURL.includes(link.href)) {
-            link.classList.add('active');
-        } else {
-            link.classList.remove('active');
-        }
-    });
-}
-document.addEventListener('DOMContentLoaded', markDesktopLink);
-
+            <pre class="prettyprint source linenums"><code>document.addEventListener('DOMContentLoaded', function() {
+  getGreeting('day-time');
+  getGreeting('mobile-day-time');
+});
 
 /**
- * Adjusts the mobile navigation links images based on the current screen width.
+ * Displays the appropriate greeting based on the time of the day and user status.
+ * 
+ * @param {string} id - The ID of the HTML element where the greeting will be displayed.
  */
-function markMobileLink() {
-    let screenWidth = window.innerWidth;
-    let links = document.querySelectorAll('.links');
+function getGreeting(id) {
+  const dayTime = document.getElementById(id);
+  const currentHour = new Date().getHours();
+  const isGuest = isGuestUser();
+  
+  morning(dayTime, currentHour, isGuest);
+  afternoon(dayTime, currentHour, isGuest);
+  evening(dayTime, currentHour, isGuest);
 
-    if (screenWidth &lt; 767) {
-        for (let i = 0; i &lt; links.length; i++) {
-            let link = links[i];
-            let image = link.querySelector('img');
-            let isActive = link.classList.contains('active');
-
-            if (isActive) {
-                if (link.id === 'summary-link') {
-                    image.src = 'img/summary_mobile.png';
-                } else if (link.id === 'add_task-link') {
-                    image.src = 'img/edit_square_mobile.png';
-                } else if (link.id === 'board-link') {
-                    image.src = 'img/board_sidebar_mobile.png';
-                } else if (link.id === 'contact-link') {
-                    image.src = 'img/contacts_mobile.png';
-                }
-            } else {
-                if (link.id === 'summary-link') {
-                    image.src = 'img/summary.png';
-                } else if (link.id === 'add_task-link') {
-                    image.src = 'img/edit_square.png';
-                } else if (link.id === 'board-link') {
-                    image.src = 'img/board_sidebar.png';
-                } else if (link.id === 'contact-link') {
-                    image.src = 'img/contacts.png';
-                }
-            }
-        }
-    }
+  showGreeting(isGuest);
+  hideUserName(isGuest);
 }
 
-window.addEventListener('resize', markMobileLink);
-
-
 /**
- * Toggles the display of a menu.
- * @param {Event} event - The event triggered by the toggle action.
+ * Displays "Good morning" greeting during the morning hours.
+ * 
+ * @param {HTMLElement} dayTime - The HTML element where the greeting will be displayed.
+ * @param {number} currentHour - The current hour of the day.
+ * @param {boolean} isGuest - Indicates whether the user is a guest or not.
  */
-function toggleMenu(event) {
-    let menuItems = document.getElementById("logoutBtn");
-
-    event.stopPropagation();
-
-    if (menuItems.style.display === "" || menuItems.style.display === "none") {
-        menuItems.style.display = "flex";
-        menuItems.style.animationName = "slideInFromRight";
+function morning(dayTime, currentHour, isGuest){
+  if (currentHour >= 5 &amp;&amp; currentHour &lt; 12) {
+    if (isGuest) {
+      dayTime.innerHTML = "Good morning";
     } else {
-        menuItems.style.animationName = "slideOutToRight";
-        setTimeout(() => {
-            menuItems.style.display = "none";
-        }, 100);
+      dayTime.innerHTML = "Good morning, ";
     }
+  }
 }
 
-
 /**
- * Closes the menu when clicking outside of it or on certain navigation links.
- * @param {Event} event - The event triggered by the click action.
+ * Displays "Good afternoon" greeting during the afternoon hours.
+ * 
+ * @param {HTMLElement} dayTime - The HTML element where the greeting will be displayed.
+ * @param {number} currentHour - The current hour of the day.
+ * @param {boolean} isGuest - Indicates whether the user is a guest or not.
  */
-function closeMenuOnClickAndOutside(event) {
-    let menuItems = document.getElementById("logoutBtn");
-    let clickedElement = event.target;
-
-    if (!menuItems.contains(clickedElement) || clickedElement.classList.contains("nav-link")) {
-        menuItems.style.animationName = "slideOutToRight";
-        setTimeout(() => {
-            menuItems.style.display = "none";
-        }, 100);
-    }
-}
-
-document.addEventListener("click", closeMenuOnClickAndOutside);
-
-
-/**
- * Logs the user out by clearing stored data and redirecting to the login page.
- */
-function logOut() {
-    let loggedInUserJSON = localStorage.getItem('loggedInUser');
-    if (loggedInUserJSON) {
-        let loggedInUser = JSON.parse(loggedInUserJSON);
-        if (!loggedInUser.rememberStatus) {
-            localStorage.clear();
-        }
-    }
-    window.location.replace('index.html');
-}
-
-
-/**
- * Retrieves the user's initials from local storage.
- * @returns {string} - User's initials or 'G' if not available.
- */
-function getInitials() {
-    let userData = JSON.parse(localStorage.getItem('loggedInUser'));
-
-    if (userData &amp;&amp; userData.initials) {
-        return userData.initials;
-
+function afternoon(dayTime, currentHour, isGuest){
+  if (currentHour >= 12 &amp;&amp; currentHour &lt; 18) {
+    if (isGuest) {
+      dayTime.innerHTML = "Good afternoon";
     } else {
-        return 'G';
+      dayTime.innerHTML = "Good afternoon, ";
     }
+  }
 }
 
+/**
+ * Displays "Good evening" greeting during the evening hours.
+ * 
+ * @param {HTMLElement} dayTime - The HTML element where the greeting will be displayed.
+ * @param {number} currentHour - The current hour of the day.
+ * @param {boolean} isGuest - Indicates whether the user is a guest or not.
+ */
+function evening(dayTime, currentHour, isGuest){
+  if (currentHour >= 18 &amp;&amp; currentHour &lt; 24)
+    if (isGuest) {
+      dayTime.innerHTML = "Good evening";
+    } else {
+      dayTime.innerHTML = "Good evening, ";
+  }
+}
 
 /**
- * Displays the user's initials in the designated HTML element.
+ * Toggles the active class for mobile greetings and containers based on window width.
  */
-function showLoggedInUserInitials() {
-    let loggedInUserData = getInitials();
-    let initials = document.getElementById('initials');
+function toggleActiveClass() {
+  const greetingsMobile = document.getElementById('greetings-mobile');
+  const mobileContainer = document.getElementById('mobile-container');
+  if (window.innerWidth &lt; 1400) {
+    greetingsMobile.classList.add('active-mobile');
+    setTimeout(() => {
+      greetingsMobile.classList.add('d-none');
+      mobileContainer.classList.add('d-none');
+    }, 4000);
+  } else {
+    greetingsMobile.classList.remove('active-mobile');
+    greetingsMobile.classList.remove('d-none');
+    mobileContainer.classList.remove('d-none');
+  }
+}
 
-    if (initials) {
-        initials.textContent = loggedInUserData;
+toggleActiveClass();
+
+window.addEventListener('resize', toggleActiveClass);
+
+/**
+ * Retrieves the username of the logged-in user from local storage.
+ * 
+ * @returns {string} The username of the logged-in user, or an empty string if not available.
+ */
+function getLoggedInUserName() {
+  let userData = JSON.parse(localStorage.getItem('loggedInUser'));
+
+  if (userData &amp;&amp; userData.username) {
+    return userData.username;
+  } else {
+    return '';
+  }
+}
+
+/**
+ * Checks if the current user is a guest (not logged in).
+ * 
+ * @returns {boolean} True if the user is a guest, otherwise false.
+ */
+function isGuestUser() {
+  let userName = getLoggedInUserName();
+  return !userName;
+}
+
+/**
+ * Displays the user's name in the appropriate elements if they are logged in.
+ * 
+ * @param {boolean} isGuest - Indicates whether the user is a guest or not.
+ */
+function showGreeting(isGuest) {
+  let userName = getLoggedInUserName();
+  let userNameDesktop = document.getElementById('user-name');
+  let userNameMobile = document.getElementById('user-name-mobile');
+
+  if (!isGuest) {
+    if (userNameDesktop) {
+      userNameDesktop.textContent = userName;
     }
+    if (userNameMobile) {
+      userNameMobile.textContent = userName;
+    }
+  }
+}
+
+/**
+ * Hides or shows the user's name based on their guest status.
+ * 
+ * @param {boolean} isGuest - Indicates whether the user is a guest or not.
+ */
+function hideUserName(isGuest) { 
+  const userDesktop = document.getElementById('user-name');
+  const userMobile = document.getElementById('user-name-mobile');
+  if (isGuestUser(isGuest)) {
+    userDesktop.classList.add('d-none');
+    userMobile.classList.add('d-none');
+  } else{
+    userDesktop.classList.remove('d-none');
+    userMobile.classList.remove('d-none');
+  }  
 }</code></pre>
         </article>
     </section>

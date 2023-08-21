@@ -29,7 +29,6 @@ function resetFormStyle() {
     for (let i = 0; i < signUpInfoBoxes.length; i++) {
         signUpInfoBoxes[i].style.borderColor = '#D1D1D1';
     }
-    passwordMatchError.style.display = 'none';
 }
 
 
