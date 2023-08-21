@@ -39,7 +39,6 @@ form {
     animation-direction: normal;
     animation-fill-mode: forwards;
     height: 120px;
-    z-index: 999;
 }
 
 .logo-large {
@@ -472,7 +471,7 @@ form {
         align-items: flex-start;
         justify-content: flex-start;
         position: absolute;
-        left: 2%;
+        left: -7%;
         top: -8%;
     }
 
