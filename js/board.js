@@ -239,15 +239,17 @@ function setFilter() {
     updateHTML();
 }
 
-const input = document.getElementById('input-field');
-const inputBtn = document.getElementById('search');
+document.addEventListener('DOMContentLoaded', function() {
+    // Hier können Sie den Code platzieren, der auf das DOM zugreift
+    const input = document.getElementById('input-field');
+    const inputBtn = document.getElementById('search');
 
-input.addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        inputBtn.click();
-    }
+    input.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            inputBtn.click();
+        }
+    });
 });
-
 /**
  * Close the task card.
  */
