@@ -36,6 +36,32 @@ let todos = [{
 }
 ];
 
+
+setItem('tasks', todos);
+
+
+/* let todos = []; */
+
+const getTodos = await getItem('tasks');
+todos = JSON.parse(getTodos);
+console.log(todos);
+
+/* const getdataContacts = await getElement('contacts');
+contacts = JSON.parse(getdataContacts);
+ */
+
+
+   /*  } catch (error) {
+    .then(response => response.json()) // Parse JSON response
+    .then(data => {
+        data.forEach(task => {
+            console.log(task.id); // Gibt die id der jeweiligen Aufgabe aus
+        });
+    })
+    .catch(error => {
+        console.error(error);
+    }); */
+
 let currentDraggedElement;
 let currentFilter = '';
 
