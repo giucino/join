@@ -37,14 +37,14 @@ let todos = [{
 ];
 
 
-setItem('tasks', todos);
+await setItem('tasks', JSON.stringify(todos));
 
 
 /* let todos = []; */
 
 const getTodos = await getItem('tasks');
 todos = JSON.parse(getTodos);
-console.log(todos);
+console.log(getTodos);
 
 /* const getdataContacts = await getElement('contacts');
 contacts = JSON.parse(getdataContacts);
@@ -231,8 +231,8 @@ function filterTasks(searchTerm, status) {
 function setFilter() {
     let searchText = document.getElementById('input-field');
     currentFilter = searchText.value.toLowerCase();
-    updateHTML();
     searchText.value = '';
+    updateHTML();
 }
 
 const input = document.getElementById('input-field');
