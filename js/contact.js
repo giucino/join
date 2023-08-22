@@ -238,8 +238,7 @@ async function saveNewContact() {
     initContact(); // Kontaktliste aktualisieren
 
     // Eingabefelder leeren
-    newNameInput.value = "";
-    newSurenameInput.value = "";
+    fullName.value = "";
     newEmailInput.value = "";
     newTelefonInput.value = "";
 }
