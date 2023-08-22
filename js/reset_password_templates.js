@@ -4,7 +4,7 @@
  */
 function generateForgotContent() {
     return /*html*/ `<img class="white-small-logo" src="img/join_logo_large.png" alt="Join Logo">
-    <form onsubmit="showForgotRedirect(event)" id="resetPasswordForm" class="forgot-password-container">
+    <form onsubmit="showForgotAndRedirect(event)" id="resetPasswordForm" class="forgot-password-container">
         <section class="arrow-container">
             <a href="index.html" class="arrow-left-icon"></a>
         </section>
@@ -23,6 +23,7 @@ function generateForgotContent() {
                     <img class="email-icon" src="img/mail.png" alt="Email">
                 </div>
             </div>
+            <div class="forgot-match-error" id="forgotMatchError">Your Email don´t match. Try again</div>
         </section>
 
         <section class="send-email-container">
@@ -54,7 +55,7 @@ function createForgotTemplate() {
  */
 function generateResetContent() {
     return /*html*/ `<img class="white-small-logo" src="img/join_logo_large.png" alt="Join Logo">
-    <form onsubmit="signUpReset(); return false;" id="resetPasswordReset" class="reset-password-container">
+    <form onsubmit="validateAndSubmitResetForm(); return false;" id="resetPasswordReset" class="reset-password-container">
         <section class="arrow-container">
         <a href="index.html" class="arrow-left-icon"></a>
         </section>
