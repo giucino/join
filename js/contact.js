@@ -46,10 +46,13 @@ let contacts = [
 let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
+let colors = ['#000000', '#1FD7C1', '#462F8A', '#6E52FF', '#9327FF', '#FC71FF', '#FF4646', '#FF4646', '#FF7A00', '#FFBB2B'];
+
 function initContact() {
     sortContacts();
     initLetters();
     loadContacts();
+    saveContacts(contacts);
     removeEmptyLetters();
 }
 
@@ -67,13 +70,13 @@ function initLetters() {
                 <path d="M0.5 1H352.5" stroke="#D1D1D1" stroke-linecap="round"/>
                 </svg>
                 <div id="container-contact-${letter}" class="container-contacts"></div>
-                
             </div>
             `;
     }
 }
 
 function loadContacts() {
+
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
 
@@ -96,6 +99,15 @@ function loadContacts() {
             </div>
           </div>
           `;
+    }
+}
+
+async function saveContacts(contacts) {
+    try {
+        await setItem('contacts', JSON.stringify(contacts));
+        console.log('Kontakte wurden erfolgreich gespeichert.');
+    } catch (error) {
+        console.error('Fehler beim Speichern der Kontakte:', error);
     }
 }
 
@@ -176,7 +188,7 @@ window.onclick = function (event) {
 }
 
 // Neuen Kontakt speichern
-function saveNewContact() {
+async function saveNewContact() {
     let newNameInput = document.getElementById("newName");
     let newSurenameInput = document.getElementById("newSurename");
     let newEmailInput = document.getElementById("newEmail");
@@ -220,6 +232,7 @@ function saveNewContact() {
     };
 
     contacts.push(newContact);
+    await setItem('contacts', JSON.stringify(newContact));
     var modal = document.getElementById("contactModal");
     modal.style.display = "none";
     initContact(); // Kontaktliste aktualisieren
