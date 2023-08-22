@@ -108,18 +108,30 @@
     box-sizing: border-box;
     display: flex;
     width: 528px;
-    padding: 48px 40px;
+    height: 1024px;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 24px;
-    border-radius: 30px;
+    gap: 65px;
+    border-radius: 30px 0px 30px 30px;
     background: #FFF;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.2);
+    /* nuevo */
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: inline-flex;
+}
+
+.modal-content-top {
+    display: flex;
+    width: 436px;
+    padding: 91px 46px;
+    border-radius: 30px 0px 0px 0px;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    background: var(--ligth-blue, #005DFF);
 }
 
 .close {
@@ -127,6 +139,10 @@
     float: right;
     font-size: 28px;
     font-weight: bold;
+    padding-left: 480px;
+    position: absolute;
+    right: 24px;
+    top: 24px;
 }
 
 .close:hover,
@@ -178,6 +194,16 @@
     display: flex;
     align-items: flex-start;
     gap: 60px;
+}
+
+.contact-detailed-text {
+    color: #000;
+    font-family: Open Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    /* 19.2px */
 }
 
 .contact-detailed-images {
@@ -246,4 +272,172 @@
     font-weight: 700;
     line-height: 120%;
     /* 27.6px */
+}
+
+.phone {
+    color: #000;
+
+    /* Version 2/body */
+    font-family: Open Sans;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    /* 19.2px */
+}
+
+.add-contact-buttons {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
+}
+
+.add-contact-buttons-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.button-clear {
+    display: flex;
+    width: 116px;
+    padding: 16px 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    border: 1px solid #647188;
+    background: var(--white, #FFF);
+}
+
+.button-clear-text {
+    color: #647188;
+
+    /* Version 2/t5 */
+    font-family: Open Sans;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    /* 27.6px */
+}
+
+.button-clear-pic {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.button-create-task {
+    display: flex;
+    padding: 16px 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 10px;
+    background: var(--version-2-main-color, #4589FF);
+}
+
+.button-create-task-text {
+    color: #FFF;
+
+    /* Version 2/t5 */
+    font-family: Open Sans;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    /* 27.6px */
+}
+
+.button-create-task-pic {
+    width: 24px;
+    height: 24px;
+}
+
+.modal-logo img {
+    width: 55.123px;
+    height: 66.483px;
+}
+
+.modal-headline {
+    color: var(--white, #FFF);
+    font-family: Open Sans;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+    /* 57.6px */
+}
+
+.modal-text {
+    color: var(--white, #FFF);
+
+    /* Version 2/t5 */
+    font-family: Inter;
+    font-size: 27px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    /* 32.4px */
+}
+
+.modal-input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+.modal-input-img img {
+    width: 120px;
+    height: 120px;
+}
+
+.modal-input-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.modal-input-frame {
+    display: flex;
+    width: 422px;
+    padding: 12px 21px;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--style, #D1D1D1);
+    background: #FFF;
+    justify-content: space-between;
+}
+
+.modal-name-input-inner {
+    display: flex;
+    width: 380px;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.modal-input-field{
+    color: var(--style, #D1D1D1);
+    /* Version 2/t6 */
+    font-family: Open Sans;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    /* 22.8px */
+    outline: none;
+    border: none;
+}
+
+.modal-input-icon{
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
 }

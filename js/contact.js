@@ -76,7 +76,7 @@ function initLetters() {
 function loadContacts() {
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
-        
+
         // Setze die bgcolor Eigenschaft, falls sie noch nicht existiert
         if (!contact.bgcolor) {
             contact.bgcolor = getRandomColor();
@@ -131,16 +131,16 @@ var span = document.getElementsByClassName("close")[0];
 var saveBtn = document.getElementById("saveContactBtn");
 
 function showContactDetails(index) {
-    const contact = contacts[index];
-    const initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
-    const detailsContainer = document.getElementById('contact-details');
+    let contact = contacts[index];
+    let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+    let detailsContainer = document.getElementById('contact-details');
     detailsContainer.innerHTML = `
     <div class="contact-detailed-container">
         <div class="contact-detailed-top">
             <div>
             <div class="initial-big" style="background-color: ${contact.bgcolor || getRandomColor()}">${initials}</div>
             </div>
-            <div>
+            <div class="contact-detailed-mid">
                 <div class="contact-detailed-name">${contact.name} ${contact.surename}</div>
                 <div class="contact-detailed-edit-delete">
                     <div class="contact-detailed-images"><img src="./img/edit.png">Edit</div>
@@ -148,14 +148,14 @@ function showContactDetails(index) {
                 </div>
             </div>
         </div>
-        <div>
-            <div class="contact-detailed-information"> Contact Information </div>
-            <div>Email: </div> <div> ${contact.email}</p>
-            <div>Telefon: </div> <div> ${contact.telefon}</p>
-        </div>
+        <div class="contact-detailed-information"> Contact Information </div>
+             
+            <div class="contact-detailed-text">Email: </div> <div class="email"> ${contact.email}</div>
+            <div class="contact-detailed-text">Telefon: </div> <div class="phone"> ${contact.telefon}</div>
+        
     </div>
     `;
-    detailsContainer.style.display = 'block'; // den Container anzeigen
+    detailsContainer.style.display = 'inline-flex'; // den Container anzeigen
 }
 
 function openModal() {
@@ -182,8 +182,12 @@ function saveNewContact() {
     let newEmailInput = document.getElementById("newEmail");
     let newTelefonInput = document.getElementById("newTelefon");
 
-    let newName = newNameInput.value;
-    let newSurename = newSurenameInput.value;
+    let fullNameInput = document.getElementById("fullName");
+    let nameParts = fullNameInput.value.trim().split(' ');
+
+    let newName = nameParts[0]; // Der erste Teil ist der Vorname
+    let newSurename = nameParts[1] || ''; // Der zweite Teil ist der Nachname, falls vorhanden
+
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
 
