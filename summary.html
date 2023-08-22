@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/fonts.css">
     <script src="./js/app.js"></script>
+    <script src="./js/storage.js"></script>
     <link rel="icon" type="image/png" href="./img/join_logo_blue.png">
     <script src="./js/includeHTML.js"></script>
 </head>
-<body onload="init()">
+<body onload="init(); count()">
     <div w3-include-html="./templates/header.html"></div>
     <div w3-include-html="./templates/aside.html"></div>
     <div id="mobile-container" class="greetings-mobile mobile-ani">
@@ -43,7 +44,7 @@
                         </div>
                         <div class="placeholder"></div>
                         <div class="task-urgent-right">
-                            <h2>October 16, 2023</h2>
+                            <h2 id="deadline">October 16, 2023</h2>
                             <span>Upcoming Deadline</span>
                         </div>
                     </div>
@@ -62,7 +63,7 @@
                         <div class="task-container" onclick="location.href='board.html'">
                             <div class="task-container-inner">
                                 <img class="image-76" src="./img/board.png" alt="">  
-                                <span class="todo-task">0</span>                  
+                                <span id="board-task" class="todo-task">0</span>                  
                             </div>
                             <div class="center w-124 center-text">
                                 <span class="text-color-blue text">Task in <br> Board</span>   
@@ -71,7 +72,7 @@
                         <div class="task-container" onclick="location.href='board.html'">
                             <div class="task-container-inner">
                                 <img class="image-76" src="./img/in-progress.png" alt="">
-                                <span class="todo-task">0</span>
+                                <span id="in-progress-task" class="todo-task">0</span>
                             </div>
                             <div class="center w-124 center-text">
                                 <span class="text-color-blue text">Task in <br> Progress</span>
@@ -82,7 +83,7 @@
                         <div class="task-container" onclick="location.href='board.html'">
                             <div class="task-container-inner">
                                 <img class="image-76" src="./img/awaiting-feedback.png" alt="">
-                                <span class="todo-task">0</span>
+                                <span id="feedback-task" class="todo-task">0</span>
                             </div>
                             <div class="center w-124 center-text">
                                 <span class="text-color-blue text">Awaiting <br> Feedback</span>
@@ -91,7 +92,7 @@
                         <div class="task-container" onclick="location.href='board.html'">
                             <div class="task-container-inner">
                                 <img class="image-76" src="./img//done.png" alt="">
-                                <span class="todo-task">0</span>
+                                <span id="done-task" class="todo-task">0</span>
                             </div>
                             <div class="center w-124 center-text">
                                 <span class="text-color-blue text">Tasks <br> Done</span>
@@ -103,6 +104,7 @@
         </div>  
     </div>  
     <script src="./js/summary.js"></script>
+    <script src="./js/summary_counter.js"></script>
     <script src="./js/ui_helpers.js"></script>
 </body>
 </html>

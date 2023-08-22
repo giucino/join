@@ -155,3 +155,4 @@ function hideUserName(isGuest) {
     userMobile.classList.remove('d-none');
   }  
 }
+

@@ -29,7 +29,6 @@ function resetSignUpFormStyle() {
     signUpInfoBoxes.forEach(box => {
         box.style.borderColor = '#D1D1D1';
     });
-    passwordMatchError.style.display = 'none';
 }
 
 
@@ -41,6 +40,19 @@ function showPasswordMatchError() {
     let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
     let lastSignUpInfoBox = signUpInfoBoxes[signUpInfoBoxes.length - 1];
     lastSignUpInfoBox.style.borderColor = '#FF8190';
+}
+
+
+/**
+ * Applies a shake animation to the password input frame element.
+ */
+function shakePasswordInput() {
+    let passwordInput = document.getElementById('sign-up-input-frame');
+    passwordInput.classList.add('shake-password');
+
+    setTimeout(() => {
+        passwordInput.classList.remove('shake-password');
+    }, 500);
 }
 
 
@@ -267,3 +279,26 @@ function showSuccessMessageAndRedirect() {
         window.location.href = 'index.html';
     }, 1600);
 }
+
+
+/**
+ * Displays an error message indicating that the email is already registered.
+ */
+function showEmailAlreadyRegisteredError() {
+    let emailExists = document.getElementById('emailExistsError');
+    emailExists.style.display = 'block';
+    let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
+    let lastSignUpInfoBox = signUpInfoBoxes[signUpInfoBoxes.length - 1];
+    lastSignUpInfoBox.style.borderColor = '#FF8190';
+}
+
+
+/**
+ * Hides the password match error text.
+ */
+function errorEmailExists() {
+    let emailExists = document.getElementById('emailExistsError');
+    emailExists.style.display = 'none';
+}
+let newEmail = document.getElementById('confirmPassword');
+newEmail.addEventListener('input', errorEmailExists);

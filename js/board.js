@@ -1,40 +1,54 @@
 let todos = [{
-    'id': 0,
+    'id': '',
     'title': 'Putzen',
     'category': 'Design',
     'status': 'todo'
 }, {
-    'id': 1,
+    'id': '',
     'title': 'Kochen',
     'category': 'Sales',
-    'status': 'todo'
+    'status': 'todo',
+    'priority': 'urgent',
+    'dueDate': '28.08.2023'
 }, {
-    'id': 2,
+    'id': '',
     'title': 'Einkaufen',
     'category': 'Tech',
     'status': 'todo'
 }, {
-    'id': 3,
+    'id': '',
     'title': 'Einkaufen',
     'category': 'Tech',
     'status': 'feedback'
 }, {
-    'id': 4,
+    'id': '',
     'title': 'Putzen',
     'category': 'Sales',
     'status': 'todo'
 }, {
-    'id': 5,
+    'id': '',
     'title': 'Einkaufen',
     'category': 'Backoffice',
     'status': 'feedback'
 }, {
-    'id': 6,
+    'id': '',
     'title': 'Einkaufen',
     'category': 'Tech',
     'status': 'done'
 }
 ];
+
+
+async function pushData(){
+    await setItem('tasks', JSON.stringify(todos));
+}
+
+
+async function loadData(){
+    const getTodos = await getItem('tasks');
+    todos = JSON.parse(getTodos);
+    console.log(todos);
+}
 
 let currentDraggedElement;
 let currentFilter = '';
@@ -44,11 +58,20 @@ let currentFilter = '';
  * Calls functions to update HTML for each category.
  */
 async function updateHTML() {
+    pushData();
+    loadData();
     todo();
     inProgress();
     feedback();
     done();    
     noTasks()
+}
+
+function getIndex(){
+    let index = todos;
+    for (let i = 0; i < index.length; i++) {
+        const element = index[i];       
+    }
 }
 
 /**
@@ -59,11 +82,14 @@ function todo() {
     const todoContainer = document.getElementById('todo');
     todoContainer.innerHTML = '';
 
+    for (let i = 0; i < filteredTodo.length; i++) {
+        const todo = filteredTodo[i];
+    }
     if (filteredTodo.length === 0) {
         todoContainer.innerHTML += noTasks();
     } else {
-        filteredTodo.forEach(task => {
-            todoContainer.innerHTML += generateTodoHTML(task);
+        filteredTodo.forEach((task, i) => {
+            todoContainer.innerHTML += generateTodoHTML(task, i);
         });
     }
 }
@@ -76,11 +102,14 @@ function inProgress(){
     const inProgressContainer = document.getElementById('in-progress');
     inProgressContainer.innerHTML = '';
 
+    for (let i = 0; i < filteredInProgress.length; i++) {
+        const progress = filteredInProgress[i];
+    }
     if (filteredInProgress.length === 0) {
         inProgressContainer.innerHTML += noTasks();
     } else {
-        filteredInProgress.forEach(task => {
-            inProgressContainer.innerHTML += generateTodoHTML(task);
+        filteredInProgress.forEach((task, i) => {
+            inProgressContainer.innerHTML += generateTodoHTML(task, i);
         });
     }
 }
@@ -93,11 +122,14 @@ function feedback(){
     const feedbackContainer = document.getElementById('feedback');
     feedbackContainer.innerHTML = '';
 
+    for (let i = 0; i < filteredFeedback.length; i++) {
+        const feedback = filteredFeedback[i];
+    }
     if (filteredFeedback.length === 0) {
         feedbackContainer.innerHTML += noTasks();
     } else {
-        filteredFeedback.forEach(task => {
-            feedbackContainer.innerHTML += generateTodoHTML(task);
+        filteredFeedback.forEach((task, i) => {
+            feedbackContainer.innerHTML += generateTodoHTML(task, i);
         });
     }
 }
@@ -110,11 +142,14 @@ function done(){
     const doneContainer = document.getElementById('done');
     doneContainer.innerHTML = '';
 
+    for (let i = 0; i < filteredDone.length; i++) {
+        const done = filteredDone[i];
+    }
     if (filteredDone.length === 0) {
         doneContainer.innerHTML += noTasks();
     } else {
-        filteredDone.forEach(task => {
-            doneContainer.innerHTML += generateTodoHTML(task);
+        filteredDone.forEach((task, i) => {
+            doneContainer.innerHTML += generateTodoHTML(task, i);
         });
     }
 }
@@ -136,6 +171,7 @@ function noTasks(){
  */
 function startDragging(id) {
     currentDraggedElement = id;
+    console.log(currentDraggedElement);
 }
 
 /**
@@ -143,9 +179,9 @@ function startDragging(id) {
  * @param {Task} element - The task object to generate HTML for.
  * @returns {string} HTML markup for the task element.
  */
-function generateTodoHTML(element) {
+function generateTodoHTML(element, i) {
     return /*html*/`
-    <div id="board-card" onclick="slideCard()" draggable="true" ondragstart="startDragging(${element['id']})" class="content-container">
+    <div id="board-card" onclick="slideCard()" draggable="true" ondragstart="startDragging(${i})" class="content-container">
         <div class="content-container-inner">
             <div class="category">${element.category}</div>
             <div class="title-content">
@@ -182,8 +218,9 @@ function allowDrop(ev) {
  * @param {string} status - The status to move the task to.
  */
 function moveTo(status) {
-    todos[currentDraggedElement]['status'] = status;
+    todos[currentDraggedElement].status = status;
     updateHTML();
+    pushData();
 }
 
 /**
@@ -205,19 +242,20 @@ function filterTasks(searchTerm, status) {
 function setFilter() {
     let searchText = document.getElementById('input-field');
     currentFilter = searchText.value.toLowerCase();
-    updateHTML();
     searchText.value = '';
+    updateHTML();
 }
 
-const input = document.getElementById('input-field');
-const inputBtn = document.getElementById('search');
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('input-field');
+    const inputBtn = document.getElementById('search');
 
-input.addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        inputBtn.click();
-    }
+    input.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            inputBtn.click();
+        }
+    });
 });
-
 /**
  * Close the task card.
  */
@@ -229,22 +267,33 @@ function closeCard(){
 }
 
 /**
+ * Slideanimation for the task card.
+ */
+function slideCardAnimation(){
+    document.getElementById('task-slide').classList.remove('d-none');
+    setTimeout(() => {
+        document.getElementById('slide-container').classList.add('slide-in');
+    }, 100);   
+}
+
+/**
  * Slide open the task card.
  */
 function slideCard(){
     const slideCard = document.getElementById('task-slide');
-    slideCard.innerHTML = renderSlideCard();
-    document.getElementById('task-slide').classList.remove('d-none');
-    setTimeout(() => {
-        document.getElementById('slide-container').classList.add('slide-in');
-    }, 100);    
+    let index = todos;
+    for (let i = 0; i < index.length; i++) {
+        const element = index[i];       
+    }
+    slideCard.innerHTML = renderSlideCard(element, i);
+    slideCardAnimation();
 }
 
 /**
  * Generate HTML markup for the task slide card.
  * @returns {string} HTML markup for the task slide card.
  */
-function renderSlideCard(){
+function renderSlideCard(element, i){
     return /*html*/ `
         <div id="slide-container" class="slide-container">
         <div id="task-slide-container" class="task-slide-container">

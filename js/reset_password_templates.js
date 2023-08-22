@@ -4,7 +4,7 @@
  */
 function generateForgotContent() {
     return /*html*/ `<img class="white-small-logo" src="img/join_logo_large.png" alt="Join Logo">
-    <form onsubmit="showForgotRedirect()" id="resetPasswordForm" class="forgot-password-container">
+    <form onsubmit="showForgotAndRedirect(event)" id="resetPasswordForm" class="forgot-password-container">
         <section class="arrow-container">
             <a href="index.html" class="arrow-left-icon"></a>
         </section>
@@ -19,14 +19,15 @@ function generateForgotContent() {
         <section class="email-input-container">
             <div class="email-input-section">
                 <div class="email-input-frame">
-                    <input id="email" required type="email" class="email-input" placeholder="Email">
+                    <input id="emailForgot" required type="email" class="email-input" name="email" autocomplete="email" placeholder="Email">
                     <img class="email-icon" src="img/mail.png" alt="Email">
                 </div>
             </div>
+            <div class="forgot-match-error" id="forgotMatchError">Your Email don´t match. Try again</div>
         </section>
 
         <section class="send-email-container">
-            <button class="send-email-btn" id="sendEmailButton">Send me the email</button>
+            <button type="submit" class="send-email-btn" id="sendEmailButton">Send me the email</button>
         </section>
     </form>
     `;
@@ -48,14 +49,13 @@ function createForgotTemplate() {
     `;
 }
 
-
 /**
  * Generates the HTML content for the "Reset Password" form.
  * @returns {string} - The generated HTML content for the reset form.
  */
 function generateResetContent() {
     return /*html*/ `<img class="white-small-logo" src="img/join_logo_large.png" alt="Join Logo">
-    <form onsubmit="showResetRedirect()" class="reset-password-container">
+    <form onsubmit="validateAndSubmitResetForm(); return false;" id="resetPasswordReset" class="reset-password-container">
         <section class="arrow-container">
         <a href="index.html" class="arrow-left-icon"></a>
         </section>
@@ -74,15 +74,15 @@ function generateResetContent() {
             </div>
             <div class="confirm-password-frame">
                 <div class="password-input-section">
-                    <div class="password-input-line">
+                    <div id="password-input-line" class="password-input-line">
                         <input id="confirmResetPassword" required type="text" class="password-input" placeholder="Confirm password" autocomplete="current-password" minlength="4">
                     </div>
                 </div>
-                <div class="password-match-error">Your Passwords don´t match. Try again</div>
+                <div class="reset-match-error" id="resetMatchError">Your Passwords don´t match. Try again</div>
             </div>
         </section>
         <section class="continue-btn-container">
-            <button id="resetButton" class="continue-btn">Continue</button>
+            <button type="submit" id="resetButton" class="continue-btn">Continue</button>
         </section>
     </form>
     `;

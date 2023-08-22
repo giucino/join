@@ -39,7 +39,6 @@ form {
     animation-direction: normal;
     animation-fill-mode: forwards;
     height: 120px;
-    z-index: 999;
 }
 
 .logo-large {
@@ -202,6 +201,7 @@ form {
     width: 24px;
     height: 24px;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
 .password-match-error {
@@ -213,7 +213,7 @@ form {
     word-wrap: break-word;
     color: var(--error, #FF8190);
     display: none;
-    margin-top: -20px;
+    margin-top: -40px;
 }
 
 .remember-me-container {
@@ -269,7 +269,7 @@ form {
 
 .forgot-password-link:hover {
     text-decoration: underline;
-    font-weight: 600;
+    scale: 1.06;
 }
 
 .log-in-btn-section {
@@ -472,7 +472,7 @@ form {
         align-items: flex-start;
         justify-content: flex-start;
         position: absolute;
-        left: 2%;
+        left: -7%;
         top: -8%;
     }
 
