@@ -1,5 +1,6 @@
 async function count() {
     await loadData();
+    countUrgent();
     countBoard()
     countTodo();
     countInProgress();
@@ -17,11 +18,22 @@ async function loadData(){
     console.log(counter.dueDate);
 }
 
+function loadDuDate (){
+    const dueDateString = counter.dueDate;
+    const dueDate = new Date(dueDateString);
+    const day = dueDate.getDate(); 
+    const month = dueDate.getMonth() + 1;
+    const year = dueDate.getFullYear(); 
+    console.log(dueDate);
+    console.log(year);
+}
+
 function countUrgent() {
+    const urgent = counter.filter(item => item.priority === 'high').length;
     const countUrgentElement = document.getElementById('urgent-task');
     const deadline = document.getElementById('deadline');
-    countUrgentElement.innerHTML = counter.priority;
-    deadline.innerHTML = counter.dueDate;
+    countUrgentElement.innerHTML = urgent;
+    deadline.innerHTML = loadDuDate();
 }
 
 function countBoard() {
