@@ -39,7 +39,7 @@ let contacts = [
         name: 'Emilia',
         surename: 'Koch',
         email: 'emilia.koch@example.com',
-        telefon: '789-012-3456'
+        telefon: '789-012-3456',
     }
 ];
 
@@ -48,9 +48,10 @@ let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 
 let colors = ['#000000', '#1FD7C1', '#462F8A', '#6E52FF', '#9327FF', '#FC71FF', '#FF4646', '#FF4646', '#FF7A00', '#FFBB2B'];
 
-function initContact() {
+async function initContact() {
     sortContacts();
     initLetters();
+    await loadAllContacts();
     loadContacts();
     saveContacts(contacts);
     removeEmptyLetters();
@@ -75,8 +76,7 @@ function initLetters() {
     }
 }
 
-function loadContacts() {
-
+async function loadContacts() {
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
 
@@ -99,6 +99,15 @@ function loadContacts() {
             </div>
           </div>
           `;
+    }
+    await getItem('contacts', JSON.stringify(contacts));
+}
+
+async function loadAllContacts() {
+    try {
+        contacts = JSON.parse(await getItem('contacts'));
+    } catch (e) {
+        console.error('Loading error:', e);
     }
 }
 
@@ -189,8 +198,6 @@ window.onclick = function (event) {
 
 // Neuen Kontakt speichern
 async function saveNewContact() {
-    let newNameInput = document.getElementById("newName");
-    let newSurenameInput = document.getElementById("newSurename");
     let newEmailInput = document.getElementById("newEmail");
     let newTelefonInput = document.getElementById("newTelefon");
 
@@ -232,7 +239,7 @@ async function saveNewContact() {
     };
 
     contacts.push(newContact);
-    await setItem('contacts', JSON.stringify(newContact));
+    await setItem('contacts', JSON.stringify(contacts));
     var modal = document.getElementById("contactModal");
     modal.style.display = "none";
     initContact(); // Kontaktliste aktualisieren
