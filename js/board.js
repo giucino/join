@@ -1,4 +1,4 @@
-let todos = [{
+/* let todos = [{
     'id': '',
     'title': 'Putzen',
     'category': 'Design',
@@ -9,7 +9,7 @@ let todos = [{
     'category': 'Sales',
     'status': 'todo',
     'priority': 'urgent',
-    'dueDate': '28.08.2023'
+    'dueDate': '28-08-2023'
 }, {
     'id': '',
     'title': 'Einkaufen',
@@ -19,7 +19,8 @@ let todos = [{
     'id': '',
     'title': 'Einkaufen',
     'category': 'Tech',
-    'status': 'feedback'
+    'status': 'feedback',
+    'dueDate': '15-10-2023'
 }, {
     'id': '',
     'title': 'Putzen',
@@ -36,9 +37,9 @@ let todos = [{
     'category': 'Tech',
     'status': 'done'
 }
-];
-
-
+]; */
+let todos = [];
+console.log(todos);
 async function pushData(){
     await setItem('tasks', JSON.stringify(todos));
 }
@@ -58,8 +59,8 @@ let currentFilter = '';
  * Calls functions to update HTML for each category.
  */
 async function updateHTML() {
-    pushData();
     loadData();
+    pushData();
     todo();
     inProgress();
     feedback();
@@ -181,7 +182,7 @@ function startDragging(id) {
  */
 function generateTodoHTML(element, i) {
     return /*html*/`
-    <div id="board-card" onclick="slideCard()" draggable="true" ondragstart="startDragging(${i})" class="content-container">
+    <div id="board-card" onclick="slideCard(${i})" draggable="true" ondragstart="startDragging(${i})" class="content-container">
         <div class="content-container-inner">
             <div class="category">${element.category}</div>
             <div class="title-content">
@@ -279,12 +280,8 @@ function slideCardAnimation(){
 /**
  * Slide open the task card.
  */
-function slideCard(){
+function slideCard(element, i){
     const slideCard = document.getElementById('task-slide');
-    let index = todos;
-    for (let i = 0; i < index.length; i++) {
-        const element = index[i];       
-    }
     slideCard.innerHTML = renderSlideCard(element, i);
     slideCardAnimation();
 }
