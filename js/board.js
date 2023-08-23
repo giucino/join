@@ -1,51 +1,51 @@
 let todos = [{
-    'id': '',
+    'id': 0,
     'title': 'Putzen',
     'category': 'Design',
     'status': 'todo',
     'priority': 'low'
 }, {
-    'id': '',
+    'id': 1,
     'title': 'Kochen',
     'category': 'Sales',
     'status': 'todo',
     'priority': 'high',
     'dueDate': '2023-08-28'
 }, {
-    'id': '',
-    'title': 'Einkaufen',
+    'id': 2,
+    'title': 'Waschen',
     'category': 'Tech',
     'status': 'todo',
     'priority': 'medium'
 }, {
-    'id': '',
-    'title': 'Einkaufen',
+    'id': 3,
+    'title': 'Saugen',
     'category': 'Tech',
     'status': 'feedback',
     'dueDate': '2023-10-28',
     'priority': 'low'
 }, {
-    'id': '',
-    'title': 'Putzen',
+    'id': 4,
+    'title': 'Schlafen',
     'category': 'Sales',
     'status': 'todo',
     'priority': 'medium'
 }, {
-    'id': '',
+    'id': 5,
     'title': 'Einkaufen',
     'category': 'Backoffice',
     'status': 'feedback',
     'priority': 'low'
 }, {
-    'id': '',
-    'title': 'Einkaufen',
+    'id': 6,
+    'title': 'Tanzen',
     'category': 'Tech',
     'status': 'done',
     'priority': 'high'
 }
 ]; 
-/* let todos = []; */
-console.log(todos);
+
+
 async function pushData(){
     await setItem('tasks', JSON.stringify(todos));
 }
@@ -65,20 +65,13 @@ let currentFilter = '';
  * Calls functions to update HTML for each category.
  */
 async function updateHTML() {
-    loadData();
-    pushData();
+    /* await pushData(); */
+    await loadData();
     todo();
     inProgress();
     feedback();
     done();    
     noTasks()
-}
-
-function getIndex(){
-    let index = todos;
-    for (let i = 0; i < index.length; i++) {
-        const element = index[i];       
-    }
 }
 
 /**
@@ -88,15 +81,11 @@ function todo() {
     let filteredTodo = todos.filter(task => task['status'] === 'todo' && (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
     const todoContainer = document.getElementById('todo');
     todoContainer.innerHTML = '';
-
-    for (let i = 0; i < filteredTodo.length; i++) {
-        const todo = filteredTodo[i];
-    }
     if (filteredTodo.length === 0) {
         todoContainer.innerHTML += noTasks();
     } else {
-        filteredTodo.forEach((task, i) => {
-            todoContainer.innerHTML += generateTodoHTML(task, i);
+        filteredTodo.forEach(task => {
+            todoContainer.innerHTML += generateTasksHTML(task);
         });
     }
 }
@@ -108,15 +97,11 @@ function inProgress(){
     let filteredInProgress = todos.filter(task => task['status'] === 'inprogress' && (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
     const inProgressContainer = document.getElementById('in-progress');
     inProgressContainer.innerHTML = '';
-
-    for (let i = 0; i < filteredInProgress.length; i++) {
-        const progress = filteredInProgress[i];
-    }
     if (filteredInProgress.length === 0) {
         inProgressContainer.innerHTML += noTasks();
     } else {
-        filteredInProgress.forEach((task, i) => {
-            inProgressContainer.innerHTML += generateTodoHTML(task, i);
+        filteredInProgress.forEach(task => {
+            inProgressContainer.innerHTML += generateTasksHTML(task);
         });
     }
 }
@@ -128,15 +113,11 @@ function feedback(){
     let filteredFeedback = todos.filter(task => task['status'] === 'feedback' && (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
     const feedbackContainer = document.getElementById('feedback');
     feedbackContainer.innerHTML = '';
-
-    for (let i = 0; i < filteredFeedback.length; i++) {
-        const feedback = filteredFeedback[i];
-    }
     if (filteredFeedback.length === 0) {
         feedbackContainer.innerHTML += noTasks();
     } else {
-        filteredFeedback.forEach((task, i) => {
-            feedbackContainer.innerHTML += generateTodoHTML(task, i);
+        filteredFeedback.forEach(task => {
+            feedbackContainer.innerHTML += generateTasksHTML(task);
         });
     }
 }
@@ -148,15 +129,11 @@ function done(){
     let filteredDone = todos.filter(task => task['status'] === 'done' && (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
     const doneContainer = document.getElementById('done');
     doneContainer.innerHTML = '';
-
-    for (let i = 0; i < filteredDone.length; i++) {
-        const done = filteredDone[i];
-    }
     if (filteredDone.length === 0) {
         doneContainer.innerHTML += noTasks();
     } else {
-        filteredDone.forEach((task, i) => {
-            doneContainer.innerHTML += generateTodoHTML(task, i);
+        filteredDone.forEach(task => {
+            doneContainer.innerHTML += generateTasksHTML(task);
         });
     }
 }
@@ -172,28 +149,21 @@ function noTasks(){
         </div>`;
 }
 
-/**
- * Set the currently dragged element.
- * @param {number} id - The id of the element being dragged.
- */
-function startDragging(id) {
-    currentDraggedElement = id;
-    console.log(currentDraggedElement);
-}
+
 
 /**
  * Generate HTML markup for a task element.
  * @param {Task} element - The task object to generate HTML for.
  * @returns {string} HTML markup for the task element.
  */
-function generateTodoHTML(element, i) {
+function generateTasksHTML(element) {
     const priorityImageSrc = setPriorityImage(element.priority);
     return /*html*/`
-    <div id="board-card" onclick="slideCard(${i})" draggable="true" ondragstart="startDragging(${i})" class="content-container">
+    <div id="board-card" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container">
         <div class="content-container-inner">
             <div class="category">${element.category}</div>
             <div class="title-content">
-                <div class="title">${element.title}</div>
+                <div class="title">${element.title}${element.id}</div>
                 <div id="description" class="content">${element.description}</div>
             </div>
             <div class="subtasks-container">
@@ -226,6 +196,15 @@ function setPriorityImage(priority) {
 }
 
 /**
+ * Set the currently dragged element.
+ * @param {number} id - The id of the element being dragged.
+ */
+function startDragging(id) {
+    currentDraggedElement = id;
+    console.log(currentDraggedElement);
+}
+
+/**
  * Allow dropping elements on drop zones.
  * @param {Event} ev - The dragover event.
  */
@@ -238,10 +217,12 @@ function allowDrop(ev) {
  * @param {string} status - The status to move the task to.
  */
 function moveTo(status) {
+    console.log(todos[currentDraggedElement].status);
     todos[currentDraggedElement].status = status;
     console.log(todos[currentDraggedElement].status);
-    updateHTML();
     pushData();
+    loadData();
+    updateHTML();
 }
 
 /**
@@ -311,24 +292,25 @@ function slideCard(element, i){
  * @returns {string} HTML markup for the task slide card.
  */
 function renderSlideCard(element, i){
+    const priorityImageSrc = setPriorityImage(element.priority);
     return /*html*/ `
         <div id="slide-container" class="slide-container">
         <div id="task-slide-container" class="task-slide-container">
             <div class="task-slide-headline">
-                <div class="task-slide-headline-left"><span class="task-slide-category">User Story</span></div>
+                <div class="task-slide-headline-left"><span class="task-slide-category">${element.category}</span></div>
                 <div id="task-slide-close" onclick="closeCard()" class="task-slide-headline-right"><img src="./img/close.png" alt="Schließen"></div>
             </div>
-            <span id="task-slide-title" class="task-slide-title">Kochwelt Page & Recipe Recommender</span>
-            <span id="task-slide-description" class="task-slide-description">Build start page with recipe recommendation.</span>
+            <span id="task-slide-title" class="task-slide-title">${element.title}</span>
+            <span id="task-slide-description" class="task-slide-description">${element.description}</span>
             <div class="task-slide-due-date-container">
                 <span class="task-slide-due-date">Due date: </span>
-                <span id="task-slide-due-date" class="task-slide-due-date-date">10/05/2023</span>
+                <span id="task-slide-due-date" class="task-slide-due-date-date">${element.dueDate}</span>
             </div>
             <div class="task-slide-prio-container">
                 <span class="task-slide-prio-text">Priority: </span>
                 <div class="task-slide-prio-text-img">
                     <span class="task-slide-prio-text-">Medium</span>
-                    <img id="task-slide-prio-img" src="./img/prio-medium.png" alt="">
+                    <img id="task-slide-prio-img" src="${priorityImageSrc}" alt="">
                 </div>
             </div>
             <div class="task-slide-assigned-container">
