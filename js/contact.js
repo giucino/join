@@ -53,7 +53,7 @@ async function initContact() {
     initLetters();
     await loadAllContacts();
     loadContacts();
-    
+    saveContacts(contacts);
     removeEmptyLetters();
 }
 
@@ -108,6 +108,15 @@ async function loadAllContacts() {
         contacts = JSON.parse(await getItem('contacts'));
     } catch (e) {
         console.error('Loading error:', e);
+    }
+}
+
+async function saveContacts(contacts) {
+    try {
+        await setItem('contacts', JSON.stringify(contacts));
+        console.log('Kontakte wurden erfolgreich gespeichert.');
+    } catch (error) {
+        console.error('Fehler beim Speichern der Kontakte:', error);
     }
 }
 
