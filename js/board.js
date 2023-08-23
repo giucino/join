@@ -1,44 +1,50 @@
-/* let todos = [{
+let todos = [{
     'id': '',
     'title': 'Putzen',
     'category': 'Design',
-    'status': 'todo'
+    'status': 'todo',
+    'priority': 'low'
 }, {
     'id': '',
     'title': 'Kochen',
     'category': 'Sales',
     'status': 'todo',
-    'priority': 'urgent',
-    'dueDate': '28-08-2023'
+    'priority': 'high',
+    'dueDate': '2023-08-28'
 }, {
     'id': '',
     'title': 'Einkaufen',
     'category': 'Tech',
-    'status': 'todo'
+    'status': 'todo',
+    'priority': 'medium'
 }, {
     'id': '',
     'title': 'Einkaufen',
     'category': 'Tech',
     'status': 'feedback',
-    'dueDate': '15-10-2023'
+    'dueDate': '2023-10-28',
+    'priority': 'low'
 }, {
     'id': '',
     'title': 'Putzen',
     'category': 'Sales',
-    'status': 'todo'
+    'status': 'todo',
+    'priority': 'medium'
 }, {
     'id': '',
     'title': 'Einkaufen',
     'category': 'Backoffice',
-    'status': 'feedback'
+    'status': 'feedback',
+    'priority': 'low'
 }, {
     'id': '',
     'title': 'Einkaufen',
     'category': 'Tech',
-    'status': 'done'
+    'status': 'done',
+    'priority': 'high'
 }
-]; */
-let todos = [];
+]; 
+/* let todos = []; */
 console.log(todos);
 async function pushData(){
     await setItem('tasks', JSON.stringify(todos));
@@ -181,6 +187,7 @@ function startDragging(id) {
  * @returns {string} HTML markup for the task element.
  */
 function generateTodoHTML(element, i) {
+    const priorityImageSrc = setPriorityImage(element.priority);
     return /*html*/`
     <div id="board-card" onclick="slideCard(${i})" draggable="true" ondragstart="startDragging(${i})" class="content-container">
         <div class="content-container-inner">
@@ -200,10 +207,22 @@ function generateTodoHTML(element, i) {
                     <div id="assigned-to" class="user-marked blue">${element.assignedTo}</div>
                     <div class="user-marked media negativ-gap">EF</div>
                 </div>
-                <div class="prio-icon"><img src="./img/prio-low.png" alt=""></div>
+                <div class="prio-icon"><img src="${priorityImageSrc}" alt=""></div>
             </div>
         </div>
     </div>`;
+}
+
+function setPriorityImage(priority) {
+    let imageSrc = '';
+    if (priority === 'low') {
+        imageSrc = './img/prio-low.png';
+    } else if (priority === 'medium') {
+        imageSrc = './img/prio-medium.png';
+    } else if (priority === 'high') {
+        imageSrc = './img/prio-high.png';
+    }
+    return imageSrc;
 }
 
 /**
@@ -220,6 +239,7 @@ function allowDrop(ev) {
  */
 function moveTo(status) {
     todos[currentDraggedElement].status = status;
+    console.log(todos[currentDraggedElement].status);
     updateHTML();
     pushData();
 }
