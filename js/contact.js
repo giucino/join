@@ -53,7 +53,7 @@ async function initContact() {
     initLetters();
     await loadAllContacts();
     loadContacts();
-    saveContacts(contacts);
+    
     removeEmptyLetters();
 }
 
@@ -111,15 +111,6 @@ async function loadAllContacts() {
     }
 }
 
-async function saveContacts(contacts) {
-    try {
-        await setItem('contacts', JSON.stringify(contacts));
-        console.log('Kontakte wurden erfolgreich gespeichert.');
-    } catch (error) {
-        console.error('Fehler beim Speichern der Kontakte:', error);
-    }
-}
-
 function removeEmptyLetters() {
     for (let i = 0; i < letters.length; i++) {
         let letter = letters[i];
@@ -159,7 +150,9 @@ function showContactDetails(index) {
     <div class="contact-detailed-container">
         <div class="contact-detailed-top">
             <div>
-            <div class="initial-big" style="background-color: ${contact.bgcolor || getRandomColor()}">${initials}</div>
+                <div class="initial-big" style="background-color: ${contact.bgcolor || getRandomColor()}">
+                    ${initials}
+                </div>
             </div>
             <div class="contact-detailed-mid">
                 <div class="contact-detailed-name">${contact.name} ${contact.surename}</div>
@@ -177,6 +170,14 @@ function showContactDetails(index) {
     </div>
     `;
     detailsContainer.style.display = 'inline-flex'; // den Container anzeigen
+    // Hervorheben des ausgewählten Contacts
+    let allContacts = document.querySelectorAll('.contact');
+    allContacts.forEach(contact => {
+        contact.classList.remove('contact-selected');
+    });
+    let selectedContact = allContacts[index];
+    selectedContact.classList.add('contact-selected');
+
 }
 
 function openModal() {
