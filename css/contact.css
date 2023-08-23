@@ -1,6 +1,6 @@
 .container {
     display: inline-flex;
-    padding: 168px 38px 4px 279px;
+    padding: 20px;
     flex-direction: column;
     align-items: center;
     gap: 24px;
@@ -8,6 +8,8 @@
     height: 928px;
     overflow-y: auto;
     flex-shrink: 0;
+    margin-top: 97px;
+    margin-left: 234px;
 }
 
 .add-person-button {
@@ -67,9 +69,26 @@
     background: #FFF;
 }
 
+.contact-selected {
+    background-color: #4589FF;
+    /* leicht blau */
+    /* Version 2/t6 */
+    font-family: Open Sans;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    /* 22.8px */
+}
+
+.contact-selected .name,
+.contact-selected .email {
+    color: #FFFFFF;
+    /* weiß */
+}
+
 .name {
     color: #000;
-
     /* Version 2/t6 */
     font-family: Open Sans;
     font-size: 19px;
@@ -180,7 +199,8 @@
 }
 
 #contact-details {
-    padding: 200px;
+    padding: 100px;
+    margin-top: 100px;
 }
 
 .contact-detailed-container {
@@ -423,7 +443,7 @@
     flex-shrink: 0;
 }
 
-.modal-input-field{
+.modal-input-field {
     color: var(--style, #D1D1D1);
     /* Version 2/t6 */
     font-family: Open Sans;
@@ -436,7 +456,7 @@
     border: none;
 }
 
-.modal-input-icon{
+.modal-input-icon {
     width: 24px;
     height: 24px;
     flex-shrink: 0;
