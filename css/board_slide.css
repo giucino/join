@@ -253,6 +253,7 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
+    cursor: pointer;
 }
 
 .task-slide-delete-edit-img{
@@ -279,7 +280,9 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
+    cursor: pointer;
 }
+
 .task-slide-edit-text{
     color: #2A3647;
     font-size: 16px;
