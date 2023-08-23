@@ -166,8 +166,8 @@ function showContactDetails(index) {
             <div class="contact-detailed-mid">
                 <div class="contact-detailed-name">${contact.name} ${contact.surename}</div>
                 <div class="contact-detailed-edit-delete">
-                    <div class="contact-detailed-images"><img src="./img/edit.png">Edit</div>
-                    <div class="contact-detailed-images"><img src="./img/delete.png">Delete</div>
+                    <div class="contact-detailed-images" onclick="editContact(${index})"><img src="./img/edit.png">Edit</div>
+                    <div class="contact-detailed-images" onclick="deleteContact(${index})"><img src="./img/delete.png">Delete</div>
                 </div>
             </div>
         </div>
@@ -268,4 +268,71 @@ function getRandomColor() {
         color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
+}
+
+async function deleteContact(index) {
+    if (confirm("Möchten Sie diesen Kontakt wirklich löschen?")) {
+        contacts.splice(index, 1);
+        await setItem('contacts', JSON.stringify(contacts));
+        initContact(); // Aktualisieren Sie die Kontaktliste nach dem Löschen
+    }
+}
+
+function editContact(index) {
+    let contact = contacts[index];
+    document.getElementById("fullName").value = `${contact.name} ${contact.surename}`;
+    document.getElementById("newEmail").value = contact.email;
+    document.getElementById("newTelefon").value = contact.telefon;
+    openModal();
+
+    // Speichern-Button aktualisieren, um die Bearbeitungsfunktion aufzurufen
+    saveContactBtn.onclick = function () {
+        updateContact(index);
+    }
+}
+
+async function updateContact(index) {
+    let newEmailInput = document.getElementById("newEmail");
+    let newTelefonInput = document.getElementById("newTelefon");
+
+    let fullNameInput = document.getElementById("fullName");
+    let nameParts = fullNameInput.value.trim().split(' ');
+
+    let newName = nameParts[0];
+    let newSurename = nameParts[1] || '';
+
+    let newEmail = newEmailInput.value;
+    let newTelefon = newTelefonInput.value;
+
+    // Überprüfen, ob die Felder nicht leer sind
+    if (!newName || !newSurename || !newEmail || !newTelefon) {
+        alert("Bitte füllen Sie alle Felder aus.");
+        return;
+    }
+
+    // Überprüfen, ob die E-Mail-Adresse ein gültiges Format hat
+    let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailPattern.test(newEmail)) {
+        alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+        return;
+    }
+
+    // Optional: Überprüfen Sie, ob die Telefonnummer ein gültiges Format hat
+    // Zum Beispiel: 123-456-7890
+    let phonePattern = /^\d{3}-\d{3}-\d{4}$/;
+    if (!phonePattern.test(newTelefon)) {
+        alert("Bitte geben Sie eine gültige Telefonnummer im Format 123-456-7890 ein.");
+        return;
+    }
+
+    contacts[index] = {
+        name: newName,
+        surename: newSurename,
+        email: newEmail,
+        telefon: newTelefon
+    };
+
+    await setItem('contacts', JSON.stringify(contacts));
+    closeModal();
+    initContact(); // Aktualisieren Sie die Kontaktliste nach dem Speichern
 }
