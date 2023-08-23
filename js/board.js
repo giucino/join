@@ -281,9 +281,9 @@ function slideCardAnimation(){
 /**
  * Slide open the task card.
  */
-function slideCard(element, i){
+function slideCard(id){
     const slideCard = document.getElementById('task-slide');
-    slideCard.innerHTML = renderSlideCard(element, i);
+    slideCard.innerHTML = renderSlideCard(id);
     slideCardAnimation();
 }
 
@@ -291,7 +291,8 @@ function slideCard(element, i){
  * Generate HTML markup for the task slide card.
  * @returns {string} HTML markup for the task slide card.
  */
-function renderSlideCard(element, i){
+function renderSlideCard(id){
+    const element = todos[`${id}`];
     const priorityImageSrc = setPriorityImage(element.priority);
     return /*html*/ `
         <div id="slide-container" class="slide-container">
