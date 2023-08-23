@@ -13,30 +13,51 @@ let counter = [];
 async function loadData(){
     const getTodos = await getItem('tasks');
     counter = JSON.parse(getTodos);
-    console.log(counter);
-    console.log(counter.dueDate);
 }
 
-function loadDuDate(dueDateString) {
+function loadDueDate(dueDateString) {
     const dueDate = new Date(dueDateString);
     const day = dueDate.getDate(); 
-    const month = dueDate.getMonth() + 1;
+    const month = dueDate.getMonth(); 
     const year = dueDate.getFullYear(); 
-    return `${day}.${month}.${year}`;
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];    
+    const formattedMonth = monthNames[month];
+    return `${formattedMonth} ${day}, ${year}`;
+}
+
+function findNearestDueDate() {
+    const now = new Date().getTime();
+    let nearestDueDate = null;
+    for (const task of counter) {
+        if (task.dueDate) {
+            const taskDueDate = new Date(task.dueDate).getTime();
+            if (!nearestDueDate || Math.abs(taskDueDate - now) < Math.abs(nearestDueDate - now)) {
+                nearestDueDate = taskDueDate;
+            }
+        }
+    }
+    return nearestDueDate ? new Date(nearestDueDate) : null;
+}
+
+function renderDueDate() {
+    const deadlineElement = document.getElementById('deadline');
+    const nearestDueDate = findNearestDueDate();
+    if (nearestDueDate) {
+        const formattedDueDate = loadDueDate(nearestDueDate);
+        deadlineElement.innerHTML = formattedDueDate;
+    } else {
+        deadlineElement.innerHTML = "No Due Date"; 
+    }
 }
 
 function countUrgent() {
     const urgent = counter.filter(item => item.priority === 'high').length;
     const countUrgentElement = document.getElementById('urgent-task');
-    const deadlineElement = document.getElementById('deadline');
     countUrgentElement.innerHTML = urgent;
-
-    if (counter.length > 0 && counter[0].dueDate) {
-        const formattedDueDate = loadDuDate(counter[0].dueDate);
-        deadlineElement.innerHTML = formattedDueDate;
-    } else {
-        deadlineElement.innerHTML = "No Due Date"; // Falls kein Datum vorhanden ist
-    }
+    renderDueDate();
 }
 
 function countBoard() {
