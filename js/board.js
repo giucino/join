@@ -3,58 +3,92 @@ let todos = [{
     'title': 'Putzen',
     'category': 'Design',
     'status': 'todo',
-    'priority': 'low'
+    'priority': 'low',
+    'subtasks': [
+        { 'title': 'teste das mal', 'done': false},
+        {'title': 'erledigt', 'done': false}]
 }, {
     'id': 1,
     'title': 'Kochen',
     'category': 'Sales',
     'status': 'todo',
     'priority': 'high',
-    'dueDate': '2023-08-28'
+    'dueDate': '2023-08-28',
+    'subtasks': [
+        { 'title': 'teste das mal', 'done': false},
+        {'title': 'erledigt', 'done': false}]
 }, {
     'id': 2,
     'title': 'Waschen',
     'category': 'Tech',
     'status': 'todo',
-    'priority': 'medium'
+    'priority': 'medium',
+    'subtasks': [
+        { 'title': 'teste das mal', 'done': false},
+        {'title': 'erledigt', 'done': false}]
 }, {
     'id': 3,
     'title': 'Saugen',
     'category': 'Tech',
     'status': 'feedback',
     'dueDate': '2023-10-28',
-    'priority': 'low'
+    'priority': 'low',
+    'subtasks': [
+        { 'title': 'teste das mal', 'done': false},
+        {'title': 'erledigt', 'done': false}]
 }, {
     'id': 4,
     'title': 'Schlafen',
     'category': 'Sales',
     'status': 'todo',
-    'priority': 'medium'
+    'priority': 'medium',
+    'subtasks': [
+        { 'title': 'teste das mal', 'done': false},
+        {'title': 'erledigt', 'done': false}]
 }, {
     'id': 5,
     'title': 'Einkaufen',
     'category': 'Backoffice',
     'status': 'feedback',
-    'priority': 'low'
+    'priority': 'low',
+    'subtasks': [
+        { 'title': 'teste das mal', 'done': false},
+        {'title': 'erledigt', 'done': false}]
 }, {
     'id': 6,
     'title': 'Tanzen',
     'category': 'Tech',
     'status': 'done',
-    'priority': 'high'
+    'priority': 'high',
+    'subtasks': [
+        { 'title': 'teste das mal', 'done': false},
+        {'title': 'erledigt', 'done': false}]
 }
 ]; 
-
-
+pushData();
 async function pushData(){
     await setItem('tasks', JSON.stringify(todos));
 }
 
+let index;
+let element;
+let subtask;
+let subtaskIndex;
 
-async function loadData(){
+async function loadData() {
     const getTodos = await getItem('tasks');
     todos = JSON.parse(getTodos);
-    console.log(todos);
+    for (let i = 0; i < todos.length; i++) {
+        index = i;
+        element = todos[i];
+        console.log('Index:', index, 'Element:', element);
+        
+        for (let j = 0; j < element.subtasks.length; j++) {
+            subtask = element.subtasks[j];
+            subtaskIndex = j;
+            console.log(`  Subtask ${subtaskIndex}: ${subtask.title}, Done: ${subtask.done}`);
+        }
+    }
 }
 
 let currentDraggedElement;
@@ -157,6 +191,7 @@ function noTasks(){
  * @returns {string} HTML markup for the task element.
  */
 function generateTasksHTML(element) {
+    /* const element = todos[`${id}`]; */
     const priorityImageSrc = setPriorityImage(element.priority);
     return /*html*/`
     <div id="board-card" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container">
@@ -168,9 +203,9 @@ function generateTasksHTML(element) {
             </div>
             <div class="subtasks-container">
                 <div class="progress-bar-container">
-                    <div class="progress-bar"></div>
+                    <div class="progress-bar" id="progress-bar"></div>
                 </div>
-                <div class="subtasks">1/2 Subtasks</div>
+                <div class="subtasks"><span id="number-tasks">0 </span>/ <span id="all-tasks">0 </span>Subtasks</div>
             </div>
             <div class="prio-container">
                 <div class="user-container-board">
@@ -217,9 +252,7 @@ function allowDrop(ev) {
  * @param {string} status - The status to move the task to.
  */
 function moveTo(status) {
-    console.log(todos[currentDraggedElement].status);
-    todos[currentDraggedElement].status = status;
-    console.log(todos[currentDraggedElement].status);
+    todos[currentDraggedElement].status = status;    
     pushData();
     loadData();
     updateHTML();
@@ -292,8 +325,10 @@ function slideCard(id){
  * @returns {string} HTML markup for the task slide card.
  */
 function renderSlideCard(id){
-    const element = todos[`${id}`];
+    const element = todos[id];
+    console.log(element);
     const priorityImageSrc = setPriorityImage(element.priority);
+    const subtasksHTML = generateSubtasksHTML(subtask, subtaskIndex);
     return /*html*/ `
         <div id="slide-container" class="slide-container">
         <div id="task-slide-container" class="task-slide-container">
@@ -328,29 +363,32 @@ function renderSlideCard(id){
             </div>
             <div class="task-slide-subtasks-container">
                 <span class="task-slide-subtasks-text">Subtasks</span>
-                <div class="task-slide-subtasks-tasks">
-                    <div class="task-slide-subtask">
-                        <input class="task-slide-subtask-btn" type="checkbox">
-                        <span class="task-slide-subtask-text">Implement Recipe Recommendation</span>
-                    </div>
-                    <div class="task-slide-subtask">
-                        <input class="task-slide-subtask-btn" type="checkbox">
-                        <span class="task-slide-subtask-text">Start Page Layout</span>
-                    </div>
+                <div class="task-slide-subtasks-tasks" id="subtasksContainer">
+                ${subtasksHTML}
                 </div>
             </div>
             <div class="task-slide-delete-edit-container">
                 <div class="task-slide-delete">
                     <img class="task-slide-delete-edit-img" src="./img/delete.png" alt="">
-                    <span class="task-slide-delete-text">Delete</span>
+                    <span onclick="deleteTask(${element.id})" class="task-slide-delete-text">Delete</span>
                 </div>
                 <div class="task-slide-placeholder"></div>
                 <div class="task-slide-edit">
                     <img class="task-slide-delete-edit-img" src="./img/edit.png" alt="">
-                    <span class="task-slide-edit-text">Edit</span>
+                    <span onclick="editTask(${element})" class="task-slide-edit-text">Edit</span>
                 </div>
             </div>
         </div>
     </div>
     `
+}
+
+function deleteTask(id) {
+    console.log(id);
+    const indexToDelete = todos.findIndex(task => task.id === id); 
+    todos.splice(indexToDelete, 1);
+    closeCard();
+    pushData();
+    loadData();
+    updateHTML();
 }
