@@ -74,17 +74,9 @@ async function pushData(){
 async function loadData() {
     const getTodos = await getItem('tasks');
     todos = JSON.parse(getTodos);
-    for (let i = 0; i < todos.length; i++) {
-        const index = i;
+    /* for (let i = 0; i < todos.length; i++) {
         const element = todos[i];
-        console.log('Index:', index, 'Element:', element);
-        
-        for (let j = 0; j < element.subtasks.length; j++) {
-            const subtask = element.subtasks[j];
-            const subtaskIndex = j;
-            console.log(`  Subtask ${subtaskIndex}: ${subtask.title}, Done: ${subtask.done}`);
-        }
-    }
+    } */
 }
 
 let currentDraggedElement;
@@ -101,7 +93,7 @@ async function updateHTML() {
     inProgress();
     feedback();
     done();    
-    noTasks()
+    noTasks();
 }
 
 /**
@@ -179,18 +171,15 @@ function noTasks(){
         </div>`;
 }
 
-
-
 /**
  * Generate HTML markup for a task element.
  * @param {Task} element - The task object to generate HTML for.
  * @returns {string} HTML markup for the task element.
  */
 function generateTasksHTML(element) {
-    /* const element = todos[`${id}`]; */
     const priorityImageSrc = setPriorityImage(element.priority);
     return /*html*/`
-    <div id="board-card" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container">
+    <div id="board-card${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container">
         <div class="content-container-inner">
             <div class="category">${element.category}</div>
             <div class="title-content">
@@ -199,7 +188,7 @@ function generateTasksHTML(element) {
             </div>
             <div class="subtasks-container">
                 <div class="progress-bar-container">
-                    <div class="progress-bar" id="progress-bar"></div>
+                    <div class="progress-bar" id="progress-bar${element.id}"></div>
                 </div>
                 <div class="subtasks"><span id="number-tasks">0 </span>/ <span id="all-tasks">0 </span>Subtasks</div>
             </div>
@@ -322,15 +311,14 @@ function slideCard(id){
  */
 function renderSlideCard(id){
     const element = todos[id];
-    console.log(element);
     const priorityImageSrc = setPriorityImage(element.priority);
-    const subtasksHTML = generateSubtasksHTML(element.subtasks);
+    const subtasksHTML = generateSubtasksHTML(element.subtasks, element.id);
     return /*html*/ `
         <div id="slide-container" class="slide-container">
-        <div id="task-slide-container" class="task-slide-container">
+        <div id="task-slide-container${element.id}" class="task-slide-container">
             <div class="task-slide-headline">
                 <div class="task-slide-headline-left"><span class="task-slide-category">${element.category}</span></div>
-                <div id="task-slide-close" onclick="closeCard()" class="task-slide-headline-right"><img src="./img/close.png" alt="Schließen"></div>
+                <div id="task-slide-close" onclick="closeCard(${element.id}), loadData()" class="task-slide-headline-right"><img src="./img/close.png" alt="Schließen"></div>
             </div>
             <span id="task-slide-title" class="task-slide-title">${element.title}</span>
             <span id="task-slide-description" class="task-slide-description">${element.description}</span>
@@ -371,7 +359,7 @@ function renderSlideCard(id){
                 <div class="task-slide-placeholder"></div>
                 <div class="task-slide-edit">
                     <img class="task-slide-delete-edit-img" src="./img/edit.png" alt="">
-                    <span onclick="editTask(${element})" class="task-slide-edit-text">Edit</span>
+                    <span onclick="editTask(${element.id})" class="task-slide-edit-text">Edit</span>
                 </div>
             </div>
         </div>

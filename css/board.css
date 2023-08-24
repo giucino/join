@@ -299,7 +299,7 @@ body{
 
 .progress-bar{
     box-sizing: border-box;
-    width: 64px;
+    width: 0;
     height: 8px;
     align-self: stretch;
     border-radius: 16px;
