@@ -1,19 +1,17 @@
 const subtasksContainer = document.getElementById("subtasksContainer");
 
-function generateAndAppendSubtasks(todo) {
+todos.forEach(todo => {
     const todoSubtasksHTML = generateSubtasksHTML(todo.subtasks, todo.id);
     subtasksContainer.innerHTML += todoSubtasksHTML;
-}
+});
 
-todos.forEach(generateAndAppendSubtasks);
-
-function generateSubtasksHTML(subtasks, ) {
+function generateSubtasksHTML(subtasks, todoId) {
     let subtasksHTML = '';    
-    subtasks.forEach(subtask => {
-        const checkedAttribute = subtask.done ? 'checked' : '';
-        const subtaskHTML = `
+    subtasks.forEach((subtask, index) => {
+        const checkedAttribute = subtask.done ? 'checked' : ''; // Zustand der Checkbox basierend auf "done" setzen
+        const subtaskHTML = /*html*/`
             <div class="task-slide-subtask">
-                <input class="task-slide-subtask-btn" type="checkbox" data-todo-id="${subtaskIndex}" data-subtask-index="${subtaskIndex}" ${checkedAttribute}>
+                <input class="task-slide-subtask-btn" type="checkbox" data-todo-id="${todoId}" data-subtask-index="${index}" ${checkedAttribute}>
                 <span class="task-slide-subtask-text">${subtask.title}</span>
             </div>
         `;
@@ -22,13 +20,12 @@ function generateSubtasksHTML(subtasks, ) {
     return subtasksHTML;
 }
 
-// Event-Listener direkt auf den Checkboxen hinzufügen
 subtasksContainer.addEventListener('change', function(event) {
     if (event.target.classList.contains('task-slide-subtask-btn')) {
         const todoId = parseInt(event.target.getAttribute('data-todo-id'));
         const subtaskIndex = parseInt(event.target.getAttribute('data-subtask-index'));
         todos[todoId].subtasks[subtaskIndex].done = event.target.checked;
-        console.log(`Todo ID: ${todoId}, Subtask Index: ${subtaskIndex}, Done: ${event.target.checked}`);
+        pushData()
     }
 });
 

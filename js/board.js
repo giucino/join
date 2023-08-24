@@ -70,22 +70,18 @@ async function pushData(){
     await setItem('tasks', JSON.stringify(todos));
 }
 
-let index;
-let element;
-let subtask;
-let subtaskIndex;
 
 async function loadData() {
     const getTodos = await getItem('tasks');
     todos = JSON.parse(getTodos);
     for (let i = 0; i < todos.length; i++) {
-        index = i;
-        element = todos[i];
+        const index = i;
+        const element = todos[i];
         console.log('Index:', index, 'Element:', element);
         
         for (let j = 0; j < element.subtasks.length; j++) {
-            subtask = element.subtasks[j];
-            subtaskIndex = j;
+            const subtask = element.subtasks[j];
+            const subtaskIndex = j;
             console.log(`  Subtask ${subtaskIndex}: ${subtask.title}, Done: ${subtask.done}`);
         }
     }
@@ -328,7 +324,7 @@ function renderSlideCard(id){
     const element = todos[id];
     console.log(element);
     const priorityImageSrc = setPriorityImage(element.priority);
-    const subtasksHTML = generateSubtasksHTML(subtask, subtaskIndex);
+    const subtasksHTML = generateSubtasksHTML(element.subtasks);
     return /*html*/ `
         <div id="slide-container" class="slide-container">
         <div id="task-slide-container" class="task-slide-container">
