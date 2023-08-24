@@ -279,6 +279,8 @@ async function deleteContact(index) {
 }
 
 function editContact(index) {
+    document.getElementById('contact-details').style.display = 'none';  // Zeile hinzufügen
+
     let contact = contacts[index];
     document.getElementById("fullName").value = `${contact.name} ${contact.surename}`;
     document.getElementById("newEmail").value = contact.email;
