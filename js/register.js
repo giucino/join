@@ -16,6 +16,7 @@ async function initRegister() {
 async function loadUsers() {
     try {
         users = JSON.parse(await getItem('users'));
+        console.log('Users:', users);
     } catch (e) {
         console.error('Loading error:', e);
     }

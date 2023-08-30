@@ -82,7 +82,7 @@ function toggleActiveClass() {
     setTimeout(() => {
       greetingsMobile.classList.add('d-none');
       mobileContainer.classList.add('d-none');
-    }, 4000);
+    }, 1000);
   } else {
     greetingsMobile.classList.remove('active-mobile');
     greetingsMobile.classList.remove('d-none');

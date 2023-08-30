@@ -1,72 +1,140 @@
 let todos = [{
     'id': 0,
     'title': 'Putzen',
+    'description': 'Alles was das Herz begehrt',
     'category': 'Design',
     'status': 'todo',
     'priority': 'low',
+    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
     'subtasks': [
-        { 'title': 'teste das mal', 'done': false},
-        {'title': 'erledigt', 'done': false}]
+        { 'title': 'teste das mal', 'done': false },
+        { 'title': 'erledigt', 'done': false }]
 }, {
     'id': 1,
     'title': 'Kochen',
+    'description': 'Alles was das Herz begehrt',
     'category': 'Sales',
     'status': 'todo',
     'priority': 'high',
+    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
     'dueDate': '2023-08-28',
     'subtasks': [
-        { 'title': 'teste das mal', 'done': false},
-        {'title': 'erledigt', 'done': false}]
+        { 'title': 'teste das mal', 'done': false },
+        { 'title': 'erledigt', 'done': false }]
 }, {
     'id': 2,
     'title': 'Waschen',
+    'description': 'Alles was das Herz begehrt',
     'category': 'Tech',
     'status': 'todo',
     'priority': 'medium',
+    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
     'subtasks': [
-        { 'title': 'teste das mal', 'done': false},
-        {'title': 'erledigt', 'done': false}]
+        { 'title': 'teste das mal', 'done': false },
+        { 'title': 'erledigt', 'done': false }]
 }, {
     'id': 3,
     'title': 'Saugen',
+    'description': 'Alles was das Herz begehrt',
     'category': 'Tech',
     'status': 'feedback',
     'dueDate': '2023-10-28',
     'priority': 'low',
+    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
     'subtasks': [
-        { 'title': 'teste das mal', 'done': false},
-        {'title': 'erledigt', 'done': false}]
+        { 'title': 'teste das mal', 'done': false },
+        { 'title': 'erledigt', 'done': false }]
 }, {
     'id': 4,
     'title': 'Schlafen',
+    'description': 'Alles was das Herz begehrt',
     'category': 'Sales',
     'status': 'todo',
     'priority': 'medium',
+    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
     'subtasks': [
-        { 'title': 'teste das mal', 'done': false},
-        {'title': 'erledigt', 'done': false}]
+        { 'title': 'teste das mal', 'done': false },
+        { 'title': 'erledigt', 'done': false }]
 }, {
     'id': 5,
     'title': 'Einkaufen',
+    'description': 'Alles was das Herz begehrt',
     'category': 'Backoffice',
     'status': 'feedback',
     'priority': 'low',
+    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
     'subtasks': [
-        { 'title': 'teste das mal', 'done': false},
-        {'title': 'erledigt', 'done': false}]
+        { 'title': 'teste das mal', 'done': false },
+        { 'title': 'erledigt', 'done': false }]
 }, {
     'id': 6,
     'title': 'Tanzen',
+    'description': 'Alles was das Herz begehrt',
     'category': 'Tech',
     'status': 'done',
     'priority': 'high',
+    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
     'subtasks': [
-        { 'title': 'teste das mal', 'done': false},
-        {'title': 'erledigt', 'done': false}]
+        { 'title': 'teste das mal', 'done': false },
+        { 'title': 'erledigt', 'done': false }]
 }
-]; 
+];
+
+
+let task = {
+    'id': "",
+    "title": "",
+    "description": "",
+    "category": "",
+    "status": "",
+    "priority": "",
+    "due_date": "",
+    "assignedTo": [],
+    "subtasks": {
+        "name": [],
+        "status": []
+    }
+};
+
+/**
+ * Renders the assignees in the detail view.
+ * @param {object} task the task whose information should be rendered
+ */
+function boardDetailViewAssignees(task) {
+
+    let container = document.getElementById('board-detail-view-assignees');
+    container.innerHTML = 'Assigned to:';
+
+    for (let i = 0; i < task.assigned_to.length; i++) {
+        const assignee = task.assigned_to[i];
+
+        container.innerHTML += /*html*/ `
+        
+        <div>
+            ${htmlTemplateAssigneeIcon(assignee)}
+            ${assignee}
+        </div> `;
+    }
+}
+
+
+/**
+ * Update the HTML for all task categories.
+ * Calls functions to update HTML for each category.
+ */
+async function updateHTML() {
+    /* await pushData(); */
+    await loadData();
+    todo();
+    inProgress();
+    feedback();
+    done();
+    noTasks();
+}
+
+
 pushData();
-async function pushData(){
+async function pushData() {
     await setItem('tasks', JSON.stringify(todos));
 }
 
@@ -82,19 +150,6 @@ async function loadData() {
 let currentDraggedElement;
 let currentFilter = '';
 
-/**
- * Update the HTML for all task categories.
- * Calls functions to update HTML for each category.
- */
-async function updateHTML() {
-    /* await pushData(); */
-    await loadData();
-    todo();
-    inProgress();
-    feedback();
-    done();    
-    noTasks();
-}
 
 /**
  * Update the HTML for the "Todo" category based on the current filter.
@@ -115,7 +170,7 @@ function todo() {
 /**
  * Update the HTML for the "In Progress" category based on the current filter.
  */
-function inProgress(){
+function inProgress() {
     let filteredInProgress = todos.filter(task => task['status'] === 'inprogress' && (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
     const inProgressContainer = document.getElementById('in-progress');
     inProgressContainer.innerHTML = '';
@@ -131,7 +186,7 @@ function inProgress(){
 /**
  * Update the HTML for the "Feedback" category based on the current filter.
  */
-function feedback(){
+function feedback() {
     let filteredFeedback = todos.filter(task => task['status'] === 'feedback' && (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
     const feedbackContainer = document.getElementById('feedback');
     feedbackContainer.innerHTML = '';
@@ -147,7 +202,7 @@ function feedback(){
 /**
  * Update the HTML for the "Done" category based on the current filter.
  */
-function done(){
+function done() {
     let filteredDone = todos.filter(task => task['status'] === 'done' && (task.title.toLowerCase().includes(currentFilter) || task.category.toLowerCase().includes(currentFilter)));
     const doneContainer = document.getElementById('done');
     doneContainer.innerHTML = '';
@@ -164,7 +219,7 @@ function done(){
  * Generate HTML for the "No Tasks" message.
  * @returns {string} HTML markup for no tasks message.
  */
-function noTasks(){
+function noTasks() {
     return /*html*/`
         <div class="no-tasks-to-do">
             <div class="no-tasks-to-do-text">No Tasks to do</div>
@@ -183,7 +238,7 @@ function generateTasksHTML(element) {
         <div class="content-container-inner">
             <div class="category">${element.category}</div>
             <div class="title-content">
-                <div class="title">${element.title}${element.id}</div>
+                <div class="title">${element.title}</div>
                 <div id="description" class="content">${element.description}</div>
             </div>
             <div class="subtasks-container">
@@ -195,7 +250,7 @@ function generateTasksHTML(element) {
             <div class="prio-container">
                 <div class="user-container-board">
                     <div id="assigned-to" class="user-marked blue">${element.assignedTo}</div>
-                    <div class="user-marked media negativ-gap">EF</div>
+                    <div class="user-marked media negativ-gap">${element.assignedTo}</div>
                 </div>
                 <div class="prio-icon"><img src="${priorityImageSrc}" alt=""></div>
             </div>
@@ -237,7 +292,7 @@ function allowDrop(ev) {
  * @param {string} status - The status to move the task to.
  */
 function moveTo(status) {
-    todos[currentDraggedElement].status = status;    
+    todos[currentDraggedElement].status = status;
     pushData();
     loadData();
     updateHTML();
@@ -266,11 +321,11 @@ function setFilter() {
     updateHTML();
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const input = document.getElementById('input-field');
     const inputBtn = document.getElementById('search');
 
-    input.addEventListener('keypress', function(event) {
+    input.addEventListener('keypress', function (event) {
         if (event.key === 'Enter') {
             inputBtn.click();
         }
@@ -279,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function() {
 /**
  * Close the task card.
  */
-function closeCard(){    
+function closeCard() {
     document.getElementById('slide-container').classList.remove('slide-in');
     setTimeout(() => {
         document.getElementById('task-slide').classList.add('d-none');
@@ -289,17 +344,17 @@ function closeCard(){
 /**
  * Slideanimation for the task card.
  */
-function slideCardAnimation(){
+function slideCardAnimation() {
     document.getElementById('task-slide').classList.remove('d-none');
     setTimeout(() => {
         document.getElementById('slide-container').classList.add('slide-in');
-    }, 100);   
+    }, 100);
 }
 
 /**
  * Slide open the task card.
  */
-function slideCard(id){
+function slideCard(id) {
     const slideCard = document.getElementById('task-slide');
     slideCard.innerHTML = renderSlideCard(id);
     slideCardAnimation();
@@ -309,10 +364,10 @@ function slideCard(id){
  * Generate HTML markup for the task slide card.
  * @returns {string} HTML markup for the task slide card.
  */
-function renderSlideCard(id){
+function renderSlideCard(id) {
     const element = todos[id];
     const priorityImageSrc = setPriorityImage(element.priority);
-    const subtasksHTML = generateSubtasksHTML(element.subtasks, element.id);
+    // const subtasksHTML = generateSubtasksHTML(element.subtasks, element.id);
     return /*html*/ `
         <div id="slide-container" class="slide-container">
         <div id="task-slide-container${element.id}" class="task-slide-container">
@@ -348,7 +403,6 @@ function renderSlideCard(id){
             <div class="task-slide-subtasks-container">
                 <span class="task-slide-subtasks-text">Subtasks</span>
                 <div class="task-slide-subtasks-tasks" id="subtasksContainer">
-                ${subtasksHTML}
                 </div>
             </div>
             <div class="task-slide-delete-edit-container">
@@ -367,9 +421,11 @@ function renderSlideCard(id){
     `
 }
 
+//${subtasksHTML}
+
 function deleteTask(id) {
     console.log(id);
-    const indexToDelete = todos.findIndex(task => task.id === id); 
+    const indexToDelete = todos.findIndex(task => task.id === id);
     todos.splice(indexToDelete, 1);
     closeCard();
     pushData();

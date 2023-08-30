@@ -1,47 +1,64 @@
 let contacts = [
     {
+        bgcolor: '',
+        id: 0,
         name: 'Anna',
         surename: 'Schmidt',
         email: 'anna.schmidt@example.com',
         telefon: '123-456-7890'
     },
     {
+        bgcolor: '',
+        id: 1,
         name: 'Max',
         surename: 'Müller',
         email: 'max.mueller@example.com',
         telefon: '234-567-8901'
     },
     {
+        bgcolor: '',
+        id: 2,
         name: 'Sophie',
         surename: 'Wagner',
         email: 'sophie.wagner@example.com',
         telefon: '345-678-9012'
     },
     {
+        bgcolor: '',
+        id: 3,
         name: 'Paul',
         surename: 'Becker',
         email: 'paul.becker@example.com',
         telefon: '456-789-0123'
     },
     {
+        bgcolor: '',
+        id: 4,
         name: 'Laura',
         surename: 'Hoffmann',
         email: 'laura.hoffmann@example.com',
         telefon: '567-890-1234'
     },
     {
+        bgcolor: '',
+        id: 5,
         name: 'Felix',
         surename: 'Schulz',
         email: 'felix.schulz@example.com',
         telefon: '678-901-2345'
     },
     {
+        bgcolor: '',
+        id: 6,
         name: 'Emilia',
         surename: 'Koch',
         email: 'emilia.koch@example.com',
         telefon: '789-012-3456',
     }
 ];
+
+let originalContacts = [...contacts]; // Kopie des Original-Arrays erstellen
+
 
 let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -53,9 +70,20 @@ async function initContact() {
     initLetters();
     await loadAllContacts();
     loadContacts();
-    saveContacts(contacts);
+    // await saveContacts(originalContacts);
     removeEmptyLetters();
 }
+
+
+async function saveContacts(originalContacts) {
+    try {
+        await setItem('contacts', JSON.stringify(originalContacts));
+        console.log('Kontakte wurden erfolgreich gespeichert.');
+    } catch (error) {
+        console.error('Fehler beim Speichern der Kontakte:', error);
+    }
+}
+
 
 function initLetters() {
     let letterList = document.getElementById('container-letter');
@@ -91,32 +119,22 @@ async function loadContacts() {
         let color = contact.bgcolor;
 
         contactsList.innerHTML += `
-          <div class="contact" onclick="showContactDetails(${i})">
+        <div class="contact" onclick="showContactDetails(${i})">
             <div class="initial" style="background-color: ${color}">${initials}</div>
             <div class="container-name-email">
                 <div class="name">${contact.name} ${contact.surename}</div>
                 <div class="email">${contact.email}</div>
             </div>
-          </div>
-          `;
+        </div>`;
     }
-    await getItem('contacts', JSON.stringify(contacts));
 }
 
 async function loadAllContacts() {
     try {
         contacts = JSON.parse(await getItem('contacts'));
+        console.log('Contacts:', contacts);
     } catch (e) {
         console.error('Loading error:', e);
-    }
-}
-
-async function saveContacts(contacts) {
-    try {
-        await setItem('contacts', JSON.stringify(contacts));
-        console.log('Kontakte wurden erfolgreich gespeichert.');
-    } catch (error) {
-        console.error('Fehler beim Speichern der Kontakte:', error);
     }
 }
 
@@ -206,6 +224,14 @@ window.onclick = function (event) {
     }
 }
 
+// Finde die höchste ID im vorhandenen Kontakte-Array
+let maxContactId = Math.max(...contacts.map(contact => contact.id), -1);
+
+// Setze die Anfangs-ID für neue Kontakte auf die nächste verfügbare ID
+let nextContactId = maxContactId + 1;
+
+
+
 // Neuen Kontakt speichern
 async function saveNewContact() {
     let newEmailInput = document.getElementById("newEmail");
@@ -242,6 +268,7 @@ async function saveNewContact() {
     }
 
     let newContact = {
+        id: nextContactId, 
         name: newName,
         surename: newSurename,
         email: newEmail,
@@ -258,6 +285,8 @@ async function saveNewContact() {
     fullName.value = "";
     newEmailInput.value = "";
     newTelefonInput.value = "";
+
+    nextContactId++;
 }
 
 //Hintergrundfarben für die Initialien generieren
@@ -334,7 +363,7 @@ async function updateContact(index) {
         telefon: newTelefon
     };
 
-    await setItem('contacts', JSON.stringify(contacts));
+    // await setItem('contacts', JSON.stringify(contacts));
     closeModal();
     initContact(); // Aktualisieren Sie die Kontaktliste nach dem Speichern
 }

@@ -1,24 +1,24 @@
-const subtasksContainer = document.getElementById("subtasksContainer");
+// const subtasksContainer = document.getElementById("subtasksContainer");
 
-todos.forEach(todo => {
-    const todoSubtasksHTML = generateSubtasksHTML(todo.subtasks, todo.id);
-    subtasksContainer.innerHTML += todoSubtasksHTML;
-});
+// todos.forEach(todo => {
+//     const todoSubtasksHTML = generateSubtasksHTML(todo.subtasks, todo.id);
+//     subtasksContainer.innerHTML += todoSubtasksHTML;
+// });
 
-function generateSubtasksHTML(subtasks, todoId) {
-    let subtasksHTML = '';    
-    subtasks.forEach((subtask, index) => {
-        const checkedAttribute = subtask.done ? 'checked' : '';
-        const subtaskHTML = /*html*/`
-            <div class="task-slide-subtask">
-                <input class="task-slide-subtask-btn" type="checkbox" id="check-box${index}" data-todo-id="${todoId}" data-subtask-index="${index}" ${checkedAttribute} onclick="updateSubtask(this)">
-                <span class="task-slide-subtask-text">${subtask.title}</span>
-            </div>
-        `;
-        subtasksHTML += subtaskHTML;
-    });    
-    return subtasksHTML;
-}
+// function generateSubtasksHTML(subtasks, todoId) {
+//     let subtasksHTML = '';    
+//     subtasks.forEach((subtask, index) => {
+//         const checkedAttribute = subtask.done ? 'checked' : '';
+//         const subtaskHTML = /*html*/`
+//             <div class="task-slide-subtask">
+//                 <input class="task-slide-subtask-btn" type="checkbox" id="check-box${index}" data-todo-id="${todoId}" data-subtask-index="${index}" ${checkedAttribute} onclick="updateSubtask(this)">
+//                 <span class="task-slide-subtask-text">${subtask.title}</span>
+//             </div>
+//         `;
+//         subtasksHTML += subtaskHTML;
+//     });    
+//     return subtasksHTML;
+// }
 
 function updateSubtask(checkbox) {
     const todoId = parseInt(checkbox.getAttribute('data-todo-id'));

@@ -1,57 +1,330 @@
-// Warten bis das Dokument vollständig geladen ist
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialisierungsfunktion aufrufen
-    init();
+let categories = [
+    { "name": "Design" },
+    { "name": "Sales" },
+    { "name": "Backoffice" },
+    { "name": "Marketing" },
+    { "name": "Webdesign" },
+    { "name": "Tech" }
+]
 
-    // Event-Listener für den "Create Task"-Button hinzufügen
+
+let todos = [];
+let selectedPriority = '';
+let selectedCategory = '';
+let selectedContacts = [];
+let contactsRendered = false;
+
+async function initTask() {
+    await loadContactsFromStorage();
+    await loadTasks();
+    await renderAssignedTo();
+    renderCategorys();
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
     const createTaskButton = document.getElementById('createTaskButton');
     createTaskButton.addEventListener('click', createTask);
 });
 
-// Initialisierungsfunktion
-function init() {
-    // Hier können Sie Initialisierungscodes schreiben, z.B. das Laden von Daten aus einer Datenbank
-    console.log('Initialisierung abgeschlossen');
+
+async function loadContactsFromStorage() {
+    try {
+        contacts = JSON.parse(await getItem('contacts'));
+        console.log('Loaded contacts:', contacts);
+    } catch (e) {
+        console.error('Loading error:', e);
+    }
 }
 
-// Globales Array zum Speichern der Aufgaben
-let tasksArray = [];
 
-// Funktion zum Erstellen einer neuen Aufgabe
-function createTask() {
+async function loadTasks() {
+    try {
+        todos = JSON.parse(await getItem('tasks'));
+        console.log('Tasks:', todos);
+    } catch (e) {
+        console.error('Loading error:', e);
+    }
+}
+
+
+async function createTask() {
     const title = document.getElementById('taskTitle').value;
     const description = document.getElementById('taskDescription').value;
     const dueDate = document.getElementById('dueDate').value;
-    const priority = document.getElementById('priority').value;
-    const assignedTo = document.getElementById('assignedTo').value;
-    const category = document.getElementById('category').value;
 
-    // Überprüfen, ob die erforderlichen Felder ausgefüllt sind
     if (!title || !description) {
         alert('Bitte füllen Sie alle erforderlichen Felder aus.');
         return;
     }
 
-    // Aufgabe zum Array hinzufügen
-    const task = {
+    const highestId = todos.reduce((maxId, task) => {
+        return task.id > maxId ? task.id : maxId;
+    }, 0);
+
+    const newTaskId = highestId + 1;
+
+    const newTask = {
+        id: newTaskId,
         title: title,
         description: description,
+        category: selectedCategory,
+        priority: selectedPriority,
         dueDate: dueDate,
-        priority: priority,
-        assignedTo: assignedTo,
-        category: category
+        assignedTo: selectedContacts
     };
-    tasksArray.push(task);
+    todos.push(newTask);
 
-    // JSON-Array aktualisieren
-    const tasksJSON = JSON.stringify(tasksArray);
-    document.getElementById('tasksOutput').innerHTML = tasksJSON;
-
-    console.log('Aufgabe hinzugefügt:', task);
+    await setItem('tasks', JSON.stringify(todos));
+    console.log('Aufgabe hinzugefügt:', newTask);
 }
 
 
-// Funktion zum Hinzufügen einer neuen Unteraufgabe
+let task = {
+    'id': "",
+    "title": "",
+    "description": "",
+    "category": "",
+    "status": "",
+    "priority": "",
+    "due_date": "",
+    "assignedTo": [],
+    "subtasks": {
+        "name": [],
+        "status": []
+    }
+};
+
+
+function priority(button) {
+    resetButtons();
+    if (button.id === 'prioUrgent') {
+        highlightButton(button, '#FF3D00', './img/prio_high_active.png');
+        selectedPriority = 'high';
+    } else if (button.id === 'prioMedium') {
+        highlightButton(button, '#FFA800', './img/prio_medium_active.png');
+        selectedPriority = 'medium';
+    } else if (button.id === 'prioLow') {
+        highlightButton(button, '#7AE229', './img/prio_low_active.png');
+        selectedPriority = 'low';
+    }
+    console.log('Ausgewählte ID:', button.id);
+    console.log('Ausgewählte Priorität:', selectedPriority);
+}
+
+
+function resetButtons() {
+    let buttons = document.querySelectorAll('.priority-choice-inner');
+    for (let i = 0; i < buttons.length; i++) {
+        let btn = buttons[i];
+        btn.classList.remove('highlighted');
+        btn.style.backgroundColor = '';
+        btn.style.color = 'black';
+
+        let originalImage = btn.querySelector('.priority-choice-inner-pic img');
+        originalImage.src = './img/' + originalImage.getAttribute('data-image');
+    }
+}
+
+
+function highlightButton(button, bgColor, imageSrc) {
+    button.classList.add('highlighted');
+    button.style.backgroundColor = bgColor;
+    let image = button.querySelector('.priority-choice-inner-pic img');
+    image.src = imageSrc;
+    button.style.color = 'white';
+}
+
+
+async function renderAssignedTo() {
+        let assignedToContainer = document.getElementById('loadedContacts');
+        assignedToContainer.innerHTML = '';
+
+        for (let i = 0; i < contacts.length; i++) {
+            let contact = contacts[i];
+            let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+
+            const isSelected = selectedContacts[contact.id] || false;
+
+            assignedToContainer.innerHTML += /*html*/`
+                <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
+                    <div class="select-contact">
+                        <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
+                        <div class="select-name">${contact.name} ${contact.surename}</div>
+                    </div>
+                    <img class="select-icon" id="selectCheck" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
+                </div>
+            `;
+        }   
+    }
+
+
+function renderSearchedContact(contacts) {
+    let assignedToContainer = document.getElementById('loadedContacts');
+    assignedToContainer.innerHTML = '';
+
+    for (let i = 0; i < contacts.length; i++) {
+        let contact = contacts[i];
+        let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+        const isSelected = selectedContacts[contact.id] || false;
+
+        assignedToContainer.innerHTML += /*html*/`
+            <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
+                <div class="select-contact">
+                    <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
+                    <div class="select-name">${contact.name} ${contact.surename}</div>
+                </div>
+                <img class="select-icon" id="selectCheck" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
+            </div>
+        `;
+    }
+    console.log('Render Searched Contact:', contacts);
+}
+
+
+function searchContacts(query) {
+    let filteredContacts = contacts.filter(contact => {
+        return (
+            contact.name.toLowerCase().startsWith(query.toLowerCase()) ||
+            contact.surename.toLowerCase().startsWith(query.toLowerCase())
+        );
+    });
+    renderSearchedContact(filteredContacts);
+    console.log('Filtered Contact:', filteredContacts);
+}
+
+
+function toggleContactSelection(name, surename) {
+    const contact = contacts.find(c => c.name === name && c.surename === surename);
+
+    if (!contact) {
+        return;
+    }
+
+    const contactId = contact.id;
+    const contactKey = `${contact.name} ${contact.surename}`;
+
+    if (selectedContacts[contactId]) {
+        delete selectedContacts[contactId]; 
+    } else {
+        selectedContacts[contactId] = contact; 
+    }
+
+    renderAssignedTo();
+    renderSearchedContact(contacts);
+    displayChosenContacts();
+    console.log('Ausgewählte/r Kontakt/e:', selectedContacts);
+}
+
+
+function toggleAssignedToContainer() {
+    let assignedSelectText = document.querySelector('.assigned-select-text');
+    assignedSelectText.style.display = 'inline';
+
+    let assignedToContainer = document.getElementById('loadedContacts');
+    let assignedToDropdown = document.querySelector('.assigned-to-dropdown');
+
+    if (assignedToContainer.style.display === 'block') {
+        assignedToContainer.style.display = 'none';
+        assignedToDropdown.classList.remove('expanded');
+    } else {
+        assignedToContainer.style.display = 'block';
+        assignedToDropdown.classList.add('expanded');
+    }
+}
+
+
+// function assignedToSelected(contact, container) {
+//     container.classList.toggle('selected');
+
+//     let selectIcon = container.querySelector('.select-icon');
+
+//     if (container.classList.contains('selected')) {
+//         selectIcon.src = 'img/check_contact.png';
+//         selectedContacts.push(contact);
+//         displayChosenContacts();
+//     } else {
+//         selectIcon.src = 'img/check-button.png';
+//         selectedContacts = selectedContacts.filter(selected => selected !== contact);
+//         displayChosenContacts();
+//     }
+//     console.log('Ausgewählte/r Kontakt/e:', selectedContacts);
+// }
+
+
+function displayChosenContacts() {
+    let chosenContactsContainer = document.getElementById('chosenContacts');
+    chosenContactsContainer.innerHTML = '';
+
+    for (let i = 0; i < contacts.length; i++) {
+        const contact = contacts[i];
+        const isSelected = selectedContacts[contact.id];
+
+        if (isSelected) {
+            let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+            chosenContactsContainer.innerHTML += /*html*/`
+                <div class="chosen-contact">
+                    <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
+                </div>
+            `;
+        }
+    }
+}
+
+
+function renderCategorys() {
+    let categoryContainer = document.getElementById('loadedCategories');
+    categoryContainer.innerHTML = '';
+
+    for (let i = 0; i < categories.length; i++) {
+        let category = categories[i].name;
+        categoryContainer.innerHTML += `
+            <div class="category" onclick="categorySelected('${category}')">${category}</div>
+            `;
+    }
+}
+
+
+function toggleCategoryContainer() {
+    let selectText = document.querySelector('.select-text');
+    selectText.style.display = 'inline';
+
+    let selectedCategoryDisplay = document.getElementById('selectedCategoryDisplay');
+    selectedCategoryDisplay.textContent = '';
+
+    let categoryContainer = document.getElementById('loadedCategories');
+    let categoryDropdown = document.querySelector('.category-dropdown');
+
+    if (categoryContainer.style.display === 'block') {
+        categoryContainer.style.display = 'none';
+        categoryDropdown.classList.remove('expanded');
+    } else {
+        categoryContainer.style.display = 'block';
+        categoryDropdown.classList.add('expanded');
+        renderCategorys();
+    }
+}
+
+
+function categorySelected(category) {
+    selectedCategory = category;
+
+    let selectedCategoryDisplay = document.getElementById('selectedCategoryDisplay');
+    selectedCategoryDisplay.textContent = `${selectedCategory}`;
+
+    let selectText = document.querySelector('.select-text');
+    selectText.style.display = 'none';
+
+    let categoryContainer = document.getElementById('loadedCategories');
+    categoryContainer.style.display = 'none';
+
+    let categoryDropdown = document.querySelector('.category-dropdown');
+    categoryDropdown.classList.remove('expanded');
+
+    console.log('Ausgewählte Kategorie:', selectedCategory);
+}
+
+
 function addSubtask() {
     const subtaskInput = document.querySelector('.new-subtask-textfield');
     const subtaskValue = subtaskInput.value;
@@ -66,13 +339,12 @@ function addSubtask() {
     const newSubtask = document.createElement('div');
     newSubtask.innerHTML = `
         <div class="subtask-item">
-            <input type="checkbox">
+            <span class="subtask-dot"></span>           
             <span>${subtaskValue}</span>
         </div>
     `;
     subtasksContainer.appendChild(newSubtask);
 
-    // Eingabefeld leeren
     subtaskInput.value = '';
     console.log('Unteraufgabe hinzugefügt:', subtaskValue);
 }

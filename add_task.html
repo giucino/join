@@ -5,17 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Task</title>
-    <script src="./js/includeHTML.js"></script>
-    <script src="./js/ui_helpers.js"></script>
     <link rel="stylesheet" href="./css/header.css">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/add_task.css">
     <link rel="stylesheet" href="./css/fonts.css">
     <link rel="icon" type="image/png" href="./img/join_logo_blue.png">
     <script src="./js/app.js"></script>
+    <script src="./js/storage.js"></script>
+    <script src="./js/add_task.js"></script>
+    <script src="./js/contact.js"></script>
+    <script src="./js/includeHTML.js"></script>
+    <script src="./js/ui_helpers.js"></script>
 </head>
 
-<body onload="init()">
+<body onload="init(), initTask()">
     <div w3-include-html="./templates/header.html"></div>
     <div w3-include-html="./templates/aside.html"></div>
     <div class="add-task-container">
@@ -31,7 +34,8 @@
             <div class="add-task-container-describtion">
                 <div class="add-task-describtion-header">Description</div>
                 <div class="add-task-describtion-inner">
-                    <input id="taskDescription" class="add-task-describtion-textfield" placeholder="Enter a Description"></input>
+                    <input id="taskDescription" class="add-task-describtion-textfield"
+                        placeholder="Enter a Description"></input>
                     <div class="add-task-describtion-textfield-inner">
                         <div class="expand-describtion-field-picture">
                             <img src="./img/recurso.png">
@@ -54,30 +58,26 @@
                 Priority
             </div>
             <div class="priority-choice">
-                <div class="priority-choice-inner">
-                    <div class="priority-choice-inner-text">
-                        Urgent
-                    </div>
+                <button onclick="priority(this)" id="prioUrgent" class="priority-choice-inner prio-urgent">
+                    Urgent
                     <div class="priority-choice-inner-pic">
-                        <img src="./img/prio-high.png">
+                        <img src="./img/prio-high.png" id="prioUrgentImg" class="original-image"
+                            data-image="prio-high.png">
                     </div>
-                </div>
-                <div class="priority-choice-inner">
-                    <div class="priority-choice-inner-text">
-                        Medium
-                    </div>
+                </button>
+                <button onclick="priority(this)" id="prioMedium" class="priority-choice-inner prio-medium">
+                    Medium
                     <div class="priority-choice-inner-pic">
-                        <img src="./img/prio-medium.png">
+                        <img src="./img/prio-medium.png" id="prioMediumImg" class="original-image"
+                            data-image="prio-medium.png">
                     </div>
-                </div>
-                <div class="priority-choice-inner">
-                    <div class="priority-choice-inner-text">
-                        Low
-                    </div>
+                </button>
+                <button onclick="priority(this)" id="prioLow" class="priority-choice-inner prio-low">
+                    Low
                     <div class="priority-choice-inner-pic">
-                        <img src="./img/prio-low.png">
+                        <img src="./img/prio-low.png" id="prioLowImg" class="original-image" data-image="prio-low.png">
                     </div>
-                </div>
+                </button>
             </div>
         </div>
         <div class="assigned-to-container">
@@ -85,28 +85,30 @@
                 Assigned to
             </div>
             <div class="assigned-to-choicefield">
-                <select class="assigned-to-dropdown">
-                    <option value="" disabled selected>Select contacts to assign</option>
-                    <option value="contact1">Contact 1</option>
-                    <option value="contact2">Contact 2</option>
-                    <option value="contact3">Contact 3</option>
-                    <!-- Add more contacts as needed -->
-                </select>
+                <div class="assigned-to-dropdown" onclick="toggleAssignedToContainer()">
+                    <div class="assigned-dropdown-header">
+                        <input oninput="searchContacts(this.value)" id="searchInput" class="assigned-select-text" placeholder="Select contacts to assign" type="text">
+                    </div>
+                    <div class="assigned-dropdown-arrow"></div>
+                </div>
             </div>
+            <div id="loadedContacts" class="loaded-contacts"></div>
+            <div id="chosenContacts" class="chosen-contacts"></div>
         </div>
         <div class="category-container">
             <div class="category-header">
                 Category
             </div>
             <div class="category-choicefield">
-                <select class="category-dropdown">
-                    <option value="" disabled selected>Select task category</option>
-                    <option value="category1">Category 1</option>
-                    <option value="category2">Category 2</option>
-                    <option value="category3">Category 3</option>
-                    <!-- Add more categories as needed -->
-                </select>
+                <div class="category-dropdown" onclick="toggleCategoryContainer()">
+                    <div class="dropdown-header" id="dropdownHeader">
+                        <span class="select-text">Select task category</span>
+                        <span id="selectedCategoryDisplay"></span>
+                    </div>
+                    <div class="dropdown-arrow"></div>
+                </div>
             </div>
+            <div id="loadedCategories" class="loaded-categories"></div>
         </div>
         <div class="subtasks-container">
             <div class="subtasks-header">
@@ -114,25 +116,22 @@
             </div>
             <div class="add-subtask-input">
                 <input type="text" class="new-subtask-textfield" placeholder="Add new subtask">
-                <img class="add-subtask-button" src="./img/subtask.svg">
+                <img onclick="addSubtask()" class="add-subtask-button" src="./img/subtask.svg">
             </div>
         </div>
     </div>
     <div class="add-task-buttons">
         <div class="add-task-buttons-inner">
             <button class="button-clear">
-                <div class="button-clear-text"> Clear </div>
+                <div class="button-clear-text">Clear</div>
                 <div class="button-clear-pic"> <img src="./img/cancel-icon.svg"></div>
             </button>
-            <button id="createTaskButton" class="button-create-task" onclick="createTask()">
-                <div class="button-create-task-text "> Create Task </div>
-                <div class="button-create-task-pic"> <img src="./img/check.svg"></div>
+            <button id="createTaskButton" class="button-create-task">
+                <div class="button-create-task-text ">Create Task</div>
+                <div class="button-create-task-pic"><img src="./img/check.svg"></div>
             </button>
-
         </div>
-
     </div>
-    <pre id="tasksOutput"></pre>
 </body>
 
 </html>
