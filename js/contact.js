@@ -117,6 +117,7 @@ async function loadContacts() {
 
         contactsList.innerHTML += `
     <div class="contact" data-contact-index="${i}" onclick="showContactDetails(${i})">
+    <div class="contact" data-contact-index="${i}" onclick="showContactDetails(${i})">
         <div class="initial" style="background-color: ${color}">${initials}</div>
         <div class="container-name-email">
             <div class="name">${contact.name} ${contact.surename}</div>
