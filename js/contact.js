@@ -57,9 +57,6 @@ let contacts = [
     }
 ];
 
-let originalContacts = [...contacts]; // Kopie des Original-Arrays erstellen
-
-
 let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
@@ -70,14 +67,14 @@ async function initContact() {
     initLetters();
     await loadAllContacts();
     loadContacts();
-    // await saveContacts(originalContacts);
+    await saveContacts(contacts);
     removeEmptyLetters();
 }
 
 
-async function saveContacts(originalContacts) {
+async function saveContacts(contacts) {
     try {
-        await setItem('contacts', JSON.stringify(originalContacts));
+        await setItem('contacts', JSON.stringify(contacts));
         console.log('Kontakte wurden erfolgreich gespeichert.');
     } catch (error) {
         console.error('Fehler beim Speichern der Kontakte:', error);
@@ -119,13 +116,13 @@ async function loadContacts() {
         let color = contact.bgcolor;
 
         contactsList.innerHTML += `
-        <div class="contact" onclick="showContactDetails(${i})">
-            <div class="initial" style="background-color: ${color}">${initials}</div>
-            <div class="container-name-email">
-                <div class="name">${contact.name} ${contact.surename}</div>
-                <div class="email">${contact.email}</div>
-            </div>
-        </div>`;
+    <div class="contact" data-contact-index="${i}" onclick="highlightContact(${i})">
+        <div class="initial" style="background-color: ${color}">${initials}</div>
+        <div class="container-name-email">
+            <div class="name">${contact.name} ${contact.surename}</div>
+            <div class="email">${contact.email}</div>
+        </div>
+    </div>`;
     }
 }
 
@@ -184,7 +181,7 @@ function showContactDetails(index) {
             <div class="contact-detailed-mid">
                 <div class="contact-detailed-name">${contact.name} ${contact.surename}</div>
                 <div class="contact-detailed-edit-delete">
-                    <div class="contact-detailed-images" onclick="editContact(${index})"><img src="./img/edit.png">Edit</div>
+                    <div class="contact-detailed-images" onclick="editContact(${index}), changeBackground(${index})"><img src="./img/edit.png">Edit</div>
                     <div class="contact-detailed-images" onclick="deleteContact(${index})"><img src="./img/delete.png">Delete</div>
                 </div>
             </div>
@@ -205,6 +202,16 @@ function showContactDetails(index) {
     let selectedContact = allContacts[index];
     selectedContact.classList.add('contact-selected');
 
+}
+
+function highlightContact(index) {
+    // Hervorheben des ausgewählten Kontakts
+    let allContacts = document.querySelectorAll('.contact');
+    allContacts.forEach(contactElement => {
+        contactElement.classList.remove('contact-selected');
+    });
+    let selectedContactElement = document.querySelector(`[data-contact-index="${index}"]`);
+    selectedContactElement.classList.add('contact-selected');
 }
 
 function openModal() {
@@ -268,7 +275,7 @@ async function saveNewContact() {
     }
 
     let newContact = {
-        id: nextContactId, 
+        id: nextContactId,
         name: newName,
         surename: newSurename,
         email: newEmail,
@@ -291,12 +298,8 @@ async function saveNewContact() {
 
 //Hintergrundfarben für die Initialien generieren
 function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
 }
 
 async function deleteContact(index) {
@@ -363,7 +366,7 @@ async function updateContact(index) {
         telefon: newTelefon
     };
 
-    // await setItem('contacts', JSON.stringify(contacts));
+    await setItem('contacts', JSON.stringify(contacts));
     closeModal();
     initContact(); // Aktualisieren Sie die Kontaktliste nach dem Speichern
 }
