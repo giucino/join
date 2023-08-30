@@ -116,7 +116,7 @@ async function loadContacts() {
         let color = contact.bgcolor;
 
         contactsList.innerHTML += `
-    <div class="contact" data-contact-index="${i}" onclick="highlightContact(${i})">
+    <div class="contact" data-contact-index="${i}" onclick="showContactDetails(${i})">
         <div class="initial" style="background-color: ${color}">${initials}</div>
         <div class="container-name-email">
             <div class="name">${contact.name} ${contact.surename}</div>
@@ -196,23 +196,14 @@ function showContactDetails(index) {
     detailsContainer.style.display = 'inline-flex'; // den Container anzeigen
     // Hervorheben des ausgewählten Contacts
     let allContacts = document.querySelectorAll('.contact');
-    allContacts.forEach(contact => {
-        contact.classList.remove('contact-selected');
-    });
-    let selectedContact = allContacts[index];
-    selectedContact.classList.add('contact-selected');
-
-}
-
-function highlightContact(index) {
-    // Hervorheben des ausgewählten Kontakts
-    let allContacts = document.querySelectorAll('.contact');
     allContacts.forEach(contactElement => {
         contactElement.classList.remove('contact-selected');
     });
     let selectedContactElement = document.querySelector(`[data-contact-index="${index}"]`);
     selectedContactElement.classList.add('contact-selected');
 }
+
+
 
 function openModal() {
     var modal = document.getElementById("contactModal");
