@@ -116,7 +116,7 @@ async function loadContacts() {
         let color = contact.bgcolor;
 
         contactsList.innerHTML += `
-    <div class="contact" data-contact-index="${i}" onclick="highlightContact(${i}), showContactDetails(${i})">
+    <div class="contact" data-contact-index="${i}" onclick="showContactDetails(${i})">
         <div class="initial" style="background-color: ${color}">${initials}</div>
         <div class="container-name-email">
             <div class="name">${contact.name} ${contact.surename}</div>
@@ -181,7 +181,7 @@ function showContactDetails(index) {
             <div class="contact-detailed-mid">
                 <div class="contact-detailed-name">${contact.name} ${contact.surename}</div>
                 <div class="contact-detailed-edit-delete">
-                    <div class="contact-detailed-images" onclick="editContact(${index}), changeBackground(${index})"><img src="./img/edit.png">Edit</div>
+                    <div class="contact-detailed-images" onclick="editContact(${index})"><img src="./img/edit.png">Edit</div>
                     <div class="contact-detailed-images" onclick="deleteContact(${index})"><img src="./img/delete.png">Delete</div>
                 </div>
             </div>
@@ -194,17 +194,6 @@ function showContactDetails(index) {
     </div>
     `;
     detailsContainer.style.display = 'inline-flex'; // den Container anzeigen
-    // Hervorheben des ausgewählten Contacts
-    let allContacts = document.querySelectorAll('.contact');
-    allContacts.forEach(contact => {
-        contact.classList.remove('contact-selected');
-    });
-    let selectedContact = allContacts[index];
-    selectedContact.classList.add('contact-selected');
-
-}
-
-function highlightContact(index) {
     // Hervorheben des ausgewählten Kontakts
     let allContacts = document.querySelectorAll('.contact');
     allContacts.forEach(contactElement => {
@@ -213,6 +202,7 @@ function highlightContact(index) {
     let selectedContactElement = document.querySelector(`[data-contact-index="${index}"]`);
     selectedContactElement.classList.add('contact-selected');
 }
+
 
 function openModal() {
     var modal = document.getElementById("contactModal");
