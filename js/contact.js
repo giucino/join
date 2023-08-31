@@ -233,22 +233,16 @@ function closeModal() {
     modal.style.display = "none";
 }
 
-// Modal schließen, wenn außerhalb geklickt wird
-window.onclick = function (event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
 // Finde die höchste ID im vorhandenen Kontakte-Array
 let maxContactId = Math.max(...contacts.map(contact => contact.id), -1);
 
 // Setze die Anfangs-ID für neue Kontakte auf die nächste verfügbare ID
 let nextContactId = maxContactId + 1;
 
-
-
-// Neuen Kontakt speichern
+/**
+ * saves new contacts
+ * @returns contacts as string in an array
+ */
 async function saveNewContact() {
     let newEmailInput = document.getElementById("newEmail");
     let newTelefonInput = document.getElementById("newTelefon");
@@ -262,21 +256,21 @@ async function saveNewContact() {
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
 
-    // Überprüfen, ob die Felder nicht leer sind
+    // checks if the fields are not empty
     if (!newName || !newSurename || !newEmail || !newTelefon) {
         alert("Bitte füllen Sie alle Felder aus.");
         return;
     }
 
-    // Überprüfen, ob die E-Mail-Adresse ein gültiges Format hat
+    // checks if the email is valid
     let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailPattern.test(newEmail)) {
         alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
         return;
     }
 
-    // Optional: Überprüfen Sie, ob die Telefonnummer ein gültiges Format hat
-    // Zum Beispiel: 123-456-7890
+    // Optional: checks if the phone Number is valid
+    // Example: 123-456-7890
     let phonePattern = /^\d{3}-\d{3}-\d{4}$/;
     if (!phonePattern.test(newTelefon)) {
         alert("Bitte geben Sie eine gültige Telefonnummer im Format 123-456-7890 ein.");
@@ -305,12 +299,19 @@ async function saveNewContact() {
     nextContactId++;
 }
 
-//Hintergrundfarben für die Initialien generieren
+/**
+ * picks a color from the array colors and randomly gives the contact one
+ * @returns 
+ */
 function getRandomColor() {
     const randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
 }
 
+/**
+ * function to delete the chosen contact
+ * @param {string} index 
+ */
 async function deleteContact(index) {
     if (confirm("Möchten Sie diesen Kontakt wirklich löschen?")) {
         contacts.splice(index, 1);
@@ -319,47 +320,47 @@ async function deleteContact(index) {
     }
 }
 
+/**
+ * function to edit the chosen contact
+ * @param {string} index 
+ */
 function editContact(index) {
-    document.getElementById('contact-details').style.display = 'none';  // Zeile hinzufügen
-
+    document.getElementById('contact-details').style.display = 'none';  
     let contact = contacts[index];
     document.getElementById("fullName").value = `${contact.name} ${contact.surename}`;
     document.getElementById("newEmail").value = contact.email;
     document.getElementById("newTelefon").value = contact.telefon;
     openModal();
-
-    // Speichern-Button aktualisieren, um die Bearbeitungsfunktion aufzurufen
     saveContactBtn.onclick = function () {
         updateContact(index);
     }
 }
 
+/**
+ * keeps the contacts up to date
+ * @param {string} index 
+ * @returns the new contacts saved
+ */
 async function updateContact(index) {
     let newEmailInput = document.getElementById("newEmail");
     let newTelefonInput = document.getElementById("newTelefon");
-
     let fullNameInput = document.getElementById("fullName");
     let nameParts = fullNameInput.value.trim().split(' ');
-
     let newName = nameParts[0];
     let newSurename = nameParts[1] || '';
-
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
-
     // Überprüfen, ob die Felder nicht leer sind
     if (!newName || !newSurename || !newEmail || !newTelefon) {
         alert("Bitte füllen Sie alle Felder aus.");
         return;
     }
-
     // Überprüfen, ob die E-Mail-Adresse ein gültiges Format hat
     let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailPattern.test(newEmail)) {
         alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
         return;
     }
-
     // Optional: Überprüfen Sie, ob die Telefonnummer ein gültiges Format hat
     // Zum Beispiel: 123-456-7890
     let phonePattern = /^\d{3}-\d{3}-\d{4}$/;
@@ -367,7 +368,6 @@ async function updateContact(index) {
         alert("Bitte geben Sie eine gültige Telefonnummer im Format 123-456-7890 ein.");
         return;
     }
-
     contacts[index] = {
         name: newName,
         surename: newSurename,
