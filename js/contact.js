@@ -61,7 +61,9 @@ let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
 let colors = ['#000000', '#1FD7C1', '#462F8A', '#6E52FF', '#9327FF', '#FC71FF', '#FF4646', '#FF4646', '#FF7A00', '#FFBB2B'];
-
+/**
+ * main function to initialize the whole site
+ */
 async function initContact() {
     sortContacts();
     initLetters();
@@ -71,7 +73,10 @@ async function initContact() {
     removeEmptyLetters();
 }
 
-
+/**
+ * save the array contacts in the background
+ * @param {string} contacts 
+ */
 async function saveContacts(contacts) {
     try {
         await setItem('contacts', JSON.stringify(contacts));
@@ -81,14 +86,15 @@ async function saveContacts(contacts) {
     }
 }
 
+/**
+ * render the letters as headers for the contacts
+ */
 
 function initLetters() {
     let letterList = document.getElementById('container-letter');
     letterList.innerHTML = '';
-
     for (let i = 0; i < letters.length; i++) {
         let letter = letters[i];
-
         letterList.innerHTML += `
             <div id="container-${letter}" class="container-letter-item">
                 <div class="letter-title"> ${letter} </div>
@@ -101,20 +107,20 @@ function initLetters() {
     }
 }
 
+/**
+ * load the contacts from the array
+ */
 async function loadContacts() {
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
-
-        // Setze die bgcolor Eigenschaft, falls sie noch nicht existiert
+        // add the bgcolor attribute to the contacts if not existent
         if (!contact.bgcolor) {
             contact.bgcolor = getRandomColor();
         }
-
         let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
         let firstLetter = contact.name.charAt(0).toUpperCase();
         let contactsList = document.getElementById(`container-contact-${firstLetter}`);
         let color = contact.bgcolor;
-
         contactsList.innerHTML += `
         <div class="contact" data-contact-index="${i}" onclick="showContactDetails(${i})">
             <div class="initial" style="background-color: ${color}">${initials}</div>
@@ -126,6 +132,9 @@ async function loadContacts() {
     }
 }
 
+/**
+ * save the contacts in the array
+ */
 async function loadAllContacts() {
     try {
         contacts = JSON.parse(await getItem('contacts'));
@@ -135,11 +144,13 @@ async function loadAllContacts() {
     }
 }
 
+/**
+ * this function hides the unused letters of the alphabet that are used as headers
+ */
 function removeEmptyLetters() {
     for (let i = 0; i < letters.length; i++) {
         let letter = letters[i];
         let contactsList = document.getElementById(`container-contact-${letter}`);
-
         if (!contactsList.innerHTML.trim()) {
             let letterContainer = document.getElementById(`container-${letter}`);
             letterContainer.style.display = 'none';
@@ -147,6 +158,9 @@ function removeEmptyLetters() {
     }
 }
 
+/**
+ * sorts the contacts alphabeticly 
+ */
 function sortContacts() {
     contacts.sort((a, b) => {
         const nameA = a.name.toUpperCase();
@@ -160,12 +174,16 @@ function sortContacts() {
         return 0;
     });
 }
-// Modal-Elemente holen
+
 var modal = document.getElementById("myModal");
 var btn = document.getElementById("addContactBtn");
 var span = document.getElementsByClassName("close")[0];
 var saveBtn = document.getElementById("saveContactBtn");
 
+/**
+ * shows the contact details that show up if you press on the contacts
+ * @param {integer} index 
+ */
 function showContactDetails(index) {
     let contact = contacts[index];
     let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
@@ -187,14 +205,11 @@ function showContactDetails(index) {
             </div>
         </div>
         <div class="contact-detailed-information"> Contact Information </div>
-             
             <div class="contact-detailed-text">Email: </div> <div class="email"> ${contact.email}</div>
             <div class="contact-detailed-text">Telefon: </div> <div class="phone"> ${contact.telefon}</div>
-        
-    </div>
-    `;
-    detailsContainer.style.display = 'inline-flex'; // den Container anzeigen
-    // Hervorheben des ausgewählten Kontakts
+        </div>`;
+    detailsContainer.style.display = 'inline-flex'; 
+    // highlight the chosen container
     let allContacts = document.querySelectorAll('.contact');
     allContacts.forEach(contactElement => {
         contactElement.classList.remove('contact-selected');
@@ -203,12 +218,16 @@ function showContactDetails(index) {
     selectedContactElement.classList.add('contact-selected');
 }
 
-
+/**
+ * opens the screen to add new contacts
+ */
 function openModal() {
     var modal = document.getElementById("contactModal");
     modal.style.display = "block";
 }
-// Modal schließen
+/**
+ * closes the screen to add new contacts
+ */
 function closeModal() {
     var modal = document.getElementById("contactModal");
     modal.style.display = "none";
