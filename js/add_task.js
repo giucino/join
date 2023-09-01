@@ -218,15 +218,15 @@ function toggleAssignedToContainer() {
         assignedToDropdown.classList.add('expanded');
     }
 }
-
+/**
+ * this function displays
+ */
 function displayChosenContacts() {
     let chosenContactsContainer = document.getElementById('chosenContacts');
     chosenContactsContainer.innerHTML = '';
-
     for (let i = 0; i < contacts.length; i++) {
         const contact = contacts[i];
         const isSelected = selectedContacts[contact.id];
-
         if (isSelected) {
             let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
             chosenContactsContainer.innerHTML += /*html*/`
@@ -237,11 +237,12 @@ function displayChosenContacts() {
         }
     }
 }
-
+/**
+ * this function renders the categorys
+ */
 function renderCategorys() {
     let categoryContainer = document.getElementById('loadedCategories');
     categoryContainer.innerHTML = '';
-
     for (let i = 0; i < categories.length; i++) {
         let category = categories[i].name;
         categoryContainer.innerHTML += `
@@ -249,18 +250,16 @@ function renderCategorys() {
             `;
     }
 }
-
-
+/**
+ * this function lets you toggle the drop down menu for the category container
+ */
 function toggleCategoryContainer() {
     let selectText = document.querySelector('.select-text');
     selectText.style.display = 'inline';
-
     let selectedCategoryDisplay = document.getElementById('selectedCategoryDisplay');
     selectedCategoryDisplay.textContent = '';
-
     let categoryContainer = document.getElementById('loadedCategories');
     let categoryDropdown = document.querySelector('.category-dropdown');
-
     if (categoryContainer.style.display === 'block') {
         categoryContainer.style.display = 'none';
         categoryDropdown.classList.remove('expanded');
@@ -270,24 +269,20 @@ function toggleCategoryContainer() {
         renderCategorys();
     }
 }
-
-
+/**
+ * this function lets you select one category from the drop down menu
+ * @param {string} category 
+ */
 function categorySelected(category) {
     selectedCategory = category;
-
     let selectedCategoryDisplay = document.getElementById('selectedCategoryDisplay');
     selectedCategoryDisplay.textContent = `${selectedCategory}`;
-
     let selectText = document.querySelector('.select-text');
     selectText.style.display = 'none';
-
     let categoryContainer = document.getElementById('loadedCategories');
     categoryContainer.style.display = 'none';
-
     let categoryDropdown = document.querySelector('.category-dropdown');
     categoryDropdown.classList.remove('expanded');
-
-    console.log('Ausgewählte Kategorie:', selectedCategory);
 }
 
 
