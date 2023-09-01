@@ -7,7 +7,6 @@ let categories = [
     { "name": "Tech" }
 ]
 
-
 let todos = [];
 let selectedPriority = '';
 let selectedCategory = '';
@@ -137,6 +136,7 @@ function highlightButton(button, bgColor, imageSrc) {
 
 
 async function renderAssignedTo() {
+    
         let assignedToContainer = document.getElementById('loadedContacts');
         assignedToContainer.innerHTML = '';
 
@@ -147,7 +147,7 @@ async function renderAssignedTo() {
             const isSelected = selectedContacts[contact.id] || false;
 
             assignedToContainer.innerHTML += /*html*/`
-                <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
+                <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection(${contact.id})">
                     <div class="select-contact">
                         <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
                         <div class="select-name">${contact.name} ${contact.surename}</div>
@@ -169,7 +169,7 @@ function renderSearchedContact(contacts) {
         const isSelected = selectedContacts[contact.id] || false;
 
         assignedToContainer.innerHTML += /*html*/`
-            <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
+            <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection(${contact.id})">
                 <div class="select-contact">
                     <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
                     <div class="select-name">${contact.name} ${contact.surename}</div>
@@ -194,7 +194,22 @@ function searchContacts(query) {
 }
 
 
-function toggleContactSelection(name, surename) {
+function toggleContactSelection(contactId) {
+    if (selectedContacts[contactId]) {
+        delete selectedContacts[contactId];
+    } else {
+        selectedContacts[contactId] = true;
+    }
+
+    renderAssignedTo();
+    renderSearchedContact(contacts);
+    displayChosenContacts();
+    console.log('Ausgewählte/r Kontakt/e:', selectedContacts);
+}
+
+
+
+/* function toggleContactSelection(name, surename) {
     const contact = contacts.find(c => c.name === name && c.surename === surename);
 
     if (!contact) {
@@ -214,7 +229,7 @@ function toggleContactSelection(name, surename) {
     renderSearchedContact(contacts);
     displayChosenContacts();
     console.log('Ausgewählte/r Kontakt/e:', selectedContacts);
-}
+} */
 
 
 function toggleAssignedToContainer() {

@@ -1,61 +1,4 @@
-let contacts = [
-    {
-        bgcolor: '',
-        id: 0,
-        name: 'Anna',
-        surename: 'Schmidt',
-        email: 'anna.schmidt@example.com',
-        telefon: '123-456-7890'
-    },
-    {
-        bgcolor: '',
-        id: 1,
-        name: 'Max',
-        surename: 'Müller',
-        email: 'max.mueller@example.com',
-        telefon: '234-567-8901'
-    },
-    {
-        bgcolor: '',
-        id: 2,
-        name: 'Sophie',
-        surename: 'Wagner',
-        email: 'sophie.wagner@example.com',
-        telefon: '345-678-9012'
-    },
-    {
-        bgcolor: '',
-        id: 3,
-        name: 'Paul',
-        surename: 'Becker',
-        email: 'paul.becker@example.com',
-        telefon: '456-789-0123'
-    },
-    {
-        bgcolor: '',
-        id: 4,
-        name: 'Laura',
-        surename: 'Hoffmann',
-        email: 'laura.hoffmann@example.com',
-        telefon: '567-890-1234'
-    },
-    {
-        bgcolor: '',
-        id: 5,
-        name: 'Felix',
-        surename: 'Schulz',
-        email: 'felix.schulz@example.com',
-        telefon: '678-901-2345'
-    },
-    {
-        bgcolor: '',
-        id: 6,
-        name: 'Emilia',
-        surename: 'Koch',
-        email: 'emilia.koch@example.com',
-        telefon: '789-012-3456',
-    }
-];
+let contacts = [];
 
 let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
@@ -234,10 +177,10 @@ function closeModal() {
 }
 
 // Finde die höchste ID im vorhandenen Kontakte-Array
-let maxContactId = Math.max(...contacts.map(contact => contact.id), -1);
+
 
 // Setze die Anfangs-ID für neue Kontakte auf die nächste verfügbare ID
-let nextContactId = maxContactId + 1;
+
 
 /**
  * saves new contacts
@@ -246,29 +189,27 @@ let nextContactId = maxContactId + 1;
 async function saveNewContact() {
     let newEmailInput = document.getElementById("newEmail");
     let newTelefonInput = document.getElementById("newTelefon");
-
+    let maxContactId = contacts.length;
+    console.log("Max Contact ID:", maxContactId);  // Debugging
+    let nextContactId = maxContactId + 1;
+    console.log("Next Contact ID:", nextContactId);  // Debugging
     let fullNameInput = document.getElementById("fullName");
     let nameParts = fullNameInput.value.trim().split(' ');
-
     let newName = nameParts[0]; // Der erste Teil ist der Vorname
     let newSurename = nameParts[1] || ''; // Der zweite Teil ist der Nachname, falls vorhanden
-
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
-
     // checks if the fields are not empty
     if (!newName || !newSurename || !newEmail || !newTelefon) {
         alert("Bitte füllen Sie alle Felder aus.");
         return;
     }
-
     // checks if the email is valid
     let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailPattern.test(newEmail)) {
         alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
         return;
     }
-
     // Optional: checks if the phone Number is valid
     // Example: 123-456-7890
     let phonePattern = /^\d{3}-\d{3}-\d{4}$/;
@@ -276,7 +217,7 @@ async function saveNewContact() {
         alert("Bitte geben Sie eine gültige Telefonnummer im Format 123-456-7890 ein.");
         return;
     }
-
+    console.log("Saving new contact with ID:", nextContactId); 
     let newContact = {
         id: nextContactId,
         name: newName,
@@ -295,8 +236,9 @@ async function saveNewContact() {
     fullName.value = "";
     newEmailInput.value = "";
     newTelefonInput.value = "";
-
     nextContactId++;
+    console.log("Incrementing nextContactId");  // Debugging
+    
 }
 
 /**
@@ -369,6 +311,7 @@ async function updateContact(index) {
         return;
     }
     contacts[index] = {
+        id: nextContactId,
         name: newName,
         surename: newSurename,
         email: newEmail,
