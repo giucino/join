@@ -133,7 +133,7 @@ async function updateHTML() {
 }
 
 
-pushData();
+/* pushData(); */
 async function pushData() {
     await setItem('tasks', JSON.stringify(todos));
 }
@@ -142,6 +142,7 @@ async function pushData() {
 async function loadData() {
     const getTodos = await getItem('tasks');
     todos = JSON.parse(getTodos);
+    console.log('Tasks:', todos);
     /* for (let i = 0; i < todos.length; i++) {
         const element = todos[i];
     } */
