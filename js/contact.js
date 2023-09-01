@@ -64,7 +64,7 @@ let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 
 async function initContact() {
     await loadAllContacts();
-    await saveContacts(contacts);
+    // await saveContacts(contacts);
     sortContacts();
     initLetters();
     showContacts();
@@ -82,14 +82,14 @@ async function loadAllContacts() {
 }
 
 
-async function saveContacts(contacts) {
-    try {
-        await setItem('contacts', JSON.stringify(contacts));
-        console.log('Kontakte', contacts);
-    } catch (error) {
-        console.error('Fehler beim Speichern der Kontakte:', error);
-    }
-}
+// async function saveContacts(contacts) {
+//     try {
+//         await setItem('contacts', JSON.stringify(contacts));
+//         console.log('Kontakte', contacts);
+//     } catch (error) {
+//         console.error('Fehler beim Speichern der Kontakte:', error);
+//     }
+// }
 
 
 function sortContacts() {
@@ -329,48 +329,48 @@ function editContact(index) {
 }
 
 
-// async function updateContact(index) {
-//     let newEmailInput = document.getElementById("newEmail");
-//     let newTelefonInput = document.getElementById("newTelefon");
+async function updateContact(index) {
+    let newEmailInput = document.getElementById("newEmail");
+    let newTelefonInput = document.getElementById("newTelefon");
 
-//     let fullNameInput = document.getElementById("fullName");
-//     let nameParts = fullNameInput.value.trim().split(' ');
+    let fullNameInput = document.getElementById("fullName");
+    let nameParts = fullNameInput.value.trim().split(' ');
 
-//     let newName = nameParts[0];
-//     let newSurename = nameParts[1] || '';
+    let newName = nameParts[0];
+    let newSurename = nameParts[1] || '';
 
-//     let newEmail = newEmailInput.value;
-//     let newTelefon = newTelefonInput.value;
+    let newEmail = newEmailInput.value;
+    let newTelefon = newTelefonInput.value;
 
-//     // Überprüfen, ob die Felder nicht leer sind
-//     if (!newName || !newSurename || !newEmail || !newTelefon) {
-//         alert("Bitte füllen Sie alle Felder aus.");
-//         return;
-//     }
+    // Überprüfen, ob die Felder nicht leer sind
+    if (!newName || !newSurename || !newEmail || !newTelefon) {
+        alert("Bitte füllen Sie alle Felder aus.");
+        return;
+    }
 
-//     // Überprüfen, ob die E-Mail-Adresse ein gültiges Format hat
-//     let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-//     if (!emailPattern.test(newEmail)) {
-//         alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
-//         return;
-//     }
+    // Überprüfen, ob die E-Mail-Adresse ein gültiges Format hat
+    let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailPattern.test(newEmail)) {
+        alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+        return;
+    }
 
-//     // Optional: Überprüfen Sie, ob die Telefonnummer ein gültiges Format hat
-//     // Zum Beispiel: 123-456-7890
-//     let phonePattern = /^\d{3}-\d{3}-\d{4}$/;
-//     if (!phonePattern.test(newTelefon)) {
-//         alert("Bitte geben Sie eine gültige Telefonnummer im Format 123-456-7890 ein.");
-//         return;
-//     }
+    // Optional: Überprüfen Sie, ob die Telefonnummer ein gültiges Format hat
+    // Zum Beispiel: 123-456-7890
+    let phonePattern = /^\d{3}-\d{3}-\d{4}$/;
+    if (!phonePattern.test(newTelefon)) {
+        alert("Bitte geben Sie eine gültige Telefonnummer im Format 123-456-7890 ein.");
+        return;
+    }
 
-//     contacts[index] = {
-//         name: newName,
-//         surename: newSurename,
-//         email: newEmail,
-//         telefon: newTelefon
-//     };
+    contacts[index] = {
+        name: newName,
+        surename: newSurename,
+        email: newEmail,
+        telefon: newTelefon
+    };
 
-//     await setItem('contacts', JSON.stringify(contacts));
-//     closeModal();
-//     initContact(); // Aktualisieren Sie die Kontaktliste nach dem Speichern
-// }
+    await setItem('contacts', JSON.stringify(contacts));
+    closeModal();
+    initContact(); // Aktualisieren Sie die Kontaktliste nach dem Speichern
+}
