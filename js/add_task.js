@@ -6,7 +6,20 @@ let categories = [
     { "name": "Webdesign" },
     { "name": "Tech" }
 ]
-
+let task = {
+    'id': "",
+    "title": "",
+    "description": "",
+    "category": "",
+    "status": "",
+    "priority": "",
+    "due_date": "",
+    "assignedTo": [],
+    "subtasks": {
+        "name": [],
+        "status": []
+    }
+};
 let todos = [];
 let selectedPriority = '';
 let selectedCategory = '';
@@ -21,12 +34,9 @@ async function initTask() {
 }
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    const createTaskButton = document.getElementById('createTaskButton');
-    createTaskButton.addEventListener('click', createTask);
-});
-
-
+/**
+ * 
+ */
 async function loadContactsFromStorage() {
     try {
         contacts = JSON.parse(await getItem('contacts'));
@@ -73,26 +83,12 @@ async function createTask() {
         assignedTo: selectedContacts
     };
     todos.push(newTask);
-
     await setItem('tasks', JSON.stringify(todos));
     console.log('Aufgabe hinzugefügt:', newTask);
 }
 
 
-let task = {
-    'id': "",
-    "title": "",
-    "description": "",
-    "category": "",
-    "status": "",
-    "priority": "",
-    "due_date": "",
-    "assignedTo": [],
-    "subtasks": {
-        "name": [],
-        "status": []
-    }
-};
+
 
 
 function priority(button) {
@@ -207,31 +203,6 @@ function toggleContactSelection(contactId) {
     console.log('Ausgewählte/r Kontakt/e:', selectedContacts);
 }
 
-
-
-/* function toggleContactSelection(name, surename) {
-    const contact = contacts.find(c => c.name === name && c.surename === surename);
-
-    if (!contact) {
-        return;
-    }
-
-    const contactId = contact.id;
-    const contactKey = `${contact.name} ${contact.surename}`;
-
-    if (selectedContacts[contactId]) {
-        delete selectedContacts[contactId]; 
-    } else {
-        selectedContacts[contactId] = contact; 
-    }
-
-    renderAssignedTo();
-    renderSearchedContact(contacts);
-    displayChosenContacts();
-    console.log('Ausgewählte/r Kontakt/e:', selectedContacts);
-} */
-
-
 function toggleAssignedToContainer() {
     let assignedSelectText = document.querySelector('.assigned-select-text');
     assignedSelectText.style.display = 'inline';
@@ -247,25 +218,6 @@ function toggleAssignedToContainer() {
         assignedToDropdown.classList.add('expanded');
     }
 }
-
-
-// function assignedToSelected(contact, container) {
-//     container.classList.toggle('selected');
-
-//     let selectIcon = container.querySelector('.select-icon');
-
-//     if (container.classList.contains('selected')) {
-//         selectIcon.src = 'img/check_contact.png';
-//         selectedContacts.push(contact);
-//         displayChosenContacts();
-//     } else {
-//         selectIcon.src = 'img/check-button.png';
-//         selectedContacts = selectedContacts.filter(selected => selected !== contact);
-//         displayChosenContacts();
-//     }
-//     console.log('Ausgewählte/r Kontakt/e:', selectedContacts);
-// }
-
 
 function displayChosenContacts() {
     let chosenContactsContainer = document.getElementById('chosenContacts');
@@ -285,7 +237,6 @@ function displayChosenContacts() {
         }
     }
 }
-
 
 function renderCategorys() {
     let categoryContainer = document.getElementById('loadedCategories');
