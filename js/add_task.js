@@ -80,6 +80,7 @@ async function createTask() {
         category: selectedCategory,
         priority: selectedPriority,
         dueDate: dueDate,
+        status: 'todo',
         assignedTo: selectedContacts
     };
     todos.push(newTask);
