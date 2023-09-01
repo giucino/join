@@ -57,28 +57,53 @@ let contacts = [
     }
 ];
 
+
 let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
-let colors = ['#000000', '#1FD7C1', '#462F8A', '#6E52FF', '#9327FF', '#FC71FF', '#FF4646', '#FF4646', '#FF7A00', '#FFBB2B'];
 
 async function initContact() {
+    await loadAllContacts();
+    await saveContacts(contacts);
     sortContacts();
     initLetters();
-    await loadAllContacts();
-    loadContacts();
-    await saveContacts(contacts);
+    showContacts();
     removeEmptyLetters();
+}
+
+
+async function loadAllContacts() {
+    try {
+        contacts = JSON.parse(await getItem('contacts'));
+        console.log('Contacts:', contacts);
+    } catch (e) {
+        console.error('Loading error:', e);
+    }
 }
 
 
 async function saveContacts(contacts) {
     try {
         await setItem('contacts', JSON.stringify(contacts));
-        console.log('Kontakte wurden erfolgreich gespeichert.');
+        console.log('Kontakte', contacts);
     } catch (error) {
         console.error('Fehler beim Speichern der Kontakte:', error);
     }
+}
+
+
+function sortContacts() {
+    contacts.sort((a, b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+            return -1;
+        }
+        if (nameA > nameB) {
+            return 1;
+        }
+        return 0;
+    });
 }
 
 
@@ -89,8 +114,7 @@ function initLetters() {
     for (let i = 0; i < letters.length; i++) {
         let letter = letters[i];
 
-        letterList.innerHTML += `
-            <div id="container-${letter}" class="container-letter-item">
+        letterList.innerHTML += /*html*/ `<div id="container-${letter}" class="container-letter-item">
                 <div class="letter-title"> ${letter} </div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="400" height="2" viewBox="0 0 353 2" fill="none">
                 <path d="M0.5 1H352.5" stroke="#D1D1D1" stroke-linecap="round"/>
@@ -101,7 +125,8 @@ function initLetters() {
     }
 }
 
-async function loadContacts() {
+
+async function showContacts() {
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
 
@@ -126,14 +151,6 @@ async function loadContacts() {
     }
 }
 
-async function loadAllContacts() {
-    try {
-        contacts = JSON.parse(await getItem('contacts'));
-        console.log('Contacts:', contacts);
-    } catch (e) {
-        console.error('Loading error:', e);
-    }
-}
 
 function removeEmptyLetters() {
     for (let i = 0; i < letters.length; i++) {
@@ -147,24 +164,12 @@ function removeEmptyLetters() {
     }
 }
 
-function sortContacts() {
-    contacts.sort((a, b) => {
-        const nameA = a.name.toUpperCase();
-        const nameB = b.name.toUpperCase();
-        if (nameA < nameB) {
-            return -1;
-        }
-        if (nameA > nameB) {
-            return 1;
-        }
-        return 0;
-    });
-}
+
 // Modal-Elemente holen
-var modal = document.getElementById("myModal");
-var btn = document.getElementById("addContactBtn");
-var span = document.getElementsByClassName("close")[0];
-var saveBtn = document.getElementById("saveContactBtn");
+const modal = document.getElementById("myModal");
+// const btn = document.getElementById("addContactBtn");
+// const span = document.getElementsByClassName("close")[0];
+// const saveBtn = document.getElementById("saveContactBtn");
 
 function showContactDetails(index) {
     let contact = contacts[index];
@@ -186,11 +191,9 @@ function showContactDetails(index) {
                 </div>
             </div>
         </div>
-        <div class="contact-detailed-information"> Contact Information </div>
-             
+        <div class="contact-detailed-information"> Contact Information </div>             
             <div class="contact-detailed-text">Email: </div> <div class="email"> ${contact.email}</div>
-            <div class="contact-detailed-text">Telefon: </div> <div class="phone"> ${contact.telefon}</div>
-        
+            <div class="contact-detailed-text">Telefon: </div> <div class="phone"> ${contact.telefon}</div> 
     </div>
     `;
     detailsContainer.style.display = 'inline-flex'; // den Container anzeigen
@@ -204,15 +207,29 @@ function showContactDetails(index) {
 }
 
 
+//Hintergrundfarben für die Initialien generieren
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+
 function openModal() {
-    var modal = document.getElementById("contactModal");
+    let modal = document.getElementById("contactModal");
     modal.style.display = "block";
 }
+
+
 // Modal schließen
 function closeModal() {
-    var modal = document.getElementById("contactModal");
+    let modal = document.getElementById("contactModal");
     modal.style.display = "none";
 }
+
 
 // Modal schließen, wenn außerhalb geklickt wird
 window.onclick = function (event) {
@@ -220,13 +237,6 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
-
-// Finde die höchste ID im vorhandenen Kontakte-Array
-let maxContactId = Math.max(...contacts.map(contact => contact.id), -1);
-
-// Setze die Anfangs-ID für neue Kontakte auf die nächste verfügbare ID
-let nextContactId = maxContactId + 1;
-
 
 
 // Neuen Kontakt speichern
@@ -264,7 +274,12 @@ async function saveNewContact() {
         return;
     }
 
+    // Aktualisiere die nächste verfügbare Kontakt-ID
+    let maxContactId = Math.max(...contacts.map(contact => contact.id), -1);
+    let nextContactId = maxContactId + 1;
+
     let newContact = {
+        bgcolor: getRandomColor(),
         id: nextContactId,
         name: newName,
         surename: newSurename,
@@ -274,7 +289,7 @@ async function saveNewContact() {
 
     contacts.push(newContact);
     await setItem('contacts', JSON.stringify(contacts));
-    var modal = document.getElementById("contactModal");
+    let modal = document.getElementById("contactModal");
     modal.style.display = "none";
     initContact(); // Kontaktliste aktualisieren
 
@@ -283,14 +298,11 @@ async function saveNewContact() {
     newEmailInput.value = "";
     newTelefonInput.value = "";
 
-    nextContactId++;
+    console.log('Maximale Kontakt-ID:', maxContactId);
+    console.log('Nächste verfügbare Kontakt-ID:', nextContactId);
 }
 
-//Hintergrundfarben für die Initialien generieren
-function getRandomColor() {
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
-}
+
 
 async function deleteContact(index) {
     if (confirm("Möchten Sie diesen Kontakt wirklich löschen?")) {
@@ -300,8 +312,9 @@ async function deleteContact(index) {
     }
 }
 
+
 function editContact(index) {
-    document.getElementById('contact-details').style.display = 'none';  // Zeile hinzufügen
+    // document.getElementById('contact-details').style.display = 'none';  // Zeile hinzufügen
 
     let contact = contacts[index];
     document.getElementById("fullName").value = `${contact.name} ${contact.surename}`;
@@ -315,48 +328,49 @@ function editContact(index) {
     }
 }
 
-async function updateContact(index) {
-    let newEmailInput = document.getElementById("newEmail");
-    let newTelefonInput = document.getElementById("newTelefon");
 
-    let fullNameInput = document.getElementById("fullName");
-    let nameParts = fullNameInput.value.trim().split(' ');
+// async function updateContact(index) {
+//     let newEmailInput = document.getElementById("newEmail");
+//     let newTelefonInput = document.getElementById("newTelefon");
 
-    let newName = nameParts[0];
-    let newSurename = nameParts[1] || '';
+//     let fullNameInput = document.getElementById("fullName");
+//     let nameParts = fullNameInput.value.trim().split(' ');
 
-    let newEmail = newEmailInput.value;
-    let newTelefon = newTelefonInput.value;
+//     let newName = nameParts[0];
+//     let newSurename = nameParts[1] || '';
 
-    // Überprüfen, ob die Felder nicht leer sind
-    if (!newName || !newSurename || !newEmail || !newTelefon) {
-        alert("Bitte füllen Sie alle Felder aus.");
-        return;
-    }
+//     let newEmail = newEmailInput.value;
+//     let newTelefon = newTelefonInput.value;
 
-    // Überprüfen, ob die E-Mail-Adresse ein gültiges Format hat
-    let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (!emailPattern.test(newEmail)) {
-        alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
-        return;
-    }
+//     // Überprüfen, ob die Felder nicht leer sind
+//     if (!newName || !newSurename || !newEmail || !newTelefon) {
+//         alert("Bitte füllen Sie alle Felder aus.");
+//         return;
+//     }
 
-    // Optional: Überprüfen Sie, ob die Telefonnummer ein gültiges Format hat
-    // Zum Beispiel: 123-456-7890
-    let phonePattern = /^\d{3}-\d{3}-\d{4}$/;
-    if (!phonePattern.test(newTelefon)) {
-        alert("Bitte geben Sie eine gültige Telefonnummer im Format 123-456-7890 ein.");
-        return;
-    }
+//     // Überprüfen, ob die E-Mail-Adresse ein gültiges Format hat
+//     let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+//     if (!emailPattern.test(newEmail)) {
+//         alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+//         return;
+//     }
 
-    contacts[index] = {
-        name: newName,
-        surename: newSurename,
-        email: newEmail,
-        telefon: newTelefon
-    };
+//     // Optional: Überprüfen Sie, ob die Telefonnummer ein gültiges Format hat
+//     // Zum Beispiel: 123-456-7890
+//     let phonePattern = /^\d{3}-\d{3}-\d{4}$/;
+//     if (!phonePattern.test(newTelefon)) {
+//         alert("Bitte geben Sie eine gültige Telefonnummer im Format 123-456-7890 ein.");
+//         return;
+//     }
 
-    await setItem('contacts', JSON.stringify(contacts));
-    closeModal();
-    initContact(); // Aktualisieren Sie die Kontaktliste nach dem Speichern
-}
+//     contacts[index] = {
+//         name: newName,
+//         surename: newSurename,
+//         email: newEmail,
+//         telefon: newTelefon
+//     };
+
+//     await setItem('contacts', JSON.stringify(contacts));
+//     closeModal();
+//     initContact(); // Aktualisieren Sie die Kontaktliste nach dem Speichern
+// }

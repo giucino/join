@@ -8,11 +8,11 @@ let categories = [
 ]
 
 
-let todos = [];
 let selectedPriority = '';
 let selectedCategory = '';
 let selectedContacts = [];
-let contactsRendered = false;
+let subtasks = [];
+
 
 async function initTask() {
     await loadContactsFromStorage();
@@ -20,12 +20,6 @@ async function initTask() {
     await renderAssignedTo();
     renderCategorys();
 }
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    const createTaskButton = document.getElementById('createTaskButton');
-    createTaskButton.addEventListener('click', createTask);
-});
 
 
 async function loadContactsFromStorage() {
@@ -48,56 +42,248 @@ async function loadTasks() {
 }
 
 
+document.getElementById('taskForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    createTask();
+});
+
+
 async function createTask() {
     const title = document.getElementById('taskTitle').value;
     const description = document.getElementById('taskDescription').value;
     const dueDate = document.getElementById('dueDate').value;
 
-    if (!title || !description) {
-        alert('Bitte füllen Sie alle erforderlichen Felder aus.');
+    if (!title) {
+        showTitleInputError();
+        return;
+    } if (!description) {
+        showDescriptionInputError();
+        return;
+    } if (!dueDate) {
+        showDateInputError();
+        return;
+    } if (!selectedPriority) {
+        showPriorityError();
+        return;
+    } if (!selectedContacts.length) {
+        showAssignedContactError();
+        return;
+    } if (!selectedCategory) {
+        showSelectCategoryError();
+        return;
+    } if (!subtasks.length) {
+        showSubtasksInputError();
         return;
     }
 
-    const highestId = todos.reduce((maxId, task) => {
-        return task.id > maxId ? task.id : maxId;
+    const highestId = todos.reduce((maxId, currentTodo) => {
+        return currentTodo.id > maxId ? currentTodo.id : maxId;
     }, 0);
 
-    const newTaskId = highestId + 1;
+    const newTodoId = highestId + 1;
 
-    const newTask = {
-        id: newTaskId,
+    const newTodo = {
+        id: newTodoId,
         title: title,
         description: description,
         category: selectedCategory,
+        status: 'todo',
         priority: selectedPriority,
         dueDate: dueDate,
-        assignedTo: selectedContacts
+        assignedTo: selectedContacts.join(', '), // Um die zugewiesenen Kontakte als kommaseparierte Zeichenfolge darzustellen,
+        subtasks: subtasks
     };
-    todos.push(newTask);
+    todos.push(newTodo);
 
     await setItem('tasks', JSON.stringify(todos));
-    console.log('Aufgabe hinzugefügt:', newTask);
+    console.log('Aufgabe hinzugefügt:', newTodo);
+    resetTaskForm();
 }
 
 
-let task = {
-    'id': "",
-    "title": "",
-    "description": "",
-    "category": "",
-    "status": "",
-    "priority": "",
-    "due_date": "",
-    "assignedTo": [],
-    "subtasks": {
-        "name": [],
-        "status": []
+function showTitleInputError() {
+    let titleError = document.getElementById('requiredTitle');
+    titleError.style.display = 'block';
+    let titleInput = document.querySelector('.add-task-titel-textcontainer');
+    titleInput.style.borderColor = '#FF8190';
+}
+
+
+function resetTitleInput() {
+    let titleError = document.getElementById('requiredTitle');
+    titleError.style.display = 'none';
+
+    let titleInput = document.querySelector('.add-task-titel-textcontainer');
+    titleInput.style.borderColor = '#D1D1D1';
+}
+let titleInput = document.getElementById('taskTitle');
+titleInput.addEventListener('input', resetTitleInput);
+
+
+function showDescriptionInputError() {
+    let descriptionError = document.getElementById('requiredDescription');
+    descriptionError.style.display = 'block';
+    let descriptionInput = document.querySelector('.add-task-description-textfield');
+    descriptionInput.style.borderColor = '#FF8190';
+}
+
+
+function resetDescriptionInput() {
+    let descriptionError = document.getElementById('requiredDescription');
+    descriptionError.style.display = 'none';
+
+    let descriptionInput = document.querySelector('.add-task-description-textfield');
+    descriptionInput.style.borderColor = '#D1D1D1';
+}
+let descriptionInput = document.getElementById('taskDescription');
+descriptionInput.addEventListener('input', resetDescriptionInput);
+
+
+function showDateInputError() {
+    let dateError = document.getElementById('requiredDate');
+    dateError.style.display = 'block';
+    let dateInput = document.querySelector('.due-date-input-container');
+    dateInput.style.borderColor = '#FF8190';
+}
+
+
+function resetDateInput() {
+    let dateError = document.getElementById('requiredDate');
+    dateError.style.display = 'none';
+
+    let dateInput = document.querySelector('.due-date-input-container');
+    dateInput.style.borderColor = '#D1D1D1';
+}
+let dateInput = document.getElementById('dueDate');
+dateInput.addEventListener('input', resetDateInput);
+
+
+function showPriorityError() {
+    let priorityError = document.getElementById('requiredPriority');
+    priorityError.style.display = 'block';
+}
+
+function hidePriorityError() {
+    let priorityError = document.getElementById('requiredPriority');
+    priorityError.style.display = 'none';
+}
+
+
+function showAssignedContactError() {
+    let assignedError = document.getElementById('requiredContact');
+    assignedError.style.display = 'block';
+    let assignedInput = document.querySelector('.assigned-to-choicefield');
+    assignedInput.style.borderColor = '#FF8190';
+}
+
+
+function resetAssignedContact() {
+    let assignedError = document.getElementById('requiredContact');
+    assignedError.style.display = 'none';
+
+    let assignedInput = document.querySelector('.assigned-to-choicefield');
+    assignedInput.style.borderColor = '#D1D1D1';
+}
+let assignedDropdown = document.querySelector('.assigned-to-dropdown');
+assignedDropdown.addEventListener('click', resetAssignedContact);
+
+
+function showSelectCategoryError() {
+    let assignedError = document.getElementById('requiredCategory');
+    assignedError.style.display = 'block';
+    let assignedInput = document.querySelector('.category-choicefield');
+    assignedInput.style.borderColor = '#FF8190';
+}
+
+
+function resetSelectCategory() {
+    let categoryError = document.getElementById('requiredCategory');
+    categoryError.style.display = 'none';
+
+    let categoryInput = document.querySelector('.category-choicefield');
+    categoryInput.style.borderColor = '#D1D1D1';
+}
+let categoryDropdown = document.querySelector('.category-dropdown');
+categoryDropdown.addEventListener('click', resetSelectCategory);
+
+
+
+function showSubtasksInputError() {
+    let assignedError = document.getElementById('requiredSubtask');
+    assignedError.style.display = 'block';
+    let assignedInput = document.querySelector('.add-subtask-input');
+    assignedInput.style.borderColor = '#FF8190';
+}
+
+
+function resetSubtaskInput() {
+    let subtaskError = document.getElementById('requiredSubtask');
+    subtaskError.style.display = 'none';
+
+    let subtaskInput = document.querySelector('.add-subtask-input');
+    subtaskInput.style.borderColor = '#D1D1D1';
+}
+let subtaskInput = document.getElementById('subtaskInput');
+subtaskInput.addEventListener('input', resetSubtaskInput);
+
+
+function resetTaskForm() {
+    document.getElementById('taskTitle').value = '';
+    document.getElementById('taskDescription').value = '';
+    document.getElementById('dueDate').value = '';
+    resetButtons();
+    resetAssignedToSelection();
+    resetCategorySelection();
+    resetSubtasks();
+}
+
+
+function resetAssignedToSelection() {
+    selectedContacts = {};
+    let searchInput = document.getElementById('searchInput');
+    searchInput.value = '';
+    renderAssignedTo();
+    displayChosenContacts();
+}
+
+
+function resetCategorySelection() {
+    selectedCategory = '';
+    let selectedCategoryDisplay = document.getElementById('selectedCategoryDisplay');
+    selectedCategoryDisplay.textContent = '';
+
+    let selectText = document.querySelector('.select-text');
+    selectText.style.display = 'inline';
+}
+
+
+function resetSubtasks() {
+    subtasks = [];
+    let subtasksContainer = document.getElementById('subtask-add-container');
+    subtasksContainer.innerHTML = '';
+}
+
+
+function resetButtons() {
+    selectedPriority = '';
+
+    let buttons = document.querySelectorAll('.priority-choice-inner');
+    for (let i = 0; i < buttons.length; i++) {
+        let btn = buttons[i];
+        btn.classList.remove('highlighted');
+        btn.style.backgroundColor = '';
+        btn.style.color = 'black';
+
+        let originalImage = btn.querySelector('.priority-choice-inner-pic img');
+        originalImage.src = './img/' + originalImage.getAttribute('data-image');
     }
-};
+}
 
 
 function priority(button) {
     resetButtons();
+    hidePriorityError();
+
     if (button.id === 'prioUrgent') {
         highlightButton(button, '#FF3D00', './img/prio_high_active.png');
         selectedPriority = 'high';
@@ -113,20 +299,6 @@ function priority(button) {
 }
 
 
-function resetButtons() {
-    let buttons = document.querySelectorAll('.priority-choice-inner');
-    for (let i = 0; i < buttons.length; i++) {
-        let btn = buttons[i];
-        btn.classList.remove('highlighted');
-        btn.style.backgroundColor = '';
-        btn.style.color = 'black';
-
-        let originalImage = btn.querySelector('.priority-choice-inner-pic img');
-        originalImage.src = './img/' + originalImage.getAttribute('data-image');
-    }
-}
-
-
 function highlightButton(button, bgColor, imageSrc) {
     button.classList.add('highlighted');
     button.style.backgroundColor = bgColor;
@@ -137,16 +309,16 @@ function highlightButton(button, bgColor, imageSrc) {
 
 
 async function renderAssignedTo() {
-        let assignedToContainer = document.getElementById('loadedContacts');
-        assignedToContainer.innerHTML = '';
+    let assignedToContainer = document.getElementById('loadedContacts');
+    assignedToContainer.innerHTML = '';
 
-        for (let i = 0; i < contacts.length; i++) {
-            let contact = contacts[i];
-            let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+    for (let i = 0; i < contacts.length; i++) {
+        let contact = contacts[i];
+        let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
 
-            const isSelected = selectedContacts[contact.id] || false;
+        const isSelected = selectedContacts[contact.id] || false;
 
-            assignedToContainer.innerHTML += /*html*/`
+        assignedToContainer.innerHTML += /*html*/`
                 <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
                     <div class="select-contact">
                         <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
@@ -155,8 +327,8 @@ async function renderAssignedTo() {
                     <img class="select-icon" id="selectCheck" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
                 </div>
             `;
-        }   
     }
+}
 
 
 function renderSearchedContact(contacts) {
@@ -200,16 +372,14 @@ function toggleContactSelection(name, surename) {
     if (!contact) {
         return;
     }
-
     const contactId = contact.id;
     const contactKey = `${contact.name} ${contact.surename}`;
 
     if (selectedContacts[contactId]) {
-        delete selectedContacts[contactId]; 
+        delete selectedContacts[contactId];
     } else {
-        selectedContacts[contactId] = contact; 
+        selectedContacts[contactId] = contact;
     }
-
     renderAssignedTo();
     renderSearchedContact(contacts);
     displayChosenContacts();
@@ -326,25 +496,24 @@ function categorySelected(category) {
 
 
 function addSubtask() {
-    const subtaskInput = document.querySelector('.new-subtask-textfield');
-    const subtaskValue = subtaskInput.value;
+    let subtaskInput = document.querySelector('.new-subtask-textfield');
+    let subtaskValue = subtaskInput.value;
 
     if (!subtaskValue) {
         alert('Bitte geben Sie eine Unteraufgabe ein.');
         return;
     }
-
-    // Unteraufgabe zur Liste hinzufügen (mit innerHTML)
-    const subtasksContainer = document.querySelector('.subtasks-container');
-    const newSubtask = document.createElement('div');
-    newSubtask.innerHTML = `
+    subtasks.push({
+        title: subtaskValue,
+        status: false
+    })
+    let subtasksContainer = document.getElementById('subtask-add-container');
+    subtasksContainer.innerHTML += `
         <div class="subtask-item">
             <span class="subtask-dot"></span>           
             <span>${subtaskValue}</span>
         </div>
     `;
-    subtasksContainer.appendChild(newSubtask);
-
     subtaskInput.value = '';
     console.log('Unteraufgabe hinzugefügt:', subtaskValue);
 }

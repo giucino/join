@@ -78,9 +78,8 @@ header {
     z-index: 2;
 }
 
-.initals {
+.initials {
     width: 28px;
-    height: 15px;
     flex-shrink: 0;
     color: #005DFF;
     z-index: 5;

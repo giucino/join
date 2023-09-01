@@ -1,11 +1,20 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open sans', sans-serif;
+}
+
 .add-task-container {
     display: inline-flex;
-    height: 928px;
+    height: 1128px;
     padding: 168px 38px 4px 279px;
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
     flex-shrink: 0;
+    overflow-y: scroll;
 }
 
 .add-task-container-first {
@@ -31,21 +40,33 @@
     padding-top: 13px;
     padding-bottom: 13px;
     background: white;
-    border-bottom: 0.50px #D1D1D1 solid;
+    border-bottom: 1px #D1D1D1 solid;
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
-    display: inline-flex
+    display: inline-flex;
+    cursor: pointer;
+}
+
+.add-task-titel-textcontainer:hover {
+    border-bottom: 1px solid var(--bg-color);
 }
 
 .add-task-titel-textfield {
-    color: #D1D1D1;
+    color: black;
+    font-family: 'Open sans', sans-serif;
     font-size: 32px;
     font-weight: 400;
     line-height: 38.40px;
     word-wrap: break-word;
     border: none;
     outline: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+.add-task-titel-textfield::placeholder {
+    color: var(--style, #D1D1D1);
 }
 
 .add-task-field-required {
@@ -54,10 +75,12 @@
     font-family: Inter;
     font-weight: 400;
     line-height: 15.60px;
-    word-wrap: break-word
+    word-wrap: break-word;
+    color: var(--error, #FF8190);
+    display: none;
 }
 
-.add-task-container-describtion {
+.add-task-container-description {
     display: flex;
     width: 440px;
     flex-direction: column;
@@ -65,7 +88,7 @@
     gap: 8px;
 }
 
-.add-task-describtion-header {
+.add-task-description-header {
     display: inline-flex;
     color: #42526E;
     font-size: 19px;
@@ -74,45 +97,32 @@
     line-height: 120%;
 }
 
-.add-task-describtion-inner {
-    width: 440px;
-    height: 103px;
-    position: relative;
-    background: white;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border: 0.50px #D1D1D1 solid
-}
-
-.add-task-describtion-textfield {
-    width: 224.31px;
-    left: 16px;
-    top: 18px;
-    position: absolute;
-    color: #D1D1D1;
+.add-task-description-textfield {
+    width: 100%;
+    max-width: 440px;
+    min-height: 90px;
+    color: black;
+    font-family: 'Open sans', sans-serif;
     font-size: 19px;
     font-weight: 400;
     line-height: 22.80px;
     word-wrap: break-word;
-    border: none;
     outline: none;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 1px #D1D1D1 solid;
+    resize: vertical;
+    cursor: pointer;
+    padding: 18px 16px
 }
 
-.add-task-describtion-textfield-inner {
-    width: 18.90px;
-    height: 18.90px;
-    left: 411.10px;
-    top: 74.10px;
-    position: absolute;
+.add-task-description-textfield:hover {
+    border: 1px solid var(--bg-color);
 }
 
-.expand-describtion-field-picture {
-    width: 18.90px;
-    height: 18.90px;
-    left: 0px;
-    top: 0px;
-    position: absolute;
+.add-task-description-textfield::placeholder {
+    color: var(--style, #D1D1D1);
 }
 
 .due-date-container {
@@ -131,18 +141,39 @@
     line-height: 120%;
 }
 
+.due-date-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--style, #D1D1D1);
+    outline: none;
+}
+
 .due-date-textfield {
     display: flex;
-    padding: 12px 16px;
-    justify-content: space-between;
     align-items: center;
     align-self: stretch;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid var(--style, #D1D1D1);
-    background: #FFF;
+    width: 100%;
+    border: none;
     outline: none;
+    font-family: Open Sans;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    color: var(--style, #D1D1D1);
+}
+
+.due-date-input-container:hover {
+    border-bottom: 1px solid var(--bg-color);
+}
+
+.due-date-calendar-icon {
+    width: 24px;
+    height: 24px;
 }
 
 .add-task-container-priority {
@@ -154,7 +185,6 @@
 
 .add-task-priority-header {
     color: #42526E;
-    font-family: Open Sans;
     font-size: 19px;
     font-style: normal;
     font-weight: 700;
@@ -180,6 +210,7 @@
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
     border: none;
     cursor: pointer;
+    font-family: 'Open sans', sans-serif;
     font-size: 19px;
     font-style: normal;
     font-weight: 400;
@@ -273,6 +304,7 @@
 
 .assigned-select-text {
     width: 100%;
+    font-family: 'Open sans', sans-serif;
     font-size: 19px;
     font-style: normal;
     font-weight: 400;
@@ -326,7 +358,7 @@
 .contact-container.selected {
     background-color: #4589FF;
     border-radius: 10px;
-    color: white; 
+    color: white;
 }
 
 .contact-container.selected .select-icon {
@@ -471,15 +503,23 @@
     align-self: stretch;
     border-bottom: 1px solid var(--style, #D1D1D1);
     background: #FFF;
+    cursor: pointer;
+}
+
+.add-subtask-input:hover {
+    border-bottom: 1px solid var(--bg-color);
 }
 
 .new-subtask-textfield {
     color: black;
     font-size: 19px;
+    font-family: 'Open sans', sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 120%;
     border: none;
+    cursor: pointer;
+    width: 100%;
 }
 
 .new-subtask-textfield::placeholder {
@@ -516,6 +556,9 @@
 }
 
 .add-task-buttons {
+    position: fixed;
+    right: 42px;
+    bottom: 55px;
     display: inline-flex;
     flex-direction: column;
     justify-content: flex-end;

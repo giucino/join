@@ -1,100 +1,36 @@
-let todos = [{
-    'id': 0,
-    'title': 'Putzen',
-    'description': 'Alles was das Herz begehrt',
-    'category': 'Design',
-    'status': 'todo',
-    'priority': 'low',
-    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-    'subtasks': [
-        { 'title': 'teste das mal', 'done': false },
-        { 'title': 'erledigt', 'done': false }]
-}, {
-    'id': 1,
-    'title': 'Kochen',
-    'description': 'Alles was das Herz begehrt',
-    'category': 'Sales',
-    'status': 'todo',
-    'priority': 'high',
-    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-    'dueDate': '2023-08-28',
-    'subtasks': [
-        { 'title': 'teste das mal', 'done': false },
-        { 'title': 'erledigt', 'done': false }]
-}, {
-    'id': 2,
-    'title': 'Waschen',
-    'description': 'Alles was das Herz begehrt',
-    'category': 'Tech',
-    'status': 'todo',
-    'priority': 'medium',
-    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-    'subtasks': [
-        { 'title': 'teste das mal', 'done': false },
-        { 'title': 'erledigt', 'done': false }]
-}, {
-    'id': 3,
-    'title': 'Saugen',
-    'description': 'Alles was das Herz begehrt',
-    'category': 'Tech',
-    'status': 'feedback',
-    'dueDate': '2023-10-28',
-    'priority': 'low',
-    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-    'subtasks': [
-        { 'title': 'teste das mal', 'done': false },
-        { 'title': 'erledigt', 'done': false }]
-}, {
-    'id': 4,
-    'title': 'Schlafen',
-    'description': 'Alles was das Herz begehrt',
-    'category': 'Sales',
-    'status': 'todo',
-    'priority': 'medium',
-    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-    'subtasks': [
-        { 'title': 'teste das mal', 'done': false },
-        { 'title': 'erledigt', 'done': false }]
-}, {
-    'id': 5,
-    'title': 'Einkaufen',
-    'description': 'Alles was das Herz begehrt',
-    'category': 'Backoffice',
-    'status': 'feedback',
-    'priority': 'low',
-    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-    'subtasks': [
-        { 'title': 'teste das mal', 'done': false },
-        { 'title': 'erledigt', 'done': false }]
-}, {
-    'id': 6,
-    'title': 'Tanzen',
-    'description': 'Alles was das Herz begehrt',
-    'category': 'Tech',
-    'status': 'done',
-    'priority': 'high',
-    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-    'subtasks': [
-        { 'title': 'teste das mal', 'done': false },
-        { 'title': 'erledigt', 'done': false }]
+let currentDraggedElement;
+let currentFilter = '';
+
+
+/**
+ * Update the HTML for all task categories.
+ * Calls functions to update HTML for each category.
+ */
+async function updateHTML() {
+    await loadData();
+    await pushData(); 
+    todo();
+    inProgress();
+    feedback();
+    done();
+    noTasks();
 }
-];
 
 
-let task = {
-    'id': "",
-    "title": "",
-    "description": "",
-    "category": "",
-    "status": "",
-    "priority": "",
-    "due_date": "",
-    "assignedTo": [],
-    "subtasks": {
-        "name": [],
-        "status": []
+async function pushData() {
+    await setItem('tasks', JSON.stringify(todos));
+}
+
+
+async function loadData() {
+    try {
+        todos = JSON.parse(await getItem('tasks'));
+        console.log('Tasks:', todos);
+    } catch (e) {
+        console.error('Loading error:', e);
     }
-};
+}
+
 
 /**
  * Renders the assignees in the detail view.
@@ -116,39 +52,6 @@ function boardDetailViewAssignees(task) {
         </div> `;
     }
 }
-
-
-/**
- * Update the HTML for all task categories.
- * Calls functions to update HTML for each category.
- */
-async function updateHTML() {
-    /* await pushData(); */
-    await loadData();
-    todo();
-    inProgress();
-    feedback();
-    done();
-    noTasks();
-}
-
-
-pushData();
-async function pushData() {
-    await setItem('tasks', JSON.stringify(todos));
-}
-
-
-async function loadData() {
-    const getTodos = await getItem('tasks');
-    todos = JSON.parse(getTodos);
-    /* for (let i = 0; i < todos.length; i++) {
-        const element = todos[i];
-    } */
-}
-
-let currentDraggedElement;
-let currentFilter = '';
 
 
 /**
@@ -394,7 +297,7 @@ function renderSlideCard(id) {
                     <div class="task-slide-assigned-user-contact">
                         <div class="task-slide-assigned-user">
                             <div class="user-marked blue">SM</div>
-                            <span class="task-slide-assigned-user-name">Sofia Müller</span>
+                            <span class="task-slide-assigned-user-name">${element.assignedTo}</span>
                         </div>
                         <button class="task-slide-btn" type="checkbox" disabled></button>
                     </div>
@@ -421,7 +324,6 @@ function renderSlideCard(id) {
     `
 }
 
-//${subtasksHTML}
 
 function deleteTask(id) {
     console.log(id);
