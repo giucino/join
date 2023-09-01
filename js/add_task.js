@@ -90,7 +90,7 @@ async function createTask() {
         status: 'todo',
         priority: selectedPriority,
         dueDate: dueDate,
-        assignedTo: selectedContacts.join(', '), // Um die zugewiesenen Kontakte als kommaseparierte Zeichenfolge darzustellen,
+        assignedTo: selectedContacts, // Um die zugewiesenen Kontakte als kommaseparierte Zeichenfolge darzustellen
         subtasks: subtasks
     };
     todos.push(newTodo);
@@ -378,7 +378,7 @@ function toggleContactSelection(name, surename) {
     if (selectedContacts[contactId]) {
         delete selectedContacts[contactId];
     } else {
-        selectedContacts[contactId] = contact;
+        selectedContacts[contactId] = contactKey;
     }
     renderAssignedTo();
     renderSearchedContact(contacts);
