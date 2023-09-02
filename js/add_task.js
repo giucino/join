@@ -367,8 +367,8 @@ function searchContacts(query) {
 
 
 function toggleContactSelection(name, surename) {
-    const contact = contacts.find(c => c.name === name && c.surename === surename);
-
+    const contact = contacts.find(c => c.name === name && c.surename === surename);  
+    
     if (!contact) {
         return;
     }
@@ -376,9 +376,9 @@ function toggleContactSelection(name, surename) {
     const contactKey = `${contact.name} ${contact.surename}`;
 
     if (selectedContacts[contactId]) {
-        delete selectedContacts[contactId];
+        delete selectedContacts[contactId];       
     } else {
-        selectedContacts[contactId] = contactKey;
+        selectedContacts[contactId] = contactKey;       
     }
     renderAssignedTo();
     renderSearchedContact(contacts);

@@ -249,7 +249,27 @@ body{
 
 .negativ-gap{
     position: relative;
-    left: -6px;
+    left: -7px;
+}
+
+.negativ-gap--7 {
+    position: relative;
+    left: -7px;
+}
+
+.negativ-gap--14 {
+    position: relative;
+    left: -14px;
+}
+
+.negativ-gap--21 {
+    position: relative;
+    left: -21px;
+}
+
+.negativ-gap--28 {
+    position: relative;
+    left: -28px;
 }
 
 .prio-icon{

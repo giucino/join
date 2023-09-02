@@ -172,14 +172,15 @@
 
 .task-slide-assigned-user-contact{
     display: flex;
+    flex-direction: column;
     padding: 7px 16px;
     justify-content: space-between;
-    align-items: center;
     align-self: stretch;
 }
 
 .task-slide-assigned-user{
     display: flex;
+    margin-bottom: 4px;
     align-items: center;
     gap: 16px;
 }

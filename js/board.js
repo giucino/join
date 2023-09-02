@@ -136,6 +136,18 @@ function noTasks() {
  */
 function generateTasksHTML(element) {
     const priorityImageSrc = setPriorityImage(element.priority);
+    let assignedToHTML = '';
+    if (element.assignedTo && Array.isArray(element.assignedTo)) {
+        let leftPosition = -7;
+        for (const name of element.assignedTo) {
+            if (name) {
+                const initials = extractInitials(name);
+                const additionalClass = `negativ-gap-${leftPosition}`;
+                leftPosition -= 7;
+                assignedToHTML += `<div class="user-marked media ${additionalClass}">${initials}</div>`;
+            }
+        }
+    }
     return /*html*/`
     <div id="board-card${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container">
         <div class="content-container-inner">
@@ -151,15 +163,26 @@ function generateTasksHTML(element) {
                 <div class="subtasks"><span id="number-tasks">0 </span>/ <span id="all-tasks">0 </span>Subtasks</div>
             </div>
             <div class="prio-container">
-                <div class="user-container-board">
-                    <div id="assigned-to" class="user-marked blue">${element.assignedTo}</div>
-                    <div class="user-marked media negativ-gap">${element.assignedTo}</div>
+                <div id="assigned-to" class="user-container-board">
+                    ${assignedToHTML}
                 </div>
                 <div class="prio-icon"><img src="${priorityImageSrc}" alt=""></div>
             </div>
         </div>
     </div>`;
 }
+
+function extractInitials(name) {
+    const names = name.split(' ');
+    let initials = '';
+    for (const n of names) {
+        if (n.length > 0) {
+            initials += n[0].toUpperCase();
+        }
+    }
+    return initials;
+}
+
 
 function setPriorityImage(priority) {
     let imageSrc = '';
@@ -270,7 +293,21 @@ function slideCard(id) {
 function renderSlideCard(id) {
     const element = todos[id];
     const priorityImageSrc = setPriorityImage(element.priority);
-    // const subtasksHTML = generateSubtasksHTML(element.subtasks, element.id);
+    
+    let assignedToHTML = '';
+    if (element.assignedTo && Array.isArray(element.assignedTo)) {
+        for (const name of element.assignedTo) {
+            if (name) {
+                const initials = extractInitials(name);
+                assignedToHTML += /*html*/`
+                    <div class="task-slide-assigned-user">
+                        <div class="user-marked blue">${initials}</div>
+                        <span class="task-slide-assigned-user-name">${name}</span>
+                    </div>
+                `;
+            }
+        }
+    }
     return /*html*/ `
         <div id="slide-container" class="slide-container">
         <div id="task-slide-container${element.id}" class="task-slide-container">
@@ -294,13 +331,12 @@ function renderSlideCard(id) {
             <div class="task-slide-assigned-container">
                 <span class="task-slide-assigned-test">Assigned To:</span>
                 <div class="task-slide-assigned-user-container">
-                    <div class="task-slide-assigned-user-contact">
-                        <div class="task-slide-assigned-user">
-                            <div class="user-marked blue">SM</div>
-                            <span class="task-slide-assigned-user-name">${element.assignedTo}</span>
-                        </div>
-                        <button class="task-slide-btn" type="checkbox" disabled></button>
-                    </div>
+                <div class="task-slide-assigned-user-container">
+            <div class="task-slide-assigned-user-contact">
+                ${assignedToHTML}
+                <button class="task-slide-btn" type="checkbox" disabled></button>
+            </div>
+        </div>
                 </div>
             </div>
             <div class="task-slide-subtasks-container">
