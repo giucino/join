@@ -4,6 +4,7 @@ let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
 let colors = ['#000000', '#1FD7C1', '#462F8A', '#6E52FF', '#9327FF', '#FC71FF', '#FF4646', '#FF4646', '#FF7A00', '#FFBB2B'];
+
 /**
  * main function to initialize the whole site
  */
@@ -38,15 +39,7 @@ function initLetters() {
     letterList.innerHTML = '';
     for (let i = 0; i < letters.length; i++) {
         let letter = letters[i];
-        letterList.innerHTML += `
-            <div id="container-${letter}" class="container-letter-item">
-                <div class="letter-title"> ${letter} </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="400" height="2" viewBox="0 0 353 2" fill="none">
-                <path d="M0.5 1H352.5" stroke="#D1D1D1" stroke-linecap="round"/>
-                </svg>
-                <div id="container-contact-${letter}" class="container-contacts"></div>
-            </div>
-            `;
+        letterList.innerHTML += letterListHTML(letter);
     }
 }
 
@@ -64,14 +57,7 @@ async function loadContacts() {
         let firstLetter = contact.name.charAt(0).toUpperCase();
         let contactsList = document.getElementById(`container-contact-${firstLetter}`);
         let color = contact.bgcolor;
-        contactsList.innerHTML += `
-        <div class="contact" data-contact-index="${i}" onclick="showContactDetails(${i})">
-            <div class="initial" style="background-color: ${color}">${initials}</div>
-            <div class="container-name-email">
-                <div class="name">${contact.name} ${contact.surename}</div>
-                <div class="email">${contact.email}</div>
-            </div>
-        </div>`;
+        contactsList.innerHTML += loadContactsHTML(i, color, initials, contact);
     }
 }
 
@@ -131,26 +117,7 @@ function showContactDetails(index) {
     let contact = contacts[index];
     let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
     let detailsContainer = document.getElementById('contact-details');
-    detailsContainer.innerHTML = `
-    <div class="contact-detailed-container">
-        <div class="contact-detailed-top">
-            <div>
-                <div class="initial-big" style="background-color: ${contact.bgcolor || getRandomColor()}">
-                    ${initials}
-                </div>
-            </div>
-            <div class="contact-detailed-mid">
-                <div class="contact-detailed-name">${contact.name} ${contact.surename}</div>
-                <div class="contact-detailed-edit-delete">
-                    <div class="contact-detailed-images" onclick="editContact(${index})"><img src="./img/edit.png">Edit</div>
-                    <div class="contact-detailed-images" onclick="deleteContact(${index})"><img src="./img/delete.png">Delete</div>
-                </div>
-            </div>
-        </div>
-        <div class="contact-detailed-information"> Contact Information </div>
-            <div class="contact-detailed-text">Email: </div> <div class="email"> ${contact.email}</div>
-            <div class="contact-detailed-text">Telefon: </div> <div class="phone"> ${contact.telefon}</div>
-        </div>`;
+    detailsContainer.innerHTML = showContactDetailsHTML(contact, initials, index);
     detailsContainer.style.display = 'inline-flex'; 
     // highlight the chosen container
     let allContacts = document.querySelectorAll('.contact');
@@ -168,6 +135,7 @@ function openModal() {
     var modal = document.getElementById("contactModal");
     modal.style.display = "block";
 }
+
 /**
  * closes the screen to add new contacts
  */
@@ -175,12 +143,6 @@ function closeModal() {
     var modal = document.getElementById("contactModal");
     modal.style.display = "none";
 }
-
-// Finde die höchste ID im vorhandenen Kontakte-Array
-
-
-// Setze die Anfangs-ID für neue Kontakte auf die nächste verfügbare ID
-
 
 /**
  * saves new contacts
@@ -225,20 +187,17 @@ async function saveNewContact() {
         email: newEmail,
         telefon: newTelefon
     };
-
     contacts.push(newContact);
     await setItem('contacts', JSON.stringify(contacts));
     var modal = document.getElementById("contactModal");
     modal.style.display = "none";
     initContact(); // Kontaktliste aktualisieren
-
     // Eingabefelder leeren
     fullName.value = "";
     newEmailInput.value = "";
     newTelefonInput.value = "";
     nextContactId++;
-    console.log("Incrementing nextContactId");  // Debugging
-    
+    console.log("Incrementing nextContactId");  // Debuggingy^x  
 }
 
 /**
@@ -311,7 +270,7 @@ async function updateContact(index) {
         return;
     }
     contacts[index] = {
-        id: nextContactId,
+        id: index,
         name: newName,
         surename: newSurename,
         email: newEmail,
