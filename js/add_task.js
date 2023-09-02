@@ -86,6 +86,7 @@ async function createTask() {
     todos.push(newTask);
     await setItem('tasks', JSON.stringify(todos));
     console.log('Aufgabe hinzugefügt:', newTask);
+    window.location.href='board.html';
 }
 
 

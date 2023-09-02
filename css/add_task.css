@@ -516,11 +516,8 @@
 }
 
 .add-task-buttons {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 4px;
+    position: absolute;
+    right: 44px;
 }
 
 .add-task-buttons-inner {
