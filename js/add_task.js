@@ -71,10 +71,9 @@ async function createTask() {
     } if (!selectedCategory) {
         showSelectCategoryError();
         return;
-    } if (!subtasks.length) {
-        showSubtasksInputError();
-        return;
-    }
+    } 
+
+    const extractedBgcolors = extractBgcolor(selectedContacts);
 
     const highestId = todos.reduce((maxId, currentTodo) => {
         return currentTodo.id > maxId ? currentTodo.id : maxId;
@@ -90,7 +89,8 @@ async function createTask() {
         status: 'todo',
         priority: selectedPriority,
         dueDate: dueDate,
-        assignedTo: selectedContacts, // Um die zugewiesenen Kontakte als kommaseparierte Zeichenfolge darzustellen
+        assignedTo: selectedContacts,
+        bgcolor: extractedBgcolors,
         subtasks: subtasks
     };
     todos.push(newTodo);
@@ -208,23 +208,23 @@ categoryDropdown.addEventListener('click', resetSelectCategory);
 
 
 
-function showSubtasksInputError() {
-    let assignedError = document.getElementById('requiredSubtask');
-    assignedError.style.display = 'block';
-    let assignedInput = document.querySelector('.add-subtask-input');
-    assignedInput.style.borderColor = '#FF8190';
-}
+// function showSubtasksInputError() {
+//     let assignedError = document.getElementById('requiredSubtask');
+//     assignedError.style.display = 'block';
+//     let assignedInput = document.querySelector('.add-subtask-input');
+//     assignedInput.style.borderColor = '#FF8190';
+// }
 
 
-function resetSubtaskInput() {
-    let subtaskError = document.getElementById('requiredSubtask');
-    subtaskError.style.display = 'none';
+// function resetSubtaskInput() {
+//     let subtaskError = document.getElementById('requiredSubtask');
+//     subtaskError.style.display = 'none';
 
-    let subtaskInput = document.querySelector('.add-subtask-input');
-    subtaskInput.style.borderColor = '#D1D1D1';
-}
-let subtaskInput = document.getElementById('subtaskInput');
-subtaskInput.addEventListener('input', resetSubtaskInput);
+//     let subtaskInput = document.querySelector('.add-subtask-input');
+//     subtaskInput.style.borderColor = '#D1D1D1';
+// }
+// let subtaskInput = document.getElementById('subtaskInput');
+// subtaskInput.addEventListener('input', resetSubtaskInput);
 
 
 function resetTaskForm() {
@@ -384,6 +384,19 @@ function toggleContactSelection(name, surename) {
     renderSearchedContact(contacts);
     displayChosenContacts();
     console.log('Ausgewählte/r Kontakt/e:', selectedContacts);
+}
+
+
+// Extrahieren Sie die Bgcolor für ausgewählte Kontakte
+function extractBgcolor(selectedContacts) {
+    const bgcolors = [];
+    for (const contactName of selectedContacts) {
+        const foundContact = contacts.find(c => `${c.name} ${c.surename}` === contactName);
+        if (foundContact && foundContact.bgcolor) {
+            bgcolors.push(foundContact.bgcolor);
+        }
+    }
+    return bgcolors;
 }
 
 

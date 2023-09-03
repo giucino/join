@@ -8,7 +8,8 @@ let currentFilter = '';
  */
 async function updateHTML() {
     await loadData();
-    await pushData(); 
+    loadContactsFromStorage();
+    await pushData();
     todo();
     inProgress();
     feedback();
@@ -26,6 +27,15 @@ async function loadData() {
     try {
         todos = JSON.parse(await getItem('tasks'));
         console.log('Tasks:', todos);
+    } catch (e) {
+        console.error('Loading error:', e);
+    }
+}
+
+async function loadContactsFromStorage() {
+    try {
+        contacts = JSON.parse(await getItem('contacts'));
+        console.log('Loaded contacts:', contacts);
     } catch (e) {
         console.error('Loading error:', e);
     }
@@ -137,15 +147,24 @@ function noTasks() {
 function generateTasksHTML(element) {
     const priorityImageSrc = setPriorityImage(element.priority);
     let assignedToHTML = '';
-    if (element.assignedTo && Array.isArray(element.assignedTo)) {
-        let leftPosition = -7;
-        for (const name of element.assignedTo) {
-            if (name) {
-                const initials = extractInitials(name);
-                const additionalClass = `negativ-gap-${leftPosition}`;
-                leftPosition -= 7;
-                assignedToHTML += `<div class="user-marked media ${additionalClass}">${initials}</div>`;
-            }
+    const filteredAssignedTo = element.assignedTo.filter(name => name !== null);
+    const bgcolors = element.bgcolor || [];
+
+    let leftPosition = -7;
+    for (let i = 0; i < filteredAssignedTo.length; i++) {
+        const name = filteredAssignedTo[i];
+        const bgcolor = bgcolors[i] || '';
+
+        if (name) {
+            const initials = extractInitials(name);
+            const additionalClass = `negativ-gap-${leftPosition}`;
+            leftPosition -= 7;
+
+            assignedToHTML += `
+                <div class="user-marked media ${additionalClass}" style="background-color: ${bgcolor}">
+                    ${initials}
+                </div>
+            `;
         }
     }
     return /*html*/`
@@ -293,22 +312,39 @@ function slideCard(id) {
 function renderSlideCard(id) {
     const element = todos[id];
     const priorityImageSrc = setPriorityImage(element.priority);
-    
+
+    // let assignedToHTML = '';
+    // if (element.assignedTo && Array.isArray(element.assignedTo)) {
+    //     for (const name of element.assignedTo) {
+    //         if (name) {
+    //             const initials = extractInitials(name);
+    //             assignedToHTML += /*html*/`
+    //                 <div class="task-slide-assigned-user">
+    //                     <div class="user-marked blue">${initials}</div>
+    //                     <span class="task-slide-assigned-user-name">${name}</span>
+    //                 </div>
+    //             `;
+    //         }
+    //     }
+    // }
+
     let assignedToHTML = '';
-    if (element.assignedTo && Array.isArray(element.assignedTo)) {
-        for (const name of element.assignedTo) {
-            if (name) {
-                const initials = extractInitials(name);
+    const filteredAssignedTo = element.assignedTo.filter(name => name !== null);
+    const bgcolors = element.bgcolor || [];
+    for (let i = 0; i < filteredAssignedTo.length; i++) {
+        const name = filteredAssignedTo[i];
+        const bgcolor = bgcolors[i] || '';
+        if (name) {
+            const initials = extractInitials(name);
                 assignedToHTML += /*html*/`
                     <div class="task-slide-assigned-user">
-                        <div class="user-marked blue">${initials}</div>
+                        <div class="user-marked blue" style="background-color: ${bgcolor}">${initials}</div>
                         <span class="task-slide-assigned-user-name">${name}</span>
                     </div>
                 `;
             }
         }
-    }
-    return /*html*/ `
+        return /*html*/ `
         <div id="slide-container" class="slide-container">
         <div id="task-slide-container${element.id}" class="task-slide-container">
             <div class="task-slide-headline">
@@ -358,15 +394,15 @@ function renderSlideCard(id) {
         </div>
     </div>
     `
-}
+    }
 
 
-function deleteTask(id) {
-    console.log(id);
-    const indexToDelete = todos.findIndex(task => task.id === id);
-    todos.splice(indexToDelete, 1);
-    closeCard();
-    pushData();
-    loadData();
-    updateHTML();
-}
+    function deleteTask(id) {
+        console.log(id);
+        const indexToDelete = todos.findIndex(task => task.id === id);
+        todos.splice(indexToDelete, 1);
+        closeCard();
+        pushData();
+        loadData();
+        updateHTML();
+    }

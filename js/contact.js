@@ -1,6 +1,6 @@
 let contacts = [
     {
-        bgcolor: '',
+        bgcolor: '#C888B0',
         id: 0,
         name: 'Anna',
         surename: 'Schmidt',
@@ -8,7 +8,7 @@ let contacts = [
         telefon: '123-456-7890'
     },
     {
-        bgcolor: '',
+        bgcolor: '#133465',
         id: 1,
         name: 'Max',
         surename: 'Müller',
@@ -16,7 +16,7 @@ let contacts = [
         telefon: '234-567-8901'
     },
     {
-        bgcolor: '',
+        bgcolor: '#F68997',
         id: 2,
         name: 'Sophie',
         surename: 'Wagner',
@@ -24,7 +24,7 @@ let contacts = [
         telefon: '345-678-9012'
     },
     {
-        bgcolor: '',
+        bgcolor: '#8595D2',
         id: 3,
         name: 'Paul',
         surename: 'Becker',
@@ -32,7 +32,7 @@ let contacts = [
         telefon: '456-789-0123'
     },
     {
-        bgcolor: '',
+        bgcolor: '#037E49',
         id: 4,
         name: 'Laura',
         surename: 'Hoffmann',
@@ -40,7 +40,7 @@ let contacts = [
         telefon: '567-890-1234'
     },
     {
-        bgcolor: '',
+        bgcolor: '#51C3C9',
         id: 5,
         name: 'Felix',
         surename: 'Schulz',
@@ -48,7 +48,7 @@ let contacts = [
         telefon: '678-901-2345'
     },
     {
-        bgcolor: '',
+        bgcolor: '#0206C3',
         id: 6,
         name: 'Emilia',
         surename: 'Koch',

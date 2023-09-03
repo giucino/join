@@ -3,107 +3,158 @@ const STORAGE_URL = BACKEND_URL;
 
 let users = [];
 
-let todos = [{
-    'id': 0,
-    'title': 'Putzen',
-    'description': 'Alles was das Herz begehrt',
-    'category': 'Design',
-    'status': 'todo',
-    'priority': 'low',
-    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-    'subtasks': [
-        {
-            'title': 'teste das mal',
-            'status': false
-        }
-    ]
-}, {
-    'id': 1,
-    'title': 'Kochen',
-    'description': 'Alles was das Herz begehrt',
-    'category': 'Sales',
-    'status': 'todo',
-    'priority': 'high',
-    'dueDate': '2023-08-28',
-    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-    'subtasks': [
-        {
-            'title': 'teste das mal',
-            'status': false
-        }
-    ]
-}, {
-    'id': 2,
-    'title': 'Waschen',
-    'description': 'Alles was das Herz begehrt',
-    'category': 'Tech',
-    'status': 'todo',
-    'priority': 'medium',
-    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-    'subtasks': [
-        {
-            'title': 'teste das mal',
-            'status': false
-        }
-    ]
-}, {
-    'id': 3,
-    'title': 'Saugen',
-    'description': 'Alles was das Herz begehrt',
-    'category': 'Tech',
-    'status': 'feedback',
-    'priority': 'low',
-    'dueDate': '2023-10-28',
-    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-    'subtasks': [
-        {
-            'title': 'teste das mal',
-            'status': false
-        }
-    ]
-}, {
-    'id': 4,
-    'title': 'Schlafen',
-    'description': 'Alles was das Herz begehrt',
-    'category': 'Sales',
-    'status': 'todo',
-    'priority': 'medium',
-    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-    'subtasks': [
-        {
-            'title': 'teste das mal',
-            'status': false
-        }
-    ]
-}, {
-    'id': 5,
-    'title': 'Einkaufen',
-    'description': 'Alles was das Herz begehrt',
-    'category': 'Backoffice',
-    'status': 'feedback',
-    'priority': 'low',
-    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-    'subtasks': [
-        {
-            'title': 'teste das mal',
-            'status': false
-        }
-    ]
-}, {
-    'id': 6,
-    'title': 'Tanzen',
-    'description': 'Alles was das Herz begehrt',
-    'category': 'Tech',
-    'status': 'done',
-    'priority': 'high',
-    'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-    'subtasks': [
-        {
-            'title': 'teste das mal',
-            'status': false
-        }
-    ]
-}
+let todos = [
+    {
+        'id': 0,
+        'title': 'Website planen',
+        'description': 'Planung der neuen Unternehmenswebsite',
+        'category': 'Webdesign',
+        'status': 'todo',
+        'priority': 'low',
+        'dueDate': '2023-08-28',
+        'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
+        'bgcolor': ['#C888B0', '#0206C3'],
+        'subtasks': [
+            {
+                'title': 'Design-Ressourcen sammeln',
+                'status': false
+            },
+            {
+                'title': 'Inhalte erstellen',
+                'status': false
+            },
+            {
+                'title': 'Entwicklung starten',
+                'status': false
+            }
+        ]
+    },
+    {
+        'id': 1,
+        'title': 'Entwicklung starten',
+        'description': 'Beginn der Entwicklung neuer Produkte',
+        'category': 'Marketing',
+        'status': 'todo',
+        'priority': 'high',
+        'dueDate': '2023-08-28',
+        'assignedTo': ['Max Müller', 'Sophie Wagner'],
+        'bgcolor': ['#133465', '#F68997'],
+        'subtasks': [
+            {
+                'title': 'Marktforschung durchführen',
+                'status': false
+            },
+            {
+                'title': 'Produktideen generieren',
+                'status': false
+            },
+            {
+                'title': 'Prototyp entwickeln',
+                'status': false
+            }
+        ]
+    },
+    {
+        'id': 2,
+        'title': 'Support verbessern',
+        'description': 'Verbesserung des Kundensupports',
+        'category': 'Tech',
+        'status': 'todo',
+        'priority': 'medium',
+        'dueDate': '2023-08-28',
+        'assignedTo': ['Felix Schulz', 'Laura Hoffmann'],
+        'bgcolor': ['#51C3C9', '#037E49'],
+        'subtasks': [
+            {
+                'title': 'Kundensupport-Hotline einrichten',
+                'status': false
+            },
+            {
+                'title': 'FAQ aktualisieren',
+                'status': false
+            }
+        ]
+    },
+    {
+        'id': 3,
+        'title': 'Neue Werbekampagne',
+        'description': 'Start einer neuen Werbekampagne',
+        'category': 'Tech',
+        'status': 'feedback',
+        'priority': 'low',
+        'dueDate': '2023-10-28',
+        'assignedTo': ['Sophie Wagner', 'Paul Becker'],
+        'bgcolor': ['#F68997', '#8595D2'],
+        'subtasks': [
+            {
+                'title': 'Werbematerial erstellen',
+                'status': false
+            },
+            {
+                'title': 'Werbekanäle auswählen',
+                'status': false
+            }
+        ]
+    },
+    {
+        'id': 4,
+        'title': 'Präsentation vorbereiten',
+        'description': 'Vorbereitung für die Präsentation',
+        'category': 'Sales',
+        'status': 'todo',
+        'priority': 'medium',
+        'dueDate': '2023-08-28',
+        'assignedTo': ['Emilia Koch', 'Max Müller'],
+        'bgcolor': ['#0206C3', '#133465'],
+        'subtasks': [
+            {
+                'title': 'Präsentationsmaterial erstellen',
+                'status': false
+            }
+        ]
+    },
+    {
+        'id': 5,
+        'title': 'Einkaufsliste erstellen',
+        'description': 'Erstellung einer Liste für den nächsten Einkauf',
+        'category': 'Backoffice',
+        'status': 'feedback',
+        'priority': 'low',
+        'dueDate': '2023-08-28',
+        'assignedTo': ['Anna Schmidt', 'Max Müller'],
+        'bgcolor': ['#C888B0', '#133465'],
+        'subtasks': [
+            {
+                'title': 'Einkaufsliste erstellen',
+                'status': false
+            },
+            {
+                'title': 'Einkäufe erledigen',
+                'status': false
+            }
+        ]
+    },
+    {
+        'id': 6,
+        'title': 'Urlaubsplanung',
+        'description': 'Planung des nächsten Urlaubs für Mitarbeiter',
+        'category': 'Tech',
+        'status': 'done',
+        'priority': 'high',
+        'dueDate': '2023-08-28',
+        'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
+        'bgcolor': ['#8595D2', '#0206C3'],
+        'subtasks': [
+            {
+                'title': 'Reiseziele auswählen',
+                'status': false
+            },
+            {
+                'title': 'Buchungen vornehmen',
+                'status': false
+            }
+        ]
+    }
 ];
 
 
