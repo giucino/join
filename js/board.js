@@ -26,7 +26,6 @@ async function pushData() {
 async function loadData() {
     try {
         todos = JSON.parse(await getItem('tasks'));
-        console.log('Tasks:', todos);
     } catch (e) {
         console.error('Loading error:', e);
     }
@@ -35,7 +34,6 @@ async function loadData() {
 async function loadContactsFromStorage() {
     try {
         contacts = JSON.parse(await getItem('contacts'));
-        console.log('Loaded contacts:', contacts);
     } catch (e) {
         console.error('Loading error:', e);
     }
@@ -167,19 +165,52 @@ function generateTasksHTML(element) {
             `;
         }
     }
+    let subtasksHTML = '';
+    let completedTasksCount = 0; 
+
+    if (element.subtasks && Array.isArray(element.subtasks)) {
+        for (const subtask of element.subtasks) {
+            if (subtask.title) {
+                subtasksHTML += /*html*/`
+                    <div class="task-slide-subtask">
+                        <input type="checkbox" ${subtask.status ? 'checked' : ''} disabled>
+                        <label>${subtask.title}</label>
+                    </div>
+                `;
+                if (subtask.status) {
+                    completedTasksCount++;
+                };
+            }
+            
+        }
+        
+    }
+    const allTasksCount = element.subtasks.length;
+    const progress = (completedTasksCount / allTasksCount) * 100;
+    const progressBarHTML = /*html*/`
+        <div class="progress-bar" id="progress-bar${element.id}" style="width: ${progress}%;"></div>
+    `;
+    const numberTasksHTML = /*html*/`
+        <span id="number-tasks">${completedTasksCount}</span>
+    `;
+    const allTasksHTML = /*html*/`
+        <span id="all-tasks">${allTasksCount}</span>
+    `;
+    /* await pushData();
+    await loadData(); */
     return /*html*/`
     <div id="board-card${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container">
         <div class="content-container-inner">
             <div class="category">${element.category}</div>
             <div class="title-content">
-                <div class="title">${element.title}</div>
+                <div class="title">${element.title} ${element.id}</div>
                 <div id="description" class="content">${element.description}</div>
             </div>
             <div class="subtasks-container">
                 <div class="progress-bar-container">
-                    <div class="progress-bar" id="progress-bar${element.id}"></div>
+                    ${progressBarHTML}
                 </div>
-                <div class="subtasks"><span id="number-tasks">0 </span>/ <span id="all-tasks">0 </span>Subtasks</div>
+                <div class="subtasks">${numberTasksHTML} / ${allTasksHTML} Subtasks</div>
             </div>
             <div class="prio-container">
                 <div id="assigned-to" class="user-container-board">
@@ -312,22 +343,6 @@ function slideCard(id) {
 function renderSlideCard(id) {
     const element = todos[id];
     const priorityImageSrc = setPriorityImage(element.priority);
-
-    // let assignedToHTML = '';
-    // if (element.assignedTo && Array.isArray(element.assignedTo)) {
-    //     for (const name of element.assignedTo) {
-    //         if (name) {
-    //             const initials = extractInitials(name);
-    //             assignedToHTML += /*html*/`
-    //                 <div class="task-slide-assigned-user">
-    //                     <div class="user-marked blue">${initials}</div>
-    //                     <span class="task-slide-assigned-user-name">${name}</span>
-    //                 </div>
-    //             `;
-    //         }
-    //     }
-    // }
-
     let assignedToHTML = '';
     const filteredAssignedTo = element.assignedTo.filter(name => name !== null);
     const bgcolors = element.bgcolor || [];
@@ -344,40 +359,56 @@ function renderSlideCard(id) {
                 `;
             }
         }
-        return /*html*/ `
-        <div id="slide-container" class="slide-container">
-        <div id="task-slide-container${element.id}" class="task-slide-container">
-            <div class="task-slide-headline">
-                <div class="task-slide-headline-left"><span class="task-slide-category">${element.category}</span></div>
-                <div id="task-slide-close" onclick="closeCard(${element.id}), loadData()" class="task-slide-headline-right"><img src="./img/close.png" alt="Schließen"></div>
-            </div>
-            <span id="task-slide-title" class="task-slide-title">${element.title}</span>
-            <span id="task-slide-description" class="task-slide-description">${element.description}</span>
-            <div class="task-slide-due-date-container">
-                <span class="task-slide-due-date">Due date: </span>
-                <span id="task-slide-due-date" class="task-slide-due-date-date">${element.dueDate}</span>
-            </div>
-            <div class="task-slide-prio-container">
-                <span class="task-slide-prio-text">Priority: </span>
-                <div class="task-slide-prio-text-img">
-                    <span class="task-slide-prio-text-">Medium</span>
-                    <img id="task-slide-prio-img" src="${priorityImageSrc}" alt="">
-                </div>
-            </div>
-            <div class="task-slide-assigned-container">
-                <span class="task-slide-assigned-test">Assigned To:</span>
-                <div class="task-slide-assigned-user-container">
-                <div class="task-slide-assigned-user-container">
-            <div class="task-slide-assigned-user-contact">
-                ${assignedToHTML}
-                <button class="task-slide-btn" type="checkbox" disabled></button>
+    let subtasksHTML = '';
+    if (element.subtasks && Array.isArray(element.subtasks)) {
+        for (let i = 0; i < element.subtasks.length; i++) {
+            const subtask = element.subtasks[i];
+            if (subtask.title) {
+                subtasksHTML += /*html*/`
+                    <div class="task-slide-subtask">
+                        <label for="subtaskCheckbox${i}">${subtask.title}</label>
+                        <input type="checkbox" id="subtaskCheckbox${i}" ${subtask.status ? 'checked' : ''} onchange="updateSubtaskStatus(${id}, ${i}, this.checked)">
+                    </div>
+                `;
+                updateHTML()
+            };
+        }
+    }
+    return /*html*/ `
+    <div id="slide-container" class="slide-container">
+    <div id="task-slide-container${element.id}" class="task-slide-container">
+        <div class="task-slide-headline">
+            <div class="task-slide-headline-left"><span class="task-slide-category">${element.category}</span></div>
+            <div id="task-slide-close" onclick="closeCard(${element.id}), loadData()" class="task-slide-headline-right"><img src="./img/close.png" alt="Schließen"></div>
+        </div>
+        <span id="task-slide-title" class="task-slide-title">${element.title}</span>
+        <span id="task-slide-description" class="task-slide-description">${element.description}</span>
+        <div class="task-slide-due-date-container">
+            <span class="task-slide-due-date">Due date: </span>
+            <span id="task-slide-due-date" class="task-slide-due-date-date">${element.dueDate}</span>
+        </div>
+        <div class="task-slide-prio-container">
+            <span class="task-slide-prio-text">Priority: </span>
+            <div class="task-slide-prio-text-img">
+                <span class="task-slide-prio-text-">${element.priority}</span>
+                <img id="task-slide-prio-img" src="${priorityImageSrc}" alt="">
             </div>
         </div>
-                </div>
-            </div>
+        <div class="task-slide-assigned-container">
+            <span class="task-slide-assigned-test">Assigned To:</span>
+            <div class="task-slide-assigned-user-container">
+            <div class="task-slide-assigned-user-container">
+        <div class="task-slide-assigned-user-contact">
+            ${assignedToHTML}
+            <button class="task-slide-btn" type="checkbox" disabled></button>
+        </div>
+    </div>
+    <div>
+        </div>
             <div class="task-slide-subtasks-container">
                 <span class="task-slide-subtasks-text">Subtasks</span>
                 <div class="task-slide-subtasks-tasks" id="subtasksContainer">
+                    ${subtasksHTML}
                 </div>
             </div>
             <div class="task-slide-delete-edit-container">
@@ -394,15 +425,26 @@ function renderSlideCard(id) {
         </div>
     </div>
     `
-    }
+}
 
 
-    function deleteTask(id) {
-        console.log(id);
-        const indexToDelete = todos.findIndex(task => task.id === id);
-        todos.splice(indexToDelete, 1);
-        closeCard();
-        pushData();
-        loadData();
-        updateHTML();
+function deleteTask(id) {
+    const indexToDelete = todos.findIndex(task => task.id === id);
+    if (indexToDelete === -1) {
+        return;
     }
+    todos.splice(indexToDelete, 1);
+    for (let i = 0; i < todos.length; i++) {
+        todos[i].id = i;
+    }
+    updateIDs();
+
+    closeCard();
+    updateHTML();
+}
+
+function updateIDs() {
+    for (let i = 0; i < todos.length; i++) {
+        todos[i].id = i + 1;
+    }
+}

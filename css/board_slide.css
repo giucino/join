@@ -209,13 +209,13 @@
 .task-slide-subtasks-tasks{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 4px;
     align-self: stretch;
 }
 
 .task-slide-subtask{
     display: flex;
+    justify-content: space-between;
     height: 32px;
     padding: 6px 16px;
     align-items: center;

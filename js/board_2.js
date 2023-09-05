@@ -20,22 +20,41 @@
 //     return subtasksHTML;
 // }
 
-function updateSubtask(checkbox) {
-    const todoId = parseInt(checkbox.getAttribute('data-todo-id'));
-    const subtaskIndex = parseInt(checkbox.getAttribute('data-subtask-index'));
-    todos[todoId].subtasks[subtaskIndex].done = checkbox.checked;
-    console.log(todos); 
-    pushData();
-    updateProgressBar(todoId);
+async function updateSubtaskStatus(taskId, subtaskIndex, isChecked) {
+    if (taskId >= 0 && taskId < todos.length && subtaskIndex >= 0 && subtaskIndex < todos[taskId].subtasks.length) {
+        todos[taskId].subtasks[subtaskIndex].status = isChecked;
+        renderSlideCard(taskId);
+        updateProgressBar(taskId);
+        await pushData();
+    }
 }
 
-function updateProgressBar(todoId) {
+function updateProgressBar(taskId) {
+    const task = todos[taskId];
+    const progressBar = document.getElementById(`progress-bar${task.id}`);
+    const allTasksCount = task.subtasks.length;
+    const completedTasksCount = task.subtasks.filter(subtask => subtask.status).length;
+    const progress = (completedTasksCount / allTasksCount) * 100;
+    progressBar.style.width = `${progress}%`;
+    const numberTasks = document.getElementById('number-tasks');
+    const allTasks = document.getElementById('all-tasks');
+    numberTasks.innerHTML = '';
+    numberTasks.innerHTML = completedTasksCount;
+    allTasks.innerHTML = '';
+    allTasks.innerHTML = allTasksCount;
+}
+
+/* function updateProgressBar(todoId) {
     const progressBar = document.getElementById(`progress-bar${todoId}`);
     const subtasks = todos[todoId].subtasks;
     
-    const doneSubtasks = subtasks.filter(subtask => subtask.done).length;
+    const doneSubtasks = subtasks.filter(subtask => subtask.status).length;
     const progressPercentage = (doneSubtasks / subtasks.length) * 100;
 
     progressBar.style.width = `${progressPercentage}%`;
 }
+ */
 
+
+
+    
