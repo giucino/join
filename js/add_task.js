@@ -86,9 +86,19 @@ async function createTask() {
     todos.push(newTask);
     await setItem('tasks', JSON.stringify(todos));
     console.log('Aufgabe hinzugefügt:', newTask);
-    window.location.href='board.html';
+    // Zeigt das "Task Added" div an
+    showTaskAdded();
+    // Verzögert die Weiterleitung um 2 Sekunden (2000 Millisekunden)
+    setTimeout(() => {
+        window.location.href = 'board.html';
+    }, 2000);
 }
 
+function showTaskAdded() {
+    let taskAddedContainer = document.getElementById('taskAddedContainer');
+    taskAddedContainer.innerHTML = "Task Added Successfully!";
+    taskAddedContainer.style.display = 'block';
+}
 
 
 
@@ -134,17 +144,17 @@ function highlightButton(button, bgColor, imageSrc) {
 
 
 async function renderAssignedTo() {
-    
-        let assignedToContainer = document.getElementById('loadedContacts');
-        assignedToContainer.innerHTML = '';
 
-        for (let i = 0; i < contacts.length; i++) {
-            let contact = contacts[i];
-            let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+    let assignedToContainer = document.getElementById('loadedContacts');
+    assignedToContainer.innerHTML = '';
 
-            const isSelected = selectedContacts[contact.id] || false;
+    for (let i = 0; i < contacts.length; i++) {
+        let contact = contacts[i];
+        let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
 
-            assignedToContainer.innerHTML += /*html*/`
+        const isSelected = selectedContacts[contact.id] || false;
+
+        assignedToContainer.innerHTML += /*html*/`
                 <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection(${contact.id})">
                     <div class="select-contact">
                         <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
@@ -153,8 +163,8 @@ async function renderAssignedTo() {
                     <img class="select-icon" id="selectCheck" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
                 </div>
             `;
-        }   
     }
+}
 
 
 function renderSearchedContact(contacts) {

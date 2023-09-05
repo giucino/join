@@ -28,14 +28,11 @@
 
 .add-person-text {
     color: var(--white, #FFF);
-
-    /* Version 2/t5 */
     font-family: Open Sans;
     font-size: 23px;
     font-style: normal;
     font-weight: 400;
     line-height: 120%;
-    /* 27.6px */
 }
 
 .container-letter-item {

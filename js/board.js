@@ -123,7 +123,7 @@ function boardDetailViewAssignees(task) {
  * Calls functions to update HTML for each category.
  */
 async function updateHTML() {
-    /* await pushData(); */
+   /*  await pushData(); */
     await loadData();
     todo();
     inProgress();
@@ -333,7 +333,7 @@ function updateSubtask(checkbox) {
     const todoId = parseInt(checkbox.getAttribute('data-todo-id'));
     const subtaskIndex = parseInt(checkbox.getAttribute('data-subtask-index'));
     todos[todoId].subtasks[subtaskIndex].done = checkbox.checked;
-    console.log(todos); 
+    console.log(todos);
     pushData();
     updateProgressBar(todoId);
 }
@@ -341,7 +341,7 @@ function updateSubtask(checkbox) {
 function updateProgressBar(todoId) {
     const progressBar = document.getElementById(`progress-bar${todoId}`);
     const subtasks = todos[todoId].subtasks;
-    
+
     const doneSubtasks = subtasks.filter(subtask => subtask.done).length;
     const progressPercentage = (doneSubtasks / subtasks.length) * 100;
 
