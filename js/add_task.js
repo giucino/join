@@ -25,7 +25,6 @@ async function initTask() {
 async function loadContactsFromStorage() {
     try {
         contacts = JSON.parse(await getItem('contacts'));
-        console.log('Loaded contacts:', contacts);
     } catch (e) {
         console.error('Loading error:', e);
     }
@@ -35,7 +34,6 @@ async function loadContactsFromStorage() {
 async function loadTasks() {
     try {
         todos = JSON.parse(await getItem('tasks'));
-        console.log('Tasks:', todos);
     } catch (e) {
         console.error('Loading error:', e);
     }
@@ -96,7 +94,6 @@ async function createTask() {
     todos.push(newTodo);
 
     await setItem('tasks', JSON.stringify(todos));
-    console.log('Aufgabe hinzugefügt:', newTodo);
     resetTaskForm();
 }
 
@@ -294,8 +291,6 @@ function priority(button) {
         highlightButton(button, '#7AE229', './img/prio_low_active.png');
         selectedPriority = 'low';
     }
-    console.log('Ausgewählte ID:', button.id);
-    console.log('Ausgewählte Priorität:', selectedPriority);
 }
 
 
@@ -350,7 +345,6 @@ function renderSearchedContact(contacts) {
             </div>
         `;
     }
-    console.log('Render Searched Contact:', contacts);
 }
 
 
@@ -362,7 +356,6 @@ function searchContacts(query) {
         );
     });
     renderSearchedContact(filteredContacts);
-    console.log('Filtered Contact:', filteredContacts);
 }
 
 
@@ -383,7 +376,6 @@ function toggleContactSelection(name, surename) {
     renderAssignedTo();
     renderSearchedContact(contacts);
     displayChosenContacts();
-    console.log('Ausgewählte/r Kontakt/e:', selectedContacts);
 }
 
 
@@ -503,8 +495,6 @@ function categorySelected(category) {
 
     let categoryDropdown = document.querySelector('.category-dropdown');
     categoryDropdown.classList.remove('expanded');
-
-    console.log('Ausgewählte Kategorie:', selectedCategory);
 }
 
 
@@ -528,5 +518,4 @@ function addSubtask() {
         </div>
     `;
     subtaskInput.value = '';
-    console.log('Unteraufgabe hinzugefügt:', subtaskValue);
 }
