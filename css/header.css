@@ -115,6 +115,10 @@ header {
     border-radius: 50%;
 }
 
+.user-initials:hover {
+    background-color: #D2E3FF;
+}
+
 #logoutBtn {
     position: fixed;
     top: 96px;

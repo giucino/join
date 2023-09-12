@@ -97,7 +97,14 @@
                 <div id="requiredContact" class="add-task-field-required">
                     This field is required
                 </div>
-                <div id="loadedContacts" class="loaded-contacts"></div>
+                <div class="contacts-container">
+                    <div id="loadedContacts" class="loaded-contacts">
+                    </div>
+                    <button id="addContactBtn" onclick="openModal()" class="add-person-button">
+                        Add new contact
+                        <img src="./img/person_add.svg" class="button-icon">
+                    </button>
+                </div>
                 <div id="chosenContacts" class="chosen-contacts"></div>
             </div>
             <div class="category-container">
@@ -123,24 +130,24 @@
                     Subtasks
                 </div>
                 <div class="add-subtask-input">
-                    <input type="text" id="subtaskInput" class="new-subtask-textfield" placeholder="Add new subtask">
-                    <img onclick="addSubtask()" class="add-subtask-button" src="./img/subtask.svg">
-                </div>
-                <div id="requiredSubtask" class="add-task-field-required">
-                    This field is required
+                    <input onclick="openSubtaskInput()" type="text" id="subtaskInput" class="new-subtask-textfield" placeholder="Add new subtask">
+                    <img onclick="openSubtaskInput()" class="open-subtask-button" src="./img/open_subtask.png">
+                    <img onclick="closeSubtaskInput()" class="add-subtask-button hidden" id="closeSubtask" src="./img/close_subtask.png"> 
+                    <span class="separator" id="separator">|</span> 
+                    <img onclick="addSubtask()" class="add-subtask-button hidden" id="addNewSubtask" src="./img/add_subtask.png">
                 </div>
                 <div id="subtask-add-container" class="subtask-add-container"></div>
             </div>
         </div>
         <div class="add-task-buttons">
             <div class="add-task-buttons-inner">
-                <button type="button" class="button-clear">
-                    <div class="button-clear-text">Clear</div>
-                    <div class="button-clear-pic"> <img src="./img/cancel-icon.svg"></div>
+                <button onclick="resetTaskForm()" type="button" id="clearTaskButton" class="button-clear">
+                    Clear
+                    <img class="button-clear-pic" src="./img/cancel-icon.svg">
                 </button>
                 <button type="submit" id="createTaskButton" class="button-create-task">
-                    <div class="button-create-task-text">Create Task</div>
-                    <div class="button-create-task-pic"><img src="./img/check.svg"></div>
+                    Create Task
+                    <img class="button-create-task-pic" src="./img/check.svg">
                 </button>
             </div>
         </div>
