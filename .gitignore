@@ -2,3 +2,4 @@
 .DS_Store
 app.js
 .vscode
+node_modules
