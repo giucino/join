@@ -20,6 +20,32 @@
 //     return subtasksHTML;
 // }
 
+// function renderSubtasks(todoId) {
+//     const subtasksContainer = document.getElementById("subtasksContainer");
+
+//     if (subtasksContainer) {
+//         const todo = todos.find(todo => todo.id === todoId);
+
+//         if (todo && Array.isArray(todo.subtasks)) {
+//             let subtasksHTML = '';
+
+//             todo.subtasks.forEach((subtask, index) => {
+//                 const checkedAttribute = subtask.done ? 'checked' : '';
+//                 const subtaskHTML = /*html*/`
+//                     <div class="task-slide-subtask">
+//                         <input class="task-slide-subtask-btn" type="checkbox" id="check-box${index}" data-todo-id="${todoId}" data-subtask-index="${index}" ${checkedAttribute} onclick="updateSubtask(this)">
+//                         <span class="task-slide-subtask-text">${subtask.title}</span>
+//                     </div>
+//                 `;
+//                 subtasksHTML += subtaskHTML;
+//             });
+
+//             subtasksContainer.innerHTML = subtasksHTML;
+//         }
+//     }
+// }
+
+
 async function updateSubtaskStatus(taskId, subtaskIndex, isChecked) {
     if (taskId >= 0 && taskId < todos.length && subtaskIndex >= 0 && subtaskIndex < todos[taskId].subtasks.length) {
         todos[taskId].subtasks[subtaskIndex].status = isChecked;
@@ -57,4 +83,3 @@ function updateProgressBar(taskId) {
 
 
 
-    

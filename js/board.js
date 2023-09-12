@@ -2,13 +2,26 @@ let currentDraggedElement;
 let currentFilter = '';
 
 
+// let allTodos = [...todos];
+// allTodos = todos;
+
+// async function loadDatas() {
+//     try {
+//         allTodos = JSON.parse(await getItem('tasks'));
+//         console.log('Tasks:', allTodos);
+//     } catch (e) {
+//         console.error('Loading error:', e);
+//     }
+// }
+
+
 /**
  * Update the HTML for all task categories.
  * Calls functions to update HTML for each category.
  */
 async function updateHTML() {
     await loadData();
-    loadContactsFromStorage();
+    await loadContactsFromStorage();
     await pushData();
     todo();
     inProgress();
@@ -475,3 +488,15 @@ function deleteCard(id) {
         elementToRemove.remove();
     }
 }
+
+// async function deleteTask(id) {
+//     console.log(id);
+//     const indexToDelete = todos.findIndex(task => task.id === id);
+//     todos.splice(indexToDelete, 1);
+//     closeCard();
+//     pushData();
+//     loadData();
+//     await pushData();
+//     await loadData();
+//     updateHTML();
+// }

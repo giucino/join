@@ -69,7 +69,7 @@ async function createTask() {
     } if (!selectedCategory) {
         showSelectCategoryError();
         return;
-    } 
+    }
 
     const extractedBgcolors = extractBgcolor(selectedContacts);
 
@@ -257,7 +257,10 @@ function resetCategorySelection() {
 function resetSubtasks() {
     subtasks = [];
     let subtasksContainer = document.getElementById('subtask-add-container');
+    let subtasksInput = document.getElementById('subtaskInput');
     subtasksContainer.innerHTML = '';
+    subtasksInput.value = '';
+    closeSubtaskInput();
 }
 
 
@@ -360,8 +363,8 @@ function searchContacts(query) {
 
 
 function toggleContactSelection(name, surename) {
-    const contact = contacts.find(c => c.name === name && c.surename === surename);  
-    
+    const contact = contacts.find(c => c.name === name && c.surename === surename);
+
     if (!contact) {
         return;
     }
@@ -369,9 +372,9 @@ function toggleContactSelection(name, surename) {
     const contactKey = `${contact.name} ${contact.surename}`;
 
     if (selectedContacts[contactId]) {
-        delete selectedContacts[contactId];       
+        delete selectedContacts[contactId];
     } else {
-        selectedContacts[contactId] = contactKey;       
+        selectedContacts[contactId] = contactKey;
     }
     renderAssignedTo();
     renderSearchedContact(contacts);
@@ -392,11 +395,26 @@ function extractBgcolor(selectedContacts) {
 }
 
 
-function toggleAssignedToContainer() {
-    let assignedSelectText = document.querySelector('.assigned-select-text');
-    assignedSelectText.style.display = 'inline';
+// function toggleAssignedToContainer() {
+//     let assignedSelectText = document.querySelector('.assigned-select-text');
+//     assignedSelectText.style.display = 'inline';
 
+//     let assignedToContainer = document.getElementById('loadedContacts');
+//     let assignedToDropdown = document.querySelector('.assigned-to-dropdown');
+
+//     if (assignedToContainer.style.display === 'block') {
+//         assignedToContainer.style.display = 'none';
+//         assignedToDropdown.classList.remove('expanded');
+//     } else {
+//         assignedToContainer.style.display = 'block';
+//         assignedToDropdown.classList.add('expanded');
+//     }
+// }
+
+
+function toggleAssignedToContainer() {
     let assignedToContainer = document.getElementById('loadedContacts');
+    let contactsContainer = document.querySelector('.contacts-container');
     let assignedToDropdown = document.querySelector('.assigned-to-dropdown');
 
     if (assignedToContainer.style.display === 'block') {
@@ -406,6 +424,9 @@ function toggleAssignedToContainer() {
         assignedToContainer.style.display = 'block';
         assignedToDropdown.classList.add('expanded');
     }
+
+    // Zeige oder blende den gemeinsamen Container basierend auf dem Zustand des loadedContacts Containers
+    contactsContainer.style.display = assignedToContainer.style.display;
 }
 
 
@@ -498,24 +519,123 @@ function categorySelected(category) {
 }
 
 
+let subtaskIdCounter = 0;
+
 function addSubtask() {
     let subtaskInput = document.querySelector('.new-subtask-textfield');
     let subtaskValue = subtaskInput.value;
 
     if (!subtaskValue) {
-        alert('Bitte geben Sie eine Unteraufgabe ein.');
         return;
     }
+    
+    subtaskIdCounter++;
+
+    let subtaskId = 'subtask-' + subtaskIdCounter;
+
     subtasks.push({
+        id: subtaskId,
         title: subtaskValue,
         status: false
-    })
+    });
+
     let subtasksContainer = document.getElementById('subtask-add-container');
-    subtasksContainer.innerHTML += `
-        <div class="subtask-item">
-            <span class="subtask-dot"></span>           
-            <span>${subtaskValue}</span>
+    subtasksContainer.innerHTML += /*html*/`
+        <div class="subtask-container">
+            <div class="subtask-item">
+                <span class="subtask-dot"></span>           
+                <span id="${subtaskId}" class="subtask-value">${subtaskValue}</span>
+            </div>
+            <div class="hover-content">
+                <img onclick="editSubtask()" src="./img/edit_subtask.png" class="edit-subtask-button">
+                <span class="separator2" id="separator2">|</span> 
+                <img onclick="deleteSubtask('${subtaskId}')" data-subtask-id="${subtaskId}" src="./img/delete_subtask.png" class="delete-subtask-button">
+                <!-- <img onclick="deleteSubtask(event)" src="./img/delete_subtask.png" class="delete-subtask-button"> -->
+            </div>
         </div>
     `;
+
     subtaskInput.value = '';
+    closeSubtaskInput();
 }
+
+
+
+function openSubtaskInput() {
+    document.querySelector('.open-subtask-button').style.display = 'none';
+    document.getElementById('subtaskInput').focus();
+    document.getElementById('separator').style.display = 'inline-flex'
+    let otherButtons = document.querySelectorAll('.add-subtask-button');
+    for (let i = 0; i < otherButtons.length; i++) {
+        otherButtons[i].style.display = 'inline-block';
+    }
+}
+
+
+function closeSubtaskInput() {
+    document.querySelector('.open-subtask-button').style.display = 'inline-block';
+    document.querySelector('.new-subtask-textfield').value = '';
+    document.getElementById('separator').style.display = 'none'
+    let otherButtons = document.querySelectorAll('.add-subtask-button');
+    for (let i = 0; i < otherButtons.length; i++) {
+        otherButtons[i].style.display = 'none';
+    }
+}
+
+
+function deleteSubtask(subtaskId) {
+    const indexToDelete = subtasks.findIndex(subtask => subtask.id === subtaskId);
+
+    if (indexToDelete !== -1) {
+        // Entfernen Sie den Subtask aus dem Array
+        subtasks.splice(indexToDelete, 1);
+
+        // Entfernen Sie den DOM-Container mit der entsprechenden ID
+        const subtaskElement = document.getElementById(subtaskId);
+        if (subtaskElement) {
+            subtaskElement.parentElement.parentElement.remove();
+        }
+    }
+}
+
+
+// function deleteSubtask(event) {
+//     let target = event.target;
+    
+//     // Überprüfen Sie, ob das angeklickte Element das Bild zum Löschen ist
+//     if (target.classList.contains("delete-subtask-button")) {
+//         // Das übergeordnete Element des Bildes ist der Container des Subtasks
+//         let subtaskContainer = target.closest(".subtask-container");
+        
+//         // Wenn ein passender Container gefunden wurde
+//         if (subtaskContainer) {
+//             // Ermitteln Sie den Index des Containers innerhalb seines Eltern-Elements
+//             let index = Array.from(subtaskContainer.parentNode.children).indexOf(subtaskContainer);
+            
+//             if (index >= 0) {
+//                 // Entfernen Sie den Subtask aus dem Array
+//                 subtasks.splice(index, 1);
+                
+//                 // Entfernen Sie den Container aus dem DOM
+//                 subtaskContainer.parentNode.removeChild(subtaskContainer);
+//             }
+//         }
+//     }
+// }
+
+
+function addForgotBlurEventss() {
+    let emailInputtSection = document.querySelectorAll('.add-task-titel-textcontainer');
+    emailInputtSection.forEach(box => {
+        let input = box.querySelector('.add-task-titel-textfield');
+
+        input.addEventListener('focus', () => {
+            box.style.borderColor = '#4589FF';
+        });
+
+        input.addEventListener('blur', () => {
+            box.style.borderColor = '#D1D1D1';
+        });
+    });
+}
+document.addEventListener('DOMContentLoaded', addForgotBlurEventss);
