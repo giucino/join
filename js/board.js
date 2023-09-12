@@ -15,8 +15,28 @@ async function updateHTML() {
     feedback();
     done();
     noTasks();
+    /* await loadDatas(); */
 }
 
+function refreshHTML(){
+    todo();
+    inProgress();
+    feedback();
+    done();
+    noTasks();
+}
+
+let allTodos = [...todos];
+allTodos = todos;
+
+async function loadDatas() {
+    try {
+        allTodos = JSON.parse(await getItem('tasks'));
+        console.log('Tasks:', allTodos);
+    } catch (e) {
+        console.error('Loading error:', e);
+    }
+}
 
 async function pushData() {
     await setItem('tasks', JSON.stringify(todos));
@@ -199,7 +219,7 @@ function generateTasksHTML(element) {
     /* await pushData();
     await loadData(); */
     return /*html*/`
-    <div id="board-card${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container">
+    <div id="board-card${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container task-touch">
         <div class="content-container-inner">
             <div class="category">${element.category}</div>
             <div class="title-content">
@@ -366,8 +386,8 @@ function renderSlideCard(id) {
             if (subtask.title) {
                 subtasksHTML += /*html*/`
                     <div class="task-slide-subtask">
-                        <label for="subtaskCheckbox${i}">${subtask.title}</label>
                         <input type="checkbox" id="subtaskCheckbox${i}" ${subtask.status ? 'checked' : ''} onchange="updateSubtaskStatus(${id}, ${i}, this.checked)">
+                        <label for="subtaskCheckbox${i}">${subtask.title}</label>
                     </div>
                 `;
                 updateHTML()
@@ -434,17 +454,24 @@ function deleteTask(id) {
         return;
     }
     todos.splice(indexToDelete, 1);
-    for (let i = 0; i < todos.length; i++) {
-        todos[i].id = i;
-    }
+    deleteCard(id);
     updateIDs();
-
     closeCard();
-    updateHTML();
+    pushData();
+    refreshHTML();
 }
+
+
 
 function updateIDs() {
     for (let i = 0; i < todos.length; i++) {
-        todos[i].id = i + 1;
+        todos[i].id = i;
+    }
+}
+
+function deleteCard(id) {
+    const elementToRemove = document.getElementById(`board-card${id}`);
+    if (elementToRemove) {
+        elementToRemove.remove();
     }
 }
