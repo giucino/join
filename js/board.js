@@ -232,7 +232,7 @@ function generateTasksHTML(element) {
     /* await pushData();
     await loadData(); */
     return /*html*/`
-    <div id="board-card${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container task-touch">
+    <div id="board-card${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" ontouchstart="touchStart(${element.id})" class="content-container task-touch">
         <div class="content-container-inner">
             <div class="category">${element.category}</div>
             <div class="title-content">
@@ -306,6 +306,37 @@ function moveTo(status) {
     loadData();
     updateHTML();
 }
+
+function polyfill() {
+    // Define the dragstart event.
+    document.addEventListener("dragstart", function(ev) {
+      // Get the id of the element being dragged.
+      const id = ev.target.id;
+  
+      // Set the current dragged element.
+      currentTask = todos.find(task => task.id === id);
+    });
+  
+    // Define the dragover event.
+    document.addEventListener("dragover", function(ev) {
+      // Prevent the default action.
+      ev.preventDefault();
+    });
+  
+    // Define the drop event.
+    document.addEventListener("drop", function(ev) {
+      // Get the status of the drop zone.
+      const status = ev.target.getAttribute("data-status");
+  
+      // Move the task to the specified status.
+      currentTask.status = status;
+      pushData();
+      loadData();
+      updateHTML();
+    });
+}
+
+polyfill();
 
 /**
  * Filter tasks based on a search term and status.
@@ -489,14 +520,3 @@ function deleteCard(id) {
     }
 }
 
-// async function deleteTask(id) {
-//     console.log(id);
-//     const indexToDelete = todos.findIndex(task => task.id === id);
-//     todos.splice(indexToDelete, 1);
-//     closeCard();
-//     pushData();
-//     loadData();
-//     await pushData();
-//     await loadData();
-//     updateHTML();
-// }
