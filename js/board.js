@@ -232,7 +232,7 @@ function generateTasksHTML(element) {
     /* await pushData();
     await loadData(); */
     return /*html*/`
-    <div id="board-card${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" ontouchstart="touchStart(${element.id})" class="content-container task-touch">
+    <div id="board-card${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container task-touch">
         <div class="content-container-inner">
             <div class="category">${element.category}</div>
             <div class="title-content">
