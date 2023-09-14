@@ -158,16 +158,29 @@
     top: 0;
     right: 0;
     bottom: 0;
-    animation: slide-in 0.2s ease-in-out;
+    animation-name: slide-in;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
 }
 
 @keyframes slide-in {
-    0% {
-        transform: translateX(700px);
+    from {
+        right: -600px;
     }
 
-    100% {
-        transform: translateX(0);
+    to {
+        right: 0;
+    }
+}
+
+@keyframes slide-out {
+    from {
+        right: 0;
+    }
+
+    to {
+        right: -600px;
     }
 }
 
@@ -185,16 +198,29 @@
     top: 0;
     left: 0;
     bottom: 0;
-    animation: edit-slide-in 0.2s ease-in-out;
+    animation-name: edit-slide-in;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
 }
 
 @keyframes edit-slide-in {
-    0% {
-        transform: translateX(-700px);
+    from {
+        left: -600px;
     }
 
-    100% {
-        transform: translateX(0);
+    to {
+        left: 0;
+    }
+}
+
+@keyframes edit-slide-out {
+    from {
+        left: 0;
+    }
+
+    to {
+        left: -600px;
     }
 }
 
@@ -331,7 +357,6 @@
     color: white;
     color: #FFF;
     text-align: center;
-    font-family: Inter;
     font-size: 47px;
     font-style: normal;
     font-weight: 500;

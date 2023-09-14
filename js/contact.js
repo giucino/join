@@ -398,7 +398,6 @@ function generateEditContactModal(index) {
                     <div class="add-contact-buttons-inner">
                         <button onclick="deleteContact(${index})" class="button-clear">
                             <div class="button-clear-text">Delete</div>
-                            <div class="button-clear-pic"> <img src="./img/cancel-icon.svg"></div>
                         </button>
                         <button id="updateContactBtn" class="button-create-task" onclick="updateContact()">
                             <div class="button-create-task-text">Save</div>
@@ -422,3 +421,19 @@ function closeEditModal() {
     let modal = document.getElementById("editModal");
     modal.style.display = "none";
 }
+
+// function toggleMenu(event) {
+//     let menuItems = document.getElementById("logoutBtn");
+
+//     event.stopPropagation();
+
+//     if (menuItems.style.display === "" || menuItems.style.display === "none") {
+//         menuItems.style.display = "flex";
+//         menuItems.style.animationName = "slideInFromRight";
+//     } else {
+//         menuItems.style.animationName = "slideOutToRight";
+//         setTimeout(() => {
+//             menuItems.style.display = "none";
+//         }, 100);
+//     }
+// }
