@@ -232,7 +232,7 @@ function generateTasksHTML(element) {
         <div class="content-container-inner">
             <div class="category">${element.category}</div>
             <div class="title-content">
-                <div class="title">${element.title} ${element.id}</div>
+                <div class="title">${element.title}</div>
                 <div id="description" class="content">${element.description}</div>
             </div>
             <div class="subtasks-container">
