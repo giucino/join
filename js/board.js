@@ -105,8 +105,8 @@ function boardDetailViewAssignees(task) {
     let container = document.getElementById('board-detail-view-assignees');
     container.innerHTML = 'Assigned to:';
 
-    for (let i = 0; i < task.assigned_to.length; i++) {
-        const assignee = task.assigned_to[i];
+    for (let i = 0; i < task.assignedTo.length; i++) {
+        const assignee = task.assignedTo[i];
 
         container.innerHTML += /*html*/ `
         
@@ -123,8 +123,9 @@ function boardDetailViewAssignees(task) {
  * Calls functions to update HTML for each category.
  */
 async function updateHTML() {
-   /*  await pushData(); */
+    /* await pushData(); */
     await loadData();
+    await pushData();
     todo();
     inProgress();
     feedback();
@@ -315,6 +316,7 @@ function slideCardAnimation() {
 function slideCard(id) {
     const slideCard = document.getElementById('task-slide');
     slideCard.innerHTML = renderSlideCard(id);
+    // const subtasksHTML = generateSubtasksHTML(element.subtasks, element.id);
     slideCardAnimation();
 }
 //${subtasksHTML}

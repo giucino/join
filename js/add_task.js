@@ -77,11 +77,12 @@ async function createTask() {
         id: newTaskId,
         title: title,
         description: description,
+        assignedTo: selectedContacts,
         category: selectedCategory,
         priority: selectedPriority,
         dueDate: dueDate,
         status: 'todo',
-        assignedTo: selectedContacts
+        
     };
     todos.push(newTask);
     await setItem('tasks', JSON.stringify(todos));
@@ -96,8 +97,8 @@ async function createTask() {
 
 function showTaskAdded() {
     let taskAddedContainer = document.getElementById('taskAddedContainer');
-    taskAddedContainer.innerHTML = "Task Added Successfully!";
-    taskAddedContainer.style.display = 'block';
+    taskAddedContainer.innerHTML = '<div>Task added to board</div> <div> <img src="./img/vector.svg"></div>';
+    taskAddedContainer.style.display = 'flex';
 }
 
 

@@ -326,7 +326,7 @@
 .contact-container.selected {
     background-color: #4589FF;
     border-radius: 10px;
-    color: white; 
+    color: white;
 }
 
 .contact-container.selected .select-icon {
@@ -402,7 +402,8 @@
     gap: 8px;
 }
 
-.category, .select-name {
+.category,
+.select-name {
     cursor: pointer;
     padding: 12px 16px;
     font-size: 19px;
@@ -606,7 +607,7 @@
     height: 24px;
 }
 
-.task-added{
+.task-added {
     display: none;
     position: absolute;
     right: 40%;
@@ -619,10 +620,21 @@
     border-radius: 20px;
     background: var(--version-2-main-color, #4589FF);
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+    color: var(--white, #FFF);
+    font-family: Open Sans;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
     animation: slide 1s ease-in-out;
 }
 
 @keyframes slide {
-    0%{transform: translateY(700px);}
-    100%{transform: translateY(0);}
+    0% {
+        transform: translateY(700px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
