@@ -111,7 +111,11 @@ function resetTitleInput() {
     titleError.style.display = 'none';
 
     let titleInput = document.querySelector('.add-task-titel-textcontainer');
-    titleInput.style.borderColor = '#D1D1D1';
+    let input = titleInput.querySelector('.add-task-titel-textfield');
+
+    if (!input.matches(':focus')) {
+        titleInput.style.borderColor = '#D1D1D1';
+    }
 }
 let titleInput = document.getElementById('taskTitle');
 titleInput.addEventListener('input', resetTitleInput);
@@ -149,7 +153,11 @@ function resetDateInput() {
     dateError.style.display = 'none';
 
     let dateInput = document.querySelector('.due-date-input-container');
-    dateInput.style.borderColor = '#D1D1D1';
+    let input = dateInput.querySelector('.due-date-textfield');
+
+    if (!input.matches(':focus')) {
+        dateInput.style.borderColor = '#D1D1D1';
+    }
 }
 let dateInput = document.getElementById('dueDate');
 dateInput.addEventListener('input', resetDateInput);
@@ -159,6 +167,7 @@ function showPriorityError() {
     let priorityError = document.getElementById('requiredPriority');
     priorityError.style.display = 'block';
 }
+
 
 function hidePriorityError() {
     let priorityError = document.getElementById('requiredPriority');
@@ -179,7 +188,10 @@ function resetAssignedContact() {
     assignedError.style.display = 'none';
 
     let assignedInput = document.querySelector('.assigned-to-choicefield');
-    assignedInput.style.borderColor = '#D1D1D1';
+    let input = assignedInput.querySelector('.assigned-select-text');
+    if (!input.matches(':focus')) {
+        assignedInput.style.borderColor = '#D1D1D1';
+    }
 }
 let assignedDropdown = document.querySelector('.assigned-to-dropdown');
 assignedDropdown.addEventListener('click', resetAssignedContact);
@@ -197,31 +209,14 @@ function resetSelectCategory() {
     let categoryError = document.getElementById('requiredCategory');
     categoryError.style.display = 'none';
 
-    let categoryInput = document.querySelector('.category-choicefield');
-    categoryInput.style.borderColor = '#D1D1D1';
+    let categoryInput = document.querySelector('.category-choicefield')
+    let input = categoryInput.querySelector('.select-text');
+    if (!input.matches(':focus')) {
+        categoryInput.style.borderColor = '#D1D1D1';
+    }
 }
 let categoryDropdown = document.querySelector('.category-dropdown');
 categoryDropdown.addEventListener('click', resetSelectCategory);
-
-
-
-// function showSubtasksInputError() {
-//     let assignedError = document.getElementById('requiredSubtask');
-//     assignedError.style.display = 'block';
-//     let assignedInput = document.querySelector('.add-subtask-input');
-//     assignedInput.style.borderColor = '#FF8190';
-// }
-
-
-// function resetSubtaskInput() {
-//     let subtaskError = document.getElementById('requiredSubtask');
-//     subtaskError.style.display = 'none';
-
-//     let subtaskInput = document.querySelector('.add-subtask-input');
-//     subtaskInput.style.borderColor = '#D1D1D1';
-// }
-// let subtaskInput = document.getElementById('subtaskInput');
-// subtaskInput.addEventListener('input', resetSubtaskInput);
 
 
 function resetTaskForm() {
@@ -382,7 +377,6 @@ function toggleContactSelection(name, surename) {
 }
 
 
-// Extrahieren Sie die Bgcolor für ausgewählte Kontakte
 function extractBgcolor(selectedContacts) {
     const bgcolors = [];
     for (const contactName of selectedContacts) {
@@ -393,23 +387,6 @@ function extractBgcolor(selectedContacts) {
     }
     return bgcolors;
 }
-
-
-// function toggleAssignedToContainer() {
-//     let assignedSelectText = document.querySelector('.assigned-select-text');
-//     assignedSelectText.style.display = 'inline';
-
-//     let assignedToContainer = document.getElementById('loadedContacts');
-//     let assignedToDropdown = document.querySelector('.assigned-to-dropdown');
-
-//     if (assignedToContainer.style.display === 'block') {
-//         assignedToContainer.style.display = 'none';
-//         assignedToDropdown.classList.remove('expanded');
-//     } else {
-//         assignedToContainer.style.display = 'block';
-//         assignedToDropdown.classList.add('expanded');
-//     }
-// }
 
 
 function toggleAssignedToContainer() {
@@ -424,28 +401,8 @@ function toggleAssignedToContainer() {
         assignedToContainer.style.display = 'block';
         assignedToDropdown.classList.add('expanded');
     }
-
-    // Zeige oder blende den gemeinsamen Container basierend auf dem Zustand des loadedContacts Containers
     contactsContainer.style.display = assignedToContainer.style.display;
 }
-
-
-// function assignedToSelected(contact, container) {
-//     container.classList.toggle('selected');
-
-//     let selectIcon = container.querySelector('.select-icon');
-
-//     if (container.classList.contains('selected')) {
-//         selectIcon.src = 'img/check_contact.png';
-//         selectedContacts.push(contact);
-//         displayChosenContacts();
-//     } else {
-//         selectIcon.src = 'img/check-button.png';
-//         selectedContacts = selectedContacts.filter(selected => selected !== contact);
-//         displayChosenContacts();
-//     }
-//     console.log('Ausgewählte/r Kontakt/e:', selectedContacts);
-// }
 
 
 function displayChosenContacts() {
@@ -528,7 +485,7 @@ function addSubtask() {
     if (!subtaskValue) {
         return;
     }
-    
+
     subtaskIdCounter++;
 
     let subtaskId = 'subtask-' + subtaskIdCounter;
@@ -560,7 +517,6 @@ function addSubtask() {
 }
 
 
-
 function openSubtaskInput() {
     document.querySelector('.open-subtask-button').style.display = 'none';
     document.getElementById('subtaskInput').focus();
@@ -587,10 +543,8 @@ function deleteSubtask(subtaskId) {
     const indexToDelete = subtasks.findIndex(subtask => subtask.id === subtaskId);
 
     if (indexToDelete !== -1) {
-        // Entfernen Sie den Subtask aus dem Array
         subtasks.splice(indexToDelete, 1);
 
-        // Entfernen Sie den DOM-Container mit der entsprechenden ID
         const subtaskElement = document.getElementById(subtaskId);
         if (subtaskElement) {
             subtaskElement.parentElement.parentElement.remove();
@@ -601,21 +555,21 @@ function deleteSubtask(subtaskId) {
 
 // function deleteSubtask(event) {
 //     let target = event.target;
-    
+
 //     // Überprüfen Sie, ob das angeklickte Element das Bild zum Löschen ist
 //     if (target.classList.contains("delete-subtask-button")) {
 //         // Das übergeordnete Element des Bildes ist der Container des Subtasks
 //         let subtaskContainer = target.closest(".subtask-container");
-        
+
 //         // Wenn ein passender Container gefunden wurde
 //         if (subtaskContainer) {
 //             // Ermitteln Sie den Index des Containers innerhalb seines Eltern-Elements
 //             let index = Array.from(subtaskContainer.parentNode.children).indexOf(subtaskContainer);
-            
+
 //             if (index >= 0) {
 //                 // Entfernen Sie den Subtask aus dem Array
 //                 subtasks.splice(index, 1);
-                
+
 //                 // Entfernen Sie den Container aus dem DOM
 //                 subtaskContainer.parentNode.removeChild(subtaskContainer);
 //             }
@@ -624,18 +578,53 @@ function deleteSubtask(subtaskId) {
 // }
 
 
-function addForgotBlurEventss() {
-    let emailInputtSection = document.querySelectorAll('.add-task-titel-textcontainer');
-    emailInputtSection.forEach(box => {
-        let input = box.querySelector('.add-task-titel-textfield');
+function applyBorderColorOnFocusAndBlur(containerSelector, inputSelector, focusColor, blurColor) {
+    const containers = document.querySelectorAll(containerSelector);
+
+    containers.forEach(container => {
+        const input = container.querySelector(inputSelector);
 
         input.addEventListener('focus', () => {
-            box.style.borderColor = '#4589FF';
+            container.style.borderColor = focusColor;
         });
 
         input.addEventListener('blur', () => {
-            box.style.borderColor = '#D1D1D1';
+            container.style.borderColor = blurColor;
         });
     });
 }
-document.addEventListener('DOMContentLoaded', addForgotBlurEventss);
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyBorderColorOnFocusAndBlur(
+        '.add-task-titel-textcontainer',
+        '.add-task-titel-textfield',
+        '#4589FF',
+        '#D1D1D1'
+    );
+    // applyBorderColorOnFocusAndBlur(
+    //     '.add-task-description-textfield',
+    //     '.add-task-description-textfield',
+    //     '#4589FF',
+    //     '#D1D1D1'
+    // );
+    applyBorderColorOnFocusAndBlur(
+        '.due-date-input-container',
+        '.due-date-textfield',
+        '#4589FF',
+        '#D1D1D1'
+    );
+    applyBorderColorOnFocusAndBlur(
+        '.assigned-to-choicefield',
+        '#searchInput',
+        '#4589FF',
+        '#D1D1D1'
+    );
+    applyBorderColorOnFocusAndBlur(
+        '.add-subtask-input',
+        '#subtaskInput',
+        '#4589FF',
+        '#D1D1D1'
+    );
+});
+

@@ -5,7 +5,7 @@ let contacts = [
         name: 'Anna',
         surename: 'Schmidt',
         email: 'anna.schmidt@example.com',
-        telefon: '123-456-7890'
+        telefon: '1234567890'
     },
     {
         bgcolor: '#133465',
@@ -13,7 +13,7 @@ let contacts = [
         name: 'Max',
         surename: 'Müller',
         email: 'max.mueller@example.com',
-        telefon: '234-567-8901'
+        telefon: '234567890'
     },
     {
         bgcolor: '#F68997',
@@ -21,7 +21,7 @@ let contacts = [
         name: 'Sophie',
         surename: 'Wagner',
         email: 'sophie.wagner@example.com',
-        telefon: '345-678-9012'
+        telefon: '3456789012'
     },
     {
         bgcolor: '#8595D2',
@@ -29,7 +29,7 @@ let contacts = [
         name: 'Paul',
         surename: 'Becker',
         email: 'paul.becker@example.com',
-        telefon: '456-789-0123'
+        telefon: '456789012'
     },
     {
         bgcolor: '#037E49',
@@ -37,7 +37,7 @@ let contacts = [
         name: 'Laura',
         surename: 'Hoffmann',
         email: 'laura.hoffmann@example.com',
-        telefon: '567-890-1234'
+        telefon: '567890123'
     },
     {
         bgcolor: '#51C3C9',
@@ -45,7 +45,7 @@ let contacts = [
         name: 'Felix',
         surename: 'Schulz',
         email: 'felix.schulz@example.com',
-        telefon: '678-901-2345'
+        telefon: '6789012345'
     },
     {
         bgcolor: '#0206C3',
@@ -53,7 +53,7 @@ let contacts = [
         name: 'Emilia',
         surename: 'Koch',
         email: 'emilia.koch@example.com',
-        telefon: '789-012-3456',
+        telefon: '7890123456',
     }
 ];
 
@@ -64,7 +64,7 @@ let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 
 async function initContact() {
     await loadAllContacts();
-    // await saveContacts(contacts);
+    // await reloadContacts();
     sortContacts();
     initLetters();
     showContacts();
@@ -81,13 +81,15 @@ async function loadAllContacts() {
     }
 }
 
+// let allContacts = [...contacts];
+// allContacts = contacts;
 
-// async function saveContacts(contacts) {
+// async function reloadContacts() {
 //     try {
-//         await setItem('contacts', JSON.stringify(contacts));
-//         console.log('Kontakte', contacts);
-//     } catch (error) {
-//         console.error('Fehler beim Speichern der Kontakte:', error);
+//         allContacts = JSON.parse(await getItem('contacts'));
+//         console.log('Contacts:', allContacts);
+//     } catch (e) {
+//         console.error('Loading error:', e);
 //     }
 // }
 
@@ -126,18 +128,13 @@ function initLetters() {
 }
 
 
-let selectedContactIndex = -1; 
-
-
 async function showContacts() {
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
 
-        // Setze die bgcolor Eigenschaft, falls sie noch nicht existiert
         if (!contact.bgcolor) {
             contact.bgcolor = getRandomColor();
         }
-
         let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
         let firstLetter = contact.name.charAt(0).toUpperCase();
         let contactsList = document.getElementById(`container-contact-${firstLetter}`);
@@ -168,17 +165,11 @@ function removeEmptyLetters() {
 }
 
 
-// Modal-Elemente holen
-const modal = document.getElementById("myModal");
-// const btn = document.getElementById("addContactBtn");
-// const span = document.getElementsByClassName("close")[0];
-// const saveBtn = document.getElementById("saveContactBtn");
-
 function showContactDetails(index) {
     let contact = contacts[index];
     let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
     let detailsContainer = document.getElementById('contact-details');
-    detailsContainer.innerHTML = `
+    detailsContainer.innerHTML = /*html*/`
     <div class="contact-detailed-container">
         <div class="contact-detailed-top">
             <div>
@@ -199,8 +190,8 @@ function showContactDetails(index) {
             <div class="contact-detailed-text">Telefon: </div> <div class="phone"> ${contact.telefon}</div> 
     </div>
     `;
-    detailsContainer.style.display = 'inline-flex'; // den Container anzeigen
-    // Hervorheben des ausgewählten Kontakts
+    detailsContainer.style.display = 'inline-flex';
+
     let allContacts = document.querySelectorAll('.contact');
     allContacts.forEach(contactElement => {
         contactElement.classList.remove('contact-selected');
@@ -210,7 +201,6 @@ function showContactDetails(index) {
 }
 
 
-//Hintergrundfarben für die Initialien generieren
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -227,22 +217,12 @@ function openModal() {
 }
 
 
-// Modal schließen
 function closeModal() {
     let modal = document.getElementById("contactModal");
     modal.style.display = "none";
 }
 
 
-// Modal schließen, wenn außerhalb geklickt wird
-window.onclick = function (event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
-
-// Neuen Kontakt speichern
 async function saveNewContact() {
     let newEmailInput = document.getElementById("newEmail");
     let newTelefonInput = document.getElementById("newTelefon");
@@ -256,28 +236,23 @@ async function saveNewContact() {
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
 
-    // Überprüfen, ob die Felder nicht leer sind
     if (!newName || !newSurename || !newEmail || !newTelefon) {
         alert("Bitte füllen Sie alle Felder aus.");
         return;
     }
 
-    // Überprüfen, ob die E-Mail-Adresse ein gültiges Format hat
     let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailPattern.test(newEmail)) {
         alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
         return;
     }
 
-    // Optional: Überprüfen Sie, ob die Telefonnummer ein gültiges Format hat
-    // Zum Beispiel: 123-456-7890
-    let phonePattern = /^\d{3}-\d{3}-\d{4}$/;
+    let phonePattern = /^[0-9]+$/;
     if (!phonePattern.test(newTelefon)) {
-        alert("Bitte geben Sie eine gültige Telefonnummer im Format 123-456-7890 ein.");
+        alert("Bitte geben Sie nur Zahlen in das Telefonnummer-Feld ein.");
         return;
     }
 
-    // Aktualisiere die nächste verfügbare Kontakt-ID
     let maxContactId = Math.max(...contacts.map(contact => contact.id), -1);
     let nextContactId = maxContactId + 1;
 
@@ -294,9 +269,8 @@ async function saveNewContact() {
     await setItem('contacts', JSON.stringify(contacts));
     let modal = document.getElementById("contactModal");
     modal.style.display = "none";
-    initContact(); // Kontaktliste aktualisieren
+    initContact();
 
-    // Eingabefelder leeren
     fullName.value = "";
     newEmailInput.value = "";
     newTelefonInput.value = "";
@@ -308,33 +282,42 @@ async function saveNewContact() {
 
 
 async function deleteContact(index) {
+    console.log("deleteContact wurde aufgerufen mit Index:", index);
     if (confirm("Möchten Sie diesen Kontakt wirklich löschen?")) {
         contacts.splice(index, 1);
         await setItem('contacts', JSON.stringify(contacts));
-        initContact(); // Aktualisieren Sie die Kontaktliste nach dem Löschen
+        let detailsContainer = document.getElementById('contact-details');
+        detailsContainer.innerHTML = '';
+        closeEditModal();
+        initContact();
     }
 }
 
 
 function editContact(index) {
     let contact = contacts[index];
-    document.getElementById("fullName").value = `${contact.name} ${contact.surename}`;
-    document.getElementById("newEmail").value = contact.email;
-    document.getElementById("newTelefon").value = contact.telefon;
-    openModal();
+    openEditModal();
+    generateEditContactModal(index);
 
-    // Speichern-Button aktualisieren, um die Bearbeitungsfunktion aufzurufen
-    saveContactBtn.onclick = function () {
+    document.getElementById("editFullName").value = `${contact.name} ${contact.surename}`;
+    document.getElementById("editNewEmail").value = contact.email;
+    document.getElementById("editNewTelefon").value = contact.telefon;
+
+
+    const updateContactBtn = document.getElementById("updateContactBtn");
+    updateContactBtn.onclick = function () {
         updateContact(index);
-    }
+    };
+    console.log('Edited Contact:', contact);
 }
 
 
-async function updateContact(index) {
-    let newEmailInput = document.getElementById("newEmail");
-    let newTelefonInput = document.getElementById("newTelefon");
 
-    let fullNameInput = document.getElementById("fullName");
+async function updateContact(index) {
+    let newEmailInput = document.getElementById("editNewEmail");
+    let newTelefonInput = document.getElementById("editNewTelefon");
+
+    let fullNameInput = document.getElementById("editFullName");
     let nameParts = fullNameInput.value.trim().split(' ');
 
     let newName = nameParts[0];
@@ -343,28 +326,29 @@ async function updateContact(index) {
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
 
-    // Überprüfen, ob die Felder nicht leer sind
     if (!newName || !newSurename || !newEmail || !newTelefon) {
         alert("Bitte füllen Sie alle Felder aus.");
         return;
     }
 
-    // Überprüfen, ob die E-Mail-Adresse ein gültiges Format hat
     let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailPattern.test(newEmail)) {
         alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
         return;
     }
 
-    // Optional: Überprüfen Sie, ob die Telefonnummer ein gültiges Format hat
-    // Zum Beispiel: 123-456-7890
-    let phonePattern = /^\d{3}-\d{3}-\d{4}$/;
-    if (!phonePattern.test(newTelefon)) {
-        alert("Bitte geben Sie eine gültige Telefonnummer im Format 123-456-7890 ein.");
+    if (!/^[0-9]+$/.test(newTelefon)) {
+        alert("Bitte geben Sie nur Zahlen in das Telefonnummer-Feld ein.");
         return;
     }
 
+    let originalContact = contacts[index];
+    let originalId = originalContact.id;
+    let originalBgColor = originalContact.bgcolor;
+
     contacts[index] = {
+        bgcolor: originalBgColor,
+        id: originalId,
         name: newName,
         surename: newSurename,
         email: newEmail,
@@ -372,6 +356,69 @@ async function updateContact(index) {
     };
 
     await setItem('contacts', JSON.stringify(contacts));
-    closeModal();
-    initContact(); // Aktualisieren Sie die Kontaktliste nach dem Speichern
+    closeEditModal();
+    initContact();
+    showContactDetails(index);
+}
+
+
+function generateEditContactModal(index) {
+    let contact = contacts[index];
+    let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+    let editContainer = document.getElementById('editModal');
+
+    editContainer.innerHTML = /*html*/`
+        <div class="edit-content" data-index="${index}">
+            <div class="edit-content-top">
+                <div onclick="closeEditModal()"><img class="close" src="./img/close_contact.png" alt="Close Modal"></div>
+                <div class="modal-logo"><img src="./img/join_logo.png"></div>
+                <div class="modal-headline">Edit contact</div>
+            </div>
+            <div class="modal-input-container">
+                <div class="initial-big" style="background-color: ${contact.bgcolor}">
+                    ${initials}
+                </div>
+                <div class="modal-input-row">
+                    <div class="modal-input-frame">
+                            <input class="modal-input-field" required type="text" id="editFullName" placeholder="Name">
+                            <img class="modal-input-icon" src="img/person.png" alt="Name"> 
+                    </div>
+
+                    <div class="modal-input-frame">
+                        <input class="modal-input-field" required type="email" id="editNewEmail" name="email" autocomplete="email"
+                            placeholder="Email">
+                        <img class="modal-input-icon" src="img/mail.png" alt="Email">
+                    </div>
+                    <div class="modal-input-frame">
+                        <input class="modal-input-field" required type="email" id="editNewTelefon" placeholder="Phone">
+                        <img class="modal-input-icon" src="img/call.svg" alt="Phone">
+                    </div>
+                </div>
+                <div class="add-contact-buttons">
+                    <div class="add-contact-buttons-inner">
+                        <button onclick="deleteContact(${index})" class="button-clear">
+                            <div class="button-clear-text">Delete</div>
+                            <div class="button-clear-pic"> <img src="./img/cancel-icon.svg"></div>
+                        </button>
+                        <button id="updateContactBtn" class="button-create-task" onclick="updateContact()">
+                            <div class="button-create-task-text">Save</div>
+                            <div class="button-create-task-pic"> <img src="./img/check.svg"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+
+function openEditModal() {
+    let modal = document.getElementById("editModal");
+    modal.style.display = "block";
+}
+
+
+function closeEditModal() {
+    let modal = document.getElementById("editModal");
+    modal.style.display = "none";
 }
