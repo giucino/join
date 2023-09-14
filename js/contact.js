@@ -216,6 +216,10 @@ function getRandomColor() {
 async function deleteContact(index) {
     if (confirm("Möchten Sie diesen Kontakt wirklich löschen?")) {
         contacts.splice(index, 1);
+        // IDs neu zuweisen
+        for (let i = 0; i < contacts.length; i++) {
+            contacts[i].id = i + 1;
+        }
         await setItem('contacts', JSON.stringify(contacts));
         initContact(); // Aktualisieren Sie die Kontaktliste nach dem Löschen
     }
