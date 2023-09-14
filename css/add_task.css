@@ -6,9 +6,8 @@ body {
     font-family: 'Open sans', sans-serif;
 }
 
-.add-task-container, 
-.edit-add-task-container 
-{
+.add-task-container,
+.edit-add-task-container {
     display: inline-flex;
     height: 1128px;
     padding: 168px 38px 4px 279px;
@@ -19,18 +18,16 @@ body {
     overflow-y: scroll;
 }
 
-.add-task-container-first, 
-.edit-add-task-container-first 
-{
+.add-task-container-first,
+.edit-add-task-container-first {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
 }
 
-.add-task-container-titel, 
-.edit-add-task-container-titel 
-{
+.add-task-container-titel,
+.edit-add-task-container-titel {
     width: 100%;
     flex-direction: column;
     justify-content: flex-start;
@@ -40,8 +37,7 @@ body {
 }
 
 .add-task-titel-textcontainer,
-.edit-add-task-titel-textcontainer
-{
+.edit-add-task-titel-textcontainer {
     align-self: stretch;
     padding-left: 16px;
     padding-right: 16px;
@@ -56,15 +52,12 @@ body {
     cursor: pointer;
 }
 
-/* .add-task-titel-textcontainer:hover,
-.edit-add-task-titel-textcontainer:hover
-{
+.edit-add-task-titel-textcontainer:hover {
     border-bottom: 1px solid var(--bg-color);
-} */
+}
 
 .add-task-titel-textfield,
-.edit-add-task-titel-textfield
-{
+.edit-add-task-titel-textfield {
     color: black;
     font-family: 'Open sans', sans-serif;
     font-size: 32px;
@@ -78,14 +71,12 @@ body {
 }
 
 .add-task-titel-textfield::placeholder,
-.edit-add-task-titel-textfield::placeholder
-{
+.edit-add-task-titel-textfield::placeholder {
     color: var(--style, #D1D1D1);
 }
 
 .add-task-field-required,
-.edit-add-task-field-required
-{
+.edit-add-task-field-required {
     align-self: stretch;
     font-size: 13px;
     font-family: Inter;
@@ -97,8 +88,7 @@ body {
 }
 
 .add-task-container-description,
-.edit-add-task-container-description
-{
+.edit-add-task-container-description {
     display: flex;
     width: 440px;
     flex-direction: column;
@@ -107,8 +97,7 @@ body {
 }
 
 .add-task-description-header,
-.edit-add-task-description-header
-{
+.edit-add-task-description-header {
     display: inline-flex;
     color: #42526E;
     font-size: 19px;
@@ -118,8 +107,7 @@ body {
 }
 
 .add-task-description-textfield,
-.edit-add-task-description-textfield
-{
+.edit-add-task-description-textfield {
     width: 100%;
     max-width: 440px;
     min-height: 90px;
@@ -137,10 +125,6 @@ body {
     resize: vertical;
     cursor: pointer;
     padding: 18px 16px
-}
-
-.add-task-description-textfield:hover {
-    border: 1px solid var(--bg-color);
 }
 
 .add-task-description-textfield::placeholder {
@@ -187,10 +171,6 @@ body {
     font-weight: 400;
     line-height: 120%;
     color: var(--style, #D1D1D1);
-}
-
-.due-date-input-container:hover {
-    border-bottom: 1px solid var(--bg-color);
 }
 
 .due-date-calendar-icon {
@@ -286,10 +266,6 @@ body {
     background: var(--white, #FFF);
 }
 
-.assigned-to-choicefield:hover {
-    border-bottom: 1px solid var(--bg-color);
-}
-
 .assigned-to-dropdown {
     display: flex;
     width: 440px;
@@ -372,11 +348,6 @@ body {
     height: 24px;
 }
 
-/* .select-icon:hover {
-    background-image: url('../img/check-button-hover.png');
-    cursor: pointer;
-} */
-
 .contact-container.selected {
     background-color: #4589FF;
     border-radius: 10px;
@@ -429,10 +400,6 @@ body {
     align-items: center;
     border-bottom: 1px solid var(--style, #D1D1D1);
     background: var(--white, #FFF);
-}
-
-.category-choicefield:hover {
-    border-bottom: 1px solid var(--bg-color);
 }
 
 .category-dropdown {
@@ -565,10 +532,6 @@ body {
     border-bottom: 1px solid var(--style, #D1D1D1);
     background: #FFF;
     cursor: pointer;
-}
-
-.add-subtask-input:hover {
-    border-bottom: 1px solid var(--bg-color);
 }
 
 .new-subtask-textfield {
