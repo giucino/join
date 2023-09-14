@@ -314,6 +314,19 @@
     line-height: 120%;
 }
 
+.slide-in {
+    animation: slide-in 1s ease-in-out;
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
 .contact-detailed-images {
     display: flex;
     justify-content: center;
