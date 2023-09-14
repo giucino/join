@@ -2,19 +2,6 @@ let currentDraggedElement;
 let currentFilter = '';
 
 
-// let allTodos = [...todos];
-// allTodos = todos;
-
-// async function loadDatas() {
-//     try {
-//         allTodos = JSON.parse(await getItem('tasks'));
-//         console.log('Tasks:', allTodos);
-//     } catch (e) {
-//         console.error('Loading error:', e);
-//     }
-// }
-
-
 /**
  * Update the HTML for all task categories.
  * Calls functions to update HTML for each category.
@@ -31,7 +18,8 @@ async function updateHTML() {
     /* await loadDatas(); */
 }
 
-function refreshHTML(){
+
+function refreshHTML() {
     todo();
     inProgress();
     feedback();
@@ -39,17 +27,19 @@ function refreshHTML(){
     noTasks();
 }
 
-let allTodos = [...todos];
-allTodos = todos;
 
-async function loadDatas() {
-    try {
-        allTodos = JSON.parse(await getItem('tasks'));
-        console.log('Tasks:', allTodos);
-    } catch (e) {
-        console.error('Loading error:', e);
-    }
-}
+// let allTodos = [...todos];
+// allTodos = todos;
+
+// async function loadDatas() {
+//     try {
+//         allTodos = JSON.parse(await getItem('tasks'));
+//         console.log('Tasks:', allTodos);
+//     } catch (e) {
+//         console.error('Loading error:', e);
+//     }
+// }
+
 
 async function pushData() {
     await setItem('tasks', JSON.stringify(todos));
@@ -63,6 +53,7 @@ async function loadData() {
         console.error('Loading error:', e);
     }
 }
+
 
 async function loadContactsFromStorage() {
     try {
@@ -111,6 +102,7 @@ function todo() {
     }
 }
 
+
 /**
  * Update the HTML for the "In Progress" category based on the current filter.
  */
@@ -126,6 +118,7 @@ function inProgress() {
         });
     }
 }
+
 
 /**
  * Update the HTML for the "Feedback" category based on the current filter.
@@ -143,6 +136,7 @@ function feedback() {
     }
 }
 
+
 /**
  * Update the HTML for the "Done" category based on the current filter.
  */
@@ -159,6 +153,7 @@ function done() {
     }
 }
 
+
 /**
  * Generate HTML for the "No Tasks" message.
  * @returns {string} HTML markup for no tasks message.
@@ -169,6 +164,7 @@ function noTasks() {
             <div class="no-tasks-to-do-text">No Tasks to do</div>
         </div>`;
 }
+
 
 /**
  * Generate HTML markup for a task element.
@@ -199,7 +195,7 @@ function generateTasksHTML(element) {
         }
     }
     let subtasksHTML = '';
-    let completedTasksCount = 0; 
+    let completedTasksCount = 0;
 
     if (element.subtasks && Array.isArray(element.subtasks)) {
         for (const subtask of element.subtasks) {
@@ -214,9 +210,9 @@ function generateTasksHTML(element) {
                     completedTasksCount++;
                 };
             }
-            
+
         }
-        
+
     }
     const allTasksCount = element.subtasks.length;
     const progress = (completedTasksCount / allTasksCount) * 100;
@@ -255,6 +251,7 @@ function generateTasksHTML(element) {
     </div>`;
 }
 
+
 function extractInitials(name) {
     const names = name.split(' ');
     let initials = '';
@@ -279,6 +276,7 @@ function setPriorityImage(priority) {
     return imageSrc;
 }
 
+
 /**
  * Set the currently dragged element.
  * @param {number} id - The id of the element being dragged.
@@ -288,6 +286,7 @@ function startDragging(id) {
     console.log(currentDraggedElement);
 }
 
+
 /**
  * Allow dropping elements on drop zones.
  * @param {Event} ev - The dragover event.
@@ -295,6 +294,7 @@ function startDragging(id) {
 function allowDrop(ev) {
     ev.preventDefault();
 }
+
 
 /**
  * Move a task to a specified status.
@@ -307,32 +307,33 @@ function moveTo(status) {
     updateHTML();
 }
 
+
 function polyfill() {
     // Define the dragstart event.
-    document.addEventListener("dragstart", function(ev) {
-      // Get the id of the element being dragged.
-      const id = ev.target.id;
-  
-      // Set the current dragged element.
-      currentTask = todos.find(task => task.id === id);
+    document.addEventListener("dragstart", function (ev) {
+        // Get the id of the element being dragged.
+        const id = ev.target.id;
+
+        // Set the current dragged element.
+        currentTask = todos.find(task => task.id === id);
     });
-  
+
     // Define the dragover event.
-    document.addEventListener("dragover", function(ev) {
-      // Prevent the default action.
-      ev.preventDefault();
+    document.addEventListener("dragover", function (ev) {
+        // Prevent the default action.
+        ev.preventDefault();
     });
-  
+
     // Define the drop event.
-    document.addEventListener("drop", function(ev) {
-      // Get the status of the drop zone.
-      const status = ev.target.getAttribute("data-status");
-  
-      // Move the task to the specified status.
-      currentTask.status = status;
-      pushData();
-      loadData();
-      updateHTML();
+    document.addEventListener("drop", function (ev) {
+        // Get the status of the drop zone.
+        const status = ev.target.getAttribute("data-status");
+
+        // Move the task to the specified status.
+        currentTask.status = status;
+        pushData();
+        loadData();
+        updateHTML();
     });
 }
 
@@ -351,6 +352,7 @@ function filterTasks(searchTerm, status) {
     return filteredTasks;
 }
 
+
 /**
  * Set the current filter based on input value.
  */
@@ -360,6 +362,7 @@ function setFilter() {
     searchText.value = '';
     updateHTML();
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const input = document.getElementById('input-field');
@@ -371,6 +374,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+
 /**
  * Close the task card.
  */
@@ -380,6 +385,7 @@ function closeCard() {
         document.getElementById('task-slide').classList.add('d-none');
     }, 800);
 }
+
 
 /**
  * Slideanimation for the task card.
@@ -391,6 +397,7 @@ function slideCardAnimation() {
     }, 100);
 }
 
+
 /**
  * Slide open the task card.
  */
@@ -399,6 +406,7 @@ function slideCard(id) {
     slideCard.innerHTML = renderSlideCard(id);
     slideCardAnimation();
 }
+
 
 /**
  * Generate HTML markup for the task slide card.
@@ -415,14 +423,14 @@ function renderSlideCard(id) {
         const bgcolor = bgcolors[i] || '';
         if (name) {
             const initials = extractInitials(name);
-                assignedToHTML += /*html*/`
+            assignedToHTML += /*html*/`
                     <div class="task-slide-assigned-user">
                         <div class="user-marked blue" style="background-color: ${bgcolor}">${initials}</div>
                         <span class="task-slide-assigned-user-name">${name}</span>
                     </div>
                 `;
-            }
         }
+    }
     let subtasksHTML = '';
     if (element.subtasks && Array.isArray(element.subtasks)) {
         for (let i = 0; i < element.subtasks.length; i++) {
@@ -506,12 +514,12 @@ function deleteTask(id) {
 }
 
 
-
 function updateIDs() {
     for (let i = 0; i < todos.length; i++) {
         todos[i].id = i;
     }
 }
+
 
 function deleteCard(id) {
     const elementToRemove = document.getElementById(`board-card${id}`);
@@ -519,4 +527,3 @@ function deleteCard(id) {
         elementToRemove.remove();
     }
 }
-
