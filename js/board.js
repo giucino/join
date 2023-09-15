@@ -500,6 +500,7 @@ function renderSlideCard(id) {
 }
 
 
+
 function deleteTask(id) {
     const indexToDelete = todos.findIndex(task => task.id === id);
     if (indexToDelete === -1) {
