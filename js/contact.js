@@ -202,7 +202,7 @@ function showContactDetails(index) {
         isContainerVisible = true;
     }
     // Entferne die Slide-In-Animation nach dem Abspielen, damit sie beim nächsten Mal wieder abgespielt werden kann
-    detailsContainer.addEventListener('animationend', function() {
+    detailsContainer.addEventListener('animationend', function () {
         detailsContainer.classList.remove('slide-in');
     });
 }
@@ -221,7 +221,12 @@ function getRandomColor() {
  */
 function openModal() {
     let modal = document.getElementById("contactModal");
+    let overlay = document.querySelector(".background-overlay");  // Verwenden Sie den bereits vorhandenen Overlay
     modal.style.display = "block";
+    overlay.style.display = "block";
+
+    modal.classList.remove('modal-slide-out');
+    modal.classList.add('modal-slide-in');
 }
 
 /**
@@ -229,7 +234,16 @@ function openModal() {
  */
 function closeModal() {
     let modal = document.getElementById("contactModal");
-    modal.style.display = "none";
+    let overlay = document.querySelector(".background-overlay");  // Verwenden Sie den bereits vorhandenen Overlay
+
+    modal.classList.remove('modal-slide-in');
+    modal.classList.add('modal-slide-out');
+    overlay.style.display = "none"; 
+
+    modal.addEventListener('animationend', function () {
+        modal.style.display = "none";
+        modal.classList.remove('modal-slide-out');
+    }, { once: true });
 }
 
 /**
@@ -394,11 +408,11 @@ function closeEditModal() {
     overlay.style.display = "none"; // Verstecke den Overlay
 }
 
-  // Verstecke den Modal nach der Animation
-  modal.addEventListener('animationend', function() {
+// Verstecke den Modal nach der Animation
+modal.addEventListener('animationend', function () {
     modal.style.display = "none";
     modal.classList.remove('editModal-slide-out'); // Entferne die Slide-Out-Animation, damit sie beim nächsten Mal wieder abgespielt werden kann
-  }, {once: true});
+}, { once: true });
 
 // function toggleMenu(event) {
 //     let menuItems = document.getElementById("logoutBtn");

@@ -26,7 +26,7 @@ function generateEditContactModalHTML(index, initials, contact){
  return `
  <div class="edit-content" data-index="${index}">
      <div class="edit-content-top">
-         <div onclick="closeEditModal()"><img class="close" src="./img/close_contact.png" alt="Close Modal"></div>
+         <div id="closeEditModalBtn" onclick="closeEditModal()"><img class="close" src="./img/close_contact.png" alt="Close Modal"></div>
          <div class="modal-logo"><img src="./img/join_logo.png"></div>
          <div class="modal-headline">Edit contact</div>
      </div>
