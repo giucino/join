@@ -207,8 +207,6 @@ function showContactDetails(index) {
     });
 }
 
-
-
 /**
  * picks a color from the array colors and randomly gives the contact one
  * @returns color rgb
@@ -378,7 +376,11 @@ function generateEditContactModal(index) {
  */
 function openEditModal() {
     let modal = document.getElementById("editModal");
+    let overlay = document.querySelector(".background-overlay");
     modal.style.display = "block";
+    overlay.style.display = "block"; // Zeige den Overlay an
+    modal.classList.remove('editModal-slide-out');
+    modal.classList.add('editModal-slide-in');
 }
 
 /**
@@ -386,8 +388,17 @@ function openEditModal() {
  */
 function closeEditModal() {
     let modal = document.getElementById("editModal");
-    modal.style.display = "none";
+    let overlay = document.querySelector(".background-overlay");
+    modal.classList.remove('editModal-slide-in');
+    modal.classList.add('editModal-slide-out');
+    overlay.style.display = "none"; // Verstecke den Overlay
 }
+
+  // Verstecke den Modal nach der Animation
+  modal.addEventListener('animationend', function() {
+    modal.style.display = "none";
+    modal.classList.remove('editModal-slide-out'); // Entferne die Slide-Out-Animation, damit sie beim nächsten Mal wieder abgespielt werden kann
+  }, {once: true});
 
 // function toggleMenu(event) {
 //     let menuItems = document.getElementById("logoutBtn");

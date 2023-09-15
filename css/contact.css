@@ -122,6 +122,30 @@
     width: 100%;
     height: 100%;
     overflow: auto;
+    
+}
+
+.slide-in-from-left{
+    animation: slideInFromLeft 0.3s ease-in-out;
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.background-overlay {
+    display: none;
+    position: fixed;
+    z-index: 54; /* Ein Wert kleiner als der des Modals */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
     background-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -202,6 +226,16 @@
     animation-duration: 0.2s;
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
+    transition: transform 1s ease-in-out;
+    transform: translateX(0);
+}
+
+.edit-content.slide-in {
+    transform: translateX(0);
+}
+
+.edit-content.slide-out {
+    transform: translateX(-100%);
 }
 
 @keyframes edit-slide-in {
@@ -326,6 +360,32 @@
         transform: translateX(0);
     }
 }
+
+.editModal-slide-in {
+    animation: editModalSlideIn 1s ease-in-out forwards;
+  }
+  
+  .editModal-slide-out {
+    animation: editModalSlideOut 1s ease-in-out forwards;
+  }
+  
+  @keyframes editModalSlideIn {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes editModalSlideOut {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
 
 .contact-detailed-images {
     display: flex;
