@@ -178,11 +178,18 @@ function removeEmptyLetters() {
  * makes the contact clickable twice to hide the chosen contact
  * @param {integer} index 
  */
-let lastSelectedIndex = null;
 let isContainerVisible = false;
 function showContactDetails(index) {
     let detailsContainer = document.getElementById('contact-details');
     let contact = contacts[index];
+
+    // Entferne den ausgewählten Hintergrund von allen Kontakten
+    let allContacts = document.querySelectorAll('.contact');
+    allContacts.forEach(contactElement => {
+        contactElement.classList.remove('contact-selected');
+    });
+
+    let selectedContactElement = document.querySelector(`[data-contact-index="${index}"]`);
 
     if (isContainerVisible && detailsContainer.getAttribute('data-current-index') == index) {
         // Verstecke den Container, wenn er bereits sichtbar ist und der gleiche Kontakt ausgewählt wurde
@@ -200,12 +207,18 @@ function showContactDetails(index) {
             detailsContainer.classList.add('slide-in');
         }
         isContainerVisible = true;
+
+        // Füge den ausgewählten Hintergrund nur dem neuen ausgewählten Kontakt hinzu
+        selectedContactElement.classList.add('contact-selected');
     }
+
     // Entferne die Slide-In-Animation nach dem Abspielen, damit sie beim nächsten Mal wieder abgespielt werden kann
     detailsContainer.addEventListener('animationend', function () {
         detailsContainer.classList.remove('slide-in');
     });
 }
+
+
 
 /**
  * picks a color from the array colors and randomly gives the contact one
@@ -224,7 +237,6 @@ function openModal() {
     let overlay = document.querySelector(".background-overlay");  // Verwenden Sie den bereits vorhandenen Overlay
     modal.style.display = "block";
     overlay.style.display = "block";
-
     modal.classList.remove('modal-slide-out');
     modal.classList.add('modal-slide-in');
 }
@@ -235,15 +247,9 @@ function openModal() {
 function closeModal() {
     let modal = document.getElementById("contactModal");
     let overlay = document.querySelector(".background-overlay");  // Verwenden Sie den bereits vorhandenen Overlay
-
     modal.classList.remove('modal-slide-in');
     modal.classList.add('modal-slide-out');
-    overlay.style.display = "none"; 
-
-    modal.addEventListener('animationend', function () {
-        modal.style.display = "none";
-        modal.classList.remove('modal-slide-out');
-    }, { once: true });
+    overlay.style.display = "none";
 }
 
 /**
@@ -405,14 +411,11 @@ function closeEditModal() {
     let overlay = document.querySelector(".background-overlay");
     modal.classList.remove('editModal-slide-in');
     modal.classList.add('editModal-slide-out');
-    overlay.style.display = "none"; // Verstecke den Overlay
+    overlay.style.display = "none"; // Verstecke den Overlay 
 }
 
 // Verstecke den Modal nach der Animation
-modal.addEventListener('animationend', function () {
-    modal.style.display = "none";
-    modal.classList.remove('editModal-slide-out'); // Entferne die Slide-Out-Animation, damit sie beim nächsten Mal wieder abgespielt werden kann
-}, { once: true });
+
 
 // function toggleMenu(event) {
 //     let menuItems = document.getElementById("logoutBtn");
