@@ -94,7 +94,37 @@ async function createTask() {
     todos.push(newTodo);
 
     await setItem('tasks', JSON.stringify(todos));
+    showCreatedTaskMessage();
     resetTaskForm();
+}
+
+/**
+ * Creates a success message template.
+ * @returns {string} - The HTML template for a success message overlay.
+ */
+function createdTaskTemplate() {
+    return /*html*/ `
+        <div id="createTaskOverlay" class="task-overlay">
+            <div class="task-success-message">
+                <p>Task added to board</p>
+                <img class="send-check" src="../img/added_task.png" alt="">
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Shows a success message overlay and redirects to the index page.
+ */
+function showCreatedTaskMessage() {
+    document.body.innerHTML += createdTaskTemplate();
+
+    setTimeout(function () {
+        let successOverlay = document.getElementById('createTaskOverlay');
+        document.body.removeChild(successOverlay);
+
+        window.location.href = 'board.html';
+    }, 1600);
 }
 
 
@@ -627,4 +657,3 @@ document.addEventListener('DOMContentLoaded', () => {
         '#D1D1D1'
     );
 });
-
