@@ -363,18 +363,21 @@ function renderSearchedContact(contacts) {
         let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
         const isSelected = selectedContacts[contact.id] || false;
 
-        assignedToContainer.innerHTML += /*html*/`
-            <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
-                <div class="select-contact">
-                    <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-                    <div class="select-name">${contact.name} ${contact.surename}</div>
-                </div>
-                <img class="select-icon" id="selectCheck" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
-            </div>
-        `;
+        assignedToContainer.innerHTML += renderSearchedContactsHTML(contact, initials, isSelected);
     }
 }
 
+function renderSearchedContactsHTML(contact, initials, isSelected) {
+    return /*html*/`
+        <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
+            <div class="select-contact">
+                <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
+                <div class="select-name">${contact.name} ${contact.surename}</div>
+            </div>
+            <img class="select-icon" id="selectCheck" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
+        </div>
+    `;
+}
 
 function searchContacts(query) {
     let filteredContacts = contacts.filter(contact => {

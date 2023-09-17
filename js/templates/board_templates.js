@@ -23,6 +23,7 @@ function subtaskToEditHTML(subtask) {
 
 function renderEditTask(id) {
     const task = todos.find((todo) => todo.id === id);
+    
 
     
 
@@ -74,7 +75,7 @@ function renderEditTask(id) {
                                     data-image="prio-high.png">
                             </div>
                         </button>
-                        <button type="button" onclick="priority(this)" id="edit-edit-prio-medium"
+                        <button type="button" onclick="priority(this)" id="edit-prio-medium"
                             class="edit-priority-choice-inner prio-medium">
                             Medium
                             <div class="edit-priority-choice-inner-pic">
@@ -99,9 +100,9 @@ function renderEditTask(id) {
                         </div>
                     </div>
                     <div class="edit-assigned-to-choicefield">
-                        <div class="edit-assigned-to-dropdown" onclick="toggleAssignedToContainer()">
+                        <div class="edit-assigned-to-dropdown" onclick="loadToggleAssignedToContainer()">
                             <div class="edit-assigned-dropdown-header">
-                                <input oninput="searchContacts(this.value)" id="edit-search-input" class="edit-assigned-select-text"
+                                <input oninput="searchContacts(this.value), loadRenderSearchedContact(this.value)" id="edit-search-input" class="edit-assigned-select-text"
                                     placeholder="Select contacts to assign" type="text">
                             </div>
                             <div class="edit-assigned-dropdown-arrow"></div>
@@ -110,9 +111,15 @@ function renderEditTask(id) {
                     <div id="edit-required-contact" class="edit-add-task-field-required">
                         This field is required
                     </div>
-                    <div id="edit-loaded-contacts" class="edit-loaded-contacts"></div>
-                    <div id="edit-chosen-contacts" class="edit-chosen-contacts"></div>
-                
+                    <div class="edit-contacts-container">
+                        <div id="edit-loaded-contacts" class="loaded-contacts">
+                        </div>
+                        <button id="edit-addContactBtn" onclick="openModal()" class="add-person-button">
+                            Add new contact
+                            <img src="./img/person_add.svg" class="button-icon">
+                        </button>
+                    </div>
+                    <div id="chosenContacts" class="chosen-contacts"></div>
                     <div class="edit-category-container">
                         <div class="edit-category-header">
                             Category

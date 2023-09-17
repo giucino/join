@@ -230,7 +230,7 @@ function generateTasksHTML(element) {
     return /*html*/`
     <div id="board-card${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container task-touch">
         <div class="content-container-inner">
-            <div class="category">${element.category}</div>
+            <div class="board-category">${element.category}</div>
             <div class="title-content">
                 <div class="title">${element.title}</div>
                 <div id="description" class="content">${element.description}</div>
