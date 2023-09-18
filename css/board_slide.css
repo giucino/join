@@ -19,29 +19,29 @@
 }
 
 .slide-in{
-    left: 0 !important;
-    transition: 1.5s;
+    bottom: 0 !important;
+    transition: 1.0s;
 }
 
 .edit-slide-in{
-    left: 0 !important;
-    transition: 1.5s;
+    bottom: 0 !important;
+    transition: 1.0s;
 }
 
 .slide-container{
     width: 100vw;
     height: 100vh;
     position: fixed;
-    left: -4000px;
-    transition: 2s;
+    bottom: -4000px;
+    transition: 1.0s;
 }
 
 .edit-slide-container{
     width: 100vw;
     height: 100vh;
     position: fixed;
-    left: -4000px;
-    transition: 2s;
+    bottom: -4000px;
+    transition: 1.0s;
 }
 
 .task-slide-container{

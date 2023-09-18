@@ -395,7 +395,7 @@ function slideCardAnimation() {
     document.getElementById('task-slide').classList.remove('d-none');
     setTimeout(() => {
         document.getElementById('slide-container').classList.add('slide-in');
-    }, 100);
+    }, 50);
 }
 
 
