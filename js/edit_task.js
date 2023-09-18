@@ -1,3 +1,12 @@
+let categories = [
+  { "name": "Design" },
+  { "name": "Sales" },
+  { "name": "Backoffice" },
+  { "name": "Marketing" },
+  { "name": "Webdesign" },
+  { "name": "Tech" }
+]
+
 let selectedPriority = '';
 let selectedCategory = '';
 let selectedContacts = [];
@@ -23,7 +32,6 @@ function slideCardAnimationEditTask() {
 function editTask(id) {
     const slideEditTask = document.getElementById("edit-task-slide");
     slideEditTask.innerHTML = renderEditTask(id);
-    closeCard();
     slideCardAnimationEditTask();
     const element = todos[id];
     addSubtaskToEdit(element);
@@ -70,7 +78,6 @@ function loadSelectedPriority(task) {
 
 function priority(button) {
   resetButtons();
-  /* hidePriorityError(); */
 
   if (button.id === "edit-prio-urgent") {
     highlightButton(button, "#FF3D00", "./img/prio_high_active.png");
@@ -298,3 +305,20 @@ function editRenderCategorys() {
     `;
   }
 }
+
+function categorySelected(category) {
+  selectedCategory = category;
+
+  let selectedCategoryDisplay = document.getElementById('edit-selected-category-display');
+  selectedCategoryDisplay.textContent = `${selectedCategory}`;
+
+  let selectText = document.querySelector('.edit-select-text');
+  selectText.style.display = 'none';
+
+  let categoryContainer = document.getElementById('edit-loaded-categories');
+  categoryContainer.style.display = 'none';
+
+  let categoryDropdown = document.querySelector('.edit-category-dropdown');
+  categoryDropdown.classList.remove('expanded');
+}
+

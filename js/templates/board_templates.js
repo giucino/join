@@ -126,7 +126,7 @@ function renderEditTask(id) {
                         </div>
                     </div>    
                     <div class="edit-category-choicefield">
-                        <div class="edit-category-dropdown" onclick="toggleCategoryContainer()">
+                        <div class="edit-category-dropdown" onclick="loadToggleCategoryContainer()">
                             <div class="edit-dropdown-header" id="edit-dropdown-header">
                                 <span class="edit-select-text">Select task category</span>
                                 <span id="edit-selected-category-display"></span>
