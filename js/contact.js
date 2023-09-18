@@ -125,7 +125,7 @@ function initLetters() {
         let letter = letters[i];
         letterList.innerHTML += /*html*/ `<div id="container-${letter}" class="container-letter-item">
                 <div class="letter-title"> ${letter} </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="400" height="2" viewBox="0 0 353 2" fill="none">
+                <svg class="letter-title-underline" xmlns="http://www.w3.org/2000/svg" width="400" height="2" viewBox="0 0 353 2" fill="none">
                 <path d="M0.5 1H352.5" stroke="#D1D1D1" stroke-linecap="round"/>
                 </svg>
                 <div id="container-contact-${letter}" class="container-contacts"></div>
@@ -148,13 +148,21 @@ async function showContacts() {
         let contactsList = document.getElementById(`container-contact-${firstLetter}`);
         let color = contact.bgcolor;
         contactsList.innerHTML += `
-        <div class="contact" data-contact-index="${i}" onclick="showContactDetails(${i})">
+        <div class="contact" data-contact-index="${i}" onclick="handleContactClick(${i})">
             <div class="initial" style="background-color: ${color}">${initials}</div>
             <div class="container-name-email">
                 <div class="name">${contact.name} ${contact.surename}</div>
                 <div class="email">${contact.email}</div>
             </div>
         </div>`;
+    }
+}
+
+function handleContactClick(index) {
+    if (window.innerWidth <= 1200) {
+        showContactDetailsMobile(index);
+    } else {
+        showContactDetails(index);
     }
 }
 
@@ -165,7 +173,6 @@ function removeEmptyLetters() {
     for (let i = 0; i < letters.length; i++) {
         let letter = letters[i];
         let contactsList = document.getElementById(`container-contact-${letter}`);
-
         if (!contactsList.innerHTML.trim()) {
             let letterContainer = document.getElementById(`container-${letter}`);
             letterContainer.style.display = 'none';
@@ -182,15 +189,12 @@ let isContainerVisible = false;
 function showContactDetails(index) {
     let detailsContainer = document.getElementById('contact-details');
     let contact = contacts[index];
-
     // Entferne den ausgewählten Hintergrund von allen Kontakten
     let allContacts = document.querySelectorAll('.contact');
     allContacts.forEach(contactElement => {
         contactElement.classList.remove('contact-selected');
     });
-
     let selectedContactElement = document.querySelector(`[data-contact-index="${index}"]`);
-
     if (isContainerVisible && detailsContainer.getAttribute('data-current-index') == index) {
         // Verstecke den Container, wenn er bereits sichtbar ist und der gleiche Kontakt ausgewählt wurde
         detailsContainer.style.display = 'none';
@@ -201,24 +205,60 @@ function showContactDetails(index) {
         detailsContainer.innerHTML = showContactDetailsHTML(contact, initials, index);
         detailsContainer.style.display = 'inline-flex';
         detailsContainer.setAttribute('data-current-index', index);
-
         // Füge die Slide-In-Animation nur hinzu, wenn der Container zuvor nicht sichtbar war
         if (!isContainerVisible) {
             detailsContainer.classList.add('slide-in');
         }
         isContainerVisible = true;
-
         // Füge den ausgewählten Hintergrund nur dem neuen ausgewählten Kontakt hinzu
         selectedContactElement.classList.add('contact-selected');
     }
-
     // Entferne die Slide-In-Animation nach dem Abspielen, damit sie beim nächsten Mal wieder abgespielt werden kann
     detailsContainer.addEventListener('animationend', function () {
         detailsContainer.classList.remove('slide-in');
     });
 }
 
+function showContactDetailsMobile(index) {
+    // Verstecken Sie die Kontaktliste und zeigen Sie die Kontaktinformationen an
+    document.getElementById('contact-list-container').style.display = 'none';
+    const detailsContainer = document.getElementById('contact-details-mobile');
+    detailsContainer.style.display = 'block';
+    document.querySelector('.container').style.display = 'none';
 
+    // Fügen Sie die Kontaktinformationen in den Container ein
+    const contact = contacts[index];
+    const initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+    detailsContainer.innerHTML = showContactDetailsMobileHTML(contact, initials, index);
+
+    // Event-Listener für die Buttons
+    document.getElementById('edit-or-delete-btn').addEventListener('click', () => {
+        document.getElementById('edit-delete-options').style.display = 'block';
+    });
+
+    document.getElementById('back-to-contacts-btn').addEventListener('click', () => {
+        detailsContainer.style.display = 'none';
+        document.getElementById('contact-list-container').style.display = 'block';
+    });
+
+    document.getElementById('edit-btn').addEventListener('click', () => {
+        editContact(index);
+    });
+
+    document.getElementById('delete-btn').addEventListener('click', () => {
+        deleteContact(index);
+    });
+}
+
+function showEditContactsButtonsMobile() {
+    // Zugriff auf alle Elemente mit der Klasse
+    const elements = document.querySelectorAll('.contact-detailed-mobile-buttons');
+
+    // Entfernen der Klasse 'hide-it' von allen Elementen
+    elements.forEach(element => {
+        element.classList.remove('hide-it');
+    });
+}
 
 /**
  * picks a color from the array colors and randomly gives the contact one
@@ -390,6 +430,13 @@ function generateEditContactModal(index) {
     let editContainer = document.getElementById('editModal');
     editContainer.innerHTML = generateEditContactModalHTML(index, initials, contact);
 }
+
+/* function generateEditContactMobileModal(index) {
+    let contact = contacts[index];
+    let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+    let editMobileContainer = document.getElementById('editMobileModal');
+    editMobileContainer.innerHTML = generateEditContactMobileModalHTML(index, initials, contact);
+} */
 
 /**
  * this functions opens the edit modal

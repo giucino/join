@@ -12,6 +12,10 @@
     margin-left: 234px;
 }
 
+.hide-it {
+    display: none;
+}
+
 .add-person-button {
     display: flex;
     width: 332px;
@@ -667,20 +671,92 @@
 }
 
 @media(max-width: 1300px) {
-    #contact-details{
+    #contact-details {
         padding-left: 50px;
     }
 }
 
 @media(max-width: 1200px) {
-    #contact-details{
-        padding-left: 0;
+    #contact-details {
+        display: none !important;
+    }
+
+    .add-person-button {
+        display: none;
+    }
+
+    .container {
+        padding: 20px;
+        width: 900px;
+    }
+
+    .container-contact-all {
+        width: 100%;
+    }
+
+    .letter-title-underline {
+        width: 100%;
+    }
+
+    #contact-details-mobile {
+        display: none;
+        position: absolute;
+        margin-top: 95px;
+        margin-left: 236px;
+        padding: 40px;
+        height: 1000px;
+        top: 0;
+        z-index: 5;
+    }
+
+    .contact-detailed-edit-delete-mobile {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .contact-detailed-images-head {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        border-radius: 10px;
+        background: var(--Ligth-blue, #005DFF);
+        /* stronger */
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        display: inline-flex;
+        padding: 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+    }
+
+    .contact-detailed-mobile-buttons {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        display: inline-flex;
+        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        border-radius: 20px 20px 0px 20px;
+        background: var(--white, #FFF);
+        /* stronger */
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     }
 }
 
-@media(max-width: 1100px) {
-    #contact-details{
-        display: none !important;
+@media(max-width: 1180px) {
+    .container {
+        padding: 20px;
+        width: 600px;
+    }
+}
+
+@media(max-width: 890px) {
+    .container {
+        padding: 20px;
+        width: 500px;
     }
 }
 
