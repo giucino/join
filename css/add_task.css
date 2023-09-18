@@ -6,8 +6,7 @@ body {
     font-family: 'Open sans', sans-serif;
 }
 
-.add-task-container,
-.edit-add-task-container {
+.add-task-container {
     display: inline-flex;
     height: 1128px;
     padding: 168px 38px 4px 279px;
@@ -18,16 +17,14 @@ body {
     overflow-y: scroll;
 }
 
-.add-task-container-first,
-.edit-add-task-container-first {
+.add-task-container-first{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
 }
 
-.add-task-container-titel,
-.edit-add-task-container-titel {
+.add-task-container-titel {
     width: 100%;
     flex-direction: column;
     justify-content: flex-start;
@@ -36,8 +33,7 @@ body {
     display: inline-flex;
 }
 
-.add-task-titel-textcontainer,
-.edit-add-task-titel-textcontainer {
+.add-task-titel-textcontainer{
     width: 100%;
     align-self: stretch;
     padding-left: 16px;
@@ -53,12 +49,11 @@ body {
     cursor: pointer;
 }
 
-.edit-add-task-titel-textcontainer:hover {
+.add-task-titel-textcontainer:hover {
     border-bottom: 1px solid var(--bg-color);
 }
 
-.add-task-titel-textfield,
-.edit-add-task-titel-textfield {
+.add-task-titel-textfield {
     color: black;
     font-family: 'Open sans', sans-serif;
     font-size: 32px;
@@ -71,13 +66,11 @@ body {
     cursor: pointer;
 }
 
-.add-task-titel-textfield::placeholder,
-.edit-add-task-titel-textfield::placeholder {
+.add-task-titel-textfield::placeholder {
     color: var(--style, #D1D1D1);
 }
 
-.add-task-field-required,
-.edit-add-task-field-required {
+.add-task-field-required {
     align-self: stretch;
     font-size: 13px;
     font-family: Inter;
@@ -88,8 +81,7 @@ body {
     display: none;
 }
 
-.add-task-container-description,
-.edit-add-task-container-description {
+.add-task-container-description {
     display: flex;
     width: 100%;
     flex-direction: column;
@@ -97,8 +89,7 @@ body {
     gap: 8px;
 }
 
-.add-task-description-header,
-.edit-add-task-description-header {
+.add-task-description-header {
     display: inline-flex;
     color: #42526E;
     font-size: 19px;
@@ -107,8 +98,7 @@ body {
     line-height: 120%;
 }
 
-.add-task-description-textfield,
-.edit-add-task-description-textfield {
+.add-task-description-textfield {
     width: 100%;
     max-width: 440px;
     min-height: 90px;

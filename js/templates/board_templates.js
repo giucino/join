@@ -102,7 +102,7 @@ function renderEditTask(id) {
                     <div class="edit-assigned-to-choicefield">
                         <div class="edit-assigned-to-dropdown" onclick="loadToggleAssignedToContainer()">
                             <div class="edit-assigned-dropdown-header">
-                                <input oninput="searchContacts(this.value), loadRenderSearchedContact(this.value)" id="edit-search-input" class="edit-assigned-select-text"
+                                <input oninput="loadSearchContacts(this.value)" id="edit-search-input" class="edit-assigned-select-text"
                                     placeholder="Select contacts to assign" type="text">
                             </div>
                             <div class="edit-assigned-dropdown-arrow"></div>
@@ -119,7 +119,7 @@ function renderEditTask(id) {
                             <img src="./img/person_add.svg" class="button-icon">
                         </button>
                     </div>
-                    <div id="chosenContacts" class="chosen-contacts"></div>
+                    <div id="edit-chosen-contacts" class="chosen-contacts"></div>
                     <div class="edit-category-container">
                         <div class="edit-category-header">
                             Category

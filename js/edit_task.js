@@ -28,6 +28,7 @@ function editTask(id) {
     const element = todos[id];
     addSubtaskToEdit(element);
     loadSelectedPriority(element);
+    loadRenderAssignedTo(element);
   }
   
 
@@ -133,97 +134,189 @@ function addSubtaskToEdit(element) {
   }
 }
 
-async function loadRenderAssignedTo() {
-    let assignedToContainer = document.getElementById('edit-loaded-contacts');
-    assignedToContainer.innerHTML = '';
+let selectedContactsSet = new Set();
 
-    for (let i = 0; i < contacts.length; i++) {
-        let contact = contacts[i];
-        let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
-
-        const isSelected = selectedContacts[contact.id] || false;
-
-        assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected);
+function addToSelectedContacts(element) {
+  const assigneds = element.assignedTo;
+  for (const assigned of assigneds) {
+    const matchingContact = contacts.find(contact => contact.id === assigned);
+    if (matchingContact) {
+      selectedContactsSet.add(matchingContact.id);
     }
+  }
 }
 
-function renderAssignedToHTML (){
-    return /*html*/`
-        <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
-            <div class="select-contact">
-                <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-                <div class="select-name">${contact.name} ${contact.surename}</div>
-            </div>
-            <img class="select-icon" id="selectCheck" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
+async function loadRenderAssignedTo(element) {
+  let assignedToContainer = document.getElementById('edit-loaded-contacts');
+  assignedToContainer.innerHTML = '';
+  
+  for (let i = 0; i < contacts.length; i++) {
+    let contact = contacts[i];
+    let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+    /* addToSelectedContacts(element); */
+    const isSelected = selectedContacts[contact.id] || false;
+
+    assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected);
+  }
+}
+
+function renderAssignedToHTML (contact, initials, isSelected){
+  return /* html */`
+    <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="loadToggleContactSelection('${contact.name}', '${contact.surename}')">
+        <div class="select-contact">
+            <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
+            <div class="select-name">${contact.name} ${contact.surename}</div>
         </div>
-    `;
+        <img class="select-icon" id="edit-select-check" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
+    </div>
+  `;
 }
 
-function loadRenderSearchedContact(contacts) {
-    let loadAssignedToContainer = document.getElementById('edit-loaded-contacts');
-    loadAssignedToContainer.innerHTML = '';
+/* async function loadRenderAssignedTo(element) {
+  let assignedToContainer = document.getElementById('edit-loaded-contacts');
+  let htmlString = '';
+  addToSelectedContacts(element, contacts, selectedContactsSet);
+  for (let i = 0; i < contacts.length; i++) {
+    let contact = contacts[i];
+    let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
+    const isSelected = selectedContactsSet.has(contact.id);
 
-    for (let i = 0; i < contacts.length; i++) {
-        let contact = contacts[i];
-        let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
-        const isSelected = selectedContacts[contact.id] || false;
+    htmlString += renderAssignedToHTML(contact, initials, isSelected);
+  }
 
-        loadAssignedToContainer.innerHTML += loadRenderSearchedContactsHTML(contact, initials, isSelected);
-    }
+  assignedToContainer.innerHTML = htmlString;
+}
+
+function renderAssignedToHTML (contact, initials, isSelected){
+  // Stellen Sie sicher, dass die Daten sicher sind, bevor Sie sie in den DOM einfügen.
+  return html`
+    <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="loadToggleContactSelection('${contact.name}', '${contact.surname}')">
+        <div class="select-contact">
+            <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
+            <div class="select-name">${contact.name} ${contact.surname}</div>
+        </div>
+        <img class="select-icon" id="edit-select-check" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
+    </div>
+  `;
+} */
+
+function loadSearchedContact(contacts) {
+  let loadAssignedToContainer = document.getElementById('edit-loaded-contacts');
+  loadAssignedToContainer.innerHTML = '';
+
+  for (let i = 0; i < contacts.length; i++) {
+      let contact = contacts[i];
+      let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+      const isSelected = selectedContacts[contact.id] || false;
+
+      loadAssignedToContainer.innerHTML += loadRenderSearchedContactsHTML(contact, initials, isSelected);
+  }
 }
 
 function loadRenderSearchedContactsHTML(contact, initials, isSelected) {
-    return /*html*/`
-        <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
-            <div class="select-contact">
-                <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-                <div class="select-name">${contact.name} ${contact.surename}</div>
-            </div>
-            <img class="select-icon" id="selectCheck" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
+  return /*html*/`
+    <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="loadToggleContactSelection('${contact.name}', '${contact.surename}')">
+        <div class="select-contact">
+            <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
+            <div class="select-name">${contact.name} ${contact.surename}</div>
         </div>
-    `;
+        <img class="select-icon" id="edit-select-check" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
+    </div>
+  `;
 }
 
-function searchContacts(query) {
-    let filteredContacts = contacts.filter(contact => {
-        return (
-            contact.name.toLowerCase().startsWith(query.toLowerCase()) ||
-            contact.surename.toLowerCase().startsWith(query.toLowerCase())
-        );
-    });
-    loadRenderSearchedContact(filteredContacts);
-}
-
-function loadToggleAssignedToContainer() {
-    let assignedToContainer = document.getElementById('edit-loaded-contacts');
-    let contactsContainer = document.querySelector('.edit-contacts-container');
-    let assignedToDropdown = document.querySelector('.edit-assigned-to-dropdown');
-
-    if (assignedToContainer.style.display === 'block') {
-        assignedToContainer.style.display = 'none';
-        assignedToDropdown.classList.remove('expanded');
-    } else {
-        assignedToContainer.style.display = 'block';
-        assignedToDropdown.classList.add('expanded');
-    }
-    contactsContainer.style.display = assignedToContainer.style.display;
+function loadSearchContacts(query) {
+  let filteredContacts = contacts.filter(contact => {
+      return (
+          contact.name.toLowerCase().startsWith(query.toLowerCase()) ||
+          contact.surename.toLowerCase().startsWith(query.toLowerCase())
+      );
+  });
+  loadRenderSearchedContact(filteredContacts);
 }
 
 function loadToggleContactSelection(name, surename) {
-    const contact = contacts.find(c => c.name === name && c.surename === surename);
+  const contact = contacts.find(c => c.name === name && c.surename === surename);
 
-    if (!contact) {
-        return;
-    }
-    const contactId = contact.id;
-    const contactKey = `${contact.name} ${contact.surename}`;
+  if (!contact) {
+      return;
+  }
+  const contactId = contact.id;
+  const contactKey = `${contact.name} ${contact.surename}`;
 
-    if (selectedContacts[contactId]) {
-        delete selectedContacts[contactId];
-    } else {
-        selectedContacts[contactId] = contactKey;
+  if (selectedContacts[contactId]) {
+      delete selectedContacts[contactId];
+  } else {
+      selectedContacts[contactId] = contactKey;
+  }
+  loadRenderAssignedTo();
+  loadSearchedContact(contacts);
+  loadDisplayChosenContacts();
+}
+
+function loadToggleAssignedToContainer() {
+  let assignedToContainer = document.getElementById('edit-loaded-contacts');
+  let contactsContainer = document.querySelector('.edit-contacts-container');
+  let assignedToDropdown = document.querySelector('.edit-assigned-to-dropdown');
+
+  if (assignedToContainer.style.display === 'block') {
+      assignedToContainer.style.display = 'none';
+      assignedToDropdown.classList.remove('expanded');
+  } else {
+      assignedToContainer.style.display = 'block';
+      assignedToDropdown.classList.add('expanded');
+  }
+  contactsContainer.style.display = assignedToContainer.style.display;
+}
+
+function loadDisplayChosenContacts() {
+  let chosenContactsContainer = document.getElementById('edit-chosen-contacts');
+  chosenContactsContainer.innerHTML = '';
+
+  for (let i = 0; i < contacts.length; i++) {
+    const contact = contacts[i];
+    const isSelected = selectedContacts[contact.id];
+
+    if (isSelected) {
+      let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+      chosenContactsContainer.innerHTML += /*html*/`
+        <div class="chosen-contact">
+            <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
+        </div>
+      `;
     }
-    loadRenderAssignedTo();
-    loadRenderSearchedContact(contacts);
-    displayChosenContacts();
+  }
+}
+
+function loadToggleCategoryContainer() {
+  let editSelectText = document.querySelector('.edit-select-text');
+  editSelectText.style.display = 'inline';
+
+  let editSelectedCategory = document.getElementById('edit-selected-category-display');
+  editSelectedCategory.textContent = '';
+
+  let editCategoryContainer = document.getElementById('edit-loaded-categories');
+  let editCategoryDropdown = document.querySelector('.edit-category-dropdown');
+
+  if (editCategoryContainer.style.display === 'block') {
+      editCategoryContainer.style.display = 'none';
+      editCategoryDropdown.classList.remove('expanded');
+  } else {
+      editCategoryContainer.style.display = 'block';
+      editCategoryDropdown.classList.add('expanded');
+      editRenderCategorys();
+  }
+}
+
+function editRenderCategorys() {
+  let editCategoryContainer = document.getElementById('edit-loaded-categories');
+  editCategoryContainer.innerHTML = '';
+
+  for (let i = 0; i < categories.length; i++) {
+    let category = categories[i].name;
+
+    editCategoryContainer.innerHTML += /* html */`
+    <div class="category" onclick="categorySelected('${category}')">${category}</div>
+    `;
+  }
 }
