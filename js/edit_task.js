@@ -28,7 +28,7 @@ function editTask(id) {
     const element = todos[id];
     addSubtaskToEdit(element);
     loadSelectedPriority(element);
-    loadRenderAssignedTo(element);
+    addToSelectedContacts(element);
   }
   
 
@@ -147,18 +147,19 @@ function addToSelectedContacts(element) {
       });
     }
   }
+  loadRenderAssignedTo(selectedContacts);
   loadDisplayChosenContacts();
 }
 
-async function loadRenderAssignedTo(element) {
+async function loadRenderAssignedTo(selectedContacts) {
   let assignedToContainer = document.getElementById('edit-loaded-contacts');
   assignedToContainer.innerHTML = '';
-  addToSelectedContacts(element)
+  
   for (let i = 0; i < contacts.length; i++) {
     let contact = contacts[i];
     let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
     
-    const isSelected = selectedContacts[contact.id] || false;
+    const isSelected = selectedContacts.some(selected => selected.id === contact.id);
 
     assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected);
   }
@@ -175,34 +176,6 @@ function renderAssignedToHTML (contact, initials, isSelected){
     </div>
   `;
 }
-
-/* async function loadRenderAssignedTo(element) {
-  let assignedToContainer = document.getElementById('edit-loaded-contacts');
-  let htmlString = '';
-  addToSelectedContacts(element, contacts, selectedContactsSet);
-  for (let i = 0; i < contacts.length; i++) {
-    let contact = contacts[i];
-    let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
-    const isSelected = selectedContactsSet.has(contact.id);
-
-    htmlString += renderAssignedToHTML(contact, initials, isSelected);
-  }
-
-  assignedToContainer.innerHTML = htmlString;
-}
-
-function renderAssignedToHTML (contact, initials, isSelected){
-  // Stellen Sie sicher, dass die Daten sicher sind, bevor Sie sie in den DOM einfügen.
-  return html`
-    <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="loadToggleContactSelection('${contact.name}', '${contact.surname}')">
-        <div class="select-contact">
-            <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-            <div class="select-name">${contact.name} ${contact.surname}</div>
-        </div>
-        <img class="select-icon" id="edit-select-check" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
-    </div>
-  `;
-} */
 
 function loadSearchedContact(contacts) {
   let loadAssignedToContainer = document.getElementById('edit-loaded-contacts');
@@ -236,7 +209,7 @@ function loadSearchContacts(query) {
           contact.surename.toLowerCase().startsWith(query.toLowerCase())
       );
   });
-  loadRenderSearchedContact(filteredContacts);
+  loadSearchedContact(filteredContacts);
 }
 
 function loadToggleContactSelection(name, surename) {
@@ -273,23 +246,24 @@ function loadToggleAssignedToContainer() {
   contactsContainer.style.display = assignedToContainer.style.display;
 }
 
+
 function loadDisplayChosenContacts() {
-  let chosenContactsContainer = document.getElementById('edit-chosen-contacts');
-  chosenContactsContainer.innerHTML = '';
+  const chosenContactsContainer = document.getElementById('edit-chosen-contacts');
+  let htmlContent = '';
 
-  for (let i = 0; i < contacts.length; i++) {
-    const contact = contacts[i];
-    const isSelected = selectedContacts[contact.id];
-
-    if (isSelected) {
-      let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
-      chosenContactsContainer.innerHTML += /*html*/`
+  for (const selected of selectedContacts) {
+    const contact = contacts.find(c => c.id === selected.id && `${c.name} ${c.surename}` === selected.name);
+    if (contact) {
+      const initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+      htmlContent += /*html*/`
         <div class="chosen-contact">
             <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
         </div>
       `;
     }
   }
+
+  chosenContactsContainer.innerHTML = htmlContent;
 }
 
 function loadToggleCategoryContainer() {
