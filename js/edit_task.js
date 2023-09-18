@@ -134,26 +134,30 @@ function addSubtaskToEdit(element) {
   }
 }
 
-let selectedContactsSet = new Set();
 
 function addToSelectedContacts(element) {
   const assigneds = element.assignedTo;
-  for (const assigned of assigneds) {
-    const matchingContact = contacts.find(contact => contact.id === assigned);
-    if (matchingContact) {
-      selectedContactsSet.add(matchingContact.id);
+  
+  for (let name of assigneds) {
+    const contact = contacts.find(c => `${c.name} ${c.surename}` === name);
+    if (contact) {
+      selectedContacts.push({
+        id: contact.id,
+        name: `${contact.name} ${contact.surename}`
+      });
     }
   }
+  loadDisplayChosenContacts();
 }
 
 async function loadRenderAssignedTo(element) {
   let assignedToContainer = document.getElementById('edit-loaded-contacts');
   assignedToContainer.innerHTML = '';
-  
+  addToSelectedContacts(element)
   for (let i = 0; i < contacts.length; i++) {
     let contact = contacts[i];
     let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
-    /* addToSelectedContacts(element); */
+    
     const isSelected = selectedContacts[contact.id] || false;
 
     assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected);
