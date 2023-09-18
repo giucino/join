@@ -158,6 +158,10 @@ async function showContacts() {
     }
 }
 
+/**
+ * this function counts as a handle clicker to find out if its mobile or for the pc version by comparing the width
+ * @param {*} index 
+ */
 function handleContactClick(index) {
     if (window.innerWidth <= 1200) {
         showContactDetailsMobile(index);
@@ -222,42 +226,28 @@ function showContactDetails(index) {
 function showContactDetailsMobile(index) {
     // Verstecken Sie die Kontaktliste und zeigen Sie die Kontaktinformationen an
     document.getElementById('contact-list-container').style.display = 'none';
-    const detailsContainer = document.getElementById('contact-details-mobile');
+    let detailsContainer = document.getElementById('contact-details-mobile');
     detailsContainer.style.display = 'block';
     document.querySelector('.container').style.display = 'none';
 
     // Fügen Sie die Kontaktinformationen in den Container ein
-    const contact = contacts[index];
-    const initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+    let contact = contacts[index];
+    let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
     detailsContainer.innerHTML = showContactDetailsMobileHTML(contact, initials, index);
-
-    // Event-Listener für die Buttons
-    document.getElementById('edit-or-delete-btn').addEventListener('click', () => {
-        document.getElementById('edit-delete-options').style.display = 'block';
-    });
-
-    document.getElementById('back-to-contacts-btn').addEventListener('click', () => {
-        detailsContainer.style.display = 'none';
-        document.getElementById('contact-list-container').style.display = 'block';
-    });
-
-    document.getElementById('edit-btn').addEventListener('click', () => {
-        editContact(index);
-    });
-
-    document.getElementById('delete-btn').addEventListener('click', () => {
-        deleteContact(index);
-    });
 }
 
 function showEditContactsButtonsMobile() {
     // Zugriff auf alle Elemente mit der Klasse
-    const elements = document.querySelectorAll('.contact-detailed-mobile-buttons');
-
+    let elements = document.querySelectorAll('.contact-detailed-mobile-buttons');
     // Entfernen der Klasse 'hide-it' von allen Elementen
     elements.forEach(element => {
         element.classList.remove('hide-it');
     });
+}
+
+function returnToContactsMobile(){
+    document.querySelector('.contact-details-mobile-class').style.display = 'none'
+    document.querySelector('.container').style.display = 'flex';
 }
 
 /**
@@ -265,7 +255,7 @@ function showEditContactsButtonsMobile() {
  * @returns color rgb
  */
 function getRandomColor() {
-    const randomIndex = Math.floor(Math.random() * colors.length);
+    let randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
 }
 

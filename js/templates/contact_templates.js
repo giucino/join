@@ -40,6 +40,8 @@ function showContactDetailsMobileHTML(contact, initials, index) {
             <div class="contact-detailed-text">Email: </div> <div class="email"> ${contact.email}</div>
             <div class="contact-detailed-text">Telefon: </div> <div class="phone"> ${contact.telefon}</div> 
         </div>    
+            <div class="contact-detailed-mobile-return" onclick="returnToContactsMobile()"><img src="./img/arrow-left-line.png">
+        </div>
         <div class="contact-detailed-edit-delete-mobile"  onclick="showEditContactsButtonsMobile()">
             <div>
                 <div class="contact-detailed-images-head"><img src="./img/more_vert.svg"></div>
