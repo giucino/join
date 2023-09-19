@@ -22,27 +22,6 @@ async function initAddTask() {
 }
 
 
-function addTask() {
-    let modal = document.getElementById('taskFormSlider');
-    modal.innerHTML = renderAddTask();
-    modal.style.display = "block";
-    // let overlay = document.querySelector(".background-overlay");  // Verwenden Sie den bereits vorhandenen Overlay
-    // overlay.style.display = "block";
-    // modal.classList.remove('edditModal-slide-out');
-    // modal.classList.add('edditModal-slide-in');
-}
-
-
-function closeAddTaskModal() {
-    let modal = document.getElementById("taskFormSlider");    
-    modal.innerHTML = '';
-    // modal.classList.remove('edditModal-slide-in');
-    // modal.classList.add('edditModal-slide-out');
-    // let overlay = document.querySelector(".background-overlay");  // Verwenden Sie den bereits vorhandenen Overlay
-    // overlay.style.display = "none";
-}
-
-
 async function addLoadContactsFromStorage() {
     try {
         contacts = JSON.parse(await getItem('contacts'));
@@ -66,11 +45,6 @@ document.getElementById('taskFormSlider').addEventListener('submit', function (e
         addCreateTask();
     
 });
-
-// document.getElementById('signUpForm').addEventListener('submit', function (event) {
-//     event.preventDefault();
-//     signUpUser();
-// });
 
 
 async function addCreateTask() {
@@ -125,6 +99,29 @@ async function addCreateTask() {
     addResetTaskForm();
 }
 
+
+function addTask() {
+    let modal = document.getElementById('taskFormSlider');
+    modal.innerHTML = renderAddTask();
+    modal.style.display = "block";
+    modal.classList.remove('edditModal-slide-out');
+    modal.classList.add('edditModal-slide-in');
+    let overlay = document.querySelector(".background-overlay");
+    overlay.style.display = "block";
+}
+
+
+function closeAddTaskModal() {
+    let modal = document.getElementById("taskFormSlider");    
+    modal.innerHTML = '';
+    modal.style.display = "none";
+    modal.classList.remove('edditModal-slide-in');
+    modal.classList.add('edditModal-slide-out');
+    let overlay = document.querySelector(".background-overlay");
+    overlay.style.display = "none";
+}
+
+
 /**
  * Creates a success message template.
  * @returns {string} - The HTML template for a success message overlay.
@@ -139,6 +136,7 @@ function addCreatedTaskTemplate() {
         </div>
     `;
 }
+
 
 /**
  * Shows a success message overlay and redirects to the index page.
@@ -717,7 +715,6 @@ document.addEventListener('DOMContentLoaded', () => {
         '#D1D1D1'
     );
 });
-
 
 
 function renderAddTask() {
