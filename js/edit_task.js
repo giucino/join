@@ -38,6 +38,7 @@ function editTask(id) {
     loadSelectedPriority(element);
     loadDisplayChosenContacts();
     addToSelectedContacts(element);
+    loadRenderCategory(element);
   }
   
 
@@ -55,8 +56,6 @@ function editTask(id) {
   
     await setItem("tasks", JSON.stringify(todos));
     editTaskSlide.classList.add("d-none");
-    updateHTML();
-    slideCard(id);
   }
 
 function loadSelectedPriority(task) {
@@ -345,6 +344,12 @@ function editRenderCategorys() {
     <div class="category" onclick="categorySelected('${category}')">${category}</div>
     `;
   }
+}
+
+function loadRenderCategory(element) {
+  const selectedCategory = document.querySelector('.edit-select-text');
+  const category = element.category;
+  selectedCategory.textContent = category;
 }
 
 function categorySelected(category) {

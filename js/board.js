@@ -28,17 +28,17 @@ function refreshHTML() {
 }
 
 
-// let allTodos = [...todos];
-// allTodos = todos;
+/* let allTodos = [...todos];
+allTodos = todos;
 
-// async function loadDatas() {
-//     try {
-//         allTodos = JSON.parse(await getItem('tasks'));
-//         console.log('Tasks:', allTodos);
-//     } catch (e) {
-//         console.error('Loading error:', e);
-//     }
-// }
+async function loadDatas() {
+    try {
+        allTodos = JSON.parse(await getItem('tasks'));
+        console.log('Tasks:', allTodos);
+    } catch (e) {
+        console.error('Loading error:', e);
+    }
+} */
 
 
 async function pushData() {
