@@ -65,12 +65,12 @@ let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 /**
  * main function to initialize the whole site
  */
-async function initContact() { 
+async function initContact() {
     /* await reloadContacts(); */
     await loadAllContacts();
     sortContacts();
     initLetters();
-    showContacts();
+    await showContacts();
     removeEmptyLetters();
 }
 
@@ -86,17 +86,18 @@ async function loadAllContacts() {
     }
 }
 
-/*  let allContacts = [...contacts];
- allContacts = contacts;
+// let allContacts = [...contacts];
+// allContacts = contacts;
 
- async function reloadContacts() {
-     try {
-        await setItem('contacts', JSON.stringify(contacts));
-        console.log('Contacts:', allContacts);
-     } catch (e) {
-        console.error('Loading error:', e);
-     }
- } */
+// async function reloadContacts() {
+//     try {
+//         await setItem('contacts', JSON.stringify(contacts));
+//         console.log('Contacts:', allContacts);
+//     } catch (e) {
+//         console.error('Loading error:', e);
+//     }
+// }
+
 
 /**
  * sorts the contacts alphabeticly 
@@ -250,7 +251,7 @@ function showEditContactsButtonsMobile() {
     document.body.appendChild(invisibleDiv);
 }
 
-function returnToContactsMobile(){
+function returnToContactsMobile() {
     document.querySelector('.contact-details-mobile-class').style.display = 'none'
     document.querySelector('.container').style.display = 'flex';
 }
@@ -268,12 +269,16 @@ function getRandomColor() {
  * opens the screen to add new contacts
  */
 function openModal() {
-    let modal = document.getElementById("contactModal");
-    let overlay = document.querySelector(".background-overlay");  // Verwenden Sie den bereits vorhandenen Overlay
-    modal.style.display = "block";
+    let modalHTML = generateAddContactModalHTML();
+
+    let modalContainer = document.getElementById("contactModal");
+    modalContainer.innerHTML = modalHTML;
+
+    let overlay = document.querySelector(".background-overlay");
+    modalContainer.style.display = "block";
     overlay.style.display = "block";
-    modal.classList.remove('modal-slide-out');
-    modal.classList.add('modal-slide-in');
+    modalContainer.classList.remove('modal-slide-out');
+    modalContainer.classList.add('modal-slide-in');
 }
 
 /**
