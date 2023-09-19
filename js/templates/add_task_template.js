@@ -17,8 +17,6 @@
 async function initAddTask() {
     await addLoadContactsFromStorage();
     await addLoadTasks();
-    // await addRenderAssignedTo();
-    // addRenderCategorys();
 }
 
 
@@ -490,6 +488,7 @@ function addToggleAssignedToContainer() {
         assignedToDropdown.classList.add('expanded');
     }
     contactsContainer.style.display = assignedToContainer.style.display;
+    addRenderAssignedTo();
 }
 
 
@@ -805,7 +804,7 @@ function renderAddTask() {
                 <div class="contacts-container">
                     <div id="addLoadedContacts" class="loaded-contacts">
                     </div>
-                    <button id="addContactBtn" onclick="openModal()" class="addd-person-button" type="button">
+                    <button id="addContactBtn" onclick="openModal()" class="add-person-btn" type="button">
                         Add new contact
                         <img src="./img/person_add.svg" class="button-icon">
                     </button>
