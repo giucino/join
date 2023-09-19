@@ -237,12 +237,10 @@ function showContactDetailsMobile(index) {
 }
 
 function showEditContactsButtonsMobile() {
-    // Zugriff auf alle Elemente mit der Klasse
-    let elements = document.querySelectorAll('.contact-detailed-mobile-buttons');
-    // Entfernen der Klasse 'hide-it' von allen Elementen
-    elements.forEach(element => {
-        element.classList.remove('hide-it');
-    });
+    let element = document.getElementById('contact-mobile-buttons');
+    let header = document.getElementById('contact-detailed-head')
+    header.classList.add('hide-it');
+    element.classList.remove('hide-it');
 }
 
 function returnToContactsMobile(){
@@ -428,17 +426,19 @@ function generateEditContactModal(index) {
     editMobileContainer.innerHTML = generateEditContactMobileModalHTML(index, initials, contact);
 } */
 
+
 /**
  * this functions opens the edit modal
  */
 function openEditModal() {
     let modal = document.getElementById("editModal");
     let overlay = document.querySelector(".background-overlay");
-    modal.style.display = "block";
+    modal.style.display = "flex";
     overlay.style.display = "block"; // Zeige den Overlay an
     modal.classList.remove('editModal-slide-out');
     modal.classList.add('editModal-slide-in');
 }
+
 
 /**
  * this function closes the edit modal

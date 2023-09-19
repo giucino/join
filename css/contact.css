@@ -175,30 +175,6 @@
     top: 0;
     right: 0;
     bottom: 0;
-    animation-name: slide-in;
-    animation-duration: 0.2s;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: forwards;
-}
-
-@keyframes slide-in {
-    from {
-        right: -600px;
-    }
-
-    to {
-        right: 0;
-    }
-}
-
-@keyframes slide-out {
-    from {
-        right: 0;
-    }
-
-    to {
-        right: -600px;
-    }
 }
 
 .edit-content {
@@ -215,40 +191,6 @@
     top: 0;
     left: 0;
     bottom: 0;
-    animation-name: edit-slide-in;
-    animation-duration: 0.2s;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: forwards;
-    transition: transform 1s ease-in-out;
-    transform: translateX(0);
-}
-
-.edit-content.slide-in {
-    transform: translateX(0);
-}
-
-.edit-content.slide-out {
-    transform: translateX(-100%);
-}
-
-@keyframes edit-slide-in {
-    from {
-        left: -600px;
-    }
-
-    to {
-        left: 0;
-    }
-}
-
-@keyframes edit-slide-out {
-    from {
-        left: 0;
-    }
-
-    to {
-        left: -600px;
-    }
 }
 
 .modal-content-top {
@@ -394,6 +336,34 @@
 @keyframes editModalSlideIn {
     0% {
         transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes editModalSlideOut {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.editModalMobile-slide-in {
+    animation: editModalSlideInMobile 1s ease-in-out;
+}
+
+.editModal-slide-out {
+    animation: editModalSlideOut 1s ease-in-out forwards;
+}
+
+@keyframes editModalSlideInMobile {
+    0% {
+        transform: translateX(-100px);
     }
 
     100% {
@@ -709,16 +679,10 @@
         z-index: 5;
     }
 
-    .contact-detailed-edit-delete-mobile {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-    }
-
     .contact-detailed-images-head {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
+        position: fixed;
+        bottom: 100px;
+        right: 100px;
         border-radius: 10px;
         background: var(--Ligth-blue, #005DFF);
         /* stronger */
@@ -731,11 +695,11 @@
         cursor: pointer;
     }
 
-    .contact-detailed-mobile-buttons {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        display: inline-flex;
+    #contact-mobile-buttons {
+        cursor: pointer;
+        position: fixed;
+        bottom: 100px;
+        right: 100px;
         padding: 10px;
         flex-direction: column;
         align-items: flex-start;
@@ -743,6 +707,39 @@
         background: var(--white, #FFF);
         /* stronger */
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        animation: slide 0.5s ease-in-out;
+    }
+
+    @keyframes slide {
+        0% {
+            transform: translateX(700px);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    .contact-detailed-images-mobile {
+        display: flex;
+        width: 96px;
+        padding: 8px;
+        align-items: center;
+        gap: 8px;
+        color: #2A3647;
+        /* Version 2/body */
+        font-family: Open Sans;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        /* 19.2px */
+    }
+
+    .contact-detailed-images-mobile img {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
     }
 
     .contact-detailed-mobile-return {
@@ -754,6 +751,31 @@
         top: 130px;
         right: 20px;
     }
+
+    .edit-modal {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        /* oder die Höhe, die Sie wünschen */
+        width: 100%;
+        /* oder die Breite, die Sie wünschen */
+    }
+
+
+
+    .edit-content {
+        /* ... (Ihre bisherigen Stile) ... */
+        position: static;
+        /* oder entfernen Sie die position: absolute; */
+    }
+    
+    #closeEditModalBtn{
+        position: relative;
+        top: -85px;
+        right: -255px;
+    }
+
 }
 
 @media(max-width: 1180px) {

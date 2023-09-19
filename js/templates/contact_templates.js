@@ -42,15 +42,14 @@ function showContactDetailsMobileHTML(contact, initials, index) {
         </div>    
             <div class="contact-detailed-mobile-return" onclick="returnToContactsMobile()"><img src="./img/arrow-left-line.png">
         </div>
-        <div class="contact-detailed-edit-delete-mobile"  onclick="showEditContactsButtonsMobile()">
-            <div>
+        
+            <div id="contact-detailed-head" onclick="showEditContactsButtonsMobile()">
                 <div class="contact-detailed-images-head"><img src="./img/more_vert.svg"></div>
             </div>
-            <div class="contact-detailed-mobile-buttons, hide-it">
-                <div id="contact-detailed-button-edit" class="contact-detailed-images" onclick="editContact(${index})"><img src="./img/edit.png">Edit</div>
-                <div id="contact-detailed-button-delete" class="contact-detailed-images" onclick="deleteContact(${index})"><img src="./img/delete.png">Delete</div>
+            <div id="contact-mobile-buttons" class="contact-detailed-mobile-buttons, hide-it">
+                <div id="contact-detailed-button-edit" class="contact-detailed-images-mobile" onclick="editContact(${index})"><img src="./img/edit.png">Edit</div>
+                <div id="contact-detailed-button-delete" class="contact-detailed-images-mobile" onclick="deleteContact(${index})"><img src="./img/delete.png">Delete</div>
             </div>
-        </div>
     `;
 }
 
