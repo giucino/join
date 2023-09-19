@@ -155,7 +155,7 @@ function renderEditTask(id) {
                 
                     <div class="edit-add-task-buttons">
                         <div class="edit-add-task-buttons-inner">                            
-                            <button type="submit" id="createTaskButton" class="edit-button-create-task">
+                            <button onclick="saveEditedTask(${id})" id="createTaskButton" class="edit-button-create-task">
                                 <div class="edit-button-create-task-text">Ok</div>
                                 <div class="edit-button-create-task-pic"><img src="./img/check.svg"></div>
                             </button>

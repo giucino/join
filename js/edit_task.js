@@ -36,25 +36,28 @@ function editTask(id) {
     const element = todos[id];
     addSubtaskToEdit(element);
     loadSelectedPriority(element);
+    loadDisplayChosenContacts();
     addToSelectedContacts(element);
   }
   
 
-async function updateTask(id) {
-  const updatedTitle = document.getElementById("edit-task-title").value;
-  const updatedDescription = document.getElementById("edit-task-description").value;
-  const updatedDueDate = document.getElementById("edit-due-date").value;
-  const updatePriority = document.getElementById('edit-priority-choice');
-
-  const element = todos[id];
-  element.title = updatedTitle;
-  element.description = updatedDescription;
-  element.dueDate = updatedDueDate;
-
-  todos[id] = element; 
-  await setItem("tasks", JSON.stringify(todos)); 
-
-}
+  async function saveEditedTask(id) {
+    const element = todos[id];
+    element.title = document.getElementById("edit-task-title").value;
+    element.description = document.getElementById("edit-task-description").value;
+    element.dueDate = document.getElementById("edit-due-date").value;
+    element.category = selectedCategory;
+    element.priority = selectedPriority;
+    element.assignedTo = selectedContacts.map(contact => contact.name);
+    element.subtasks = subtasks;
+  
+    todos[id] = element;
+  
+    await setItem("tasks", JSON.stringify(todos));
+    editTaskSlide.classList.add("d-none");
+    updateHTML();
+    slideCard(id);
+  }
 
 function loadSelectedPriority(task) {
     const selectedPrio = task.priority;
@@ -148,10 +151,9 @@ function addToSelectedContacts(element) {
   for (let name of assigneds) {
     const contact = contacts.find(c => `${c.name} ${c.surename}` === name);
     if (contact) {
-      selectedContacts.push({
-        id: contact.id,
-        name: `${contact.name} ${contact.surename}`
-      });
+      if (!selectedContacts[contact.id]) {
+        selectedContacts[contact.id] = `${contact.name} ${contact.surename}`;
+      }
     }
   }
   loadRenderAssignedTo(selectedContacts);
@@ -166,7 +168,7 @@ async function loadRenderAssignedTo(selectedContacts) {
     let contact = contacts[i];
     let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
     
-    const isSelected = selectedContacts.some(selected => selected.id === contact.id);
+    const isSelected = selectedContacts[contact.id] || false;
 
     assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected);
   }
@@ -174,7 +176,7 @@ async function loadRenderAssignedTo(selectedContacts) {
 
 function renderAssignedToHTML (contact, initials, isSelected){
   return /* html */`
-    <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="loadToggleContactSelection('${contact.name}', '${contact.surename}')">
+    <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
         <div class="select-contact">
             <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
             <div class="select-name">${contact.name} ${contact.surename}</div>
@@ -199,7 +201,7 @@ function loadSearchedContact(contacts) {
 
 function loadRenderSearchedContactsHTML(contact, initials, isSelected) {
   return /*html*/`
-    <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="loadToggleContactSelection('${contact.name}', '${contact.surename}')">
+    <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
         <div class="select-contact">
             <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
             <div class="select-name">${contact.name} ${contact.surename}</div>
@@ -225,6 +227,24 @@ function loadToggleContactSelection(name, surename) {
   if (!contact) {
       return;
   }
+
+  if (selectedContacts[contact.id]) {
+    delete selectedContacts[contact.id];
+  } else {
+    selectedContacts[contact.id] = `${contact.name} ${contact.surename}`;
+  }
+
+  loadRenderAssignedTo(selectedContacts);
+  loadSearchedContact(contacts);
+  renderDisplayChosenContacts();
+}
+
+function toggleContactSelection(name, surename) {
+  const contact = contacts.find(c => c.name === name && c.surename === surename);
+
+  if (!contact) {
+      return;
+  }
   const contactId = contact.id;
   const contactKey = `${contact.name} ${contact.surename}`;
 
@@ -233,9 +253,9 @@ function loadToggleContactSelection(name, surename) {
   } else {
       selectedContacts[contactId] = contactKey;
   }
-  loadRenderAssignedTo();
+  loadRenderAssignedTo(selectedContacts);
   loadSearchedContact(contacts);
-  loadDisplayChosenContacts();
+  renderDisplayChosenContacts();
 }
 
 function loadToggleAssignedToContainer() {
@@ -253,20 +273,41 @@ function loadToggleAssignedToContainer() {
   contactsContainer.style.display = assignedToContainer.style.display;
 }
 
+function renderDisplayChosenContacts() {
+  let chosenContactsContainer = document.getElementById('edit-chosen-contacts');
+  chosenContactsContainer.innerHTML = '';
+
+  for (let i = 0; i < contacts.length; i++) {
+      const contact = contacts[i];
+      const isSelected = selectedContacts[contact.id];
+
+      if (isSelected) {
+          let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+          chosenContactsContainer.innerHTML += /*html*/`
+              <div class="chosen-contact">
+                  <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
+              </div>
+          `;
+      }
+  }
+}
 
 function loadDisplayChosenContacts() {
   const chosenContactsContainer = document.getElementById('edit-chosen-contacts');
   let htmlContent = '';
 
-  for (const selected of selectedContacts) {
-    const contact = contacts.find(c => c.id === selected.id && `${c.name} ${c.surename}` === selected.name);
-    if (contact) {
-      const initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
-      htmlContent += /*html*/`
-        <div class="chosen-contact">
-            <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-        </div>
-      `;
+  for (const id in selectedContacts) {
+    if (selectedContacts.hasOwnProperty(id)) {
+      const contactName = selectedContacts[id];
+      const contact = contacts.find(c => c.id === parseInt(id));
+      if (contact) {
+        const initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+        htmlContent += /*html*/`
+          <div class="chosen-contact">
+              <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
+          </div>
+        `;
+      }
     }
   }
 
