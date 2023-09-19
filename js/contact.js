@@ -65,9 +65,9 @@ let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
 /**
  * main function to initialize the whole site
  */
-async function initContact() {
+async function initContact() { 
+    /* await reloadContacts(); */
     await loadAllContacts();
-    // await reloadContacts();
     sortContacts();
     initLetters();
     showContacts();
@@ -86,17 +86,17 @@ async function loadAllContacts() {
     }
 }
 
-// let allContacts = [...contacts];
-// allContacts = contacts;
+/*  let allContacts = [...contacts];
+ allContacts = contacts;
 
-// async function reloadContacts() {
-//     try {
-//         allContacts = JSON.parse(await getItem('contacts'));
-//         console.log('Contacts:', allContacts);
-//     } catch (e) {
-//         console.error('Loading error:', e);
-//     }
-// }
+ async function reloadContacts() {
+     try {
+        await setItem('contacts', JSON.stringify(contacts));
+        console.log('Contacts:', allContacts);
+     } catch (e) {
+        console.error('Loading error:', e);
+     }
+ } */
 
 /**
  * sorts the contacts alphabeticly 
@@ -147,14 +147,7 @@ async function showContacts() {
         let firstLetter = contact.name.charAt(0).toUpperCase();
         let contactsList = document.getElementById(`container-contact-${firstLetter}`);
         let color = contact.bgcolor;
-        contactsList.innerHTML += `
-        <div class="contact" data-contact-index="${i}" onclick="handleContactClick(${i})">
-            <div class="initial" style="background-color: ${color}">${initials}</div>
-            <div class="container-name-email">
-                <div class="name">${contact.name} ${contact.surename}</div>
-                <div class="email">${contact.email}</div>
-            </div>
-        </div>`;
+        contactsList.innerHTML += showContactsHTML(i, color, initials, contact);
     }
 }
 
@@ -238,9 +231,23 @@ function showContactDetailsMobile(index) {
 
 function showEditContactsButtonsMobile() {
     let element = document.getElementById('contact-mobile-buttons');
-    let header = document.getElementById('contact-detailed-head')
+    let header = document.getElementById('contact-detailed-head');
     header.classList.add('hide-it');
     element.classList.remove('hide-it');
+
+    // Erstellen der unsichtbaren div
+    let invisibleDiv = document.createElement('div');
+    invisibleDiv.id = 'invisibleDiv';
+    invisibleDiv.style.position = 'fixed';
+    invisibleDiv.style.top = '0';
+    invisibleDiv.style.left = '0';
+    invisibleDiv.style.width = '100%';
+    invisibleDiv.style.height = '100%';
+    invisibleDiv.style.zIndex = '100'; // Stellen Sie sicher, dass es über anderen Elementen liegt
+    invisibleDiv.onclick = closeButtonsMobile;
+
+    // Fügen Sie die unsichtbare div zum DOM hinzu
+    document.body.appendChild(invisibleDiv);
 }
 
 function returnToContactsMobile(){
@@ -419,14 +426,6 @@ function generateEditContactModal(index) {
     editContainer.innerHTML = generateEditContactModalHTML(index, initials, contact);
 }
 
-/* function generateEditContactMobileModal(index) {
-    let contact = contacts[index];
-    let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
-    let editMobileContainer = document.getElementById('editMobileModal');
-    editMobileContainer.innerHTML = generateEditContactMobileModalHTML(index, initials, contact);
-} */
-
-
 /**
  * this functions opens the edit modal
  */
@@ -439,7 +438,6 @@ function openEditModal() {
     modal.classList.add('editModal-slide-in');
 }
 
-
 /**
  * this function closes the edit modal
  */
@@ -449,6 +447,17 @@ function closeEditModal() {
     modal.classList.remove('editModal-slide-in');
     modal.classList.add('editModal-slide-out');
     overlay.style.display = "none"; // Verstecke den Overlay 
+}
+
+function closeButtonsMobile() {
+    let element = document.getElementById('contact-mobile-buttons');
+    let header = document.getElementById('contact-detailed-head');
+    header.classList.remove('hide-it');
+    element.classList.add('hide-it');
+
+    // Entfernen der unsichtbaren div
+    let invisibleDiv = document.getElementById('invisibleDiv');
+    document.body.removeChild(invisibleDiv);
 }
 
 // Verstecke den Modal nach der Animation

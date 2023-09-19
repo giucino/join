@@ -41,16 +41,29 @@ function showContactDetailsMobileHTML(contact, initials, index) {
             <div class="contact-detailed-text">Telefon: </div> <div class="phone"> ${contact.telefon}</div> 
         </div>    
             <div class="contact-detailed-mobile-return" onclick="returnToContactsMobile()"><img src="./img/arrow-left-line.png">
+        </div> 
+        <div id="contact-detailed-head" onclick="showEditContactsButtonsMobile()">
+            <div class="contact-detailed-images-head"><img src="./img/more_vert.svg"></div>
         </div>
-        
-            <div id="contact-detailed-head" onclick="showEditContactsButtonsMobile()">
-                <div class="contact-detailed-images-head"><img src="./img/more_vert.svg"></div>
-            </div>
-            <div id="contact-mobile-buttons" class="contact-detailed-mobile-buttons, hide-it">
-                <div id="contact-detailed-button-edit" class="contact-detailed-images-mobile" onclick="editContact(${index})"><img src="./img/edit.png">Edit</div>
-                <div id="contact-detailed-button-delete" class="contact-detailed-images-mobile" onclick="deleteContact(${index})"><img src="./img/delete.png">Delete</div>
-            </div>
+        <div id="contact-mobile-buttons" class="contact-detailed-mobile-buttons, hide-it">
+            <div id="contact-detailed-button-edit" class="contact-detailed-images-mobile" onclick="editContact(${index})"><img src="./img/edit.png">Edit</div>
+            <div id="contact-detailed-button-delete" class="contact-detailed-images-mobile" onclick="deleteContact(${index})"><img src="./img/delete.png">Delete</div>
+        </div>
+        <div class="add-Contact-Mobile-button">
+            <div> </div>
+        </div>
     `;
+}
+
+function showContactsHTML(i, color, initials, contact){
+    return `
+        <div class="contact" data-contact-index="${i}" onclick="handleContactClick(${i})">
+            <div class="initial" style="background-color: ${color}">${initials}</div>
+            <div class="container-name-email">
+                <div class="name">${contact.name} ${contact.surename}</div>
+                <div class="email">${contact.email}</div>
+            </div>
+        </div>`;
 }
 
 function generateEditContactModalHTML(index, initials, contact) {

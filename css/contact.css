@@ -762,8 +762,6 @@
         /* oder die Breite, die Sie wünschen */
     }
 
-
-
     .edit-content {
         /* ... (Ihre bisherigen Stile) ... */
         position: static;
@@ -775,7 +773,6 @@
         top: -85px;
         right: -255px;
     }
-
 }
 
 @media(max-width: 1180px) {
