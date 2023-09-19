@@ -98,7 +98,6 @@ async function loadAllContacts() {
 //     }
 // }
 
-
 /**
  * sorts the contacts alphabeticly 
  */
