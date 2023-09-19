@@ -66,6 +66,55 @@ function showContactsHTML(i, color, initials, contact){
         </div>`;
 }
 
+
+function generateAddContactModalHTML() {
+    return /*html*/`
+    <div class="modal-content">
+            <div class="modal-content-top">
+                <div id="closeContactModalBtn" onclick="closeModal()"><img class="close" src="./img/close_contact.png"
+                        alt="Close Modal"></div>
+                <div class="modal-logo"><img src="./img/join_logo.png"></div>
+                <div class="modal-headline">Add contact</div>
+                <div class="modal-text">Tasks are better with a team!</div>
+            </div>
+            <div class="modal-input-container">
+                <div class="modal-input-img">
+                    <img src="./img/person_add.png">
+                </div>
+                <div class="modal-input-row">
+                    <div class="modal-input-frame">
+                        <input class="modal-input-field" required type="text" id="fullName" placeholder="Name">
+                        <img class="modal-input-icon" src="img/person.png" alt="Name">
+                    </div>
+
+                    <div class="modal-input-frame">
+                        <input class="modal-input-field" required type="email" id="newEmail" name="email"
+                            autocomplete="email" placeholder="Email">
+                        <img class="modal-input-icon" src="img/mail.png" alt="Email">
+                    </div>
+                    <div class="modal-input-frame">
+                        <input class="modal-input-field" required type="email" id="newTelefon" placeholder="Phone">
+                        <img class="modal-input-icon" src="img/call.svg" alt="Phone">
+                    </div>
+                </div>
+                <div class="add-contact-buttons">
+                    <div class="add-contact-buttons-inner">
+                        <button onclick="closeModal()" type="button" class="button-clear">
+                            Cancel
+                            <img class="button-clear-pic" src="./img/cancel-icon.svg">
+                        </button>
+                        <button onclick="saveNewContact()" type="submit" id="saveContactBtn" class="button-create-task">
+                            Create contact
+                            <img class="button-create-task-pic" src="./img/check.svg">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `
+}
+
+
 function generateEditContactModalHTML(index, initials, contact) {
     return `
  <div class="edit-content" data-index="${index}">
