@@ -651,8 +651,16 @@
         display: none !important;
     }
 
-    .add-person-button {
+    .addContactBtnText {
         display: none;
+    }
+
+    .add-person-button {
+        position: absolute;
+        right: 100px;
+        bottom: 100px;
+        padding: 16px;
+        width: auto;
     }
 
     .container {
@@ -676,7 +684,6 @@
         padding: 40px;
         height: 1000px;
         top: 0;
-        z-index: 5;
     }
 
     .contact-detailed-images-head {
@@ -694,6 +701,14 @@
         gap: 10px;
         cursor: pointer;
     }
+    #invisibleDiv {
+        position : fixed;
+        top : 0;
+        left : 0;
+        width : 100%;
+        height : 100%;
+        z-Index : 6;
+    }
 
     #contact-mobile-buttons {
         cursor: pointer;
@@ -708,6 +723,7 @@
         /* stronger */
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
         animation: slide 0.5s ease-in-out;
+        z-index: 10;
     }
 
     @keyframes slide {
@@ -724,6 +740,7 @@
         display: flex;
         width: 96px;
         padding: 8px;
+        z-index: 1000;
         align-items: center;
         gap: 8px;
         color: #2A3647;
@@ -767,8 +784,8 @@
         position: static;
         /* oder entfernen Sie die position: absolute; */
     }
-    
-    #closeEditModalBtn{
+
+    #closeEditModalBtn {
         position: relative;
         top: -85px;
         right: -255px;
@@ -793,5 +810,11 @@
 @media(max-width: 768px) {
     .container {
         margin-left: 0;
+    }
+}
+
+@media(max-width: 450px) {
+    .all-content {
+        width: 300px;
     }
 }

@@ -218,6 +218,7 @@ function showContactDetails(index) {
 
 function showContactDetailsMobile(index) {
     // Verstecken Sie die Kontaktliste und zeigen Sie die Kontaktinformationen an
+    document.getElementById('addContactBtn').style.display = 'none';
     document.getElementById('contact-list-container').style.display = 'none';
     let detailsContainer = document.getElementById('contact-details-mobile');
     detailsContainer.style.display = 'block';
@@ -230,20 +231,14 @@ function showContactDetailsMobile(index) {
 }
 
 function showEditContactsButtonsMobile() {
-    let element = document.getElementById('contact-mobile-buttons');
+    let elements = document.getElementById('contact-mobile-buttons');
     let header = document.getElementById('contact-detailed-head');
     header.classList.add('hide-it');
-    element.classList.remove('hide-it');
+    elements.classList.remove('hide-it');
 
     // Erstellen der unsichtbaren div
     let invisibleDiv = document.createElement('div');
     invisibleDiv.id = 'invisibleDiv';
-    invisibleDiv.style.position = 'fixed';
-    invisibleDiv.style.top = '0';
-    invisibleDiv.style.left = '0';
-    invisibleDiv.style.width = '100%';
-    invisibleDiv.style.height = '100%';
-    invisibleDiv.style.zIndex = '100'; // Stellen Sie sicher, dass es über anderen Elementen liegt
     invisibleDiv.onclick = closeButtonsMobile;
 
     // Fügen Sie die unsichtbare div zum DOM hinzu
