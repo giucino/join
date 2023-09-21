@@ -23,6 +23,10 @@
     transition: 1.0s;
 }
 
+.open-task{
+    bottom: 0 !important;
+}
+
 .edit-slide-in {
     bottom: 0 !important;
     transition: 1.0s;

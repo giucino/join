@@ -28,6 +28,12 @@ function slideCardAnimationEditTask() {
   }
 }
 
+function closeEditedTask() {  
+  const editTaskSlide = document.getElementById("edit-task-slide");
+  const editSlideContainer = document.getElementById("edit-slide-container");
+  editSlideContainer.classList.remove("edit-slide-in");
+  editTaskSlide.classList.add("d-none");
+}
 
 function editTask(id) {
     const slideEditTask = document.getElementById("edit-task-slide");
@@ -42,21 +48,33 @@ function editTask(id) {
   }
   
 
-  async function saveEditedTask(id) {
-    const element = todos[id];
-    element.title = document.getElementById("edit-task-title").value;
-    element.description = document.getElementById("edit-task-description").value;
-    element.dueDate = document.getElementById("edit-due-date").value;
-    element.category = selectedCategory;
-    element.priority = selectedPriority;
-    element.assignedTo = selectedContacts.map(contact => contact.name);
-    element.subtasks = subtasks;
+async function saveEditedTask(id) {
+  const element = todos[id];
+  const currentStatus = element.status;
+  element.title = document.getElementById("edit-task-title").value;
+  element.description = document.getElementById("edit-task-description").value;
+  element.dueDate = document.getElementById("edit-due-date").value;
+  element.status = currentStatus;
+  element.category = selectedCategory;
+  element.priority = selectedPriority;
+  element.assignedTo = selectedContacts.filter(contact => contact !== undefined);
+  element.subtasks = element.subtasks;
+  element.id = element.id;
+  todos[id] = element;
+  console.log(todos[id]);
+  console.log(todos);
+  await setItem("tasks", JSON.stringify(todos));
+  openEditedTask(element.id);
+  closeEditedTask(element.id);
+}
+
+function openEditedTask(id) {
+  const slideCard = document.getElementById('task-slide');
+  slideCard.innerHTML = renderSlideCard(id);
+  document.getElementById('task-slide').classList.remove('d-none');
+  document.getElementById('slide-container').classList.add('open-task');  
   
-    todos[id] = element;
-  
-    await setItem("tasks", JSON.stringify(todos));
-    editTaskSlide.classList.add("d-none");
-  }
+}
 
 function loadSelectedPriority(task) {
     const selectedPrio = task.priority;
@@ -347,9 +365,10 @@ function editRenderCategorys() {
 }
 
 function loadRenderCategory(element) {
-  const selectedCategory = document.querySelector('.edit-select-text');
+  const renderCategory = document.querySelector('.edit-select-text');
   const category = element.category;
-  selectedCategory.textContent = category;
+  renderCategory.textContent = category;
+  selectedCategory = category;
 }
 
 function categorySelected(category) {

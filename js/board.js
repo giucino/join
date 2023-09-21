@@ -9,13 +9,11 @@ let currentFilter = '';
 async function updateHTML() {
     await loadData();
     await loadContactsFromStorage();
-    await pushData();
     todo();
     inProgress();
     feedback();
     done();
     noTasks();
-    /* await loadDatas(); */
 }
 
 
@@ -27,9 +25,13 @@ function refreshHTML() {
     noTasks();
 }
 
-
-/* let allTodos = [...todos];
+let allTodos = [...todos];
 allTodos = todos;
+
+async function resetBackend() {
+    await setItem('tasks', JSON.stringify(allTodos));
+    await loadDatas();
+}
 
 async function loadDatas() {
     try {
@@ -38,13 +40,12 @@ async function loadDatas() {
     } catch (e) {
         console.error('Loading error:', e);
     }
-} */
+} 
 
 
 async function pushData() {
     await setItem('tasks', JSON.stringify(todos));
 }
-
 
 async function loadData() {
     try {
@@ -187,7 +188,7 @@ function generateTasksHTML(element) {
             const additionalClass = `negativ-gap-${leftPosition}`;
             leftPosition -= 7;
 
-            assignedToHTML += `
+            assignedToHTML += /* html */`
                 <div class="user-marked media ${additionalClass}" style="background-color: ${bgcolor}">
                     ${initials}
                 </div>
@@ -225,10 +226,10 @@ function generateTasksHTML(element) {
     const allTasksHTML = /*html*/`
         <span id="all-tasks">${allTasksCount}</span>
     `;
-    /* await pushData();
-    await loadData(); */
+    
+
     return /*html*/`
-    <div id="board-card${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container task-touch">
+    <div id="${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container task-touch">
         <div class="content-container-inner">
             <div class="board-category">${element.category}</div>
             <div class="title-content">
@@ -284,7 +285,6 @@ function setPriorityImage(priority) {
  */
 function startDragging(id) {
     currentDraggedElement = id;
-    console.log(currentDraggedElement);
 }
 
 
@@ -310,11 +310,11 @@ function moveTo(status) {
 
 
 function polyfill() {
+    let currentTask;
     // Define the dragstart event.
     document.addEventListener("dragstart", function (ev) {
         // Get the id of the element being dragged.
         const id = ev.target.id;
-
         // Set the current dragged element.
         currentTask = todos.find(task => task.id === id);
     });
@@ -338,7 +338,7 @@ function polyfill() {
     });
 }
 
-polyfill();
+
 
 /**
  * Filter tasks based on a search term and status.
@@ -407,7 +407,6 @@ function slideCard(id) {
     slideCard.innerHTML = renderSlideCard(id);
     slideCardAnimation();
 }
-
 
 /**
  * Generate HTML markup for the task slide card.
