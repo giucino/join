@@ -302,7 +302,7 @@ body {
     background: #FFBB2B;
 }
 
-.subtasks-container {
+.board-subtasks-container {
     box-sizing: border-box;
     display: flex;
     padding-right: 0px;
