@@ -449,9 +449,9 @@ body {
 
 
 @media(max-width: 428px) {
-    /* .mobile {
+    .mobile {
         transform: scale(0.7);
-    } */
+    }
 
     .summery-container {
         padding-top: 64px;
