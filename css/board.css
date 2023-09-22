@@ -3,6 +3,10 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+.noscroll{
+    overflow: hidden;
+}
+
 .search-add-task-container {
     display: flex;
     position: absolute;
@@ -23,7 +27,7 @@ body {
 
     .search-add-task-container {
         position: static;
-        padding: 168px 0 0 10px;
+        padding: 94px 0 0 10px;
         justify-content: center;
     }
 }
