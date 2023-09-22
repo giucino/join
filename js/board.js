@@ -15,6 +15,9 @@ async function updateHTML() {
     noTasks();
 }
 
+/** 
+ * Refresh the HTML for all task categories.
+ */
 function refreshHTML() {
     todo();
     inProgress();
@@ -26,11 +29,17 @@ function refreshHTML() {
 let allTodos = [...todos];
 allTodos = todos;
 
+/** 
+ * Resets the backend data with the current 'allTodos' state.
+ */
 async function resetBackend() {
     await setItem('tasks', JSON.stringify(allTodos));
     await loadDatas();
 }
 
+/** 
+ * Load tasks data from storage into 'allTodos'.
+ */
 async function loadDatas() {
     try {
         allTodos = JSON.parse(await getItem('tasks'));
@@ -40,10 +49,16 @@ async function loadDatas() {
     }
 } 
 
+/** 
+ * Push the current tasks data into storage.
+ */
 async function pushData() {
     await setItem('tasks', JSON.stringify(todos));
 }
 
+/** 
+ * Load tasks data from storage into 'todos'.
+ */
 async function loadData() {
     try {
         todos = JSON.parse(await getItem('tasks'));
@@ -52,6 +67,9 @@ async function loadData() {
     }
 }
 
+/** 
+ * Load contact data from storage into 'contacts'.
+ */
 async function loadContactsFromStorage() {
     try {
         contacts = JSON.parse(await getItem('contacts'));
@@ -65,15 +83,11 @@ async function loadContactsFromStorage() {
  * @param {object} task the task whose information should be rendered
  */
 function boardDetailViewAssignees(task) {
-
     let container = document.getElementById('board-detail-view-assignees');
     container.innerHTML = 'Assigned to:';
-
     for (let i = 0; i < task.assigned_to.length; i++) {
         const assignee = task.assigned_to[i];
-
-        container.innerHTML += /*html*/ `
-        
+        container.innerHTML += /*html*/ `        
         <div>
             ${htmlTemplateAssigneeIcon(assignee)}
             ${assignee}
@@ -174,6 +188,11 @@ function generateTasks(element) {
     return generatedHTML;
 }
 
+/** 
+ * Extracts initials from a full name.
+ * @param {string} name - Full name to extract initials from.
+ * @returns {string} Extracted initials.
+ */
 function extractInitials(name) {
     const names = name.split(' ');
     let initials = '';
@@ -185,6 +204,11 @@ function extractInitials(name) {
     return initials;
 }
 
+/** 
+ * Determine the appropriate image source based on priority.
+ * @param {string} priority - The priority level (low, medium, high).
+ * @returns {string} The URL to the appropriate image.
+ */
 function setPriorityImage(priority) {
     let imageSrc = '';
     if (priority === 'low') {
@@ -197,25 +221,25 @@ function setPriorityImage(priority) {
     return imageSrc;
 }
 
-/**
- * Set the currently dragged element.
- * @param {number} id - The id of the element being dragged.
+/** 
+ * Set the task that's currently being dragged.
+ * @param {number} id - ID of the task that's being dragged.
  */
 function startDragging(id) {
     currentDraggedElement = id;
 }
 
-/**
- * Allow dropping elements on drop zones.
+/** 
+ * Handles the dragover event to allow dropping.
  * @param {Event} ev - The dragover event.
  */
 function allowDrop(ev) {
     ev.preventDefault();
 }
 
-/**
- * Move a task to a specified status.
- * @param {string} status - The status to move the task to.
+/** 
+ * Moves a task to a specified status and updates the UI.
+ * @param {string} status - The new status for the dragged task.
  */
 function moveTo(status) {
     todos[currentDraggedElement].status = status;
@@ -224,6 +248,9 @@ function moveTo(status) {
     updateHTML();
 }
 
+/** 
+ * Implement drag and drop functionality.
+ */
 function polyfill() {
     let currentTask;
     // Define the dragstart event.
@@ -244,7 +271,6 @@ function polyfill() {
     document.addEventListener("drop", function (ev) {
         // Get the status of the drop zone.
         const status = ev.target.getAttribute("data-status");
-
         // Move the task to the specified status.
         currentTask.status = status;
         pushData();
@@ -266,8 +292,8 @@ function filterTasks(searchTerm, status) {
     return filteredTasks;
 }
 
-/**
- * Set the current filter based on input value.
+/** 
+ * Set the current filter based on the value in the input field and refresh the UI.
  */
 function setFilter() {
     let searchText = document.getElementById('input-field');
@@ -276,10 +302,12 @@ function setFilter() {
     updateHTML();
 }
 
+/** 
+ * Event listeners for the DOMContentLoaded event.
+ */
 document.addEventListener('DOMContentLoaded', function () {
     const input = document.getElementById('input-field');
     const inputBtn = document.getElementById('search');
-
     input.addEventListener('keypress', function (event) {
         if (event.key === 'Enter') {
             inputBtn.click();
@@ -287,38 +315,42 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-/**
- * Close the task card.
+/** 
+ * Close the task card with a slide out animation.
  */
 function closeCard() {
-    document.getElementById('slide-container').classList.remove('slide-in');
+    document.getElementById('slide-container').classList.remove('slide-in-board');
     setTimeout(() => {
         document.getElementById('task-slide').classList.add('d-none');
+        document.getElementById('noscroll').classList.remove('noscroll');
     }, 800);
 }
 
-/**
- * Slideanimation for the task card.
+/** 
+ * Triggers the slide in animation for the task card.
  */
 function slideCardAnimation() {
     document.getElementById('task-slide').classList.remove('d-none');
     setTimeout(() => {
-        document.getElementById('slide-container').classList.add('slide-in');
+        document.getElementById('slide-container').classList.add('slide-in-board');
     }, 50);
 }
 
-/**
- * Slide open the task card.
+/** 
+ * Render and slide open the task card.
+ * @param {number} id - ID of the task to render in the card.
  */
 function slideCard(id) {
     const slideCard = document.getElementById('task-slide');
     slideCard.innerHTML = renderSlideCard(id);
     slideCardAnimation();
+    document.getElementById('noscroll').classList.add('noscroll');
 }
 
-/**
- * Generate HTML markup for the task slide card.
- * @returns {string} HTML markup for the task slide card.
+/** 
+ * Generates the HTML markup for the slide card.
+ * @param {number} id - ID of the task to generate markup for.
+ * @returns {string} HTML markup for the slide card.
  */
 function renderSlideCard(id) {
     const element = todos[id];
@@ -329,6 +361,10 @@ function renderSlideCard(id) {
     return generateSlideHTML;
 }
 
+/** 
+ * Remove a task from the 'todos' list and update the UI.
+ * @param {number} id - ID of the task to delete.
+ */
 function deleteTask(id) {
     const indexToDelete = todos.findIndex(task => task.id === id);
     if (indexToDelete === -1) {
@@ -342,12 +378,19 @@ function deleteTask(id) {
     refreshHTML();
 }
 
+/** 
+ * Update the ID properties for all tasks in the 'todos' list.
+ */
 function updateIDs() {
     for (let i = 0; i < todos.length; i++) {
         todos[i].id = i;
     }
 }
 
+/** 
+ * Remove the HTML element for a task card.
+ * @param {number} id - ID of the task card to delete.
+ */
 function deleteCard(id) {
     const elementToRemove = document.getElementById(`board-card${id}`);
     if (elementToRemove) {

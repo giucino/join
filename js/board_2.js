@@ -1,3 +1,11 @@
+/**
+ * Updates the status of a specific subtask and pushes the updated data.
+ * 
+ * @async
+ * @param {number} taskId - ID of the task.
+ * @param {number} subtaskIndex - Index of the subtask to be updated.
+ * @param {boolean} isChecked - New status of the subtask.
+ */
 async function updateSubtaskStatus(taskId, subtaskIndex, isChecked) {
     if (taskId >= 0 && taskId < todos.length && subtaskIndex >= 0 && subtaskIndex < todos[taskId].subtasks.length) {
         todos[taskId].subtasks[subtaskIndex].status = isChecked;
@@ -7,6 +15,11 @@ async function updateSubtaskStatus(taskId, subtaskIndex, isChecked) {
     }
 }
 
+/**
+ * Updates the progress bar based on completed subtasks.
+ * 
+ * @param {number} taskId - ID of the task.
+ */
 function updateProgressBar(taskId) {
     const task = todos[taskId];
     const progressBar = document.getElementById(`progress-bar${task.id}`);
@@ -22,6 +35,12 @@ function updateProgressBar(taskId) {
     allTasks.innerHTML = allTasksCount;
 }
 
+/**
+ * Renders the assigned users and their initials.
+ * 
+ * @param {Object} element - Task element containing assigned users.
+ * @returns {string} HTML string of rendered users.
+ */
 function renderAssigned(element){
     let assignedToHTML = '';
     const filteredAssignedTo = element.assignedTo.filter(name => name !== undefined);
@@ -42,6 +61,14 @@ function renderAssigned(element){
     return assignedToHTML;
 }
 
+/**
+ * Generates HTML for a specific assigned user.
+ * 
+ * @param {string} additionalClass - Additional CSS class for the user.
+ * @param {string} bgcolor - Background color for the user's badge.
+ * @param {string} initials - Initials of the assigned user.
+ * @returns {string} HTML string for the assigned user.
+ */
 function generateAssignedHTML(additionalClass, bgcolor, initials){
     return /* html */`
         <div class="user-marked media ${additionalClass}" style="background-color: ${bgcolor}">
@@ -50,6 +77,11 @@ function generateAssignedHTML(additionalClass, bgcolor, initials){
     `;
 }
 
+/**
+ * Generates the HTML representation of a subtask and counts completed subtasks.
+ * @param {Object} element - The parent task containing subtasks.
+ * @returns {Object} An object containing the generated HTML and the count of completed subtasks.
+ */
 function renderSubtask(element){
     let subtasksHTML;
     let completedTasksCount = 0;
@@ -69,6 +101,11 @@ function renderSubtask(element){
     return { subtasksHTML, completedTasksCount };
 }
 
+/**
+ * Generates the HTML representation of a single subtask.
+ * @param {Object} subtask - The subtask data.
+ * @returns {string} The generated HTML for the subtask.
+ */
 function generateSubtaskHTML(subtask){
     return /*html*/`
         <div class="task-slide-subtask">
@@ -78,24 +115,51 @@ function generateSubtaskHTML(subtask){
     `;
 }
 
+/**
+ * Generates the HTML representation of a progress bar.
+ * @param {Object} element - The task or entity the progress bar is associated with.
+ * @param {number} progress - The current progress percentage.
+ * @returns {string} The generated HTML for the progress bar.
+ */
 function progressBarHTML(element, progress){
     return /*html*/`
         <div class="progress-bar" id="progress-bar${element.id}" style="width: ${progress}%;"></div>
     `;
 }
 
+/**
+ * Generates the HTML representation showing the number of completed tasks.
+ * @param {number} completedTasksCount - Count of completed tasks.
+ * @returns {string} The generated HTML showing the number of completed tasks.
+ */
 function numberTasksHTML(completedTasksCount){
     return /*html*/`
         <span id="number-tasks">${completedTasksCount}</span>
     `;
 }
 
+/**
+ * Generates the HTML representation showing the total number of tasks.
+ * @param {number} allTasksCount - Total count of tasks.
+ * @returns {string} The generated HTML showing the total number of tasks.
+ */
 function allTasksHTML(allTasksCount){
     return /*html*/`
         <span id="all-tasks">${allTasksCount}</span>
     `;
 }
 
+/**
+ * Generates the HTML for a given task element.
+ *
+ * @param {Object} element - The task element containing its details.
+ * @param {string} priorityImageSrc - The source URL for the priority image.
+ * @param {string} assignedToHTML - The HTML string representing assigned users.
+ * @param {string} progressBar - The HTML string representing the task's progress bar.
+ * @param {string} numberTasks - The count of completed tasks.
+ * @param {string} allTasks - The total count of tasks.
+ * @returns {string} The generated HTML string.
+ */
 function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBar, numberTasks, allTasks){
     return /*html*/`
     <div id="${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container task-touch">
@@ -121,6 +185,12 @@ function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBa
     </div>`;
 }
 
+/**
+ * Renders the assigned users for a task in the slide view.
+ *
+ * @param {Object} element - The task element containing its details.
+ * @returns {string} The generated HTML string for assigned users.
+ */
 function renderSlideAssigned(element){
     let assignedToHTML = '';
     const filteredAssignedTo = element.assignedTo.filter(name => name !== null);
@@ -136,6 +206,14 @@ function renderSlideAssigned(element){
     return assignedToHTML;
 }
 
+/**
+ * Renders the HTML for an assigned user in the slide view.
+ *
+ * @param {string} initials - The initials of the assigned user.
+ * @param {string} name - The full name of the assigned user.
+ * @param {string} bgcolor - The background color for the user mark.
+ * @returns {string} The generated HTML string for an assigned user.
+ */
 function renderSlideAssignedHTML(initials, name, bgcolor){
     return /*html*/`
         <div class="task-slide-assigned-user">
@@ -145,6 +223,13 @@ function renderSlideAssignedHTML(initials, name, bgcolor){
     `;
 }
 
+/**
+ * Renders the subtasks for a task in the slide view.
+ *
+ * @param {Object} element - The task element containing its details.
+ * @param {number} id - The ID of the task element.
+ * @returns {string} The generated HTML string for subtasks.
+ */
 function renderSlideSubtask(element, id){
     let subtasksHTML = '';
     if (element.subtasks && Array.isArray(element.subtasks)) {
@@ -152,13 +237,21 @@ function renderSlideSubtask(element, id){
             const subtask = element.subtasks[i];
             if (subtask.title) {
                 subtasksHTML += renderSlideSubtaskHTML(subtask, i, id);
-                updateHTML()
+                updateHTML();
             };
         }
     }
     return subtasksHTML;
 }
 
+/**
+ * Renders the HTML for a subtask in the slide view.
+ *
+ * @param {Object} subtask - The subtask details.
+ * @param {number} i - The index of the subtask.
+ * @param {number} id - The ID of the parent task element.
+ * @returns {string} The generated HTML string for a subtask.
+ */
 function renderSlideSubtaskHTML(subtask, i, id){
     return /*html*/`
         <div class="task-slide-subtask">
@@ -168,6 +261,16 @@ function renderSlideSubtaskHTML(subtask, i, id){
     `;
 }
 
+/**
+ * Generates the overall task HTML representation.
+ * @param {Object} element - The task data.
+ * @param {string} priorityImageSrc - The source URL of the priority image.
+ * @param {string} assignedToHTML - The HTML representation of assigned users.
+ * @param {string} progressBar - The HTML representation of the progress bar.
+ * @param {string} numberTasks - The HTML representation of the number of tasks.
+ * @param {string} allTasks - The HTML representation of all tasks.
+ * @returns {string} The generated HTML for the overall task.
+ */
 function renderSlideCardHTML(element, priorityImageSrc, assignedToHTML, subtasksHTML){
     return /*html*/ `
     <div id="slide-container" class="slide-container">
