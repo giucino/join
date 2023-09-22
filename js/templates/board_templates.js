@@ -35,10 +35,6 @@ function subtaskToEditHTML(subtask, i) {
 
 function renderEditTask(id) {
     const task = todos.find((todo) => todo.id === id);
-    
-
-    
-
     return /* html */ `
         <div id="edit-slide-container" class="edit-slide-container">
             <form id="edit-taskForm" onsubmit="saveEditedTask(${id}); return false;" class="edit-task-slide-container">

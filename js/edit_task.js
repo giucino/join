@@ -28,15 +28,15 @@ function slideCardAnimationEditTask() {
   }
 }
 
-function closeEditedTask() {  
+/* function closeEditedTask() {  
   const editTaskSlide = document.getElementById("edit-task-slide");
   const editSlideContainer = document.getElementById("edit-slide-container");
   editSlideContainer.classList.remove("edit-slide-in");
   editTaskSlide.classList.add("d-none");
 }
-
+ */
 function editTask(id) {
-  const slideEditTask = document.getElementById("edit-task-slide");
+  const slideEditTask = document.getElementById("task-slide");
   slideEditTask.innerHTML = renderEditTask(id);
   slideCardAnimationEditTask();
   const element = todos[id];
@@ -63,7 +63,6 @@ async function saveEditedTask(id) {
   todos[id] = element;
   await setItem("tasks", JSON.stringify(todos));
   openEditedTask(element.id);
-  closeEditedTask(element.id);
 }
 
 function openEditedTask(id) {
