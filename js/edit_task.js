@@ -36,17 +36,17 @@ function closeEditedTask() {
 }
 
 function editTask(id) {
-    const slideEditTask = document.getElementById("edit-task-slide");
-    slideEditTask.innerHTML = renderEditTask(id);
-    slideCardAnimationEditTask();
-    const element = todos[id];
-    addSubtaskToEdit(element);
-    loadSelectedPriority(element);
-    loadDisplayChosenContacts();
-    addToSelectedContacts(element);
-    loadRenderCategory(element);
-  }
-  
+  const slideEditTask = document.getElementById("edit-task-slide");
+  slideEditTask.innerHTML = renderEditTask(id);
+  slideCardAnimationEditTask();
+  const element = todos[id];
+  addSubtaskToEdit(element);
+  loadSelectedPriority(element);
+  loadDisplayChosenContacts();
+  addToSelectedContacts(element);
+  loadRenderCategory(element);
+}
+
 
 async function saveEditedTask(id) {
   const element = todos[id];
@@ -61,8 +61,6 @@ async function saveEditedTask(id) {
   element.subtasks = element.subtasks;
   element.id = element.id;
   todos[id] = element;
-  console.log(todos[id]);
-  console.log(todos);
   await setItem("tasks", JSON.stringify(todos));
   openEditedTask(element.id);
   closeEditedTask(element.id);
@@ -135,16 +133,12 @@ function highlightButton(button, bgColor, imageSrc) {
 }
 
 function addNewSubtask() {
-    const subInput = document.getElementById('edit-subtask-input');
-    const subInputValue = subInput.value;
-    const subtaskContainer = document.getElementById("edit-subtask-add-container");
-    
-    if (!subInputValue) {
-        return;
-    }
+  const subInput = document.getElementById('edit-subtask-input');
+  const subInputValue = subInput.value;
+  const subtaskContainer = document.getElementById("edit-subtask-add-container");
 
-    subtaskContainer.innerHTML += subtaskToAddHTML(subInputValue);
-    subInput.value = '';
+  subtaskContainer.innerHTML += subtaskToAddHTML(subInputValue);
+  subInput.value = '';
 }
 
 function addSubtaskToEdit(element) {
@@ -153,7 +147,7 @@ function addSubtaskToEdit(element) {
     for (let i = 0; i < element.subtasks.length; i++) {
       const subtask = element.subtasks[i];
       if (subtask.title) {
-        subtasksHTML += subtaskToEditHTML(subtask);
+        subtasksHTML += subtaskToEditHTML(subtask, i);
       }
     }
     const subtaskContainer = document.getElementById("edit-subtask-add-container");
@@ -365,9 +359,7 @@ function editRenderCategorys() {
 }
 
 function loadRenderCategory(element) {
-  const renderCategory = document.querySelector('.edit-select-text');
-  const category = element.category;
-  renderCategory.textContent = category;
+  const category = element.category;  
   selectedCategory = category;
 }
 
@@ -387,3 +379,37 @@ function categorySelected(category) {
   categoryDropdown.classList.remove('expanded');
 }
 
+function openSubtaskInput() {
+  document.querySelector('.open-subtask-button').style.display = 'none';
+  document.getElementById('edit-subtask-input').focus();
+  document.getElementById('edit-separator').style.display = 'inline-flex'
+  let otherButtons = document.querySelectorAll('.add-subtask-button');
+  for (let i = 0; i < otherButtons.length; i++) {
+      otherButtons[i].style.display = 'inline-block';
+  }
+}
+
+
+function closeSubtaskInput() {
+  document.querySelector('.open-subtask-button').style.display = 'inline-block';
+  document.querySelector('.new-subtask-textfield').value = '';
+  document.getElementById('edit-separator').style.display = 'none'
+  let otherButtons = document.querySelectorAll('.add-subtask-button');
+  for (let i = 0; i < otherButtons.length; i++) {
+      otherButtons[i].style.display = 'none';
+  }
+}
+
+
+function deleteSubtask(subtaskId) {
+  const indexToDelete = subtasks.findIndex(subtask => subtask.id === subtaskId);
+
+  if (indexToDelete !== -1) {
+      subtasks.splice(indexToDelete, 1);
+
+      const subtaskElement = document.getElementById(subtaskId);
+      if (subtaskElement) {
+          subtaskElement.parentElement.parentElement.remove();
+      }
+  }
+}
