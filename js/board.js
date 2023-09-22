@@ -1,7 +1,6 @@
 let currentDraggedElement;
 let currentFilter = '';
 
-
 /**
  * Update the HTML for all task categories.
  * Calls functions to update HTML for each category.
@@ -15,7 +14,6 @@ async function updateHTML() {
     done();
     noTasks();
 }
-
 
 function refreshHTML() {
     todo();
@@ -42,7 +40,6 @@ async function loadDatas() {
     }
 } 
 
-
 async function pushData() {
     await setItem('tasks', JSON.stringify(todos));
 }
@@ -55,7 +52,6 @@ async function loadData() {
     }
 }
 
-
 async function loadContactsFromStorage() {
     try {
         contacts = JSON.parse(await getItem('contacts'));
@@ -63,7 +59,6 @@ async function loadContactsFromStorage() {
         console.error('Loading error:', e);
     }
 }
-
 
 /**
  * Renders the assignees in the detail view.
@@ -86,7 +81,6 @@ function boardDetailViewAssignees(task) {
     }
 }
 
-
 /**
  * Update the HTML for the "Todo" category based on the current filter.
  */
@@ -98,11 +92,10 @@ function todo() {
         todoContainer.innerHTML += noTasks();
     } else {
         filteredTodo.forEach(task => {
-            todoContainer.innerHTML += generateTasksHTML(task);
+            todoContainer.innerHTML += generateTasks(task);
         });
     }
 }
-
 
 /**
  * Update the HTML for the "In Progress" category based on the current filter.
@@ -115,11 +108,10 @@ function inProgress() {
         inProgressContainer.innerHTML += noTasks();
     } else {
         filteredInProgress.forEach(task => {
-            inProgressContainer.innerHTML += generateTasksHTML(task);
+            inProgressContainer.innerHTML += generateTasks(task);
         });
     }
 }
-
 
 /**
  * Update the HTML for the "Feedback" category based on the current filter.
@@ -132,11 +124,10 @@ function feedback() {
         feedbackContainer.innerHTML += noTasks();
     } else {
         filteredFeedback.forEach(task => {
-            feedbackContainer.innerHTML += generateTasksHTML(task);
+            feedbackContainer.innerHTML += generateTasks(task);
         });
     }
 }
-
 
 /**
  * Update the HTML for the "Done" category based on the current filter.
@@ -149,11 +140,10 @@ function done() {
         doneContainer.innerHTML += noTasks();
     } else {
         filteredDone.forEach(task => {
-            doneContainer.innerHTML += generateTasksHTML(task);
+            doneContainer.innerHTML += generateTasks(task);
         });
     }
 }
-
 
 /**
  * Generate HTML for the "No Tasks" message.
@@ -166,93 +156,23 @@ function noTasks() {
         </div>`;
 }
 
-
 /**
  * Generate HTML markup for a task element.
  * @param {Task} element - The task object to generate HTML for.
  * @returns {string} HTML markup for the task element.
  */
-function generateTasksHTML(element) {
+function generateTasks(element) {
     const priorityImageSrc = setPriorityImage(element.priority);
-    let assignedToHTML = '';
-    const filteredAssignedTo = element.assignedTo.filter(name => name !== null);
-    const bgcolors = element.bgcolor || [];
-
-    let leftPosition = -7;
-    for (let i = 0; i < filteredAssignedTo.length; i++) {
-        const name = filteredAssignedTo[i];
-        const bgcolor = bgcolors[i] || '';
-
-        if (name) {
-            const initials = extractInitials(name);
-            const additionalClass = `negativ-gap-${leftPosition}`;
-            leftPosition -= 7;
-
-            assignedToHTML += /* html */`
-                <div class="user-marked media ${additionalClass}" style="background-color: ${bgcolor}">
-                    ${initials}
-                </div>
-            `;
-        }
-    }
-    let subtasksHTML = '';
-    let completedTasksCount = 0;
-
-    if (element.subtasks && Array.isArray(element.subtasks)) {
-        for (const subtask of element.subtasks) {
-            if (subtask.title) {
-                subtasksHTML += /*html*/`
-                    <div class="task-slide-subtask">
-                        <input type="checkbox" ${subtask.status ? 'checked' : ''} disabled>
-                        <label>${subtask.title}</label>
-                    </div>
-                `;
-                if (subtask.status) {
-                    completedTasksCount++;
-                };
-            }
-
-        }
-
-    }
+    assignedToHTML = renderAssigned(element);
+    const { subtasksHTML, completedTasksCount } = renderSubtask(element);
     const allTasksCount = element.subtasks.length;
     const progress = (completedTasksCount / allTasksCount) * 100;
-    const progressBarHTML = /*html*/`
-        <div class="progress-bar" id="progress-bar${element.id}" style="width: ${progress}%;"></div>
-    `;
-    const numberTasksHTML = /*html*/`
-        <span id="number-tasks">${completedTasksCount}</span>
-    `;
-    const allTasksHTML = /*html*/`
-        <span id="all-tasks">${allTasksCount}</span>
-    `;
-    
-
-    return /*html*/`
-    <div id="${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container task-touch">
-        <div class="content-container-inner">
-            <div class="board-category">${element.category}</div>
-            <div class="title-content">
-                <div class="title">${element.title}</div>
-                <div id="description" class="content">${element.description}</div>
-            </div>
-            <div class="subtasks-container">
-                <div class="progress-bar-container">
-                    ${progressBarHTML}
-                </div>
-                <div class="subtasks">${numberTasksHTML} / ${allTasksHTML} Subtasks</div>
-            </div>
-            <div class="prio-container">
-                <div id="assigned-to" class="user-container-board">
-                    ${assignedToHTML}
-                </div>
-                <div class="prio-icon"><img src="${priorityImageSrc}" alt=""></div>
-            </div>
-        </div>
-    </div>`;
+    const progressBar = progressBarHTML(element, progress);
+    const numberTasks = numberTasksHTML(completedTasksCount);
+    const allTasks = allTasksHTML(allTasksCount);
+    const generatedHTML = generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBar, numberTasks, allTasks);
+    return generatedHTML;
 }
-
-
 
 function extractInitials(name) {
     const names = name.split(' ');
@@ -264,7 +184,6 @@ function extractInitials(name) {
     }
     return initials;
 }
-
 
 function setPriorityImage(priority) {
     let imageSrc = '';
@@ -278,7 +197,6 @@ function setPriorityImage(priority) {
     return imageSrc;
 }
 
-
 /**
  * Set the currently dragged element.
  * @param {number} id - The id of the element being dragged.
@@ -287,7 +205,6 @@ function startDragging(id) {
     currentDraggedElement = id;
 }
 
-
 /**
  * Allow dropping elements on drop zones.
  * @param {Event} ev - The dragover event.
@@ -295,7 +212,6 @@ function startDragging(id) {
 function allowDrop(ev) {
     ev.preventDefault();
 }
-
 
 /**
  * Move a task to a specified status.
@@ -307,7 +223,6 @@ function moveTo(status) {
     loadData();
     updateHTML();
 }
-
 
 function polyfill() {
     let currentTask;
@@ -338,8 +253,6 @@ function polyfill() {
     });
 }
 
-
-
 /**
  * Filter tasks based on a search term and status.
  * @param {string} searchTerm - The search term to filter tasks.
@@ -353,7 +266,6 @@ function filterTasks(searchTerm, status) {
     return filteredTasks;
 }
 
-
 /**
  * Set the current filter based on input value.
  */
@@ -363,7 +275,6 @@ function setFilter() {
     searchText.value = '';
     updateHTML();
 }
-
 
 document.addEventListener('DOMContentLoaded', function () {
     const input = document.getElementById('input-field');
@@ -376,7 +287,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
 /**
  * Close the task card.
  */
@@ -387,7 +297,6 @@ function closeCard() {
     }, 800);
 }
 
-
 /**
  * Slideanimation for the task card.
  */
@@ -397,7 +306,6 @@ function slideCardAnimation() {
         document.getElementById('slide-container').classList.add('slide-in');
     }, 50);
 }
-
 
 /**
  * Slide open the task card.
@@ -415,91 +323,11 @@ function slideCard(id) {
 function renderSlideCard(id) {
     const element = todos[id];
     const priorityImageSrc = setPriorityImage(element.priority);
-    let assignedToHTML = '';
-    const filteredAssignedTo = element.assignedTo.filter(name => name !== null);
-    const bgcolors = element.bgcolor || [];
-    for (let i = 0; i < filteredAssignedTo.length; i++) {
-        const name = filteredAssignedTo[i];
-        const bgcolor = bgcolors[i] || '';
-        if (name) {
-            const initials = extractInitials(name);
-            assignedToHTML += /*html*/`
-                    <div class="task-slide-assigned-user">
-                        <div class="user-marked blue" style="background-color: ${bgcolor}">${initials}</div>
-                        <span class="task-slide-assigned-user-name">${name}</span>
-                    </div>
-                `;
-        }
-    }
-    let subtasksHTML = '';
-    if (element.subtasks && Array.isArray(element.subtasks)) {
-        for (let i = 0; i < element.subtasks.length; i++) {
-            const subtask = element.subtasks[i];
-            if (subtask.title) {
-                subtasksHTML += /*html*/`
-                    <div class="task-slide-subtask">
-                        <input type="checkbox" id="subtaskCheckbox${i}" ${subtask.status ? 'checked' : ''} onchange="updateSubtaskStatus(${id}, ${i}, this.checked)">
-                        <label for="subtaskCheckbox${i}">${subtask.title}</label>
-                    </div>
-                `;
-                updateHTML()
-            };
-        }
-    }
-    return /*html*/ `
-    <div id="slide-container" class="slide-container">
-    <div id="task-slide-container${element.id}" class="task-slide-container">
-        <div class="task-slide-headline">
-            <div class="task-slide-headline-left"><span class="task-slide-category">${element.category}</span></div>
-            <div id="task-slide-close" onclick="closeCard(${element.id}), loadData()" class="task-slide-headline-right"><img src="./img/close.png" alt="Schließen"></div>
-        </div>
-        <span id="task-slide-title" class="task-slide-title">${element.title}</span>
-        <span id="task-slide-description" class="task-slide-description">${element.description}</span>
-        <div class="task-slide-due-date-container">
-            <span class="task-slide-due-date">Due date: </span>
-            <span id="task-slide-due-date" class="task-slide-due-date-date">${element.dueDate}</span>
-        </div>
-        <div class="task-slide-prio-container">
-            <span class="task-slide-prio-text">Priority: </span>
-            <div class="task-slide-prio-text-img">
-                <span class="task-slide-prio-text-">${element.priority}</span>
-                <img id="task-slide-prio-img" src="${priorityImageSrc}" alt="">
-            </div>
-        </div>
-        <div class="task-slide-assigned-container">
-            <span class="task-slide-assigned-test">Assigned To:</span>
-            <div class="task-slide-assigned-user-container">
-            <div class="task-slide-assigned-user-container">
-        <div class="task-slide-assigned-user-contact">
-            ${assignedToHTML}
-            <button class="task-slide-btn" type="checkbox" disabled></button>
-        </div>
-    </div>
-    <div>
-        </div>
-            <div class="task-slide-subtasks-container">
-                <span class="task-slide-subtasks-text">Subtasks</span>
-                <div class="task-slide-subtasks-tasks" id="subtasksContainer">
-                    ${subtasksHTML}
-                </div>
-            </div>
-            <div class="task-slide-delete-edit-container">
-                <div class="task-slide-delete">
-                    <img class="task-slide-delete-edit-img" src="./img/delete.png" alt="">
-                    <span onclick="deleteTask(${element.id})" class="task-slide-delete-text">Delete</span>
-                </div>
-                <div class="task-slide-placeholder"></div>
-                <div class="task-slide-edit">
-                    <img class="task-slide-delete-edit-img" src="./img/edit.png" alt="">
-                    <span onclick="editTask(${element.id})" class="task-slide-edit-text">Edit</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    `
+    assignedToHTML = renderSlideAssigned(element);
+    subtasksHTML = renderSlideSubtask(element, id);
+    const generateSlideHTML = renderSlideCardHTML(element, priorityImageSrc, assignedToHTML, subtasksHTML)
+    return generateSlideHTML;
 }
-
-
 
 function deleteTask(id) {
     const indexToDelete = todos.findIndex(task => task.id === id);
@@ -514,13 +342,11 @@ function deleteTask(id) {
     refreshHTML();
 }
 
-
 function updateIDs() {
     for (let i = 0; i < todos.length; i++) {
         todos[i].id = i;
     }
 }
-
 
 function deleteCard(id) {
     const elementToRemove = document.getElementById(`board-card${id}`);
