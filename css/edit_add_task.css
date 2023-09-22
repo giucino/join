@@ -742,13 +742,3 @@
     width: 100%;
 }
 
-/* Media Query für Bildschirmbreite von maximal 768px */
-@media(max-width: 768px) {
-    .edit-add-task-container {
-        padding: 144px 16px 90px 16px;
-    }
-
-    /* .button-clear {
-        display: none;
-    } */
-}
