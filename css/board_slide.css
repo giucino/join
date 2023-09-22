@@ -3,7 +3,7 @@
 }
 
 .task-slide {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.7);
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -11,7 +11,6 @@
 }
 
 .edit-task-slide {
-    background-color: rgba(0, 0, 0, 0.2);
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -37,7 +36,7 @@
     height: 100vh;
     position: fixed;
     bottom: -4000px;
-    transition: 1.0s;
+    transition: 2.0s;
 }
 
 .edit-slide-container {
