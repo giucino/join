@@ -5,16 +5,28 @@ function subtaskToAddHTML(subInputValue) {
             <span class="edit-subtask-dot"></span>           
             <input class="edit-subtask-value" value="${subInputValue}">
         </div>
+        <div class="hover-content">
+            <img onclick="editSubtask(${i})" src="./img/edit_subtask.png" class="edit-subtask-button">
+            <span class="separator2" id="separator2">|</span> 
+            <img onclick="deleteSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="delete-subtask-button">
+            <!-- <img onclick="deleteSubtask(event)" src="./img/delete_subtask.png" class="delete-subtask-button"> -->
+        </div>
     </div>
 `;
 }
 
-function subtaskToEditHTML(subtask) {
+function subtaskToEditHTML(subtask, i) {
     return /*html*/ `
     <div class="edit-subtask-container">
         <div class="edit-subtask-item">
             <span class="edit-subtask-dot"></span>           
-            <input class="edit-subtask-value" value="${subtask.title}">
+            <span class="edit-subtask-value" value="${subtask.title}">${subtask.title}</span>
+        </div>
+        <div class="hover-content">
+            <img onclick="editSubtask(${i})" src="./img/edit_subtask.png" class="edit-subtask-button">
+            <span class="separator2" id="separator2">|</span> 
+            <img onclick="deleteSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="delete-subtask-button">
+            <!-- <img onclick="deleteSubtask(event)" src="./img/delete_subtask.png" class="delete-subtask-button"> -->
         </div>
     </div>
 `;
@@ -120,48 +132,35 @@ function renderEditTask(id) {
                         </button>
                     </div>
                     <div id="edit-chosen-contacts" class="chosen-contacts"></div>
-                    <div class="edit-category-container">
-                        <div class="edit-category-header">
-                            Category
-                        </div>
-                    </div>    
-                    <div class="edit-category-choicefield">
-                        <div class="edit-category-dropdown" onclick="loadToggleCategoryContainer()">
-                            <div class="edit-dropdown-header" id="edit-dropdown-header">
-                                <span class="edit-select-text">Select task category</span>
-                                <span id="edit-selected-category-display"></span>
-                            </div>
-                            <div class="edit-dropdown-arrow"></div>
-                        </div>
-                    </div>
-                    <div id="edit-required-category" class="edit-add-task-field-required">
-                        This field is required
-                    </div>
-                    <div id="edit-loaded-categories" class="edit-loaded-categories"></div>
-                    
                     <div class="edit-subtasks-container">
                         <div class="edit-subtasks-header">
                             Subtasks
                         </div>
-                        <div class="edit-add-subtask-input">
+                        <!-- <div class="edit-add-subtask-input">
                             <input type="text" id="edit-subtask-input" class="edit-new-subtask-textfield" placeholder="Add new subtask">
                             <img onclick="addNewSubtask()" class="edit-add-subtask-button" src="./img/add_subtask.png">
+                        </div> -->
+                        <div class="add-subtask-input">
+                            <input onclick="openSubtaskInput()" type="text" id="edit-subtask-input" class="new-subtask-textfield" placeholder="Add new subtask">
+                            <img onclick="openSubtaskInput()" class="open-subtask-button" src="./img/open_subtask.png">
+                            <img onclick="closeSubtaskInput()" class="add-subtask-button hidden" id="edit-close-subtask" src="./img/close_subtask.png"> 
+                            <span class="separator" id="edit-separator">|</span> 
+                            <img onclick="addNewSubtask()" class="add-subtask-button hidden" id="edit-add-new-subtask" src="./img/add_subtask.png">
                         </div>
                         <div id="edit-required-subtask" class="edit-add-task-field-required">
                             This field is required
                         </div>
                         <div id="edit-subtask-add-container" class="edit-subtask-add-container"></div>
                     </div>
-                
-                    <div class="edit-add-task-buttons">
-                        <div class="edit-add-task-buttons-inner">                            
-                            <button type="submit" id="createTaskButton" class="edit-button-create-task">
-                                <div class="edit-button-create-task-text">Ok</div>
-                                <div class="edit-button-create-task-pic"><img src="./img/check.svg"></div>
-                            </button>
-                        </div>
-                    </div>
                 </div>
+                <div class="edit-add-task-buttons">
+                    <div class="edit-add-task-buttons-inner">                            
+                        <button type="submit" id="createTaskButton" class="edit-button-create-task">
+                            <div class="edit-button-create-task-text">Ok</div>
+                            <div class="edit-button-create-task-pic"><img src="./img/check.svg"></div>
+                        </button>
+                    </div>
+                </div>                
             </form>
         </div>
     `;
