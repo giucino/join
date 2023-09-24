@@ -248,6 +248,7 @@ function showEditContactsButtonsMobile() {
 function returnToContactsMobile() {
     document.querySelector('.contact-details-mobile-class').style.display = 'none'
     document.querySelector('.container').style.display = 'flex';
+    document.querySelector('.add-person-button').style.display = 'flex';
 }
 
 /**

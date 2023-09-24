@@ -820,6 +820,9 @@
     .add-person-button {
         right: 40px;
     }
+    #contact-details-mobile {
+        margin-left: 0;
+    }
 }
 
 @media(max-width: 450px) {
@@ -831,5 +834,8 @@
     }
     .add-person-button {
         right: 23px;
+    }
+    .contact-detailed-name {
+        font-size: 36px;
     }
 }
