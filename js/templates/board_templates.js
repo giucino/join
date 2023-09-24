@@ -1,38 +1,52 @@
+/**
+ * Generates an HTML template for a subtask based on the given input value.
+ *
+ * @param {string} subInputValue - The value for the subtask input.
+ * @returns {string} Returns an HTML string representing a subtask container.
+ */
 function subtaskToAddHTML(subInputValue) {
     return /*html*/ `
-    <div class="edit-subtask-container">
-        <div class="edit-subtask-item">
-            <span class="edit-subtask-dot"></span>           
-            <input class="edit-subtask-value" value="${subInputValue}">
+        <div class="edit-subtask-container">
+            <div class="edit-subtask-item">
+                <span class="edit-subtask-dot"></span>           
+                <input class="edit-subtask-value" value="${subInputValue}">
+            </div>
         </div>
-        <div class="hover-content">
-            <img onclick="editSubtask(${i})" src="./img/edit_subtask.png" class="edit-subtask-button">
-            <span class="separator2" id="separator2">|</span> 
-            <img onclick="deleteSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="delete-subtask-button">
-            <!-- <img onclick="deleteSubtask(event)" src="./img/delete_subtask.png" class="delete-subtask-button"> -->
-        </div>
-    </div>
-`;
+    `;
 }
 
+/**
+ * Returns an HTML representation of a subtask for editing purposes.
+ * 
+ * @param {Object} subtask - The subtask object to be converted into HTML.
+ * @param {string} subtask.title - The title of the subtask.
+ * @param {number} i - The index or ID associated with the subtask, used for data attributes and action handlers.
+ * 
+ * @returns {string} The HTML representation of the subtask for editing.
+ */
 function subtaskToEditHTML(subtask, i) {
     return /*html*/ `
-    <div class="edit-subtask-container">
-        <div class="edit-subtask-item">
-            <span class="edit-subtask-dot"></span>           
-            <span class="edit-subtask-value" value="${subtask.title}">${subtask.title}</span>
+        <div class="edit-subtask-container">
+            <div class="edit-subtask-item">
+                <span class="edit-subtask-dot"></span>           
+                <span class="edit-subtask-value" contenteditable="true" data-subtask-id="${i}" value="${subtask.title}">${subtask.title}</span>
+            </div>
+            <div class="hover-content">
+                <img onclick="editSubtask(${i})" src="./img/edit_subtask.png" class="edit-subtask-button">
+                <span class="separator2" id="separator2">|</span> 
+                <img onclick="deleteSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="delete-subtask-button">
+                <!-- <img onclick="deleteSubtask(event)" src="./img/delete_subtask.png" class="delete-subtask-button"> -->
+            </div>
         </div>
-        <div class="hover-content">
-            <img onclick="editSubtask(${i})" src="./img/edit_subtask.png" class="edit-subtask-button">
-            <span class="separator2" id="separator2">|</span> 
-            <img onclick="deleteSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="delete-subtask-button">
-            <!-- <img onclick="deleteSubtask(event)" src="./img/delete_subtask.png" class="delete-subtask-button"> -->
-        </div>
-    </div>
-`;
+    `;
 }
 
-
+/**
+ * Generates the HTML markup for the task edit view.
+ * 
+ * @param {number} id - The ID of the task to be edited.
+ * @returns {string} HTML markup of the edit view for the task.
+ */
 function renderEditTask(id) {
     const task = todos.find((todo) => todo.id === id);
     return /* html */ `
