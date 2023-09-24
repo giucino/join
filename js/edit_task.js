@@ -28,12 +28,10 @@ function slideCardAnimationEditTask() {
   }
 }
 
-/* function closeEditedTask() {  
-  const editTaskSlide = document.getElementById("edit-task-slide");
-  const editSlideContainer = document.getElementById("edit-slide-container");
-  editSlideContainer.classList.remove("edit-slide-in");
-  editTaskSlide.classList.add("d-none");
-}
+
+/** 
+ * Starts the task editing process by rendering the task and starting the slide animation.
+ * @param {number} id - The ID of the task to be edited.
  */
 function editTask(id) {
   const slideEditTask = document.getElementById("task-slide");
@@ -48,6 +46,11 @@ function editTask(id) {
 }
 
 
+/** 
+ * Saves the edited task by overwriting its properties and updating the local storage.
+ * @param {number} id - The ID of the task being saved.
+ * @async
+ */
 async function saveEditedTask(id) {
   const element = todos[id];
   const currentStatus = element.status;
@@ -65,6 +68,12 @@ async function saveEditedTask(id) {
   openEditedTask(element.id);
 }
 
+/**
+ * Opens the edited task by rendering the slide card based on the given task id.
+ * It also makes the slide card visible and adjusts the relevant container styles.
+ *
+ * @param {string|number} id - The ID of the task to be opened.
+ */
 function openEditedTask(id) {
   const slideCard = document.getElementById('task-slide');
   slideCard.innerHTML = renderSlideCard(id);
@@ -73,6 +82,14 @@ function openEditedTask(id) {
   
 }
 
+/**
+ * Loads and highlights the priority of a given task in the UI.
+ * The function resets other buttons, identifies the task priority, and then
+ * sets the highlight for the respective priority button.
+ *
+ * @param {Object} task - The task object.
+ * @param {string} task.priority - The priority of the task ("high", "medium", or "low").
+ */
 function loadSelectedPriority(task) {
     const selectedPrio = task.priority;
     let button;
@@ -93,6 +110,12 @@ function loadSelectedPriority(task) {
     }
 }
 
+/**
+ * Sets the priority based on the clicked button.
+ * The function resets other buttons and then sets the highlight for the respective priority button.
+ *
+ * @param {HTMLElement} button - The clicked priority button.
+ */
 function priority(button) {
   resetButtons();
 
@@ -108,6 +131,9 @@ function priority(button) {
   }
 }
 
+/** 
+ * Resets the style of the priority buttons to their default state.
+ */
 function resetButtons() {
   selectedPriority = "";
 
@@ -123,6 +149,13 @@ function resetButtons() {
   }
 }
 
+/**
+ * Highlights a given button by changing its background color, image source, and text color.
+ *
+ * @param {HTMLElement} button - The button to be highlighted.
+ * @param {string} bgColor - The desired background color for the button.
+ * @param {string} imageSrc - The source URL for the image to be displayed inside the button.
+ */
 function highlightButton(button, bgColor, imageSrc) {
   button.classList.add("highlighted");
   button.style.backgroundColor = bgColor;
@@ -131,6 +164,9 @@ function highlightButton(button, bgColor, imageSrc) {
   button.style.color = "white";
 }
 
+/** 
+ * Adds a new subtask to the UI based on the value of the input field.
+ */
 function addNewSubtask() {
   const subInput = document.getElementById('edit-subtask-input');
   const subInputValue = subInput.value;
@@ -140,6 +176,10 @@ function addNewSubtask() {
   subInput.value = '';
 }
 
+/** 
+ * Renders subtasks of a given task for editing.
+ * @param {Object} element - The task object containing subtasks.
+ */
 function addSubtaskToEdit(element) {
   let subtasksHTML = "";
   if (element.subtasks && Array.isArray(element.subtasks)) {
@@ -154,7 +194,10 @@ function addSubtaskToEdit(element) {
   }
 }
 
-
+/**
+ * Adds contacts to the selected contacts based on the given element's assigned contacts.
+ * @param {Object} element - The element containing assigned contacts.
+ */
 function addToSelectedContacts(element) {
   const assigneds = element.assignedTo;
   
@@ -170,6 +213,10 @@ function addToSelectedContacts(element) {
   loadDisplayChosenContacts();
 }
 
+/**
+ * Asynchronously renders the selected contacts to the UI.
+ * @param {Object} selectedContacts - The list of selected contacts.
+ */
 async function loadRenderAssignedTo(selectedContacts) {
   let assignedToContainer = document.getElementById('edit-loaded-contacts');
   assignedToContainer.innerHTML = '';
@@ -184,6 +231,13 @@ async function loadRenderAssignedTo(selectedContacts) {
   }
 }
 
+/**
+ * Renders the HTML for a given contact, including initials and selected state.
+ * @param {Object} contact - The contact to render.
+ * @param {string} initials - The initials of the contact.
+ * @param {boolean} isSelected - Whether the contact is selected or not.
+ * @returns {string} The HTML representation of the contact.
+ */
 function renderAssignedToHTML (contact, initials, isSelected){
   return /* html */`
     <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
@@ -196,6 +250,10 @@ function renderAssignedToHTML (contact, initials, isSelected){
   `;
 }
 
+/**
+ * Renders the searched contacts to the UI.
+ * @param {Array} contacts - The list of contacts to render.
+ */
 function loadSearchedContact(contacts) {
   let loadAssignedToContainer = document.getElementById('edit-loaded-contacts');
   loadAssignedToContainer.innerHTML = '';
@@ -209,6 +267,13 @@ function loadSearchedContact(contacts) {
   }
 }
 
+/**
+ * Renders the HTML for a given searched contact, including initials and selected state.
+ * @param {Object} contact - The contact to render.
+ * @param {string} initials - The initials of the contact.
+ * @param {boolean} isSelected - Whether the contact is selected or not.
+ * @returns {string} The HTML representation of the contact.
+ */
 function loadRenderSearchedContactsHTML(contact, initials, isSelected) {
   return /*html*/`
     <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
@@ -221,6 +286,10 @@ function loadRenderSearchedContactsHTML(contact, initials, isSelected) {
   `;
 }
 
+/** 
+ * Search and display contacts based on a given query.
+ * @param {string} query - The query string to search for.
+ */
 function loadSearchContacts(query) {
   let filteredContacts = contacts.filter(contact => {
       return (
@@ -249,6 +318,11 @@ function loadToggleContactSelection(name, surename) {
   renderDisplayChosenContacts();
 }
 
+/** 
+ * Toggles the selection state of a given contact.
+ * @param {string} name - The first name of the contact.
+ * @param {string} surename - The surname of the contact.
+ */
 function toggleContactSelection(name, surename) {
   const contact = contacts.find(c => c.name === name && c.surename === surename);
 
@@ -268,6 +342,14 @@ function toggleContactSelection(name, surename) {
   renderDisplayChosenContacts();
 }
 
+/**
+ * Toggles the display of the 'edit-loaded-contacts' container.
+ * Also manages the display state and class of related elements.
+ * 
+ * @function
+ * @name loadToggleAssignedToContainer
+ * @returns {void} Does not return any value.
+ */
 function loadToggleAssignedToContainer() {
   let assignedToContainer = document.getElementById('edit-loaded-contacts');
   let contactsContainer = document.querySelector('.edit-contacts-container');
@@ -281,134 +363,4 @@ function loadToggleAssignedToContainer() {
       assignedToDropdown.classList.add('expanded');
   }
   contactsContainer.style.display = assignedToContainer.style.display;
-}
-
-function renderDisplayChosenContacts() {
-  let chosenContactsContainer = document.getElementById('edit-chosen-contacts');
-  chosenContactsContainer.innerHTML = '';
-
-  for (let i = 0; i < contacts.length; i++) {
-      const contact = contacts[i];
-      const isSelected = selectedContacts[contact.id];
-
-      if (isSelected) {
-          let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
-          chosenContactsContainer.innerHTML += /*html*/`
-              <div class="chosen-contact">
-                  <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-              </div>
-          `;
-      }
-  }
-}
-
-function loadDisplayChosenContacts() {
-  const chosenContactsContainer = document.getElementById('edit-chosen-contacts');
-  let htmlContent = '';
-
-  for (const id in selectedContacts) {
-    if (selectedContacts.hasOwnProperty(id)) {
-      const contactName = selectedContacts[id];
-      const contact = contacts.find(c => c.id === parseInt(id));
-      if (contact) {
-        const initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
-        htmlContent += /*html*/`
-          <div class="chosen-contact">
-              <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-          </div>
-        `;
-      }
-    }
-  }
-
-  chosenContactsContainer.innerHTML = htmlContent;
-}
-
-function loadToggleCategoryContainer() {
-  let editSelectText = document.querySelector('.edit-select-text');
-  editSelectText.style.display = 'inline';
-
-  let editSelectedCategory = document.getElementById('edit-selected-category-display');
-  editSelectedCategory.textContent = '';
-
-  let editCategoryContainer = document.getElementById('edit-loaded-categories');
-  let editCategoryDropdown = document.querySelector('.edit-category-dropdown');
-
-  if (editCategoryContainer.style.display === 'block') {
-      editCategoryContainer.style.display = 'none';
-      editCategoryDropdown.classList.remove('expanded');
-  } else {
-      editCategoryContainer.style.display = 'block';
-      editCategoryDropdown.classList.add('expanded');
-      editRenderCategorys();
-  }
-}
-
-function editRenderCategorys() {
-  let editCategoryContainer = document.getElementById('edit-loaded-categories');
-  editCategoryContainer.innerHTML = '';
-
-  for (let i = 0; i < categories.length; i++) {
-    let category = categories[i].name;
-
-    editCategoryContainer.innerHTML += /* html */`
-    <div class="category" onclick="categorySelected('${category}')">${category}</div>
-    `;
-  }
-}
-
-function loadRenderCategory(element) {
-  const category = element.category;  
-  selectedCategory = category;
-}
-
-function categorySelected(category) {
-  selectedCategory = category;
-
-  let selectedCategoryDisplay = document.getElementById('edit-selected-category-display');
-  selectedCategoryDisplay.textContent = `${selectedCategory}`;
-
-  let selectText = document.querySelector('.edit-select-text');
-  selectText.style.display = 'none';
-
-  let categoryContainer = document.getElementById('edit-loaded-categories');
-  categoryContainer.style.display = 'none';
-
-  let categoryDropdown = document.querySelector('.edit-category-dropdown');
-  categoryDropdown.classList.remove('expanded');
-}
-
-function openSubtaskInput() {
-  document.querySelector('.open-subtask-button').style.display = 'none';
-  document.getElementById('edit-subtask-input').focus();
-  document.getElementById('edit-separator').style.display = 'inline-flex'
-  let otherButtons = document.querySelectorAll('.add-subtask-button');
-  for (let i = 0; i < otherButtons.length; i++) {
-      otherButtons[i].style.display = 'inline-block';
-  }
-}
-
-
-function closeSubtaskInput() {
-  document.querySelector('.open-subtask-button').style.display = 'inline-block';
-  document.querySelector('.new-subtask-textfield').value = '';
-  document.getElementById('edit-separator').style.display = 'none'
-  let otherButtons = document.querySelectorAll('.add-subtask-button');
-  for (let i = 0; i < otherButtons.length; i++) {
-      otherButtons[i].style.display = 'none';
-  }
-}
-
-
-function deleteSubtask(subtaskId) {
-  const indexToDelete = subtasks.findIndex(subtask => subtask.id === subtaskId);
-
-  if (indexToDelete !== -1) {
-      subtasks.splice(indexToDelete, 1);
-
-      const subtaskElement = document.getElementById(subtaskId);
-      if (subtaskElement) {
-          subtaskElement.parentElement.parentElement.remove();
-      }
-  }
 }
