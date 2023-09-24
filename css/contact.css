@@ -797,12 +797,18 @@
         padding: 20px;
         width: 600px;
     }
+    .add-person-button {
+        right: 80px;
+    }
 }
 
 @media(max-width: 890px) {
     .container {
         padding: 20px;
         width: 500px;
+    }
+    .add-person-button {
+        right: 60px;
     }
 }
 
@@ -811,10 +817,19 @@
     .container {
         margin-left: 0;
     }
+    .add-person-button {
+        right: 40px;
+    }
 }
 
 @media(max-width: 450px) {
-    .all-content {
-        width: 300px;
+    .container {
+        width: 310px;
+    }
+    .container-contact-all {
+        width: auto;
+    }
+    .add-person-button {
+        right: 23px;
     }
 }
