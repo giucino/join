@@ -33,7 +33,6 @@ function showContactDetailsMobileHTML(contact, initials, index) {
             </div>
             <div class="contact-detailed-mid">
                 <div class="contact-detailed-name">${contact.name} ${contact.surename}</div>
-
             </div>
         </div>
         <div class="contact-detailed-information"> Contact Information </div>             
@@ -55,8 +54,8 @@ function showContactDetailsMobileHTML(contact, initials, index) {
     `;
 }
 
-function showContactsHTML(i, color, initials, contact){
-    return `
+function showContactsHTML(i, color, initials, contact) {
+    return /*html*/ `
         <div class="contact" data-contact-index="${i}" onclick="handleContactClick(${i})">
             <div class="initial" style="background-color: ${color}">${initials}</div>
             <div class="container-name-email">
@@ -68,7 +67,7 @@ function showContactsHTML(i, color, initials, contact){
 
 
 function generateAddContactModalHTML() {
-    return /*html*/`
+    return /*html*/ `
     <div class="modal-content">
             <div class="modal-content-top">
                 <div id="closeContactModalBtn" onclick="closeModal()"><img class="close" src="./img/close_contact.png"
@@ -116,7 +115,7 @@ function generateAddContactModalHTML() {
 
 
 function generateEditContactModalHTML(index, initials, contact) {
-    return `
+    return /*html*/ `
  <div class="edit-content" data-index="${index}">
      <div class="edit-content-top">
          <div id="closeEditModalBtn" onclick="closeEditModal()"><img class="close" src="./img/close_contact.png" alt="Close Modal"></div>
@@ -159,7 +158,7 @@ function generateEditContactModalHTML(index, initials, contact) {
 }
 
 function generateEditContactMobileHTML(index, initials, contact) {
-    return `
+    return /*html*/`
     <div class="edit-content" data-index="${index}">
         <div class="edit-content-top">
             <div id="closeEditModalBtn" onclick="closeEditModal()"><img class="close" src="./img/close_contact.png" alt="Close Modal"></div>

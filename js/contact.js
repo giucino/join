@@ -235,12 +235,10 @@ function showEditContactsButtonsMobile() {
     let header = document.getElementById('contact-detailed-head');
     header.classList.add('hide-it');
     elements.classList.remove('hide-it');
-
     // Erstellen der unsichtbaren div
     let invisibleDiv = document.createElement('div');
     invisibleDiv.id = 'invisibleDiv';
     invisibleDiv.onclick = closeButtonsMobile;
-
     // Fügen Sie die unsichtbare div zum DOM hinzu
     document.body.appendChild(invisibleDiv);
 }
@@ -265,13 +263,11 @@ function getRandomColor() {
  */
 function openModal() {
     let modalHTML = generateAddContactModalHTML();
-
     let modalContainer = document.getElementById("contactModal");
     modalContainer.innerHTML = modalHTML;
-
     let overlay = document.querySelector(".background-overlay");
-    modalContainer.style.display = "block";
-    overlay.style.display = "block";
+    modalContainer.style.display = "flex";
+    overlay.style.display = "flex";
     modalContainer.classList.remove('modal-slide-out');
     modalContainer.classList.add('modal-slide-in');
 }
@@ -285,6 +281,7 @@ function closeModal() {
     modal.classList.remove('modal-slide-in');
     modal.classList.add('modal-slide-out');
     overlay.style.display = "none";
+    modal.style.display = "none";
 }
 
 /**

@@ -35,6 +35,10 @@
     cursor: pointer;
 }
 
+.initials-underline{
+    border: #000;
+}
+
 .add-person-button:hover {
     background: #005DFF;
 }
@@ -141,25 +145,6 @@
     height: 100%;
     background-color: rgba(255, 255, 255, 0.5);
 }
-
-/* .modal-content {
-    box-sizing: border-box;
-    display: flex;
-    width: 528px;
-    height: 100%;
-    flex-direction: column;
-    align-items: center;
-    gap: 65px;
-    border-radius: 30px 0px 30px 30px;
-    background: #FFF;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: inline-flex;
-    animation: slide 1s ease-in-out;
-} */
 
 .modal-content {
     box-sizing: border-box;
@@ -351,10 +336,6 @@
     100% {
         transform: translateX(-100%);
     }
-}
-
-.editModalMobile-slide-in {
-    animation: editModalSlideInMobile 1s ease-in-out;
 }
 
 .editModal-slide-out {
@@ -663,6 +644,8 @@
         width: auto;
     }
 
+    
+
     .container {
         padding: 20px;
         width: 900px;
@@ -692,7 +675,6 @@
         right: 100px;
         border-radius: 10px;
         background: var(--Ligth-blue, #005DFF);
-        /* stronger */
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
         display: inline-flex;
         padding: 16px;
@@ -720,7 +702,6 @@
         align-items: flex-start;
         border-radius: 20px 20px 0px 20px;
         background: var(--white, #FFF);
-        /* stronger */
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
         animation: slide 0.5s ease-in-out;
         z-index: 10;
@@ -786,6 +767,24 @@
     }
 
     #closeEditModalBtn {
+        position: relative;
+        top: -85px;
+        right: -255px;
+    }
+
+    .modal {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+    }
+
+    .modal-content {
+        position: static;
+    }
+
+    #closeContactModalBtn {
         position: relative;
         top: -85px;
         right: -255px;
