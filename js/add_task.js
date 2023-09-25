@@ -531,7 +531,7 @@ function addSubtask() {
 
     let subtasksContainer = document.getElementById('subtask-add-container');
     subtasksContainer.innerHTML += /*html*/`
-        <div class="subtask-container">
+        <div div id="subtask-container-${subtaskId}" class="subtask-container">
             <div class="subtask-item">
                 <span class="subtask-dot"></span>           
                 <span id="${subtaskId}" class="subtask-value" contenteditable="false">${subtaskValue}</span>
@@ -622,32 +622,93 @@ function deleteSubtask(subtaskId) {
 
 function editSubtask(subtaskId) {
     let subtaskElement = document.getElementById(subtaskId);
-    if (subtaskElement) {
-        subtaskElement.contentEditable = true;
-    }
+    if (!subtaskElement) return;
+
+    subtaskElement.contentEditable = true;
     subtaskElement.focus();
 
-    let subtaskContainer = document.querySelector(".subtask-container");
+    let subtaskContainer = document.getElementById(`subtask-container-${subtaskId}`);
+    if (!subtaskContainer) return;
+
     subtaskContainer.classList.add("no-hover");
-    subtaskContainer.style.display = "border-bottom: 1px solid #D1D1D1";
 
-    let editButton = document.querySelector(".edit-subtask-button");
-    let deleteButton = document.querySelector(".delete-subtask-button");
-    let separator = document.querySelector(".separator2");
-    let dot = document.querySelector(".subtask-dot");
-    editButton.style.display = "none";
-    deleteButton.style.display = "none";
-    separator.style.display = "none";
-    dot.style.display = "none";
+    // Buttons umschalten
+    toggleSubtaskButtons(subtaskContainer, true);
 
-    let saveButton = document.querySelector(".save-subtask-button");
-    let cancelButton = document.querySelector(".edit-delete-subtask-button");
-    let separator3 = document.querySelector(".separator3");
-    saveButton.style.display = "block";
-    cancelButton.style.display = "block";
-    separator3.style.display = "block";
+    // Event-Listener für die "Speichern" und "Abbrechen"-Buttons hinzufügen
+    let saveButton = subtaskContainer.querySelector(".save-subtask-button");
+    let cancelButton = subtaskContainer.querySelector(".edit-delete-subtask-button");
+
+    saveButton.onclick = function() {
+        saveEditedSubtask(subtaskId);
+    };
+
+    cancelButton.onclick = function() {
+        cancelEditing(subtaskId);
+    };
 }
 
+function toggleSubtaskButtons(subtaskContainer, isEditing) {
+    let editButton = subtaskContainer.querySelector(".edit-subtask-button");
+    let deleteButton = subtaskContainer.querySelector(".delete-subtask-button");
+    let saveButton = subtaskContainer.querySelector(".save-subtask-button");
+    let cancelButton = subtaskContainer.querySelector(".edit-delete-subtask-button");
+
+    if (isEditing) {
+        editButton.style.display = "none";
+        deleteButton.style.display = "none";
+        saveButton.style.display = "block";
+        cancelButton.style.display = "block";
+    } else {
+        editButton.style.display = "block";
+        deleteButton.style.display = "block";
+        saveButton.style.display = "none";
+        cancelButton.style.display = "none";
+    }
+}
+
+function saveEditedSubtask(subtaskId) {
+    let subtaskElement = document.getElementById(subtaskId);
+    if (!subtaskElement) return;
+
+    subtaskElement.contentEditable = false;
+
+    let subtaskContainer = document.getElementById(`subtask-container-${subtaskId}`);
+    if (!subtaskContainer) return;
+
+    subtaskContainer.classList.remove("no-hover");
+
+    // Aktualisiere den Subtask im Array
+    let editedTitle = subtaskElement.textContent;
+    let editedSubtask = subtasks.find(subtask => subtask.id === parseInt(subtaskId));
+    if (editedSubtask) {
+        editedSubtask.title = editedTitle;
+    }
+
+    // Buttons umschalten
+    toggleSubtaskButtons(subtaskContainer, false);
+}
+
+function cancelEditing(subtaskId) {
+    let subtaskElement = document.getElementById(subtaskId);
+    if (!subtaskElement) return;
+
+    let subtaskContainer = document.getElementById(`subtask-container-${subtaskId}`);
+    if (!subtaskContainer) return;
+
+    subtaskContainer.classList.remove("no-hover");
+
+    // Setze den Text des Subtasks auf den ursprünglichen Wert zurück
+    let originalSubtask = subtasks.find(subtask => subtask.id === parseInt(subtaskId));
+    if (originalSubtask) {
+        subtaskElement.textContent = originalSubtask.title;
+    }
+
+    subtaskElement.contentEditable = false;
+
+    // Buttons umschalten
+    toggleSubtaskButtons(subtaskContainer, false);
+}
 
 function finishEditing(subtaskId) {
     let subtaskElement = document.getElementById(subtaskId);
@@ -680,6 +741,24 @@ function finishEditing(subtaskId) {
     saveButton.style.display = "none";
     cancelButton.style.display = "none";
     separator3.style.display = "none";
+}
+
+function deleteSubtask(subtaskId) {
+    // Finde den Index des Subtasks im Array anhand der subtaskId
+    const indexToDelete = subtasks.findIndex(subtask => subtask.id === parseInt(subtaskId));
+
+    // Wenn das Subtask im Array gefunden wurde, entferne es aus dem Array
+    if (indexToDelete !== -1) {
+        subtasks.splice(indexToDelete, 1);
+    }
+
+    // Finde den Container des Subtasks im DOM anhand der subtaskId
+    let subtaskContainer = document.getElementById(`subtask-container-${subtaskId}`);
+    
+    // Wenn der Container gefunden wurde, entferne ihn aus dem DOM
+    if (subtaskContainer) {
+        subtaskContainer.remove();
+    }
 }
 
 
