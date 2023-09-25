@@ -167,7 +167,7 @@ function closeSubtaskInput() {
  * Deletes a subtask based on its ID.
  * @param {number|string} subtaskId - The ID of the subtask to delete.
  */
-function deleteSubtask(subtaskId) {
+function deleteEditSubtask(subtaskId) {
     const indexToDelete = subtasks.findIndex(subtask => subtask.id === subtaskId);
 
     if (indexToDelete !== -1) {
@@ -184,7 +184,8 @@ function deleteSubtask(subtaskId) {
  * Allows the user to edit a subtask.
  * @param {number} i - The index or unique identifier for the subtask.
  */
-function editSubtask(i) {
+function editEditedSubtask(i) {
     const subtaskValueElement = document.querySelector(`.edit-subtask-value[data-subtask-id="${i}"]`);
-    subtaskValueElement.focus(); // Setzt den Fokus auf das bearbeitbare Element
+    subtaskValueElement.setAttribute('contenteditable', 'true');
+    /* subtaskValueElement.focus();  */
 }
