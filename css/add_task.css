@@ -17,7 +17,7 @@ body {
     overflow-y: scroll;
 }
 
-.add-task-container-first{
+.add-task-container-first {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -33,7 +33,7 @@ body {
     display: inline-flex;
 }
 
-.add-task-titel-textcontainer{
+.add-task-titel-textcontainer {
     width: 100%;
     align-self: stretch;
     padding-left: 16px;
@@ -41,7 +41,7 @@ body {
     padding-top: 13px;
     padding-bottom: 13px;
     background: white;
-    border-bottom: 1px #D1D1D1 solid;
+    border-bottom: 1px solid #D1D1D1;
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
@@ -49,9 +49,9 @@ body {
     cursor: pointer;
 }
 
-/* .add-task-titel-textcontainer:hover {
+.add-task-titel-textcontainer:focus-within {
     border-bottom: 1px solid var(--bg-color);
-} */
+}
 
 .add-task-titel-textfield {
     color: black;
@@ -589,6 +589,7 @@ body {
 
 .subtask-container {
     display: flex;
+    align-items: center;
 }
 
 .subtask-container:hover {
@@ -629,6 +630,36 @@ body {
 .subtask-container:hover .hover-content .separator2,
 .subtask-container:hover .hover-content img {
     display: inline-block;
+}
+
+.edit-subtask-button,
+.delete-subtask-button {
+    cursor: pointer;
+}
+
+.edit-delete-subtask-button,
+.save-subtask-button {
+    display: none;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+
+.edit-delete-subtask-button:hover {
+    content: url('../img/delete_subtask_hover.png');
+}
+
+.save-subtask-button:hover {
+    content: url('../img/add_subtask_hover.png');
+}
+
+.separator3 {
+    display: none;
+    opacity: 0.2;
+}
+
+.no-hover:hover {
+    background: none;
 }
 
 .add-task-buttons {
@@ -775,9 +806,9 @@ body {
 
 /* Media Query für Bildschirmbreite von maximal 768px */
 @media(max-width: 768px) {
-    .add-task-container {
+    /* .add-task-container {
         padding: 144px 16px 90px 16px;
-    }
+    } */
 
     /* .button-clear {
         display: none;

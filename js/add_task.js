@@ -521,7 +521,7 @@ function addSubtask() {
 
     subtaskIdCounter++;
 
-    let subtaskId = 'subtask-' + subtaskIdCounter;
+    let subtaskId = subtaskIdCounter;
 
     subtasks.push({
         id: subtaskId,
@@ -534,14 +534,17 @@ function addSubtask() {
         <div class="subtask-container">
             <div class="subtask-item">
                 <span class="subtask-dot"></span>           
-                <span id="${subtaskId}" class="subtask-value">${subtaskValue}</span>
+                <span id="${subtaskId}" class="subtask-value" contenteditable="false">${subtaskValue}</span>
             </div>
             <div class="hover-content">
-                <img onclick="editSubtask()" src="./img/edit_subtask.png" class="edit-subtask-button">
+                <img onclick="editSubtask('${subtaskId}')" src="./img/edit_subtask.png" class="edit-subtask-button">
                 <span class="separator2" id="separator2">|</span> 
                 <img onclick="deleteSubtask('${subtaskId}')" data-subtask-id="${subtaskId}" src="./img/delete_subtask.png" class="delete-subtask-button">
-                <!-- <img onclick="deleteSubtask(event)" src="./img/delete_subtask.png" class="delete-subtask-button"> -->
+                <!-- <img onclick="deleteSubtask(event)" src="./img/delete_subtask.png" class="delete-subtask-button"> --> 
             </div>
+                <img onclick="deleteSubtask('${subtaskId}')" data-subtask-id="${subtaskId}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
+                <span class="separator3" id="separator3">|</span> 
+                <img onclick="finishEditing('${subtaskId}')" src="./img/add_subtask.png" class="save-subtask-button">
         </div>
     `;
 
@@ -584,6 +587,128 @@ function deleteSubtask(subtaskId) {
         }
     }
 }
+
+// function editSubtask(subtaskId) {
+//     let subtaskTitleElement = document.getElementById(subtaskId);
+
+//     subtaskTitleElement.contentEditable = true;
+
+//     // Füge eine CSS-Klasse hinzu, um den editierbaren Zustand anzuzeigen
+//     subtaskTitleElement.classList.add('editable-subtask');
+
+//     subtaskTitleElement.focus();
+
+//     let subtaskContainer = document.querySelector("subtask-container");
+//     subtaskContainer.classList.add("no-hover");
+//     subtaskContainer.style.display = "border-bottom: 1px solid #D1D1D1";
+
+//     let toEditButton = document.querySelector(".edit-subtask-button");
+//     let deleteButton = document.querySelector(".delete-subtask-button");
+//     let separator = document.querySelector(".separator2");
+//     let dot = document.querySelector(".subtask-dot");
+//     toEditButton.style.display = "none";
+//     deleteButton.style.display = "none";
+//     separator.style.display = "none";
+//     dot.style.display = "none";
+
+//     let saveButton = document.querySelector(".save-subtask-button");
+//     let cancelButton = document.querySelector(".edit-delete-subtask-button");
+//     let separator3 = document.querySelector(".separator3");
+//     saveButton.style.display = "block";
+//     cancelButton.style.display = "block";
+//     separator3.style.display = "block";
+// }
+
+
+function editSubtask(subtaskId) {
+    let subtaskElement = document.getElementById(subtaskId);
+    if (subtaskElement) {
+        subtaskElement.contentEditable = true;
+    }
+    subtaskElement.focus();
+
+    let subtaskContainer = document.querySelector(".subtask-container");
+    subtaskContainer.classList.add("no-hover");
+    subtaskContainer.style.display = "border-bottom: 1px solid #D1D1D1";
+
+    let editButton = document.querySelector(".edit-subtask-button");
+    let deleteButton = document.querySelector(".delete-subtask-button");
+    let separator = document.querySelector(".separator2");
+    let dot = document.querySelector(".subtask-dot");
+    editButton.style.display = "none";
+    deleteButton.style.display = "none";
+    separator.style.display = "none";
+    dot.style.display = "none";
+
+    let saveButton = document.querySelector(".save-subtask-button");
+    let cancelButton = document.querySelector(".edit-delete-subtask-button");
+    let separator3 = document.querySelector(".separator3");
+    saveButton.style.display = "block";
+    cancelButton.style.display = "block";
+    separator3.style.display = "block";
+}
+
+
+function finishEditing(subtaskId) {
+    let subtaskElement = document.getElementById(subtaskId);
+    if (subtaskElement) {
+        subtaskElement.contentEditable = false;
+    }
+
+    let hoverContent = document.querySelector(".subtask-container");
+    hoverContent.classList.remove("no-hover");
+
+    let editButton = document.querySelector(".edit-subtask-button");
+    let deleteButton = document.querySelector(".delete-subtask-button");
+    let separator = document.querySelector(".separator2");
+    let dot = document.querySelector(".subtask-dot");
+    let saveButton = document.querySelector(".save-subtask-button");
+    let cancelButton = document.querySelector(".edit-delete-subtask-button");
+    let separator3 = document.querySelector(".separator3");
+
+    hoverContent.addEventListener("mouseenter", () => {
+        editButton.style.display = "inline-block";
+        deleteButton.style.display = "inline-block";
+        separator.style.display = "inline-block";
+    });
+    hoverContent.addEventListener("mouseleave", () => {
+        editButton.style.display = "none";
+        deleteButton.style.display = "none";
+        separator.style.display = "none";
+    });
+    dot.style.display = "inline-block";
+    saveButton.style.display = "none";
+    cancelButton.style.display = "none";
+    separator3.style.display = "none";
+}
+
+
+// function saveEditedSubtask(subtaskId) {
+//     // Finde das Element, das den bearbeiteten Subtask-Titel darstellt
+//     let subtaskTitleElement = document.getElementById(subtaskId);
+
+//     // Deaktiviere die Bearbeitungsfunktion
+//     subtaskTitleElement.contentEditable = false;
+
+//     // Entferne die CSS-Klasse, um den editierbaren Zustand anzuzeigen
+//     subtaskTitleElement.classList.remove('editable-subtask');
+
+//     // Ändere das Bild zurück auf das Bearbeiten-Symbol
+//     let editButton = document.querySelector(`[id="${subtaskId}"] + .hover-content .edit-subtask-button`);
+//     editButton.src = "./img/edit_subtask.png";
+
+//     // Aktualisiere den Subtask in deinem Datenmodell (subtasks-Array) mit dem bearbeiteten Titel
+//     let editedTitle = subtaskTitleElement.textContent;
+//     let editedSubtask = subtasks.find(subtask => subtask.id === parseInt(subtaskId));
+//     if (editedSubtask) {
+//         editedSubtask.title = editedTitle;
+//     }
+
+//     // Füge erneut das Klickereignis für das Bearbeiten hinzu
+//     editButton.onclick = function () {
+//         editSubtask(subtaskId);
+//     };
+// }
 
 
 // function deleteSubtask(event) {
