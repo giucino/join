@@ -142,8 +142,8 @@ function categorySelected(category) {
  */
 function openSubtaskInput() {
     document.querySelector('.open-subtask-button').style.display = 'none';
-    document.getElementById('edit-subtask-input').focus();
-    document.getElementById('edit-separator').style.display = 'inline-flex'
+    document.getElementById('subtaskInput').focus();
+    document.getElementById('separator').style.display = 'inline-flex'
     let otherButtons = document.querySelectorAll('.add-subtask-button');
     for (let i = 0; i < otherButtons.length; i++) {
         otherButtons[i].style.display = 'inline-block';
@@ -156,7 +156,7 @@ function openSubtaskInput() {
 function closeSubtaskInput() {
     document.querySelector('.open-subtask-button').style.display = 'inline-block';
     document.querySelector('.new-subtask-textfield').value = '';
-    document.getElementById('edit-separator').style.display = 'none'
+    document.getElementById('separator').style.display = 'none'
     let otherButtons = document.querySelectorAll('.add-subtask-button');
     for (let i = 0; i < otherButtons.length; i++) {
         otherButtons[i].style.display = 'none';
@@ -168,12 +168,12 @@ function closeSubtaskInput() {
  * @param {number|string} subtaskId - The ID of the subtask to delete.
  */
 function deleteEditSubtask(subtaskId) {
-    const indexToDelete = subtasks.findIndex(subtask => subtask.id === subtaskId);
+    let indexToDelete = subtasks.findIndex(subtask => subtask.id === subtaskId);
 
     if (indexToDelete !== -1) {
         subtasks.splice(indexToDelete, 1);
 
-        const subtaskElement = document.getElementById(subtaskId);
+        let subtaskElement = document.getElementById(subtaskId);
         if (subtaskElement) {
             subtaskElement.parentElement.parentElement.remove();
         }
@@ -185,7 +185,95 @@ function deleteEditSubtask(subtaskId) {
  * @param {number} i - The index or unique identifier for the subtask.
  */
 function editEditedSubtask(i) {
-    const subtaskValueElement = document.querySelector(`.edit-subtask-value[data-subtask-id="${i}"]`);
-    subtaskValueElement.setAttribute('contenteditable', 'true');
-    subtaskValueElement.focus();  
+    let subtaskElement = document.getElementById(i);
+    if (subtaskElement) {
+        subtaskElement.contentEditable = true;
+        subtaskElement.focus();
+    }
+
+    let subtaskContainer = document.getElementById(`subtask-container-${i}`);
+    if (subtaskContainer) {
+        addEditingClasses(subtaskContainer);
+    }
 }
+
+function addEditingClasses(container) {
+    container.classList.add("editing-mode");
+    container.classList.add("no-hover");
+    container.style.borderBottom = "1px solid #4589FF";
+
+    let dot = container.querySelector(".edit-subtask-dot");
+    let saveButton = container.querySelector(".edit-save-subtask-button");
+    let cancelButton = container.querySelector(".edit-delete-subtask-button");
+    let separator3 = container.querySelector(".separator3");
+
+    if (dot) {
+        dot.style.display = "none";
+    }
+
+    if (saveButton) {
+        saveButton.style.display = "block";
+    }
+
+    if (cancelButton) {
+        cancelButton.style.display = "block";
+    }
+
+    if (separator3) {
+        separator3.style.display = "block";
+    }
+}
+    
+
+function finishEditing(i) {
+    let subtaskElement = document.getElementById(i);
+
+    if (subtaskElement) {
+        subtaskElement.contentEditable = false;
+    }
+    let subtaskContainer = document.getElementById(`subtask-container-${i}`);
+
+    if (subtaskContainer) {
+        removeEditingClasses(subtaskContainer);
+    }
+    saveEditedTitle(i);
+}
+
+function removeEditingClasses(container) {
+    container.classList.remove("editing-mode");
+    container.classList.remove("no-hover");
+    container.style.borderBottom = "";
+
+    let dot = container.querySelector(".edit-subtask-dot");
+    let saveButton = container.querySelector(".edit-save-subtask-button");
+    let cancelButton = container.querySelector(".edit-delete-subtask-button");
+    let separator3 = container.querySelector(".separator3");
+
+    if (dot) {
+        dot.style.display = "inline-block";
+    }
+
+    if (saveButton) {
+        saveButton.style.display = "none";
+    }
+
+    if (cancelButton) {
+        cancelButton.style.display = "none";
+    }
+
+    if (separator3) {
+        separator3.style.display = "none";
+    }
+}
+
+function saveEditedTitle(subtaskId) {
+    let subtaskElement = document.getElementById(subtaskId);
+    let editedTitle = subtaskElement.value;
+
+    let editedSubtask = subtasks.find(subtask => subtask.id === subtaskId);
+
+    if (editedSubtask) {
+        editedSubtask.title = editedTitle;
+    }
+}
+

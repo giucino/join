@@ -687,7 +687,7 @@ function renderAddTask() {
 <div class="float-add-task-container">
     <div class="header">
         <h1 class="title-add-task">Add Task</h1>
-        <img class="close-add-task" onclick="closeAddTaskModal()" src="../img/close_subtask.png" alt="Close Task">
+        <img class="close-add-task" onclick="closeAddTaskModal()" src="./img/close_subtask.png" alt="Close Task">
     </div>
     <div class="add-task-content">
         <div class="add-task-container-first">
