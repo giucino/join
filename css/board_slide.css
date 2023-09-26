@@ -21,7 +21,7 @@
     animation: slide-in 1s ease-in-out;
 }
 
-.open-task{
+.open-task {
     bottom: 0 !important;
 }
 
@@ -78,13 +78,13 @@
 }
 
 @media(max-width: 768px) {
-    .task-slide-container{
+    .task-slide-container {
         width: unset;
     }
 }
 
 @media(max-width: 480px) {
-    .task-slide-container{
+    .task-slide-container {
         transform: scale(0.7);
         position: unset;
     }
@@ -108,13 +108,13 @@
 }
 
 @media(max-width: 768px) {
-    .edit-task-slide-container{
+    .edit-task-slide-container {
         width: unset;
     }
 }
 
 @media(max-width: 480px) {
-    .edit-task-slide-container{
+    .edit-task-slide-container {
         transform: scale(0.6);
         /* position: unset; */
         top: -150px;
@@ -395,7 +395,7 @@
 } */
 
 .float-add-task-container {
-    width: 100%;    
+    width: 100%;
     height: 100%;
     z-index: 10;
     background-color: #FFF;
@@ -457,8 +457,8 @@
 .add-task-bottom-container {
     display: flex;
     position: absolute;
-    bottom: 0; 
-    left: 0; 
+    bottom: 0;
+    left: 0;
     right: 0;
     padding: 16px 40px 24px 40px;
     justify-content: flex-end;
@@ -492,5 +492,21 @@
 
     to {
         right: -600px;
+    }
+}
+
+/* Media Query für Bildschirmbreite von maximal 768px */
+@media(max-width: 768px) {
+
+    .add-task-content {
+        height: 250px;
+    }
+}
+
+/* Media Query für Bildschirmbreite von maximal 768px */
+@media(max-width: 1024px) {
+    
+    .add-task-content {
+        height: 650px;
     }
 }

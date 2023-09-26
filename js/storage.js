@@ -13,7 +13,7 @@ let todos = [
         'priority': 'low',
         'dueDate': '2023-08-28',
         'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-        'bgcolor': ['#C888B0', '#0206C3'],
+        'bgcolor': ['#00BEE8', '#FFA35E'],
         'subtasks': [
             {
                 'title': 'Design-Ressourcen sammeln',
@@ -38,7 +38,7 @@ let todos = [
         'priority': 'high',
         'dueDate': '2023-08-28',
         'assignedTo': ['Max Müller', 'Sophie Wagner'],
-        'bgcolor': ['#133465', '#F68997'],
+        'bgcolor': ['#00BEE8', '#1FD7C1'],
         'subtasks': [
             {
                 'title': 'Marktforschung durchführen',
@@ -63,7 +63,7 @@ let todos = [
         'priority': 'medium',
         'dueDate': '2023-08-28',
         'assignedTo': ['Felix Schulz', 'Laura Hoffmann'],
-        'bgcolor': ['#51C3C9', '#037E49'],
+        'bgcolor': ['#C3FF2B', '#9327FF'],
         'subtasks': [
             {
                 'title': 'Kundensupport-Hotline einrichten',
@@ -84,7 +84,7 @@ let todos = [
         'priority': 'low',
         'dueDate': '2023-10-28',
         'assignedTo': ['Sophie Wagner', 'Paul Becker'],
-        'bgcolor': ['#F68997', '#8595D2'],
+        'bgcolor': ['#1FD7C1', '#6E52FF'],
         'subtasks': [
             {
                 'title': 'Werbematerial erstellen',
@@ -105,7 +105,7 @@ let todos = [
         'priority': 'medium',
         'dueDate': '2023-08-28',
         'assignedTo': ['Emilia Koch', 'Max Müller'],
-        'bgcolor': ['#0206C3', '#133465'],
+        'bgcolor': ['#FFA35E', '#00BEE8'],
         'subtasks': [
             {
                 'title': 'Präsentationsmaterial erstellen',
@@ -122,7 +122,7 @@ let todos = [
         'priority': 'low',
         'dueDate': '2023-08-28',
         'assignedTo': ['Anna Schmidt', 'Max Müller'],
-        'bgcolor': ['#C888B0', '#133465'],
+        'bgcolor': ['#00BEE8', '#00BEE8'],
         'subtasks': [
             {
                 'title': 'Einkaufsliste erstellen',
@@ -143,7 +143,7 @@ let todos = [
         'priority': 'high',
         'dueDate': '2023-08-28',
         'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-        'bgcolor': ['#8595D2', '#0206C3'],
+        'bgcolor': ['#00BEE8', '#FFA35E'],
         'subtasks': [
             {
                 'title': 'Reiseziele auswählen',
