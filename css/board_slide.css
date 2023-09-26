@@ -448,9 +448,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
-    flex-shrink: 0;
-    height: auto;
-    flex: 1;
+    height: 750px;
     overflow-y: scroll;
     padding-left: 36px;
     padding-right: 42px;

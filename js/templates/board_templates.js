@@ -29,10 +29,10 @@ function subtaskToEditHTML(subtask, i) {
         <div class="edit-subtask-container">
             <div class="edit-subtask-item">
                 <span class="edit-subtask-dot"></span>           
-                <span class="edit-subtask-value" contenteditable="true" data-subtask-id="${i}" value="${subtask.title}">${subtask.title}</span>
+                <span class="edit-subtask-value" contenteditable="false" data-subtask-id="${i}" value="${subtask.title}">${subtask.title}</span>
             </div>
             <div class="hover-content">
-                <img onclick="editSubtask(${i})" src="./img/edit_subtask.png" class="edit-subtask-button">
+                <img onclick="editEditedSubtask(${i})" src="./img/edit_subtask.png" class="edit-subtask-button">
                 <span class="separator2" id="separator2">|</span> 
                 <img onclick="deleteSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="delete-subtask-button">
                 <!-- <img onclick="deleteSubtask(event)" src="./img/delete_subtask.png" class="delete-subtask-button"> -->

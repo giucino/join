@@ -187,5 +187,5 @@ function deleteEditSubtask(subtaskId) {
 function editEditedSubtask(i) {
     const subtaskValueElement = document.querySelector(`.edit-subtask-value[data-subtask-id="${i}"]`);
     subtaskValueElement.setAttribute('contenteditable', 'true');
-    /* subtaskValueElement.focus();  */
+    subtaskValueElement.focus();  
 }

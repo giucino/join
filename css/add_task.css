@@ -4,6 +4,7 @@
 
 body {
     font-family: 'Open sans', sans-serif;
+    margin: 0;
 }
 
 .add-task-container {
@@ -584,7 +585,6 @@ body {
     display: flex;
     flex-direction: column;
     gap: 3px;
-    cursor: pointer;
 }
 
 .subtask-container {
@@ -613,6 +613,11 @@ body {
     margin-right: 5px;
 }
 
+.subtask-value {
+    border: none;
+    outline: none;
+}
+
 .hover-content {
     display: flex;
     align-items: center;
@@ -630,6 +635,11 @@ body {
 .subtask-container:hover .hover-content .separator2,
 .subtask-container:hover .hover-content img {
     display: inline-block;
+}
+
+.editing-mode:hover .hover-content .separator2,
+.editing-mode:hover .hover-content img {
+    display: none;
 }
 
 .edit-subtask-button,
