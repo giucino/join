@@ -230,7 +230,7 @@ assignedDropdown.addEventListener('click', resetAssignedContact);
 function showSelectCategoryError() {
     let assignedError = document.getElementById('requiredCategory');
     assignedError.style.display = 'block';
-    let assignedInput = document.querySelector('.category-choicefield');
+    let assignedInput = document.querySelector('.category-dropdown');
     assignedInput.style.borderColor = '#FF8190';
 }
 
@@ -484,9 +484,13 @@ function toggleCategoryContainer() {
     if (categoryContainer.style.display === 'block') {
         categoryContainer.style.display = 'none';
         categoryDropdown.classList.remove('expanded');
+        categoryDropdown.style.borderBottom = "1px solid #D1D1D1";
+
     } else {
         categoryContainer.style.display = 'block';
         categoryDropdown.classList.add('expanded');
+        categoryDropdown.style.borderBottom = "1px solid #4589FF";
+
         renderCategorys();
     }
 }
@@ -506,6 +510,7 @@ function categorySelected(category) {
 
     let categoryDropdown = document.querySelector('.category-dropdown');
     categoryDropdown.classList.remove('expanded');
+    categoryDropdown.style.borderBottom = "1px solid #D1D1D1";;
 }
 
 
@@ -742,12 +747,6 @@ document.addEventListener('DOMContentLoaded', () => {
         '#4589FF',
         '#D1D1D1'
     );
-    // applyBorderColorOnFocusAndBlur(
-    //     '.add-task-description-textfield',
-    //     '.add-task-description-textfield',
-    //     '#4589FF',
-    //     '#D1D1D1'
-    // );
     applyBorderColorOnFocusAndBlur(
         '.due-date-input-container',
         '.due-date-textfield',
@@ -766,4 +765,24 @@ document.addEventListener('DOMContentLoaded', () => {
         '#4589FF',
         '#D1D1D1'
     );
+});
+
+
+function changeTextAreaBorderOnFocusBlurInput(textarea) {
+    textarea.addEventListener('focus', () => {
+        textarea.style.border = '1px solid #4589FF';
+    });
+
+    textarea.addEventListener('blur', () => {
+        textarea.style.border = '1px solid #D1D1D1';
+    });
+
+    textarea.addEventListener('input', () => {
+        textarea.style.border = '1px solid #4589FF';
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    let textarea = document.getElementById('taskDescription');
+    changeTextAreaBorderOnFocusBlurInput(textarea);
 });

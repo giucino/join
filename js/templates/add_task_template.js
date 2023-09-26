@@ -178,7 +178,6 @@ document.body.addEventListener('input', function (event) {
 });
 
 
-
 function addShowDescriptionInputError() {
     let descriptionError = document.getElementById('addRequiredDescription');
     descriptionError.style.display = 'block';
@@ -201,7 +200,6 @@ document.body.addEventListener('input', function (event) {
         addResetDescriptionInput();
     }
 });
-
 
 
 function addShowDateInputError() {
@@ -230,7 +228,6 @@ document.body.addEventListener('input', function (event) {
         addResetDateInput();
     }
 });
-
 
 
 function addShowPriorityError() {
@@ -640,31 +637,6 @@ function addDeleteSubtask(subtaskId) {
 }
 
 
-// function addDeleteSubtask(event) {
-//     let target = event.target;
-
-//     // Überprüfen Sie, ob das angeklickte Element das Bild zum Löschen ist
-//     if (target.classList.contains("delete-subtask-button")) {
-//         // Das übergeordnete Element des Bildes ist der Container des Subtasks
-//         let subtaskContainer = target.closest(".subtask-container");
-
-//         // Wenn ein passender Container gefunden wurde
-//         if (subtaskContainer) {
-//             // Ermitteln Sie den Index des Containers innerhalb seines Eltern-Elements
-//             let index = Array.from(subtaskContainer.parentNode.children).indexOf(subtaskContainer);
-
-//             if (index >= 0) {
-//                 // Entfernen Sie den Subtask aus dem Array
-//                 subtasks.splice(index, 1);
-
-//                 // Entfernen Sie den Container aus dem DOM
-//                 subtaskContainer.parentNode.removeChild(subtaskContainer);
-//             }
-//         }
-//     }
-// }
-
-
 function addApplyBorderColorOnFocusAndBlur(containerSelector, inputSelector, focusColor, blurColor) {
     const containers = document.querySelectorAll(containerSelector);
 
@@ -689,12 +661,6 @@ document.addEventListener('DOMContentLoaded', () => {
         '#4589FF',
         '#D1D1D1'
     );
-    // addApplyBorderColorOnFocusAndBlur(
-    //     '.add-task-description-textfield',
-    //     '.add-task-description-textfield',
-    //     '#4589FF',
-    //     '#D1D1D1'
-    // );
     addApplyBorderColorOnFocusAndBlur(
         '.due-date-input-container',
         '.due-date-textfield',
