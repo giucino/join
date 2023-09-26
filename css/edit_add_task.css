@@ -632,17 +632,17 @@
     margin-right: 5px;
 }
 
-.edit-hover-content {
+.hover-content {
     display: flex;
     align-items: center;
 }
 
-.edit-separator2 {
+.separator2 {
     opacity: 0.2;
 }
 
-.edit-hover-content .separator2,
-.edit-hover-content img {
+.hover-content .separator2,
+.hover-content img {
     display: none;
 }
 
@@ -742,3 +742,27 @@
     width: 100%;
 }
 
+.border-bottom{
+    border-bottom: 1px solid #D1D1D1;
+}
+
+.d-none{
+    display: none;
+}
+
+.no-hover:hover {
+    background: none;
+}
+
+.edit-edit-delete-subtask-button,
+.edit-save-subtask-button {
+    display: none;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+
+.edit-edit-subtask-button,
+.edit-delete-subtask-button {
+    cursor: pointer;
+}

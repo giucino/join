@@ -11,6 +11,7 @@ let selectedPriority = '';
 let selectedCategory = '';
 let selectedContacts = [];
 let subtasks = [];
+let subtaskCounter = 0;
 
 /**
  * Slideanimation for the task card.
@@ -54,6 +55,7 @@ function editTask(id) {
 async function saveEditedTask(id) {
   const element = todos[id];
   const currentStatus = element.status;
+
   element.title = document.getElementById("edit-task-title").value;
   element.description = document.getElementById("edit-task-description").value;
   element.dueDate = document.getElementById("edit-due-date").value;
@@ -61,9 +63,18 @@ async function saveEditedTask(id) {
   element.category = selectedCategory;
   element.priority = selectedPriority;
   element.assignedTo = selectedContacts.filter(contact => contact !== undefined);
-  element.subtasks = element.subtasks;
+
+  // Aktualisieren der Subtasks basierend auf dem aktuellen Zustand im DOM
+  const subtaskElements = document.querySelectorAll('.edit-subtask-value');
+  const updatedSubtasks = [];
+  subtaskElements.forEach(subtaskInput => {
+    updatedSubtasks.push({ title: subtaskInput.value, status: false});
+  });
+  element.subtasks = updatedSubtasks;
+
   element.id = element.id;
   todos[id] = element;
+
   await setItem("tasks", JSON.stringify(todos));
   openEditedTask(element.id);
 }
@@ -172,8 +183,20 @@ function addNewSubtask() {
   const subInputValue = subInput.value;
   const subtaskContainer = document.getElementById("edit-subtask-add-container");
 
-  subtaskContainer.innerHTML += subtaskToAddHTML(subInputValue);
+  // Nutzen Sie den Zähler für die ID und inkrementieren Sie ihn
+  subtaskContainer.innerHTML += subtaskToAddHTML(subInputValue, subtaskCounter++);
   subInput.value = '';
+}
+
+function subtaskToAddHTML(subInputValue, id) {
+  return /*html*/ `
+      <div class="edit-subtask-container" data-subtask-id="${id}">
+          <div class="edit-subtask-item">
+              <span class="edit-subtask-dot"></span>           
+              <input class="edit-subtask-value" value="${subInputValue}">
+          </div>
+      </div>
+  `;
 }
 
 /** 
@@ -186,7 +209,7 @@ function addSubtaskToEdit(element) {
     for (let i = 0; i < element.subtasks.length; i++) {
       const subtask = element.subtasks[i];
       if (subtask.title) {
-        subtasksHTML += subtaskToEditHTML(subtask, i);
+        subtasksHTML += subtaskToEditHTML(subtask, subtaskCounter++);
       }
     }
     const subtaskContainer = document.getElementById("edit-subtask-add-container");

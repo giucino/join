@@ -554,7 +554,7 @@ body {
 }
 
 .open-subtask-button:hover {
-    content: url('../img/open_subtask_hover.png');
+    content: url('./img/open_subtask_hover.png');
 }
 
 .add-subtask-button {
@@ -564,11 +564,11 @@ body {
 }
 
 #closeSubtask:hover {
-    content: url('../img/close_subtask_hover.png');
+    content: url('./img/close_subtask_hover.png');
 }
 
 #addNewSubtask:hover {
-    content: url('../img/add_subtask_hover.png');
+    content: url('./img/add_subtask_hover.png');
 }
 
 .separator {

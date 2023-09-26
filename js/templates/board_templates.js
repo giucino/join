@@ -4,12 +4,12 @@
  * @param {string} subInputValue - The value for the subtask input.
  * @returns {string} Returns an HTML string representing a subtask container.
  */
-function subtaskToAddHTML(subInputValue) {
+function subtaskToEditHTML(subtask, index) {
     return /*html*/ `
-        <div class="edit-subtask-container">
+        <div class="edit-subtask-container" data-subtask-id="${index}">
             <div class="edit-subtask-item">
                 <span class="edit-subtask-dot"></span>           
-                <input class="edit-subtask-value" value="${subInputValue}">
+                <input class="edit-subtask-value" value="${subtask.title}">
             </div>
         </div>
     `;
@@ -26,17 +26,20 @@ function subtaskToAddHTML(subInputValue) {
  */
 function subtaskToEditHTML(subtask, i) {
     return /*html*/ `
-        <div class="edit-subtask-container">
+        <div id="subtask-container-${i}" class="edit-subtask-container">
             <div class="edit-subtask-item">
-                <span class="edit-subtask-dot"></span>           
-                <span class="edit-subtask-value" contenteditable="false" data-subtask-id="${i}" value="${subtask.title}">${subtask.title}</span>
+                <span id="editDot" class="edit-subtask-dot"></span>           
+                <span id="${i}" class="edit-subtask-value" data-subtask-id="${i}" contenteditable="false">${subtask.title}</span>
             </div>
             <div class="hover-content">
-                <img onclick="editEditedSubtask(${i})" src="./img/edit_subtask.png" class="edit-subtask-button">
+                <img onclick="editEditedSubtask(${i})" data-subtask-id="${i}" src="./img/edit_subtask.png" class="edit-edit-subtask-button">
                 <span class="separator2" id="separator2">|</span> 
-                <img onclick="deleteSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="delete-subtask-button">
+                <img onclick="deleteEditSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
                 <!-- <img onclick="deleteSubtask(event)" src="./img/delete_subtask.png" class="delete-subtask-button"> -->
             </div>
+            <img onclick="deleteEditedSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="edit-edit-delete-subtask-button">
+            <span class="separator3" id="separator3">|</span> 
+            <img onclick="finishEditing(${i})" data-subtask-id="${i}" src="./img/add_subtask.png" class="edit-save-subtask-button">
         </div>
     `;
 }
