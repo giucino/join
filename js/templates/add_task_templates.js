@@ -805,10 +805,10 @@ function renderAddTask() {
                 <input onclick="addOpenSubtaskInput()" type="text" id="addSubtaskInput" class="new-subtask-textfield"
                     placeholder="Add new subtask">
                 <img onclick="addOpenSubtaskInput()" class="open-subtask-button" src="./img/open_subtask.png">
-                <img onclick="addCloseSubtaskInput()" class="add-subtask-button hidden" id="addCloseSubtask"
+                <img onclick="addCloseSubtaskInput()" class="add-subtask-button hidden" id="closeSubtask"
                     src="./img/close_subtask.png">
                 <span class="separator" id="addSeparator">|</span>
-                <img onclick="addAddSubtask()" class="add-subtask-button hidden" id="addAddNewSubtask"
+                <img onclick="addAddSubtask()" class="add-subtask-button hidden" id="addNewSubtask"
                     src="./img/add_subtask.png">
             </div>
             <div id="addSubtask-add-container" class="subtask-add-container"></div>
