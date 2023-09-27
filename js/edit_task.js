@@ -182,15 +182,24 @@ function addNewSubtask() {
   subInput.value = '';
 }
 
-function subtaskToAddHTML(subInputValue, id) {
+function subtaskToAddHTML(subInputValue, i) {
   return /*html*/ `
-      <div class="edit-subtask-container" data-subtask-id="${id}">
-          <div class="edit-subtask-item">
-              <span class="edit-subtask-dot"></span>           
-              <input class="edit-subtask-value" value="${subInputValue}">
-          </div>
-      </div>
-  `;
+        <div id="subtask-container-${i}" class="edit-subtask-container">
+            <div class="edit-subtask-item">
+                <span id="editDot" class="edit-subtask-dot"></span>           
+                <span id="${i}" class="edit-subtask-value" data-subtask-id="${i}" contenteditable="false">${subInputValue}</span>
+            </div>
+            <div class="hover-content">
+                <img onclick="editEditedSubtask(${i})" data-subtask-id="${i}" src="./img/edit_subtask.png" class="edit-edit-subtask-button">
+                <span class="separator2" id="separator2">|</span> 
+                <img onclick="deleteEditSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
+                <!-- <img onclick="deleteSubtask(event)" src="./img/delete_subtask.png" class="delete-subtask-button"> -->
+            </div>
+            <img onclick="deleteEditedSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="edit-edit-delete-subtask-button">
+            <span class="separator3" id="separator3">|</span> 
+            <img onclick="finishEditing(${i})" data-subtask-id="${i}" src="./img/add_subtask.png" class="edit-save-subtask-button">
+        </div>
+    `;
 }
 
 /** 

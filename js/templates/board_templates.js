@@ -4,8 +4,8 @@
  * @param {string} subInputValue - The value for the subtask input.
  * @returns {string} Returns an HTML string representing a subtask container.
  */
-function subtaskToEditHTML(subtask, index) {
-    return /*html*/ `
+/* function subtaskToEditHTML(subtask, index) {
+    return /*html `
         <div class="edit-subtask-container" data-subtask-id="${index}">
             <div class="edit-subtask-item">
                 <span class="edit-subtask-dot"></span>           
@@ -14,7 +14,7 @@ function subtaskToEditHTML(subtask, index) {
         </div>
     `;
 }
-
+ */
 /**
  * Returns an HTML representation of a subtask for editing purposes.
  * 

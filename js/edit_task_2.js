@@ -142,8 +142,8 @@ function categorySelected(category) {
  */
 function openSubtaskInput() {
     document.querySelector('.open-subtask-button').style.display = 'none';
-    document.getElementById('subtaskInput').focus();
-    document.getElementById('separator').style.display = 'inline-flex'
+    document.getElementById('edit-subtask-input').focus();
+    document.getElementById('edit-separator').classList.add('inline-flex');
     let otherButtons = document.querySelectorAll('.add-subtask-button');
     for (let i = 0; i < otherButtons.length; i++) {
         otherButtons[i].style.display = 'inline-block';
@@ -156,7 +156,7 @@ function openSubtaskInput() {
 function closeSubtaskInput() {
     document.querySelector('.open-subtask-button').style.display = 'inline-block';
     document.querySelector('.new-subtask-textfield').value = '';
-    document.getElementById('separator').style.display = 'none'
+    document.getElementById('edit-separator').style.display = 'none'
     let otherButtons = document.querySelectorAll('.add-subtask-button');
     for (let i = 0; i < otherButtons.length; i++) {
         otherButtons[i].style.display = 'none';
@@ -266,20 +266,21 @@ function removeEditingClasses(container) {
     }
 }
 
+//TODO: editedTitle = undefined
 function saveEditedTitle(subtaskId) {
     let subtaskElement = document.getElementById(subtaskId);
+    if (!subtaskElement) {
+        console.error("Element mit der ID", subtaskId, "wurde nicht gefunden.");
+        return;  // Verlasse die Funktion frühzeitig
+    }
     let editedTitle = subtaskElement.value;
+    // Loop through each task to find the correct subtask and edit it
+    for (let task of todos) {
+        let editedSubtask = task.subtasks.find(subtask => subtask.id === subtaskId);
 
-    let editedSubtask = subtasks.find(subtask => subtask.id === subtaskId);
+        if (editedSubtask) {
+            editedSubtask.title = editedTitle;
 
-    if (editedSubtask) {
-        editedSubtask.title = editedTitle;
-        
-        // Now, push the edited subtask to the updatedSubtasks array
-        updatedSubtasks.push({ title: editedTitle, status: false });
-
-        console.log(subtasks);
-        console.log(updatedSubtasks);
+        }
     }
 }
-
