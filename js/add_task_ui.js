@@ -63,63 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-function resetTaskForm() {
-    document.getElementById('taskTitle').value = '';
-    document.getElementById('taskDescription').value = '';
-    document.getElementById('dueDate').value = '';
-    resetButtons();
-    resetAssignedToSelection();
-    resetCategorySelection();
-    resetSubtasks();
-}
-
-
-function resetAssignedToSelection() {
-    selectedContacts = {};
-    let searchInput = document.getElementById('searchInput');
-    searchInput.value = '';
-    renderAssignedTo();
-    displayChosenContacts();
-}
-
-
-function resetCategorySelection() {
-    selectedCategory = '';
-    let selectedCategoryDisplay = document.getElementById('selectedCategoryDisplay');
-    selectedCategoryDisplay.textContent = '';
-
-    let selectText = document.querySelector('.select-text');
-    selectText.style.display = 'inline';
-}
-
-
-function resetSubtasks() {
-    subtasks = [];
-    let subtasksContainer = document.getElementById('subtask-add-container');
-    let subtasksInput = document.getElementById('subtaskInput');
-    subtasksContainer.innerHTML = '';
-    subtasksInput.value = '';
-    closeSubtaskInput();
-}
-
-
-function resetButtons() {
-    selectedPriority = '';
-
-    let buttons = document.querySelectorAll('.priority-choice-inner');
-    for (let i = 0; i < buttons.length; i++) {
-        let btn = buttons[i];
-        btn.classList.remove('highlighted');
-        btn.style.backgroundColor = '';
-        btn.style.color = 'black';
-
-        let originalImage = btn.querySelector('.priority-choice-inner-pic img');
-        originalImage.src = './img/' + originalImage.getAttribute('data-image');
-    }
-}
-
-
 function priority(button) {
     resetButtons();
     hidePriorityError();
