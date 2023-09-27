@@ -23,7 +23,7 @@ function markMobileLink() {
     let screenWidth = window.innerWidth;
     let links = document.querySelectorAll('.links');
 
-    if (screenWidth < 767) {
+    if (screenWidth < 1024) {
         for (let i = 0; i < links.length; i++) {
             let link = links[i];
             let image = link.querySelector('img');

@@ -448,7 +448,7 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
-    height: 350px;
+    height: 750px;
     overflow-y: scroll;
     padding-left: 36px;
     padding-right: 42px;
@@ -464,7 +464,7 @@
     justify-content: flex-end;
     align-items: center;
     border-radius: 0px 0px 30px 30px;
-    background: black;
+    background: white;
 }
 
 .edditModal-slide-in {
@@ -497,16 +497,16 @@
 
 /* Media Query für Bildschirmbreite von maximal 768px */
 @media(max-width: 768px) {
-
+/* 
     .add-task-content {
         height: 65%;
-    }
+    } */
 }
 
 /* Media Query für Bildschirmbreite von maximal 768px */
-/* @media(max-width: 1024px) {
+@media(max-width: 1024px) {
     
     .add-task-content {
-        height: 650px;
+        height: 550px;
     }
-} */
+}
