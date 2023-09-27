@@ -29,7 +29,7 @@ function subtaskToEditHTML(subtask, i) {
         <div id="subtask-container-${i}" class="edit-subtask-container">
             <div class="edit-subtask-item">
                 <span id="editDot" class="edit-subtask-dot"></span>           
-                <span id="${i}" class="edit-subtask-value" data-subtask-id="${i}" contenteditable="false">${subtask.title}</span>
+                <span id="${i}" class="edit-subtask-value" data-subtask-id="${i}" contenteditable="false" value="${subtask.title}">${subtask.title}</span>
             </div>
             <div class="hover-content">
                 <img onclick="editEditedSubtask(${i})" data-subtask-id="${i}" src="./img/edit_subtask.png" class="edit-edit-subtask-button">
@@ -149,10 +149,6 @@ function renderEditTask(id) {
                         <div class="edit-subtasks-header">
                             Subtasks
                         </div>
-                        <!-- <div class="edit-add-subtask-input">
-                            <input type="text" id="edit-subtask-input" class="edit-new-subtask-textfield" placeholder="Add new subtask">
-                            <img onclick="addNewSubtask()" class="edit-add-subtask-button" src="./img/add_subtask.png">
-                        </div> -->
                         <div class="add-subtask-input">
                             <input onclick="openSubtaskInput()" type="text" id="edit-subtask-input" class="new-subtask-textfield" placeholder="Add new subtask">
                             <img onclick="openSubtaskInput()" class="open-subtask-button" src="./img/open_subtask.png">

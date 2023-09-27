@@ -13,6 +13,7 @@ let selectedContacts = [];
 let subtasks = [];
 let updatedSubtasks = [];
 let subtaskCounter = 0;
+let currentTaskId;
 
 /**
  * Slideanimation for the task card.
@@ -40,6 +41,7 @@ function editTask(id) {
   slideEditTask.innerHTML = renderEditTask(id);
   slideCardAnimationEditTask();
   const element = todos[id];
+  currentTaskId = id;
   addSubtaskToEdit(element);
   loadSelectedPriority(element);
   loadDisplayChosenContacts();
@@ -65,7 +67,7 @@ async function saveEditedTask(id) {
   element.priority = selectedPriority; // assuming selectedPriority is defined somewhere
   element.assignedTo = selectedContacts.filter(contact => contact !== undefined); // assuming selectedContacts is defined somewhere
 
-  element.subtasks = subtasks;
+  element.subtasks = updatedSubtasks;
   element.id = element.id;
   todos[id] = element;
 
@@ -172,22 +174,22 @@ function highlightButton(button, bgColor, imageSrc) {
 /** 
  * Adds a new subtask to the UI based on the value of the input field.
  */
-function addNewSubtask() {
+function addNewSubtask(task) {
   const subInput = document.getElementById('edit-subtask-input');
   const subInputValue = subInput.value;
   const subtaskContainer = document.getElementById("edit-subtask-add-container");
 
   // Nutzen Sie den Zähler für die ID und inkrementieren Sie ihn
-  subtaskContainer.innerHTML += subtaskToAddHTML(subInputValue, subtaskCounter++);
+  subtaskContainer.innerHTML += subtaskToAddHTML(subInputValue, subtaskCounter++, task);
   subInput.value = '';
 }
 
-function subtaskToAddHTML(subInputValue, i) {
+function subtaskToAddHTML(subInputValue, i, task) {
   return /*html*/ `
         <div id="subtask-container-${i}" class="edit-subtask-container">
             <div class="edit-subtask-item">
                 <span id="editDot" class="edit-subtask-dot"></span>           
-                <span id="${i}" class="edit-subtask-value" data-subtask-id="${i}" contenteditable="false">${subInputValue}</span>
+                <span id="${i}" class="edit-subtask-value" data-subtask-id="${i}" contenteditable="false" value="${subInputValue}">${subInputValue}</span>
             </div>
             <div class="hover-content">
                 <img onclick="editEditedSubtask(${i})" data-subtask-id="${i}" src="./img/edit_subtask.png" class="edit-edit-subtask-button">
