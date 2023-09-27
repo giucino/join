@@ -274,6 +274,12 @@ function saveEditedTitle(subtaskId) {
 
     if (editedSubtask) {
         editedSubtask.title = editedTitle;
+        
+        // Now, push the edited subtask to the updatedSubtasks array
+        updatedSubtasks.push({ title: editedTitle, status: false });
+
+        console.log(subtasks);
+        console.log(updatedSubtasks);
     }
 }
 

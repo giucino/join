@@ -11,6 +11,7 @@ let selectedPriority = '';
 let selectedCategory = '';
 let selectedContacts = [];
 let subtasks = [];
+let updatedSubtasks = [];
 let subtaskCounter = 0;
 
 /**
@@ -60,18 +61,11 @@ async function saveEditedTask(id) {
   element.description = document.getElementById("edit-task-description").value;
   element.dueDate = document.getElementById("edit-due-date").value;
   element.status = currentStatus;
-  element.category = selectedCategory;
-  element.priority = selectedPriority;
-  element.assignedTo = selectedContacts.filter(contact => contact !== undefined);
+  element.category = selectedCategory; // assuming selectedCategory is defined somewhere
+  element.priority = selectedPriority; // assuming selectedPriority is defined somewhere
+  element.assignedTo = selectedContacts.filter(contact => contact !== undefined); // assuming selectedContacts is defined somewhere
 
-  // Aktualisieren der Subtasks basierend auf dem aktuellen Zustand im DOM
-  const subtaskElements = document.querySelectorAll('.edit-subtask-value');
-  const updatedSubtasks = [];
-  subtaskElements.forEach(subtaskInput => {
-    updatedSubtasks.push({ title: subtaskInput.value, status: false});
-  });
-  element.subtasks = updatedSubtasks;
-
+  element.subtasks = subtasks;
   element.id = element.id;
   todos[id] = element;
 
