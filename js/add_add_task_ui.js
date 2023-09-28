@@ -1,4 +1,4 @@
-function applyBorderColorOnFocusAndBlur(containerSelector, inputSelector, focusColor, blurColor) {
+function addApplyBorderColorOnFocusAndBlur(containerSelector, inputSelector, focusColor, blurColor) {
     const containers = document.querySelectorAll(containerSelector);
 
     containers.forEach(container => {
@@ -16,34 +16,34 @@ function applyBorderColorOnFocusAndBlur(containerSelector, inputSelector, focusC
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    applyBorderColorOnFocusAndBlur(
+    addApplyBorderColorOnFocusAndBlur(
         '.add-task-titel-textcontainer',
         '.add-task-titel-textfield',
         '#4589FF',
         '#D1D1D1'
     );
-    applyBorderColorOnFocusAndBlur(
+    addApplyBorderColorOnFocusAndBlur(
         '.due-date-input-container',
         '.due-date-textfield',
         '#4589FF',
         '#D1D1D1'
     );
-    applyBorderColorOnFocusAndBlur(
-        '.assigned-to-choicefield',
-        '#searchInput',
+    addApplyBorderColorOnFocusAndBlur(
+        '.add-assigned-to-choicefield',
+        '#addSearchInput',
         '#4589FF',
         '#D1D1D1'
     );
-    applyBorderColorOnFocusAndBlur(
+    addApplyBorderColorOnFocusAndBlur(
         '.add-subtask-input',
-        '#subtaskInput',
+        '#addSubtaskInput',
         '#4589FF',
         '#D1D1D1'
     );
 });
 
 
-function changeTextAreaBorderOnFocusBlurInput(textarea) {
+function addChangeTextAreaBorderOnFocusBlurInput(textarea) {
     textarea.addEventListener('focus', () => {
         textarea.style.border = '1px solid #4589FF';
     });
@@ -57,30 +57,30 @@ function changeTextAreaBorderOnFocusBlurInput(textarea) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    let textarea = document.getElementById('taskDescription');
-    changeTextAreaBorderOnFocusBlurInput(textarea);
+document.addEventListener('input', () => {
+    let textarea = document.getElementById('addTaskDescription');
+    addChangeTextAreaBorderOnFocusBlurInput(textarea);
 });
 
 
-function priority(button) {
-    resetButtons();
-    hidePriorityError();
+function addPriority(button) {
+    addResetButtons();
+    addHidePriorityError();
 
-    if (button.id === 'prioUrgent') {
-        highlightButton(button, '#FF3D00', './img/prio_high_active.png');
+    if (button.id === 'addPrioUrgent') {
+        addHighlightButton(button, '#FF3D00', './img/prio_high_active.png');
         selectedPriority = 'high';
-    } else if (button.id === 'prioMedium') {
-        highlightButton(button, '#FFA800', './img/prio_medium_active.png');
+    } else if (button.id === 'addPrioMedium') {
+        addHighlightButton(button, '#FFA800', './img/prio_medium_active.png');
         selectedPriority = 'medium';
-    } else if (button.id === 'prioLow') {
-        highlightButton(button, '#7AE229', './img/prio_low_active.png');
+    } else if (button.id === 'addPrioLow') {
+        addHighlightButton(button, '#7AE229', './img/prio_low_active.png');
         selectedPriority = 'low';
     }
 }
 
 
-function highlightButton(button, bgColor, imageSrc) {
+function addHighlightButton(button, bgColor, imageSrc) {
     button.classList.add('highlighted');
     button.style.backgroundColor = bgColor;
     let image = button.querySelector('.priority-choice-inner-pic img');
@@ -89,8 +89,8 @@ function highlightButton(button, bgColor, imageSrc) {
 }
 
 
-async function renderAssignedTo() {
-    let assignedToContainer = document.getElementById('loadedContacts');
+async function addRenderAssignedTo() {
+    let assignedToContainer = document.getElementById('addLoadedContacts');
     assignedToContainer.innerHTML = '';
 
     for (let i = 0; i < contacts.length; i++) {
@@ -98,13 +98,16 @@ async function renderAssignedTo() {
         let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
         let isSelected = selectedContacts[contact.id] || false;
 
-        assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected);
+        assignedToContainer.innerHTML += addRenderAssignedToHTML(contact, initials, isSelected);
     }
 }
+// document.addEventListener('DOMContentLoaded', async function () {
+//     await addRenderAssignedTo(); // Hier wird die Funktion aufgerufen, nachdem das DOM vollständig geladen wurde.
+// });
 
 
-function renderSearchedContact(contacts) {
-    let assignedToContainer = document.getElementById('loadedContacts');
+function addRenderSearchedContact(contacts) {
+    let assignedToContainer = document.getElementById('addLoadedContacts');
     assignedToContainer.innerHTML = '';
 
     for (let i = 0; i < contacts.length; i++) {
@@ -112,13 +115,13 @@ function renderSearchedContact(contacts) {
         let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
         let isSelected = selectedContacts[contact.id] || false;
 
-        assignedToContainer.innerHTML += renderSearchedContactsHTML(contact, initials, isSelected);
+        assignedToContainer.innerHTML += addRenderSearchedContactsHTML(contact, initials, isSelected);
     }
 }
 
 
-function toggleAssignedToContainer() {
-    let assignedToContainer = document.getElementById('loadedContacts');
+function addToggleAssignedToContainer() {
+    let assignedToContainer = document.getElementById('addLoadedContacts');
     let contactsContainer = document.querySelector('.contacts-container');
     let assignedToDropdown = document.querySelector('.assigned-to-dropdown');
 
@@ -130,11 +133,12 @@ function toggleAssignedToContainer() {
         assignedToDropdown.classList.add('expanded');
     }
     contactsContainer.style.display = assignedToContainer.style.display;
+    addRenderAssignedTo();
 }
 
 
-function displayChosenContacts() {
-    let chosenContactsContainer = document.getElementById('chosenContacts');
+function addDisplayChosenContacts() {
+    let chosenContactsContainer = document.getElementById('addChosenContacts');
     chosenContactsContainer.innerHTML = '';
 
     for (let i = 0; i < contacts.length; i++) {
@@ -153,53 +157,50 @@ function displayChosenContacts() {
 }
 
 
-function renderCategorys() {
-    let categoryContainer = document.getElementById('loadedCategories');
+function addRenderCategorys() {
+    let categoryContainer = document.getElementById('addLoadedCategories');
     categoryContainer.innerHTML = '';
 
     for (let i = 0; i < categories.length; i++) {
         let category = categories[i].name;
         categoryContainer.innerHTML += `
-            <div class="category" onclick="categorySelected('${category}')">${category}</div>
+            <div class="category" onclick="addCategorySelected('${category}')">${category}</div>
             `;
     }
 }
 
 
-function toggleCategoryContainer() {
+function addToggleCategoryContainer() {
     let selectText = document.querySelector('.select-text');
     selectText.style.display = 'inline';
 
-    let selectedCategoryDisplay = document.getElementById('selectedCategoryDisplay');
+    let selectedCategoryDisplay = document.getElementById('addSelectedCategoryDisplay');
     selectedCategoryDisplay.textContent = '';
 
-    let categoryContainer = document.getElementById('loadedCategories');
+    let categoryContainer = document.getElementById('addLoadedCategories');
     let categoryDropdown = document.querySelector('.category-dropdown');
 
     if (categoryContainer.style.display === 'block') {
         categoryContainer.style.display = 'none';
         categoryDropdown.classList.remove('expanded');
-        categoryDropdown.style.borderBottom = "1px solid #D1D1D1";
-
     } else {
         categoryContainer.style.display = 'block';
         categoryDropdown.classList.add('expanded');
-        categoryDropdown.style.borderBottom = "1px solid #4589FF";
-        renderCategorys();
+        addRenderCategorys();
     }
 }
 
 
-function categorySelected(category) {
+function addCategorySelected(category) {
     selectedCategory = category;
 
-    let selectedCategoryDisplay = document.getElementById('selectedCategoryDisplay');
+    let selectedCategoryDisplay = document.getElementById('addSelectedCategoryDisplay');
     selectedCategoryDisplay.textContent = `${selectedCategory}`;
 
     let selectText = document.querySelector('.select-text');
     selectText.style.display = 'none';
 
-    let categoryContainer = document.getElementById('loadedCategories');
+    let categoryContainer = document.getElementById('addLoadedCategories');
     categoryContainer.style.display = 'none';
 
     let categoryDropdown = document.querySelector('.category-dropdown');
@@ -208,10 +209,10 @@ function categorySelected(category) {
 }
 
 
-function openSubtaskInput() {
+function addOpenSubtaskInput() {
     document.querySelector('.open-subtask-button').style.display = 'none';
-    document.getElementById('subtaskInput').focus();
-    document.getElementById('separator').style.display = 'inline-flex'
+    document.getElementById('addSubtaskInput').focus();
+    document.getElementById('addSeparator').style.display = 'inline-flex'
     let otherButtons = document.querySelectorAll('.add-subtask-button');
     for (let i = 0; i < otherButtons.length; i++) {
         otherButtons[i].style.display = 'inline-block';
@@ -219,10 +220,10 @@ function openSubtaskInput() {
 }
 
 
-function closeSubtaskInput() {
+function addCloseSubtaskInput() {
     document.querySelector('.open-subtask-button').style.display = 'inline-block';
     document.querySelector('.new-subtask-textfield').value = '';
-    document.getElementById('separator').style.display = 'none'
+    document.getElementById('addSeparator').style.display = 'none'
     let otherButtons = document.querySelectorAll('.add-subtask-button');
     for (let i = 0; i < otherButtons.length; i++) {
         otherButtons[i].style.display = 'none';
@@ -230,7 +231,7 @@ function closeSubtaskInput() {
 }
 
 
-function addEditingClasses(container) {
+function addAddEditingClasses(container) {
     container.classList.add("editing-mode");
     container.classList.add("no-hover");
     container.style.borderBottom = "1px solid #4589FF";
@@ -258,7 +259,7 @@ function addEditingClasses(container) {
 }
 
 
-function removeEditingClasses(container) {
+function addRemoveEditingClasses(container) {
     container.classList.remove("editing-mode");
     container.classList.remove("no-hover");
     container.style.borderBottom = "";

@@ -1,29 +1,13 @@
-let categories = [
-    { "name": "Design" },
-    { "name": "Sales" },
-    { "name": "Backoffice" },
-    { "name": "Marketing" },
-    { "name": "Webdesign" },
-    { "name": "Tech" }
-]
-
-
-let selectedPriority = '';
-let selectedCategory = '';
-let selectedContacts = [];
-let subtasks = [];
 let subtaskIdCounter = 0;
 
 
-async function initTask() {
-    await loadContactsFromStorage();
-    await loadTasks();
-    await renderAssignedTo();
-    renderCategorys();
+async function initAddTask() {
+    await addLoadContactsFromStorage();
+    await addLoadTasks();
 }
 
 
-async function loadContactsFromStorage() {
+async function addLoadContactsFromStorage() {
     try {
         contacts = JSON.parse(await getItem('contacts'));
     } catch (e) {
@@ -32,7 +16,7 @@ async function loadContactsFromStorage() {
 }
 
 
-async function loadTasks() {
+async function addLoadTasks() {
     try {
         todos = JSON.parse(await getItem('tasks'));
     } catch (e) {
@@ -41,44 +25,43 @@ async function loadTasks() {
 }
 
 
-document.getElementById('taskForm').addEventListener('submit', function (event) {
+document.getElementById('taskFormSlider').addEventListener('submit', function (event) {
     event.preventDefault();
-    createTask();
+    addCreateTask();
 });
 
 
-async function createTask() {
-    const title = document.getElementById('taskTitle').value;
-    const description = document.getElementById('taskDescription').value;
-    const dueDate = document.getElementById('dueDate').value;
-    validateInput(title, description, dueDate);
+async function addCreateTask() {
+    const title = document.getElementById('addTaskTitle').value;
+    const description = document.getElementById('addTaskDescription').value;
+    const dueDate = document.getElementById('addDueDate').value;
+    addValidateInput(title, description, dueDate);
 }
 
-
-function validateInput(title, description, dueDate) {
+function addValidateInput(title, description, dueDate) {
     if (!title) {
-        showTitleInputError();
+        addShowTitleInputError();
         return;
     } if (!description) {
-        showDescriptionInputError();
+        addShowDescriptionInputError();
         return;
     } if (!dueDate) {
-        showDateInputError();
+        addShowDateInputError();
         return;
     }
-    validateSelections(title, description, dueDate);
+    addValidateSelections(title, description, dueDate);
 }
 
 
-function validateSelections(title, description, dueDate) {
+function addValidateSelections(title, description, dueDate) {
     if (!selectedPriority) {
-        showPriorityError();
+        addShowPriorityError();
         return;
     } if (!selectedContacts.length) {
-        showAssignedContactError();
+        addShowAssignedContactError();
         return;
     } if (!selectedCategory) {
-        showSelectCategoryError();
+        addShowSelectCategoryError();
         return;
     }
     processValidInput(title, description, dueDate);
@@ -86,7 +69,7 @@ function validateSelections(title, description, dueDate) {
 
 
 function processValidInput(title, description, dueDate) {
-    const extractedBgcolors = extractBgcolor(selectedContacts);
+    const extractedBgcolors = addExtractBgcolor(selectedContacts);
     const highestId = todos.reduce((maxId, currentTodo) => {
         return currentTodo.id > maxId ? currentTodo.id : maxId;
     }, 0);
@@ -106,44 +89,69 @@ function processValidInput(title, description, dueDate) {
         subtasks: subtasks
     };
     todos.push(newTodo);
-    completeTaskCreation();
+    addCompleteTaskCreation();
 }
 
 
-async function completeTaskCreation() {
+async function addCompleteTaskCreation() {
     await setItem('tasks', JSON.stringify(todos));
-    showCreatedTaskMessage();
-    resetTaskForm();
+    addShowCreatedTaskMessage();
+    addResetTaskForm();
+
+    setTimeout(function () {
+        closeAddTaskModal();
+    }, 1600);
+}
+
+
+function addTask() {
+    let modal = document.getElementById('taskFormSlider');
+    modal.innerHTML = renderAddTask();
+    modal.style.display = "block";
+    modal.classList.remove('edditModal-slide-out');
+    modal.classList.add('edditModal-slide-in');
+    let overlay = document.querySelector(".background-overlay");
+    overlay.style.display = "block";
+}
+
+
+function closeAddTaskModal() {
+    let modal = document.getElementById("taskFormSlider");
+    modal.innerHTML = '';
+    modal.style.display = "none";
+    modal.classList.remove('edditModal-slide-in');
+    modal.classList.add('edditModal-slide-out');
+    let overlay = document.querySelector(".background-overlay");
+    overlay.style.display = "none";
 }
 
 
 /**
  * Shows a success message overlay and redirects to the index page.
  */
-function showCreatedTaskMessage() {
-    document.body.innerHTML += createdTaskTemplate();
+function addShowCreatedTaskMessage() {
+    document.body.innerHTML += addCreatedTaskTemplate();
 
     setTimeout(function () {
-        let successOverlay = document.getElementById('createTaskOverlay');
+        let successOverlay = document.getElementById('addCreateTaskOverlay');
         document.body.removeChild(successOverlay);
 
-        window.location.href = 'board.html';
     }, 1600);
 }
 
 
-function searchContacts(query) {
+function addSearchContacts(query) {
     let filteredContacts = contacts.filter(contact => {
         return (
             contact.name.toLowerCase().startsWith(query.toLowerCase()) ||
             contact.surename.toLowerCase().startsWith(query.toLowerCase())
         );
     });
-    renderSearchedContact(filteredContacts);
+    addRenderSearchedContact(filteredContacts);
 }
 
 
-function toggleContactSelection(name, surename) {
+function addToggleContactSelection(name, surename) {
     const contact = contacts.find(c => c.name === name && c.surename === surename);
 
     if (!contact) {
@@ -157,13 +165,13 @@ function toggleContactSelection(name, surename) {
     } else {
         selectedContacts[contactId] = contactKey;
     }
-    renderAssignedTo();
-    renderSearchedContact(contacts);
-    displayChosenContacts();
+    addRenderAssignedTo();
+    addRenderSearchedContact(contacts);
+    addDisplayChosenContacts();
 }
 
 
-function extractBgcolor(selectedContacts) {
+function addExtractBgcolor(selectedContacts) {
     const bgcolors = [];
     for (const contactName of selectedContacts) {
         const foundContact = contacts.find(c => `${c.name} ${c.surename}` === contactName);
@@ -175,7 +183,7 @@ function extractBgcolor(selectedContacts) {
 }
 
 
-function addSubtask() {
+function addAddSubtask() {
     let subtaskInput = document.querySelector('.new-subtask-textfield');
     let subtaskValue = subtaskInput.value;
 
@@ -186,25 +194,25 @@ function addSubtask() {
 
     let subtaskId = 'subtask-' + subtaskIdCounter;
 
-    addSubtaskToContainer(subtaskId, subtaskValue);
+    addAddSubtaskToContainer(subtaskId, subtaskValue);
     subtaskInput.value = '';
-    closeSubtaskInput();
+    addCloseSubtaskInput();
 }
 
 
-function addSubtaskToContainer(subtaskId, subtaskValue) {
+function addAddSubtaskToContainer(subtaskId, subtaskValue) {
     subtasks.push({
         id: subtaskId,
         title: subtaskValue,
         status: false
     });
-    let subtasksContainer = document.getElementById('subtask-add-container');
-    subtasksContainer.innerHTML += createSubtaskHTML(subtaskId, subtaskValue);
+    let subtasksContainer = document.getElementById('addSubtask-add-container');
+    subtasksContainer.innerHTML += addCreateSubtaskHTML(subtaskId, subtaskValue);
 }
 
 
-function deleteSubtask(subtaskId) {
-    let indexToDelete = subtasks.findIndex(subtask => subtask.id === subtaskId);
+function addDeleteSubtask(subtaskId) {
+    const indexToDelete = subtasks.findIndex(subtask => subtask.id === subtaskId);
 
     if (indexToDelete !== -1) {
         subtasks.splice(indexToDelete, 1);
@@ -217,16 +225,16 @@ function deleteSubtask(subtaskId) {
 }
 
 
-function editSubtask(subtaskId) {
+function addEditSubtask(subtaskId) {
     let subtaskElement = document.getElementById(subtaskId);
     if (subtaskElement) {
         subtaskElement.contentEditable = true;
         subtaskElement.focus();
     }
 
-    let subtaskContainer = document.getElementById(`subtask-container-${subtaskId}`);
+    let subtaskContainer = document.getElementById(`add-subtask-container-${subtaskId}`);
     if (subtaskContainer) {
-        addEditingClasses(subtaskContainer);
+        addAddEditingClasses(subtaskContainer);
     }
 }
 
@@ -234,25 +242,25 @@ function editSubtask(subtaskId) {
  * 
  * @param {*} subtaskId 
  */
-function finishEditing(subtaskId) {
+function addFinishEditing(subtaskId) {
     let subtaskElement = document.getElementById(subtaskId);
 
     if (subtaskElement) {
         subtaskElement.contentEditable = false;
     }
-    let subtaskContainer = document.getElementById(`subtask-container-${subtaskId}`);
+    let subtaskContainer = document.getElementById(`add-subtask-container-${subtaskId}`);
 
     if (subtaskContainer) {
-        removeEditingClasses(subtaskContainer);
+        addRemoveEditingClasses(subtaskContainer);
     }
-    saveEditedTitle(subtaskId);
+    addSaveEditedTitle(subtaskId);
 }
 
 /**
  * 
  * @param {*} subtaskId 
  */
-function saveEditedTitle(subtaskId) {
+function addSaveEditedTitle(subtaskId) {
     let subtaskElement = document.getElementById(subtaskId);
     let editedTitle = subtaskElement.textContent;
 
@@ -262,23 +270,3 @@ function saveEditedTitle(subtaskId) {
         editedSubtask.title = editedTitle;
     }
 }
-
-
-// function deleteSubtask(event) {
-//     let target = event.target;
-//     if (target.classList.contains("delete-subtask-button")) {
-        
-//         let subtaskContainer = target.closest(".subtask-container");
-        
-//         if (subtaskContainer) {
-            
-//             let index = Array.from(subtaskContainer.parentNode.children).indexOf(subtaskContainer);
-//             if (index >= 0) {
-                
-//                 subtasks.splice(index, 1);
-                
-//                 subtaskContainer.parentNode.removeChild(subtaskContainer);
-//             }
-//         }
-//     }
-// }
