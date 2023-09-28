@@ -212,7 +212,7 @@ body {
     gap: 10px;
     border-radius: 8px;
     color: white;
-    background: #FF7A00;
+    
 }
 
 .title-content {
@@ -222,6 +222,7 @@ body {
     gap: 8px;
     align-self: stretch;
     border-radius: 10px;
+    
 }
 
 .title {
