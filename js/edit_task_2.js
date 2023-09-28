@@ -270,12 +270,12 @@ function removeEditingClasses(container) {
 function saveEditedTitle() {
     let currentTask = todos[currentTaskId];
     console.log("currentTask in saveEditedTitle:", currentTask);
-
+    
     if (!currentTask || !currentTask.subtasks) {
         console.error("currentTask ist nicht definiert oder hat keine subtasks.");
         return;  // Beenden Sie die Funktion frühzeitig
     }
-
+     
     let subtaskElements = document.querySelectorAll('.edit-subtask-value');
 
     subtaskElements.forEach((element, index) => {

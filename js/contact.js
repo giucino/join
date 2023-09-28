@@ -125,9 +125,7 @@ function initLetters() {
         let letter = letters[i];
         letterList.innerHTML += /*html*/ `<div id="container-${letter}" class="container-letter-item">
                 <div class="letter-title"> ${letter} </div>
-                <svg class="letter-title-underline" xmlns="http://www.w3.org/2000/svg" width="400" height="2" viewBox="0 0 353 2" fill="none">
-                <path d="M0.5 1H352.5" stroke="#D1D1D1" stroke-linecap="round"/>
-                </svg>
+                <div class="letter-title-underline"> </div>
                 <div id="container-contact-${letter}" class="container-contacts"></div>
             </div>
             `;

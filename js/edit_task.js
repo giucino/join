@@ -73,6 +73,7 @@ async function saveEditedTask(id) {
 
   await setItem("tasks", JSON.stringify(todos));
   openEditedTask(element.id);
+  updatedSubtasks = [];
 }
 
 /**
