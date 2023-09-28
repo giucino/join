@@ -290,11 +290,12 @@ function renderSlideSubtaskHTML(subtask, i, id) {
  * @returns {string} The generated HTML for the overall task.
  */
 function renderSlideCardHTML(element, priorityImageSrc, assignedToHTML, subtasksHTML) {
+    const backgroundColor = getCategoryBackgroundColor(element.category);
     return /*html*/ `
     <div id="slide-container" class="slide-container">
     <div id="task-slide-container${element.id}" class="task-slide-container">
         <div class="task-slide-headline">
-            <div class="task-slide-headline-left"><span class="task-slide-category">${element.category}</span></div>
+            <div class="task-slide-headline-left" style="background-color: ${backgroundColor};"><span class="task-slide-category">${element.category}</span></div>
             <div id="task-slide-close" onclick="closeCard(${element.id}), loadData()" class="task-slide-headline-right"><img src="./img/close.png" alt="Schließen"></div>
         </div>
         <span id="task-slide-title" class="task-slide-title">${element.title}</span>
