@@ -8,7 +8,7 @@ let todos = [
         'id': 0,
         'title': 'Website planen',
         'description': 'Planung der neuen Unternehmenswebsite',
-        'category': 'Webdesign',
+        'category': 'User Story',
         'status': 'todo',
         'priority': 'low',
         'dueDate': '2023-08-28',
@@ -33,7 +33,7 @@ let todos = [
         'id': 1,
         'title': 'Entwicklung starten',
         'description': 'Beginn der Entwicklung neuer Produkte',
-        'category': 'Marketing',
+        'category': 'User Story',
         'status': 'todo',
         'priority': 'high',
         'dueDate': '2023-08-28',
@@ -58,7 +58,7 @@ let todos = [
         'id': 2,
         'title': 'Support verbessern',
         'description': 'Verbesserung des Kundensupports',
-        'category': 'Tech',
+        'category': 'Technical Task',
         'status': 'todo',
         'priority': 'medium',
         'dueDate': '2023-08-28',
@@ -74,88 +74,18 @@ let todos = [
                 'status': false
             }
         ]
-    },
-    {
-        'id': 3,
-        'title': 'Neue Werbekampagne',
-        'description': 'Start einer neuen Werbekampagne',
-        'category': 'Tech',
-        'status': 'feedback',
-        'priority': 'low',
-        'dueDate': '2023-10-28',
-        'assignedTo': ['Sophie Wagner', 'Paul Becker'],
-        'bgcolor': ['#1FD7C1', '#6E52FF'],
-        'subtasks': [
-            {
-                'title': 'Werbematerial erstellen',
-                'status': false
-            },
-            {
-                'title': 'Werbekanäle auswählen',
-                'status': false
-            }
-        ]
-    },
-    {
-        'id': 4,
-        'title': 'Präsentation vorbereiten',
-        'description': 'Vorbereitung für die Präsentation',
-        'category': 'Sales',
-        'status': 'todo',
-        'priority': 'medium',
-        'dueDate': '2023-08-28',
-        'assignedTo': ['Emilia Koch', 'Max Müller'],
-        'bgcolor': ['#FFA35E', '#00BEE8'],
-        'subtasks': [
-            {
-                'title': 'Präsentationsmaterial erstellen',
-                'status': false
-            }
-        ]
-    },
-    {
-        'id': 5,
-        'title': 'Einkaufsliste erstellen',
-        'description': 'Erstellung einer Liste für den nächsten Einkauf',
-        'category': 'Backoffice',
-        'status': 'feedback',
-        'priority': 'low',
-        'dueDate': '2023-08-28',
-        'assignedTo': ['Anna Schmidt', 'Max Müller'],
-        'bgcolor': ['#00BEE8', '#00BEE8'],
-        'subtasks': [
-            {
-                'title': 'Einkaufsliste erstellen',
-                'status': false
-            },
-            {
-                'title': 'Einkäufe erledigen',
-                'status': false
-            }
-        ]
-    },
-    {
-        'id': 6,
-        'title': 'Urlaubsplanung',
-        'description': 'Planung des nächsten Urlaubs für Mitarbeiter',
-        'category': 'Tech',
-        'status': 'done',
-        'priority': 'high',
-        'dueDate': '2023-08-28',
-        'assignedTo': ['Anna Schmidt', 'Emilia Koch'],
-        'bgcolor': ['#00BEE8', '#FFA35E'],
-        'subtasks': [
-            {
-                'title': 'Reiseziele auswählen',
-                'status': false
-            },
-            {
-                'title': 'Buchungen vornehmen',
-                'status': false
-            }
-        ]
     }
 ];
+
+let categories = [
+    {   categoryName: "User Story",
+        categoryColor: "#FF7A00"     
+    },
+    {   categoryName: "Technical Task",
+        categoryColor: "#0038FF"     
+    },
+];
+
 
 
 /**

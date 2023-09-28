@@ -1,12 +1,3 @@
-let categories = [
-  { "name": "Design" },
-  { "name": "Sales" },
-  { "name": "Backoffice" },
-  { "name": "Marketing" },
-  { "name": "Webdesign" },
-  { "name": "Tech" }
-]
-
 let selectedPriority = '';
 let selectedCategory = '';
 let selectedContacts = [];

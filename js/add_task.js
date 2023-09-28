@@ -1,13 +1,3 @@
-let categories = [
-    {   categoryName: "User Story",
-        categoryColor: "#FF7A00"     
-    },
-    {   categoryName: "Technical Task",
-        categoryColor: "#0038FF"     
-    },
-];
-
-
 let selectedPriority = '';
 let selectedCategory = '';
 let selectedContacts = [];
@@ -97,8 +87,7 @@ function processValidInput(title, description, dueDate) {
         id: newTodoId,
         title: title,
         description: description,
-        category: selectedCategory,
-        categoryBackground: categories.categoryColor, 
+        category: selectedCategory, 
         status: 'todo',
         priority: selectedPriority,
         dueDate: dueDate,
