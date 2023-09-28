@@ -186,6 +186,7 @@ function generateTasks(element) {
     const allTasks = allTasksHTML(allTasksCount);
     const generatedHTML = generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBar, numberTasks, allTasks);
     return generatedHTML;
+    
 }
 
 /** 

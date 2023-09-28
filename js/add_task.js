@@ -98,6 +98,7 @@ function processValidInput(title, description, dueDate) {
         title: title,
         description: description,
         category: selectedCategory,
+        categoryBackground: categories.categoryColor, 
         status: 'todo',
         priority: selectedPriority,
         dueDate: dueDate,

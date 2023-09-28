@@ -150,6 +150,23 @@ function allTasksHTML(allTasksCount) {
 }
 
 /**
+ * Gets the background color based on the category.
+ * 
+ * @param {string} category - The category of the task.
+ * @returns {string} The background color for the category.
+ */
+function getCategoryBackgroundColor(category) {
+    switch (category) {
+        case 'User Story':
+            return '#FF7A00';
+        case 'Technical Task':
+            return '#0038FF';
+        default:
+            return ''; // Default background color (if any)
+    }
+}
+
+/**
  * Generates the HTML for a given task element.
  *
  * @param {Object} element - The task element containing its details.
@@ -161,16 +178,11 @@ function allTasksHTML(allTasksCount) {
  * @returns {string} The generated HTML string.
  */
 function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBar, numberTasks, allTasks) {
-    // Finden Sie das Kategorieobjekt im categories Array basierend auf dem Kategorienamen
-    let categoryObj = categories.find(category => category.categoryName === element.category);
-
-    // Setzen Sie categoryColor auf die Farbe aus dem gefundenen Kategorieobjekt oder auf einen Standardwert, falls nicht gefunden
-    let categoryColor = categoryObj ? categoryObj.categoryColor : "#FFFFFF"; // Standardfarbe ist Weiß
-
+    const backgroundColor = getCategoryBackgroundColor(element.category);
     return /*html*/`
     <div id="${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container task-touch">
         <div class="content-container-inner">
-            <div class="board-category" style="background: ${element.categoryColor}">${element.category}</div>
+            <div class="board-category" style="background-color: ${backgroundColor};">${element.category}</div>
             <div class="title-content">
                 <div class="title">${element.title}</div>
                 <div id="description" class="content">${element.description}</div>
