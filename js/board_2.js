@@ -10,7 +10,7 @@ async function updateSubtaskStatus(taskId, subtaskIndex, isChecked) {
     if (taskId >= 0 && taskId < todos.length && subtaskIndex >= 0 && subtaskIndex < todos[taskId].subtasks.length) {
         todos[taskId].subtasks[subtaskIndex].status = isChecked;
         renderSlideCard(taskId);
-        updateProgressBar(taskId);        
+        updateProgressBar(taskId);
         await pushData();
     }
 }
@@ -41,7 +41,7 @@ function updateProgressBar(taskId) {
  * @param {Object} element - Task element containing assigned users.
  * @returns {string} HTML string of rendered users.
  */
-function renderAssigned(element){
+function renderAssigned(element) {
     let assignedToHTML = '';
     const filteredAssignedTo = element.assignedTo.filter(name => name !== undefined);
     const bgcolors = element.bgcolor || [];
@@ -69,7 +69,7 @@ function renderAssigned(element){
  * @param {string} initials - Initials of the assigned user.
  * @returns {string} HTML string for the assigned user.
  */
-function generateAssignedHTML(additionalClass, bgcolor, initials){
+function generateAssignedHTML(additionalClass, bgcolor, initials) {
     return /* html */`
         <div class="user-marked media ${additionalClass}" style="background-color: ${bgcolor}">
             ${initials}
@@ -82,7 +82,7 @@ function generateAssignedHTML(additionalClass, bgcolor, initials){
  * @param {Object} element - The parent task containing subtasks.
  * @returns {Object} An object containing the generated HTML and the count of completed subtasks.
  */
-function renderSubtask(element){
+function renderSubtask(element) {
     let subtasksHTML;
     let completedTasksCount = 0;
 
@@ -106,7 +106,7 @@ function renderSubtask(element){
  * @param {Object} subtask - The subtask data.
  * @returns {string} The generated HTML for the subtask.
  */
-function generateSubtaskHTML(subtask){
+function generateSubtaskHTML(subtask) {
     return /*html*/`
         <div class="task-slide-subtask">
             <input type="checkbox" ${subtask.status ? 'checked' : ''} disabled>
@@ -121,7 +121,7 @@ function generateSubtaskHTML(subtask){
  * @param {number} progress - The current progress percentage.
  * @returns {string} The generated HTML for the progress bar.
  */
-function progressBarHTML(element, progress){
+function progressBarHTML(element, progress) {
     return /*html*/`
         <div class="progress-bar" id="progress-bar${element.id}" style="width: ${progress}%;"></div>
     `;
@@ -132,7 +132,7 @@ function progressBarHTML(element, progress){
  * @param {number} completedTasksCount - Count of completed tasks.
  * @returns {string} The generated HTML showing the number of completed tasks.
  */
-function numberTasksHTML(completedTasksCount){
+function numberTasksHTML(completedTasksCount) {
     return /*html*/`
         <span id="number-tasks">${completedTasksCount}</span>
     `;
@@ -143,7 +143,7 @@ function numberTasksHTML(completedTasksCount){
  * @param {number} allTasksCount - Total count of tasks.
  * @returns {string} The generated HTML showing the total number of tasks.
  */
-function allTasksHTML(allTasksCount){
+function allTasksHTML(allTasksCount) {
     return /*html*/`
         <span id="all-tasks">${allTasksCount}</span>
     `;
@@ -160,11 +160,17 @@ function allTasksHTML(allTasksCount){
  * @param {string} allTasks - The total count of tasks.
  * @returns {string} The generated HTML string.
  */
-function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBar, numberTasks, allTasks){
+function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBar, numberTasks, allTasks) {
+    // Finden Sie das Kategorieobjekt im categories Array basierend auf dem Kategorienamen
+    let categoryObj = categories.find(category => category.categoryName === element.category);
+
+    // Setzen Sie categoryColor auf die Farbe aus dem gefundenen Kategorieobjekt oder auf einen Standardwert, falls nicht gefunden
+    let categoryColor = categoryObj ? categoryObj.categoryColor : "#FFFFFF"; // Standardfarbe ist Weiß
+
     return /*html*/`
     <div id="${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container task-touch">
         <div class="content-container-inner">
-            <div class="board-category">${element.category}</div>
+            <div class="board-category" style="background: ${element.categoryColor}">${element.category}</div>
             <div class="title-content">
                 <div class="title">${element.title}</div>
                 <div id="description" class="content">${element.description}</div>
@@ -191,7 +197,7 @@ function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBa
  * @param {Object} element - The task element containing its details.
  * @returns {string} The generated HTML string for assigned users.
  */
-function renderSlideAssigned(element){
+function renderSlideAssigned(element) {
     let assignedToHTML = '';
     const filteredAssignedTo = element.assignedTo.filter(name => name !== null);
     const bgcolors = element.bgcolor || [];
@@ -214,7 +220,7 @@ function renderSlideAssigned(element){
  * @param {string} bgcolor - The background color for the user mark.
  * @returns {string} The generated HTML string for an assigned user.
  */
-function renderSlideAssignedHTML(initials, name, bgcolor){
+function renderSlideAssignedHTML(initials, name, bgcolor) {
     return /*html*/`
         <div class="task-slide-assigned-user">
             <div class="user-marked blue" style="background-color: ${bgcolor}">${initials}</div>
@@ -230,7 +236,7 @@ function renderSlideAssignedHTML(initials, name, bgcolor){
  * @param {number} id - The ID of the task element.
  * @returns {string} The generated HTML string for subtasks.
  */
-function renderSlideSubtask(element, id){
+function renderSlideSubtask(element, id) {
     let subtasksHTML = '';
     if (element.subtasks && Array.isArray(element.subtasks)) {
         for (let i = 0; i < element.subtasks.length; i++) {
@@ -252,7 +258,7 @@ function renderSlideSubtask(element, id){
  * @param {number} id - The ID of the parent task element.
  * @returns {string} The generated HTML string for a subtask.
  */
-function renderSlideSubtaskHTML(subtask, i, id){
+function renderSlideSubtaskHTML(subtask, i, id) {
     return /*html*/`
         <div class="task-slide-subtask">
             <input type="checkbox" id="subtaskCheckbox${i}" ${subtask.status ? 'checked' : ''} onchange="updateSubtaskStatus(${id}, ${i}, this.checked)">
@@ -271,7 +277,7 @@ function renderSlideSubtaskHTML(subtask, i, id){
  * @param {string} allTasks - The HTML representation of all tasks.
  * @returns {string} The generated HTML for the overall task.
  */
-function renderSlideCardHTML(element, priorityImageSrc, assignedToHTML, subtasksHTML){
+function renderSlideCardHTML(element, priorityImageSrc, assignedToHTML, subtasksHTML) {
     return /*html*/ `
     <div id="slide-container" class="slide-container">
     <div id="task-slide-container${element.id}" class="task-slide-container">

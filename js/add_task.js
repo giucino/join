@@ -1,11 +1,11 @@
 let categories = [
-    { "name": "Design" },
-    { "name": "Sales" },
-    { "name": "Backoffice" },
-    { "name": "Marketing" },
-    { "name": "Webdesign" },
-    { "name": "Tech" }
-]
+    {   categoryName: "User Story",
+        categoryColor: "#FF7A00"     
+    },
+    {   categoryName: "Technical Task",
+        categoryColor: "#0038FF"     
+    },
+];
 
 
 let selectedPriority = '';

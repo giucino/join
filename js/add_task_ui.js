@@ -158,7 +158,7 @@ function renderCategorys() {
     categoryContainer.innerHTML = '';
 
     for (let i = 0; i < categories.length; i++) {
-        let category = categories[i].name;
+        let category = categories[i].categoryName;
         categoryContainer.innerHTML += `
             <div class="category" onclick="categorySelected('${category}')">${category}</div>
             `;
