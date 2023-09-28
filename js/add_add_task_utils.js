@@ -146,33 +146,6 @@ function addHidePriorityError() {
 }
 
 
-function addShowAssignedContactError() {
-    let assignedError = document.getElementById('addRequiredContact');
-    assignedError.style.display = 'block';
-    let assignedInput = document.querySelector('.assigned-to-choicefield');
-    assignedInput.style.borderColor = '#FF8190';
-}
-
-
-function addResetAssignedContact() {
-    let assignedError = document.getElementById('addRequiredContact');
-    assignedError.style.display = 'none';
-
-    let assignedInput = document.querySelector('.assigned-to-choicefield');
-    let input = assignedInput.querySelector('.assigned-select-text');
-    if (!input.matches(':focus')) {
-        assignedInput.style.borderColor = '#D1D1D1';
-    }
-}
-// let assignedDropdown = document.querySelector('.assigned-to-dropdown');
-// assignedDropdown.addEventListener('click', addResetAssignedContact);
-document.body.addEventListener('click', function (event) {
-    if (event.target.classList.contains('assigned-to-dropdown')) {
-        addResetAssignedContact();
-    }
-});
-
-
 function addShowSelectCategoryError() {
     let assignedError = document.getElementById('addRequiredCategory');
     assignedError.style.display = 'block';

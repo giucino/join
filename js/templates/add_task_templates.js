@@ -82,9 +82,6 @@ function renderAddTask() {
                     <div class="assigned-dropdown-arrow"></div>
                 </div>
             </div>
-            <div id="addRequiredContact" class="add-task-field-required">
-                This field is required
-            </div>
             <div class="contacts-container">
                 <div id="addLoadedContacts" class="loaded-contacts">
                 </div>

@@ -64,9 +64,6 @@ function validateSelections(title, description, dueDate) {
     if (!selectedPriority) {
         showPriorityError();
         return;
-    } if (!selectedContacts.length) {
-        showAssignedContactError();
-        return;
     } if (!selectedCategory) {
         showSelectCategoryError();
         return;

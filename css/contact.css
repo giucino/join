@@ -604,6 +604,10 @@
     cursor: pointer;
 }
 
+.modal-input-frame:focus-within {
+    border-bottom: 1px solid var(--bg-color, #4589FF);
+}
+
 .modal-name-input-inner {
     display: flex;
     width: 380px;

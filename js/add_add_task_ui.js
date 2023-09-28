@@ -43,24 +43,24 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function addChangeTextAreaBorderOnFocusBlurInput(textarea) {
-    textarea.addEventListener('focus', () => {
-        textarea.style.border = '1px solid #4589FF';
-    });
+// function addChangeTextAreaBorderOnFocusBlurInput(textarea) {
+//     textarea.addEventListener('focus', () => {
+//         textarea.style.border = '1px solid #4589FF';
+//     });
 
-    textarea.addEventListener('blur', () => {
-        textarea.style.border = '1px solid #D1D1D1';
-    });
+//     textarea.addEventListener('blur', () => {
+//         textarea.style.border = '1px solid #D1D1D1';
+//     });
 
-    textarea.addEventListener('input', () => {
-        textarea.style.border = '1px solid #4589FF';
-    });
-}
+//     textarea.addEventListener('input', () => {
+//         textarea.style.border = '1px solid #4589FF';
+//     });
+// }
 
-document.addEventListener('input', () => {
-    let textarea = document.getElementById('addTaskDescription');
-    addChangeTextAreaBorderOnFocusBlurInput(textarea);
-});
+// document.addEventListener('input', () => {
+//     let textarea = document.getElementById('addTaskDescription');
+//     addChangeTextAreaBorderOnFocusBlurInput(textarea);
+// });
 
 
 function addPriority(button) {
