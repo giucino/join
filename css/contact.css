@@ -24,6 +24,7 @@
 
 .add-person-button {
     display: flex;
+    cursor: pointer;
     width: 332px;
     height: 56px;
     padding: 16px 10px;
@@ -79,6 +80,7 @@
 
 .contact {
     display: flex;
+    cursor: pointer;
     width: 352px;
     padding: 15px 24px;
     align-items: center;
@@ -91,6 +93,10 @@
 
 .contact:hover {
     background: #D2E3FF;
+}
+
+.contact:hover {
+    background-color: #4589ff57;
 }
 
 .contact-selected {
@@ -370,6 +376,7 @@
 
 .contact-detailed-images {
     display: flex;
+    cursor: pointer;
     justify-content: center;
     align-items: flex-end;
     gap: 6px;

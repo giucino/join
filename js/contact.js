@@ -286,6 +286,10 @@ function closeModal() {
  * saves new contacts
  * @returns contacts as string in an array
  */
+/**
+ * saves new contacts
+ * @returns contacts as string in an array
+ */
 async function saveNewContact() {
     let newEmailInput = document.getElementById("newEmail");
     let newTelefonInput = document.getElementById("newTelefon");
@@ -339,6 +343,10 @@ async function deleteContact(index) {
     console.log("deleteContact wurde aufgerufen mit Index:", index);
     if (confirm("Möchten Sie diesen Kontakt wirklich löschen?")) {
         contacts.splice(index, 1);
+        // IDs neu zuweisen
+        for (let i = 0; i < contacts.length; i++) {
+            contacts[i].id = i + 1;
+        }
         await setItem('contacts', JSON.stringify(contacts));
         let detailsContainer = document.getElementById('contact-details');
         detailsContainer.innerHTML = '';
@@ -347,6 +355,10 @@ async function deleteContact(index) {
     }
 }
 
+/**
+ * function to edit the chosen contact
+ * @param {string} index 
+ */
 /**
  * function to edit the chosen contact
  * @param {string} index 
@@ -370,6 +382,11 @@ function editContact(index) {
  * @param {string} index 
  * @returns the new contacts saved
  */
+/**
+ * keeps the contacts up to date
+ * @param {string} index 
+ * @returns the new contacts saved
+ */
 async function updateContact(index) {
     let newEmailInput = document.getElementById("editNewEmail");
     let newTelefonInput = document.getElementById("editNewTelefon");
@@ -383,6 +400,8 @@ async function updateContact(index) {
         alert("Bitte füllen Sie alle Felder aus.");
         return;
     }
+
+    // Überprüfen, ob die E-Mail-Adresse ein gültiges Format hat
     let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (!emailPattern.test(newEmail)) {
         alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");

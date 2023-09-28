@@ -144,6 +144,7 @@ function toggleContactSelection(name, surename) {
 
     if (selectedContacts[contactId]) {
         delete selectedContacts[contactId];
+        delete selectedContacts[contactId];
     } else {
         selectedContacts[contactId] = contactKey;
     }
@@ -151,7 +152,6 @@ function toggleContactSelection(name, surename) {
     renderSearchedContact(contacts);
     displayChosenContacts();
 }
-
 
 function extractBgcolor(selectedContacts) {
     const bgcolors = [];

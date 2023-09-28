@@ -185,8 +185,7 @@ function generateTasks(element) {
     const numberTasks = numberTasksHTML(completedTasksCount);
     const allTasks = allTasksHTML(allTasksCount);
     const generatedHTML = generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBar, numberTasks, allTasks);
-    return generatedHTML;
-    
+    return generatedHTML;    
 }
 
 /** 
@@ -376,25 +375,6 @@ function deleteTask(id) {
     updateIDs();
     closeCard();
     pushData();
-    refreshHTML();
-}
-
-/** 
- * Update the ID properties for all tasks in the 'todos' list.
- */
-function updateIDs() {
-    for (let i = 0; i < todos.length; i++) {
-        todos[i].id = i;
-    }
-}
-
-/** 
- * Remove the HTML element for a task card.
- * @param {number} id - ID of the task card to delete.
- */
-function deleteCard(id) {
-    const elementToRemove = document.getElementById(`board-card${id}`);
-    if (elementToRemove) {
-        elementToRemove.remove();
-    }
+    loadData();
+    updateHTML();
 }
