@@ -5,7 +5,8 @@ let contacts = [
         name: 'Anna',
         surename: 'Schmidt',
         email: 'anna.schmidt@example.com',
-        telefon: '1234567890'
+        telefon: '1234567890',
+        password: '1234'
     },
     {
         bgcolor: '#00BEE8',
@@ -13,7 +14,8 @@ let contacts = [
         name: 'Max',
         surename: 'Müller',
         email: 'max.mueller@example.com',
-        telefon: '234567890'
+        telefon: '234567890',
+        password: '1234'
     },
     {
         bgcolor: '#1FD7C1',
@@ -21,7 +23,8 @@ let contacts = [
         name: 'Sophie',
         surename: 'Wagner',
         email: 'sophie.wagner@example.com',
-        telefon: '3456789012'
+        telefon: '3456789012',
+        password: '1234'
     },
     {
         bgcolor: '#6E52FF',
@@ -29,7 +32,8 @@ let contacts = [
         name: 'Paul',
         surename: 'Becker',
         email: 'paul.becker@example.com',
-        telefon: '456789012'
+        telefon: '456789012',
+        password: '1234'
     },
     {
         bgcolor: '#9327FF',
@@ -37,7 +41,8 @@ let contacts = [
         name: 'Laura',
         surename: 'Hoffmann',
         email: 'laura.hoffmann@example.com',
-        telefon: '567890123'
+        telefon: '567890123',
+        password: '1234'
     },
     {
         bgcolor: '#C3FF2B',
@@ -45,7 +50,8 @@ let contacts = [
         name: 'Felix',
         surename: 'Schulz',
         email: 'felix.schulz@example.com',
-        telefon: '6789012345'
+        telefon: '6789012345',
+        password: '1234'
     },
     {
         bgcolor: '#FFA35E',
@@ -54,6 +60,7 @@ let contacts = [
         surename: 'Koch',
         email: 'emilia.koch@example.com',
         telefon: '7890123456',
+        password: '1234'
     }
 ];
 
@@ -66,7 +73,7 @@ let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
  * main function to initialize the whole site
  */
 async function initContact() {
-    /* await reloadContacts(); */
+    // await reloadContacts();
     await loadAllContacts();
     sortContacts();
     initLetters();
@@ -115,11 +122,16 @@ function sortContacts() {
     });
 }
 
+
 /**
  * render the letters as headers for the contacts
  */
 function initLetters() {
     let letterList = document.getElementById('container-letter');
+    if (!letterList) {
+        console.error("Element 'container-letter' not found.");
+        return;
+    }
     letterList.innerHTML = '';
     for (let i = 0; i < letters.length; i++) {
         let letter = letters[i];
@@ -135,7 +147,29 @@ function initLetters() {
 /**
  * shows the contacts on the screen
  */
+// async function showContacts() {
+//     for (let i = 0; i < contacts.length; i++) {
+//         let contact = contacts[i];
+//         if (!contact.bgcolor) {
+//             contact.bgcolor = getRandomColor();
+//         }
+//         let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+//         let firstLetter = contact.name.charAt(0).toUpperCase();
+//         let contactsList = document.getElementById(`container-contact-${firstLetter}`);
+//         let color = contact.bgcolor;
+//         contactsList.innerHTML += showContactsHTML(i, color, initials, contact);
+//     }
+// }
+
+
+function getLoggedInUserData() {
+    return JSON.parse(localStorage.getItem('loggedInUser')) || {};
+}
+
+
 async function showContacts() {
+    let loggedInUserData = getLoggedInUserData();
+
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
         if (!contact.bgcolor) {
@@ -145,9 +179,12 @@ async function showContacts() {
         let firstLetter = contact.name.charAt(0).toUpperCase();
         let contactsList = document.getElementById(`container-contact-${firstLetter}`);
         let color = contact.bgcolor;
-        contactsList.innerHTML += showContactsHTML(i, color, initials, contact);
+        let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
+
+        contactsList.innerHTML += showContactsHTML(i, color, initials, contact, isCurrentUser);
     }
 }
+
 
 /**
  * this function counts as a handle clicker to find out if its mobile or for the pc version by comparing the width
@@ -160,6 +197,7 @@ function handleContactClick(index) {
         showContactDetails(index);
     }
 }
+
 
 /**
  * this function hides the unused letters of the alphabet that are used as headers

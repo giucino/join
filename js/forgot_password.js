@@ -67,17 +67,6 @@ function addForgotBlurEvents() {
 document.addEventListener('DOMContentLoaded', addForgotBlurEvents);
 
 
-// /**
-//  * Displays the reset content, creates and shows the success overlay.
-//  */
-// function showForgotAndRedirect(event) {
-//     createAndShowSuccessOverlay();
-//     displayResetContent('forgot-content', 'reset-content');
-//     addResetBlurEvents();
-//     event.preventDefault();
-// }
-
-
 /**
  * Displays the reset password success overlay, switches the displayed content from
  * 'forgot-content' to 'reset-content' and adds blur events. If the email entered
@@ -92,7 +81,7 @@ function showForgotAndRedirect(event) {
 
     if (!isEmailInUsersArray(email)) {
         showEmailNotFoundError();
-        event.preventDefault(); // Prevent form submission
+        event.preventDefault();
         return;
     }
 
@@ -109,8 +98,8 @@ function showForgotAndRedirect(event) {
  * @returns {boolean} - True if the email exists in the users array, false otherwise.
  */
 function isEmailInUsersArray(email) {
-    for (let i = 0; i < users.length; i++) {
-        if (users[i].email === email) {
+    for (let i = 0; i < contacts.length; i++) {
+        if (contacts[i].email === email) {
             return true;
         }
     }

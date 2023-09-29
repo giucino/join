@@ -1,7 +1,6 @@
 const STORAGE_TOKEN = TOKEN;
 const STORAGE_URL = BACKEND_URL;
 
-let users = [];
 
 let todos = [
     {

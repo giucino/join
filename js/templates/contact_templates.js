@@ -22,6 +22,7 @@ function showContactDetailsHTML(contact, initials, index) {
     `;
 }
 
+
 function showContactDetailsMobileHTML(contact, initials, index) {
     return `
     <div class="contact-detailed-container">
@@ -54,15 +55,19 @@ function showContactDetailsMobileHTML(contact, initials, index) {
     `;
 }
 
-function showContactsHTML(i, color, initials, contact) {
+
+function showContactsHTML(i, color, initials, contact, isCurrentUser) {
+    let userMarker = isCurrentUser ? " (you)" : "";
+
     return /*html*/ `
         <div class="contact" data-contact-index="${i}" onclick="handleContactClick(${i})">
             <div class="initial" style="background-color: ${color}">${initials}</div>
             <div class="container-name-email">
-                <div class="name">${contact.name} ${contact.surename}</div>
+                <div class="name">${contact.name} ${contact.surename}${userMarker}</div>
                 <div class="email">${contact.email}</div>
             </div>
-        </div>`;
+        </div>
+    `;
 }
 
 
@@ -110,7 +115,7 @@ function generateAddContactModalHTML() {
                 </div>
             </div>
         </div>
-    `
+    `;
 }
 
 
@@ -157,6 +162,7 @@ function generateEditContactModalHTML(index, initials, contact) {
 `;
 }
 
+
 function generateEditContactMobileHTML(index, initials, contact) {
     return /*html*/`
     <div class="edit-content" data-index="${index}">
@@ -197,5 +203,5 @@ function generateEditContactMobileHTML(index, initials, contact) {
             </div>
         </div>
     </div>
-   `;
+    `;
 }

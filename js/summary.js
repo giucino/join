@@ -102,8 +102,8 @@ window.addEventListener('resize', toggleActiveClass);
 function getLoggedInUserName() {
   let userData = JSON.parse(localStorage.getItem('loggedInUser'));
 
-  if (userData && userData.username) {
-    return userData.username;
+  if (userData && userData.name) {
+    return `${userData.name} ${userData.surename || ''}`;
   } else {
     return '';
   }

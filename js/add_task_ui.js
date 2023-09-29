@@ -89,7 +89,14 @@ function highlightButton(button, bgColor, imageSrc) {
 }
 
 
+function getLoggedInUserData() {
+    return JSON.parse(localStorage.getItem('loggedInUser')) || {};
+}
+
+
 async function renderAssignedTo() {
+    let loggedInUserData = getLoggedInUserData();
+
     let assignedToContainer = document.getElementById('loadedContacts');
     assignedToContainer.innerHTML = '';
 
@@ -97,13 +104,16 @@ async function renderAssignedTo() {
         let contact = contacts[i];
         let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
         let isSelected = selectedContacts[contact.id] || false;
+        let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
 
-        assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected);
+        assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected, isCurrentUser);
     }
 }
 
 
 function renderSearchedContact(contacts) {
+    let loggedInUserData = getLoggedInUserData();
+
     let assignedToContainer = document.getElementById('loadedContacts');
     assignedToContainer.innerHTML = '';
 
@@ -111,8 +121,9 @@ function renderSearchedContact(contacts) {
         let contact = contacts[i];
         let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
         let isSelected = selectedContacts[contact.id] || false;
+        let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
 
-        assignedToContainer.innerHTML += renderSearchedContactsHTML(contact, initials, isSelected);
+        assignedToContainer.innerHTML += renderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser);
     }
 }
 
@@ -222,6 +233,7 @@ function openSubtaskInput() {
 function closeSubtaskInput() {
     document.querySelector('.open-subtask-button').style.display = 'inline-block';
     document.querySelector('.new-subtask-textfield').value = '';
+    document.querySelector('.add-subtask-input').style.borderBottom = "1px solid #D1D1D1";
     document.getElementById('separator').style.display = 'none'
     let otherButtons = document.querySelectorAll('.add-subtask-button');
     for (let i = 0; i < otherButtons.length; i++) {
