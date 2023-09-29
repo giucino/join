@@ -53,7 +53,8 @@
                 <button onclick="addTask()" class="board-add-btn"><img src="./img/plus-blue.png" alt="Plus"></button>
             </div>
             <div class="scroll-container">
-                <div class="drag-area todo-touch" id="todo" data-status="todo" ondrop="moveTo('todo')" ondragover="allowDrop(event)"></div>
+                <div class="drag-area todo-touch" id="todo" data-status="todo" ondrop="moveTo('todo'); removeHighlight('todo')" ondragleave="removeHighlight('todo')" ondragover="allowDrop(event); highlight('todo')"></div>
+                
             </div>
         </div>
         <div class="task-container">
@@ -62,7 +63,8 @@
                 <button onclick="addTask()" class="board-add-btn"><img src="./img/plus-blue.png" alt="Plus"></button>
             </div>
             <div class="scroll-container">
-                <div class="drag-area in-progress-touch" id="in-progress" data-status="inprogress" ondrop="moveTo('inprogress')" ondragover="allowDrop(event)"></div>
+                <div class="drag-area in-progress-touch" id="in-progress" data-status="inprogress" ondrop="moveTo('inprogress'); removeHighlight('in-progress')" ondragleave="removeHighlight('in-progress')" ondragover="allowDrop(event); highlight('in-progress')"></div>
+                
             </div>
         </div>
         <div class="task-container">
@@ -71,7 +73,8 @@
                 <button onclick="addTask()" class="board-add-btn"><img src="./img/plus-blue.png" alt="Plus"></button>
             </div>
             <div class="scroll-container">
-                <div class="drag-area feedback-touch" id="feedback" data-status="feedback" ondrop="moveTo('feedback')" ondragover="allowDrop(event)"></div>
+                <div class="drag-area feedback-touch" id="feedback" data-status="feedback" ondrop="moveTo('feedback'); removeHighlight('feedback')" ondragleave="removeHighlight('feedback')" ondragover="allowDrop(event); highlight('feedback')"></div>
+                
             </div>
         </div>
         <div class="task-container">
@@ -79,7 +82,8 @@
                 <span>Done</span>
             </div>
             <div class="scroll-container">
-                <div class="drag-area done-touch" id="done" data-status="done" ondrop="moveTo('done')" ondragover="allowDrop(event)"></div>
+                <div class="drag-area done-touch" id="done" data-status="done" ondrop="moveTo('done'); removeHighlight('done')" ondragleave="removeHighlight('done')" ondragover="allowDrop(event); highlight('done'); showTaskBorder()"></div>
+                
             </div>
         </div>
     </div>
