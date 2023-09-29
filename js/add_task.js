@@ -150,6 +150,7 @@ function toggleContactSelection(name, surename) {
     displayChosenContacts();
 }
 
+
 function extractBgcolor(selectedContacts) {
     const bgcolors = [];
     for (const contactName of selectedContacts) {
@@ -164,7 +165,7 @@ function extractBgcolor(selectedContacts) {
 
 function addSubtask() {
     let subtaskInput = document.querySelector('.new-subtask-textfield');
-    let subtaskValue = subtaskInput.value;
+    let subtaskValue = subtaskInput.value.trim();
 
     if (!subtaskValue) {
         return;
@@ -177,6 +178,17 @@ function addSubtask() {
     subtaskInput.value = '';
     closeSubtaskInput();
 }
+
+
+function handleSubtaskInput(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); 
+        addSubtask();
+        document.activeElement.blur();
+    }
+}
+let subtaskInput = document.querySelector('.new-subtask-textfield');
+subtaskInput.addEventListener('keydown', handleSubtaskInput);
 
 
 function addSubtaskToContainer(subtaskId, subtaskValue) {
@@ -206,16 +218,18 @@ function deleteSubtask(subtaskId) {
 
 function editSubtask(subtaskId) {
     let subtaskElement = document.getElementById(subtaskId);
+
     if (subtaskElement) {
         subtaskElement.contentEditable = true;
         subtaskElement.focus();
-    }
+}
 
     let subtaskContainer = document.getElementById(`subtask-container-${subtaskId}`);
     if (subtaskContainer) {
         addEditingClasses(subtaskContainer);
     }
 }
+
 
 /**
  * 
@@ -227,13 +241,14 @@ function finishEditing(subtaskId) {
     if (subtaskElement) {
         subtaskElement.contentEditable = false;
     }
-    let subtaskContainer = document.getElementById(`subtask-container-${subtaskId}`);
 
+    let subtaskContainer = document.getElementById(`subtask-container-${subtaskId}`);
     if (subtaskContainer) {
         removeEditingClasses(subtaskContainer);
     }
     saveEditedTitle(subtaskId);
 }
+
 
 /**
  * 
