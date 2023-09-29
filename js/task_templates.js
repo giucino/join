@@ -154,12 +154,14 @@ function addCreatedTaskTemplate() {
 }
 
 
-function addRenderAssignedToHTML(contact, initials, isSelected) {
+function addRenderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
+        let userMarker = isCurrentUser ? " (you)" : "";
+
     return /*html*/`
         <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="addToggleContactSelection('${contact.name}', '${contact.surename}')">
             <div class="select-contact">
                 <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-                <div class="select-name">${contact.name} ${contact.surename}</div>
+                <div class="select-name">${contact.name} ${contact.surename}${userMarker}</div>
             </div>
             <img class="select-icon" id="addSelectCheck" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
         </div>
@@ -167,12 +169,14 @@ function addRenderAssignedToHTML(contact, initials, isSelected) {
 }
 
 
-function addRenderSearchedContactsHTML(contact, initials, isSelected) {
+function addRenderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser) {
+        let userMarker = isCurrentUser ? " (you)" : "";
+
     return /*html*/`
         <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="addToggleContactSelection('${contact.name}', '${contact.surename}')">
             <div class="select-contact">
                 <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-                <div class="select-name">${contact.name} ${contact.surename}</div>
+                <div class="select-name">${contact.name} ${contact.surename}${userMarker}</div>
             </div>
             <img class="select-icon" id="addSelectCheck" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
         </div>

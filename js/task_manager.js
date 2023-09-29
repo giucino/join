@@ -182,7 +182,7 @@ function addExtractBgcolor(selectedContacts) {
 
 function addAddSubtask() {
     let subtaskInput = document.querySelector('.new-subtask-textfield');
-    let subtaskValue = subtaskInput.value;
+    let subtaskValue = subtaskInput.value.trim();
 
     if (!subtaskValue) {
         return;
@@ -195,6 +195,17 @@ function addAddSubtask() {
     subtaskInput.value = '';
     addCloseSubtaskInput();
 }
+
+
+function addHandleSubtaskInput(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); 
+        addAddSubtask();
+        document.activeElement.blur();
+    }
+}
+document.addEventListener('keydown', addHandleSubtaskInput);
+
 
 
 function addAddSubtaskToContainer(subtaskId, subtaskValue) {
@@ -224,6 +235,7 @@ function addDeleteSubtask(subtaskId) {
 
 function addEditSubtask(subtaskId) {
     let subtaskElement = document.getElementById(subtaskId);
+
     if (subtaskElement) {
         subtaskElement.contentEditable = true;
         subtaskElement.focus();
@@ -235,6 +247,7 @@ function addEditSubtask(subtaskId) {
     }
 }
 
+
 /**
  * 
  * @param {*} subtaskId 
@@ -245,13 +258,14 @@ function addFinishEditing(subtaskId) {
     if (subtaskElement) {
         subtaskElement.contentEditable = false;
     }
-    let subtaskContainer = document.getElementById(`add-subtask-container-${subtaskId}`);
 
+    let subtaskContainer = document.getElementById(`add-subtask-container-${subtaskId}`);
     if (subtaskContainer) {
         addRemoveEditingClasses(subtaskContainer);
     }
     addSaveEditedTitle(subtaskId);
 }
+
 
 /**
  * 
