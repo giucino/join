@@ -109,10 +109,12 @@ function todo() {
   todoContainer.innerHTML = "";
   if (filteredTodo.length === 0) {
     todoContainer.innerHTML += noTasks();
+    todoContainer.innerHTML += showTaskBorder();
   } else {
     filteredTodo.forEach((task) => {
       todoContainer.innerHTML += generateTasks(task);
     });
+    todoContainer.innerHTML += showTaskBorder();
   }
 }
 
@@ -130,10 +132,12 @@ function inProgress() {
   inProgressContainer.innerHTML = "";
   if (filteredInProgress.length === 0) {
     inProgressContainer.innerHTML += noTasks();
+    inProgressContainer.innerHTML += showTaskBorder();
   } else {
     filteredInProgress.forEach((task) => {
       inProgressContainer.innerHTML += generateTasks(task);
     });
+    inProgressContainer.innerHTML += showTaskBorder();
   }
 }
 
@@ -151,10 +155,12 @@ function feedback() {
   feedbackContainer.innerHTML = "";
   if (filteredFeedback.length === 0) {
     feedbackContainer.innerHTML += noTasks();
+    feedbackContainer.innerHTML += showTaskBorder();
   } else {
     filteredFeedback.forEach((task) => {
       feedbackContainer.innerHTML += generateTasks(task);
     });
+    feedbackContainer.innerHTML += showTaskBorder();
   }
 }
 
@@ -171,11 +177,13 @@ function done() {
   const doneContainer = document.getElementById("done");
   doneContainer.innerHTML = "";
   if (filteredDone.length === 0) {
-    doneContainer.innerHTML += noTasks();
+    doneContainer.innerHTML += noTasks();    
+    //doneContainer.innerHTML += showTaskBorder();;    
   } else {
     filteredDone.forEach((task) => {
       doneContainer.innerHTML += generateTasks(task);
     });
+    //doneContainer.innerHTML += showTaskBorder();
   }
 }
 
@@ -189,6 +197,39 @@ function noTasks() {
             <div class="no-tasks-to-do-text">No Tasks to do</div>
         </div>`;
 }
+
+function showTaskBorder(){
+    return /*html*/`
+        <div id="show-task-border" class="show-task-border"></div>
+    `;
+}
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    let isMouseDown = false,
+        startX, scrollLeftStart;
+
+    let container = document.querySelector('.scroll-container');
+
+    container.addEventListener('mousedown', function(e) {
+        container.classList.add('grabbing');
+        isMouseDown = true;
+        startX = e.pageX;
+        scrollLeftStart = container.scrollLeft;
+    });
+
+    container.addEventListener('mousemove', function(e) {
+        
+        if (!isMouseDown) return;
+        let x = e.pageX;
+        container.scrollLeft = scrollLeftStart + startX - x;
+    });
+
+    document.addEventListener('mouseup', function() {
+        container.classList.remove('grabbing');
+        isMouseDown = false;
+    });
+});
 
 /**
  * Generate HTML markup for a task element.
@@ -254,6 +295,7 @@ function setPriorityImage(priority) {
  */
 function startDragging(id) {
   currentDraggedElement = id;
+  startRotateCard(id);
 }
 
 /**
@@ -262,6 +304,7 @@ function startDragging(id) {
  */
 function allowDrop(ev) {
   ev.preventDefault();
+
 }
 
 /**
@@ -273,6 +316,18 @@ function moveTo(status) {
   pushData();
   loadData();
   updateHTML();
+}
+
+function startRotateCard(id){
+    document.getElementById(id).classList.add('rotate');
+}
+
+function highlight(id) {
+    document.getElementById(id).classList.add('highlight');
+}
+
+function removeHighlight(id) {
+    document.getElementById(id).classList.remove('highlight');
 }
 
 /**
