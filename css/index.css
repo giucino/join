@@ -216,129 +216,58 @@ form {
     margin-top: -40px;
 }
 
-
-/* Media Query für Bildschirmbreite von maximal 768px */
-@media (max-width: 768px) {
-    .logo-large {
-        width: 100px;
-        height: 122px;
-    }
-
-    .logo-small {
-        width: 64px;
-        height: 78px;
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-        align-items: flex-start;
-        justify-content: flex-start;
-        position: absolute;
-        left: -7%;
-        top: -8%;
-    }
-
-    .log-in-container {
-        max-width: 396px;
-        padding: 32px 0px;
-        gap: 3px;
-        top: 48%;
-    }
-
-    .log-in-header-title {
-        font-size: 40px;
-    }
-
-    .log-in-header-line {
-        width: 88px;
-    }
-
-    .log-in-formular-container {
-        gap: 14px;
-    }
-
-    .log-in-info-box {
-        width: 100%;
-    }
-
-    .log-in-text-input {
-        font-size: 16px;
-    }
-
-    .password-match-error {
-        padding-left: 20px;
-        margin-top: -42px;
-    }
-
-    .remember-me-text, .forgot-password-link {
-        font-size: 14px;
-    }
-
-    .remember-me-container {
-        width: 100%;
-        align-items: flex-start;
-        flex-direction: column-reverse;
-        padding: 0 32px;
-        gap: 16px;
-    }
-
-    .log-in-btn-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 19px;
-        padding-top: 10px;
-    }
-
-    .log-in-btn-container,
-    .guest-log-in-btn-container {
-        width: 100%;
-    }
-
-    .log-in-btn, .guest-log-in-btn {
-        font-size: 19px;
-        flex: 1;
-    }
-
-    .sign-up-btn:active, .log-in-btn:active {
-        background: var(--ligth-blue, #005DFF);
-        transition: ease-in-out 100ms;
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    }
-
-    .sign-up-container {
-        top: auto;
-        bottom: 55px;
-        left: 50%;
-        transform: translateX(-50%);
-        right: unset;
-        width: 272px;
-    }
-
-    .legal-notice-container {
-        bottom: 18px;
-    }
-
-    .not-a-user {
-        font-size: 19px;
-    }
-
-    .sign-up-btn {
-        font-size: 19px;
-        padding: 10px 16px;
-    }
+.remember-me-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 58px;
 }
 
+.remember-me-section {
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
 
-/* Media Query für Bildschirmbreite von maximal 450px */
-@media (max-width: 450px) {
-    .logo-small {
-        width: 44px;
-        height: 58px;
-        left: -10%;
-        top: -10%;
-    }
+.remember-me-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
 
-    .log-in-container {
-        width: 90%;
-    }
+.remember-me-icon:hover {
+    background-image: url(/img/check-button-hover.png);
+    cursor: pointer;
+}
+
+.remember-me-text {
+    color: var(--menu, #42526E);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.forgot-password-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.forgot-password-link {
+    color: var(--ligth-blue, #005DFF);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.forgot-password-link:hover {
+    text-decoration: underline;
+    scale: 1.06;
 }
