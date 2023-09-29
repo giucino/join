@@ -4,6 +4,14 @@ body {
     overflow-x: hidden;
 }
 
+.highlight {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.d-none{
+    display: none;
+}
+
 .noscroll::-webkit-scrollbar{
     display: none;
 }
@@ -138,6 +146,8 @@ body {
     align-self: stretch;
 }
 
+
+
 @media(max-width: 1440px) {
     .board-container {
         position: absolute;
@@ -147,17 +157,21 @@ body {
     .scroll-container {
         display: flex;
         height: 350px;
-        width: 1000px;
+        width: 850px;
         flex: 1;
         overflow-x: scroll;
         border-radius: 30px;
+        cursor: grab;
+    }
+    .grabbing{
+        cursor: grabbing;
     }
     .scroll-container::-webkit-scrollbar {
         display: none;
     }
-    .scroll-container:hover {
-        background-color: rgba(0, 0, 0, 0.16);
-    }
+    /* .scroll-container:hover {
+        cursor: grab;
+    } */
     .task-container{
         width: unset;
         align-items: unset;
@@ -191,35 +205,7 @@ body {
     }
 }
 
-/* @media (max-width: 1279px) {
-    .taskboard {
-        flex-direction: column;
-    }
-    .scroll-container {
-        display: flex;
-        flex: 1;
-        overflow-x: scroll;
-    }
-    .scroll-container::-webkit-scrollbar {
-        display: none;
-    }
-    .board-direction {   
-        flex-direction: row; 
-        flex: 1;
-        gap: 80px;
-        min-height: 260px;
-        padding: 10px;
-    }
-    .board-direction:hover {
-        background-color: #eaeaea;
-    }
-    .no-task-container {
-        width: 180px;
-    }
-    .testcard {
-        justify-content: space-between;
-    }
-} */
+
 
 .board-headline {
     box-sizing: border-box;
@@ -386,15 +372,6 @@ body {
 
 }
 
-
-.blue {
-    background: #0190E0;
-}
-
-.media {
-    background: #FFBB2B;
-}
-
 .board-subtasks-container {
     box-sizing: border-box;
     display: flex;
@@ -443,7 +420,7 @@ body {
     display: flex;
     width: 250px;
     height: 41px;
-    margin-top: 24px;
+    margin: 57px 8px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -463,6 +440,18 @@ body {
     line-height: 120%;
 }
 
+.show-task-border{
+    cursor: pointer;
+    box-sizing: border-box;
+    display: flex;
+    height: 250px;
+    width: 250px;
+    padding: 18px 19px;
+    border-radius: 30px;
+    margin: 25px 8px;
+    border: 2px dashed rgba(0, 0, 0, 0.2);
+}
+
 .task-container .content-container:last-of-type {
     margin-bottom: 70px;
 }
@@ -471,4 +460,8 @@ body {
     .task-container .content-container:last-of-type {
         margin: 25px 8px;
     }
+}
+
+.rotate{
+    transform: rotate(10deg);
 }
