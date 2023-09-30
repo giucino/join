@@ -109,12 +109,12 @@ function todo() {
   todoContainer.innerHTML = "";
   if (filteredTodo.length === 0) {
     todoContainer.innerHTML += noTasks();
-    todoContainer.innerHTML += showTaskBorder();
+    todoContainer.innerHTML += cardTaskBorder();
   } else {
     filteredTodo.forEach((task) => {
       todoContainer.innerHTML += generateTasks(task);
     });
-    todoContainer.innerHTML += showTaskBorder();
+    todoContainer.innerHTML += cardTaskBorder();
   }
 }
 
@@ -132,12 +132,12 @@ function inProgress() {
   inProgressContainer.innerHTML = "";
   if (filteredInProgress.length === 0) {
     inProgressContainer.innerHTML += noTasks();
-    inProgressContainer.innerHTML += showTaskBorder();
+    inProgressContainer.innerHTML += cardTaskBorder();
   } else {
     filteredInProgress.forEach((task) => {
       inProgressContainer.innerHTML += generateTasks(task);
     });
-    inProgressContainer.innerHTML += showTaskBorder();
+    inProgressContainer.innerHTML += cardTaskBorder();
   }
 }
 
@@ -155,12 +155,12 @@ function feedback() {
   feedbackContainer.innerHTML = "";
   if (filteredFeedback.length === 0) {
     feedbackContainer.innerHTML += noTasks();
-    feedbackContainer.innerHTML += showTaskBorder();
+    feedbackContainer.innerHTML += cardTaskBorder();
   } else {
     filteredFeedback.forEach((task) => {
       feedbackContainer.innerHTML += generateTasks(task);
     });
-    feedbackContainer.innerHTML += showTaskBorder();
+    feedbackContainer.innerHTML += cardTaskBorder();
   }
 }
 
@@ -178,12 +178,12 @@ function done() {
   doneContainer.innerHTML = "";
   if (filteredDone.length === 0) {
     doneContainer.innerHTML += noTasks();    
-    //doneContainer.innerHTML += showTaskBorder();;    
+    doneContainer.innerHTML += cardTaskBorder();;    
   } else {
     filteredDone.forEach((task) => {
       doneContainer.innerHTML += generateTasks(task);
     });
-    //doneContainer.innerHTML += showTaskBorder();
+    doneContainer.innerHTML += cardTaskBorder();
   }
 }
 
@@ -198,12 +198,36 @@ function noTasks() {
         </div>`;
 }
 
-function showTaskBorder(){
+/**
+ * Generates an HTML string for a task border.
+ * 
+ * @returns {string} An HTML string representing the task border.
+ */
+function cardTaskBorder(){
     return /*html*/`
-        <div id="show-task-border" class="show-task-border"></div>
+        <div id="show-task-border" class="show-task-border visibility"></div>
     `;
 }
 
+/**
+ * Display all task borders on the page by removing the 'visibility' class.
+ */
+function showAllTaskBorders() {
+  const elements = document.querySelectorAll('.show-task-border');
+  elements.forEach(el => {
+      el.classList.remove('visibility');
+  });
+}
+
+/**
+ * Hide all task borders on the page by adding the 'visibility' class.
+ */
+function hideAllTaskBorders() {
+  const elements = document.querySelectorAll('.show-task-border');
+  elements.forEach(el => {
+      el.classList.add('visibility');
+  });
+}
 
 document.addEventListener("DOMContentLoaded", function() {
     let isMouseDown = false,
@@ -296,6 +320,7 @@ function setPriorityImage(priority) {
 function startDragging(id) {
   currentDraggedElement = id;
   startRotateCard(id);
+  showAllTaskBorders();
 }
 
 /**
@@ -318,14 +343,26 @@ function moveTo(status) {
   updateHTML();
 }
 
+/**
+ * Rotates the element with the given id by adding a 'rotate' class.
+ * @param {string} id - The ID of the element to rotate.
+ */
 function startRotateCard(id){
     document.getElementById(id).classList.add('rotate');
 }
 
+/**
+ * Highlights the element with the given id by adding a 'highlight' class.
+ * @param {string} id - The ID of the element to highlight.
+ */
 function highlight(id) {
     document.getElementById(id).classList.add('highlight');
 }
 
+/**
+ * Removes the highlight from the element with the given id by removing the 'highlight' class.
+ * @param {string} id - The ID of the element to remove the highlight from.
+ */
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('highlight');
 }
@@ -359,112 +396,4 @@ function polyfill() {
     loadData();
     updateHTML();
   });
-}
-
-/**
- * Filter tasks based on a search term and status.
- * @param {string} searchTerm - The search term to filter tasks.
- * @param {string} status - The status to filter tasks.
- * @returns {Task[]} Array of filtered tasks.
- */
-function filterTasks(searchTerm, status) {
-  let filteredTasks = todos.filter((task) => {
-    return (
-      task.status === status &&
-      (task.title.includes(searchTerm) || task.category.includes(searchTerm))
-    );
-  });
-  return filteredTasks;
-}
-
-/**
- * Set the current filter based on the value in the input field and refresh the UI.
- */
-function setFilter() {
-  let searchText = document.getElementById("input-field");
-  currentFilter = searchText.value.toLowerCase();
-  searchText.value = "";
-  updateHTML();
-}
-
-/**
- * Event listeners for the DOMContentLoaded event.
- */
-document.addEventListener("DOMContentLoaded", function () {
-  const input = document.getElementById("input-field");
-  const inputBtn = document.getElementById("search");
-  input.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      inputBtn.click();
-    }
-  });
-});
-
-/**
- * Close the task card with a slide out animation.
- */
-function closeCard() {
-  document.getElementById("slide-container").classList.remove("slide-in-board");
-  setTimeout(() => {
-    document.getElementById("task-slide").classList.add("d-none");
-    document.getElementById("noscroll").classList.remove("noscroll");
-  }, 800);
-}
-
-/**
- * Triggers the slide in animation for the task card.
- */
-function slideCardAnimation() {
-  document.getElementById("task-slide").classList.remove("d-none");
-  setTimeout(() => {
-    document.getElementById("slide-container").classList.add("slide-in-board");
-  }, 50);
-}
-
-/**
- * Render and slide open the task card.
- * @param {number} id - ID of the task to render in the card.
- */
-function slideCard(id) {
-  const slideCard = document.getElementById("task-slide");
-  slideCard.innerHTML = renderSlideCard(id);
-  slideCardAnimation();
-  document.getElementById("noscroll").classList.add("noscroll");
-}
-
-/**
- * Generates the HTML markup for the slide card.
- * @param {number} id - ID of the task to generate markup for.
- * @returns {string} HTML markup for the slide card.
- */
-function renderSlideCard(id) {
-  const element = todos[id];
-  const priorityImageSrc = setPriorityImage(element.priority);
-  assignedToHTML = renderSlideAssigned(element);
-  subtasksHTML = renderSlideSubtask(element, id);
-  const generateSlideHTML = renderSlideCardHTML(
-    element,
-    priorityImageSrc,
-    assignedToHTML,
-    subtasksHTML
-  );
-  return generateSlideHTML;
-}
-
-/**
- * Remove a task from the 'todos' list and update the UI.
- * @param {number} id - ID of the task to delete.
- */
-function deleteTask(id) {
-  const indexToDelete = todos.findIndex((task) => task.id === id);
-  if (indexToDelete === -1) {
-    return;
-  }
-  todos.splice(indexToDelete, 1);
-  deleteCard(id);
-  updateIDs();
-  closeCard();
-  pushData();
-  loadData();
-  updateHTML();
 }
