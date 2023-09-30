@@ -1,3 +1,112 @@
+
+/**
+ * Filter tasks based on a search term and status.
+ * @param {string} searchTerm - The search term to filter tasks.
+ * @param {string} status - The status to filter tasks.
+ * @returns {Task[]} Array of filtered tasks.
+ */
+function filterTasks(searchTerm, status) {
+    let filteredTasks = todos.filter((task) => {
+      return (
+        task.status === status &&
+        (task.title.includes(searchTerm) || task.category.includes(searchTerm))
+      );
+    });
+    return filteredTasks;
+  }
+  
+  /**
+   * Set the current filter based on the value in the input field and refresh the UI.
+   */
+  function setFilter() {
+    let searchText = document.getElementById("input-field");
+    currentFilter = searchText.value.toLowerCase();
+    searchText.value = "";
+    updateHTML();
+  }
+  
+  /**
+   * Event listeners for the DOMContentLoaded event.
+   */
+  document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("input-field");
+    const inputBtn = document.getElementById("search");
+    input.addEventListener("keypress", function (event) {
+      if (event.key === "Enter") {
+        inputBtn.click();
+      }
+    });
+  });
+  
+  /**
+   * Close the task card with a slide out animation.
+   */
+  function closeCard() {
+    document.getElementById("slide-container").classList.remove("slide-in-board");
+    setTimeout(() => {
+      document.getElementById("task-slide").classList.add("d-none");
+      document.getElementById("noscroll").classList.remove("noscroll");
+    }, 800);
+  }
+  
+  /**
+   * Triggers the slide in animation for the task card.
+   */
+  function slideCardAnimation() {
+    document.getElementById("task-slide").classList.remove("d-none");
+    setTimeout(() => {
+      document.getElementById("slide-container").classList.add("slide-in-board");
+    }, 50);
+  }
+  
+  /**
+   * Render and slide open the task card.
+   * @param {number} id - ID of the task to render in the card.
+   */
+  function slideCard(id) {
+    const slideCard = document.getElementById("task-slide");
+    slideCard.innerHTML = renderSlideCard(id);
+    slideCardAnimation();
+    document.getElementById("noscroll").classList.add("noscroll");
+  }
+  
+  /**
+   * Generates the HTML markup for the slide card.
+   * @param {number} id - ID of the task to generate markup for.
+   * @returns {string} HTML markup for the slide card.
+   */
+  function renderSlideCard(id) {
+    const element = todos[id];
+    const priorityImageSrc = setPriorityImage(element.priority);
+    assignedToHTML = renderSlideAssigned(element);
+    subtasksHTML = renderSlideSubtask(element, id);
+    const generateSlideHTML = renderSlideCardHTML(
+      element,
+      priorityImageSrc,
+      assignedToHTML,
+      subtasksHTML
+    );
+    return generateSlideHTML;
+  }
+  
+  /**
+   * Remove a task from the 'todos' list and update the UI.
+   * @param {number} id - ID of the task to delete.
+   */
+  function deleteTask(id) {
+    const indexToDelete = todos.findIndex((task) => task.id === id);
+    if (indexToDelete === -1) {
+      return;
+    }
+    todos.splice(indexToDelete, 1);
+    deleteCard(id);
+    updateIDs();
+    closeCard();
+    pushData();
+    loadData();
+    updateHTML();
+  }
+
 /**
  * Updates the status of a specific subtask and pushes the updated data.
  * 
@@ -279,67 +388,3 @@ function renderSlideSubtaskHTML(subtask, i, id) {
     `;
 }
 
-/**
- * Generates the overall task HTML representation.
- * @param {Object} element - The task data.
- * @param {string} priorityImageSrc - The source URL of the priority image.
- * @param {string} assignedToHTML - The HTML representation of assigned users.
- * @param {string} progressBar - The HTML representation of the progress bar.
- * @param {string} numberTasks - The HTML representation of the number of tasks.
- * @param {string} allTasks - The HTML representation of all tasks.
- * @returns {string} The generated HTML for the overall task.
- */
-function renderSlideCardHTML(element, priorityImageSrc, assignedToHTML, subtasksHTML) {
-    const backgroundColor = getCategoryBackgroundColor(element.category);
-    return /*html*/ `
-    <div id="slide-container" class="slide-container">
-    <div id="task-slide-container${element.id}" class="task-slide-container">
-        <div class="task-slide-headline">
-            <div class="task-slide-headline-left" style="background-color: ${backgroundColor};"><span class="task-slide-category">${element.category}</span></div>
-            <div id="task-slide-close" onclick="closeCard(${element.id}), loadData()" class="task-slide-headline-right"><img src="./img/close.png" alt="Schließen"></div>
-        </div>
-        <span id="task-slide-title" class="task-slide-title">${element.title}</span>
-        <span id="task-slide-description" class="task-slide-description">${element.description}</span>
-        <div class="task-slide-due-date-container">
-            <span class="task-slide-due-date">Due date: </span>
-            <span id="task-slide-due-date" class="task-slide-due-date-date">${element.dueDate}</span>
-        </div>
-        <div class="task-slide-prio-container">
-            <span class="task-slide-prio-text">Priority: </span>
-            <div class="task-slide-prio-text-img">
-                <span class="task-slide-prio-text-">${element.priority}</span>
-                <img id="task-slide-prio-img" src="${priorityImageSrc}" alt="">
-            </div>
-        </div>
-        <div class="task-slide-assigned-container">
-            <span class="task-slide-assigned-test">Assigned To:</span>
-            <div class="task-slide-assigned-user-container">
-            <div class="task-slide-assigned-user-container">
-        <div class="task-slide-assigned-user-contact">
-            ${assignedToHTML}
-            <button class="task-slide-btn" type="checkbox" disabled></button>
-        </div>
-    </div>
-    <div>
-        </div>
-            <div class="task-slide-subtasks-container">
-                <span class="task-slide-subtasks-text">Subtasks</span>
-                <div class="task-slide-subtasks-tasks" id="subtasksContainer">
-                    ${subtasksHTML}
-                </div>
-            </div>
-            <div class="task-slide-delete-edit-container">
-                <div class="task-slide-delete">
-                    <img class="task-slide-delete-edit-img" src="./img/delete.png" alt="">
-                    <span onclick="deleteTask(${element.id})" class="task-slide-delete-text">Delete</span>
-                </div>
-                <div class="task-slide-placeholder"></div>
-                <div class="task-slide-edit">
-                    <img class="task-slide-delete-edit-img" src="./img/edit.png" alt="">
-                    <span onclick="editTask(${element.id})" class="task-slide-edit-text">Edit</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    `;
-}
