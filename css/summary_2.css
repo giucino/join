@@ -60,6 +60,14 @@
         gap: 16px;
     }
 
+    .task-urgent-container:hover {
+        border-radius: 0px 30px 30px 30px;
+        background: var(--white, #FFF);
+        color: #4589FF;
+        width: 396px;
+        height: 150px;
+    }
+
     .task-urgent-left {
         width: 116px;
         height: 98px;
@@ -108,7 +116,7 @@
     }
 
     .task-urgent-right h2 {
-        font-size: 23px;
+        font-size: 18px;
         font-style: normal;
         font-weight: 700;
         line-height: 120%;
@@ -119,7 +127,7 @@
     .task-urgent-right span {
         width: 147px;
         height: 19px;
-        font-size: 16px;
+        font-size: 13px;
         font-style: normal;
         font-weight: 400;
         line-height: 120%;
