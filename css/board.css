@@ -8,8 +8,8 @@ body {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-.d-none{
-    display: none;
+.visibility{
+    display: none !important;
 }
 
 .noscroll::-webkit-scrollbar{
@@ -205,7 +205,11 @@ body {
     }
 }
 
-
+@media(max-width: 650px) {
+    .scroll-container {
+        width: 320px;
+    }
+}
 
 .board-headline {
     box-sizing: border-box;
