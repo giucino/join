@@ -285,25 +285,8 @@ function saveEditedTitle() {
 
     if (!currentTask || !currentTask.subtasks) {
         console.error("currentTask ist nicht definiert oder hat keine subtasks.");
-        return;  // Beenden Sie die Funktion frühzeitig
+        return;
     }
 
-    let subtaskElements = document.querySelectorAll('.edit-subtask-value');
-
-    subtaskElements.forEach((element, index) => {
-        let editedTitle = element.innerText;
-
-        if (index >= 0 && index < currentTask.subtasks.length) {
-            let editedSubtask = currentTask.subtasks[index];
-            editedSubtask.title = editedTitle;
-
-            let updatedTitle = {
-                title: editedTitle,
-                status: false
-            };
-            updatedSubtasks.push(updatedTitle);
-        } else {
-            console.error("Subtask mit dem Index", index, "wurde nicht gefunden.");
-        }
-    });
+    currentTask.subtasks = processAndSaveSubtasks(currentTask);
 }

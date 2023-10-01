@@ -47,22 +47,42 @@ function editTask(id) {
 async function saveEditedTask(id) {
   const element = todos[id];
   const currentStatus = element.status;
-
   element.title = document.getElementById("edit-task-title").value;
   element.description = document.getElementById("edit-task-description").value;
   element.dueDate = document.getElementById("edit-due-date").value;
   element.status = currentStatus;
-  element.category = selectedCategory; 
+  element.category = selectedCategory;
   element.priority = selectedPriority;
   element.assignedTo = selectedContacts.filter(contact => contact !== undefined);
-
-  element.subtasks = updatedSubtasks;
-  element.id = element.id;
+  element.subtasks = processAndSaveSubtasks(element);
   todos[id] = element;
-
   await setItem("tasks", JSON.stringify(todos));
   openEditedTask(element.id);
-  updatedSubtasks = [];
+}
+
+
+function processAndSaveSubtasks(task) {
+  let subtaskElements = document.querySelectorAll('.edit-subtask-value');
+  let updatedSubtasks = []; 
+
+  subtaskElements.forEach((element, index) => {
+      let editedTitle = element.innerText;
+
+      if (index >= 0 && index < task.subtasks.length) {
+          let editedSubtask = task.subtasks[index];
+          editedSubtask.title = editedTitle;
+
+          let updatedTitle = {
+              title: editedTitle,
+              status: false
+          };
+          updatedSubtasks.push(updatedTitle);
+      } else {
+          console.error("Subtask mit dem Index", index, "wurde nicht gefunden.");
+      }
+  });
+
+  return updatedSubtasks;
 }
 
 
