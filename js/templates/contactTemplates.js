@@ -24,7 +24,7 @@ function showContactDetailsHTML(contact, initials, index) {
 
 
 function showContactDetailsMobileHTML(contact, initials, index) {
-    return `
+    return /*html*/`
     <div class="contact-detailed-container">
         <div class="contact-detailed-top">
             <div>

@@ -142,70 +142,30 @@ let isContainerVisible = false;
 function showContactDetails(index) {
     let detailsContainer = document.getElementById('contact-details');
     let contact = contacts[index];
-    // Entferne den ausgewählten Hintergrund von allen Kontakten
     let allContacts = document.querySelectorAll('.contact');
+
     allContacts.forEach(contactElement => {
         contactElement.classList.remove('contact-selected');
     });
+
     let selectedContactElement = document.querySelector(`[data-contact-index="${index}"]`);
     if (isContainerVisible && detailsContainer.getAttribute('data-current-index') == index) {
-        // Verstecke den Container, wenn er bereits sichtbar ist und der gleiche Kontakt ausgewählt wurde
         detailsContainer.style.display = 'none';
         isContainerVisible = false;
     } else {
-        // Zeige den Container an
         let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
         detailsContainer.innerHTML = showContactDetailsHTML(contact, initials, index);
         detailsContainer.style.display = 'inline-flex';
         detailsContainer.setAttribute('data-current-index', index);
-        // Füge die Slide-In-Animation nur hinzu, wenn der Container zuvor nicht sichtbar war
         if (!isContainerVisible) {
             detailsContainer.classList.add('slide-in');
         }
         isContainerVisible = true;
-        // Füge den ausgewählten Hintergrund nur dem neuen ausgewählten Kontakt hinzu
         selectedContactElement.classList.add('contact-selected');
     }
-    // Entferne die Slide-In-Animation nach dem Abspielen, damit sie beim nächsten Mal wieder abgespielt werden kann
     detailsContainer.addEventListener('animationend', function () {
         detailsContainer.classList.remove('slide-in');
     });
-}
-
-
-function showContactDetailsMobile(index) {
-    // Verstecken Sie die Kontaktliste und zeigen Sie die Kontaktinformationen an
-    document.getElementById('addContactBtn').style.display = 'none';
-    document.getElementById('contact-list-container').style.display = 'none';
-    let detailsContainer = document.getElementById('contact-details-mobile');
-    detailsContainer.style.display = 'block';
-    document.querySelector('.container').style.display = 'none';
-
-    // Fügen Sie die Kontaktinformationen in den Container ein
-    let contact = contacts[index];
-    let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
-    detailsContainer.innerHTML = showContactDetailsMobileHTML(contact, initials, index);
-}
-
-
-function showEditContactsButtonsMobile() {
-    let elements = document.getElementById('contact-mobile-buttons');
-    let header = document.getElementById('contact-detailed-head');
-    header.classList.add('hide-it');
-    elements.classList.remove('hide-it');
-    // Erstellen der unsichtbaren div
-    let invisibleDiv = document.createElement('div');
-    invisibleDiv.id = 'invisibleDiv';
-    invisibleDiv.onclick = closeButtonsMobile;
-    // Fügen Sie die unsichtbare div zum DOM hinzu
-    document.body.appendChild(invisibleDiv);
-}
-
-
-function returnToContactsMobile() {
-    document.querySelector('.contact-details-mobile-class').style.display = 'none'
-    document.querySelector('.container').style.display = 'flex';
-    document.querySelector('.add-person-button').style.display = 'flex';
 }
 
 
@@ -239,44 +199,100 @@ function openModal() {
  */
 function closeModal() {
     let modal = document.getElementById("contactModal");
-    let overlay = document.querySelector(".background-overlay");  // Verwenden Sie den bereits vorhandenen Overlay
+    let overlay = document.querySelector(".background-overlay");
     modal.classList.remove('modal-slide-in');
     modal.classList.add('modal-slide-out');
     overlay.style.display = "none";
-    modal.style.display = "none";
 }
 
 
-/**
- * saves new contacts
- * @returns contacts as string in an array
- */
 async function saveNewContact() {
     let newEmailInput = document.getElementById("newEmail");
     let newTelefonInput = document.getElementById("newTelefon");
     let fullNameInput = document.getElementById("fullName");
-    let nameParts = fullNameInput.value.trim().split(' ');
-    let newName = nameParts[0]; // Der erste Teil ist der Vorname
-    let newSurename = nameParts[1] || ''; // Der zweite Teil ist der Nachname, falls vorhanden
+
+    let nameValidationResult = validateNameParts(fullNameInput);
+    let newName = nameValidationResult.newName;
+    let newSurename = nameValidationResult.newSurename;
+
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
-    if (!newName || !newSurename || !newEmail || !newTelefon) {
+
+    let isValidContactFields = validateContactFields(newName, newSurename, newEmail, newTelefon);
+
+    if (!isValidContactFields) {
+        return;
+    }
+
+    let newContact = createNewContactObject(newName, newSurename, newEmail, newTelefon);
+    saveContact(newContact);
+    clearFormFields(fullNameInput, newEmailInput, newTelefonInput);
+}
+
+
+function validateNameParts(fullNameInput) {
+    let nameParts = extractNameParts(fullNameInput.value);
+    let newName = nameParts.newName;
+    let newSurename = nameParts.newSurename || '';
+
+    return { newName, newSurename };
+}
+
+
+function extractNameParts(fullName) {
+    let nameParts = fullName.trim().split(' ');
+    return { newName: nameParts[0], newSurename: nameParts[1] };
+}
+
+
+function validateContactFields(newName, newSurename, newEmail, newTelefon) {
+    if (!areAllFieldsFilled(newName, newSurename, newEmail, newTelefon)) {
         alert("Bitte füllen Sie alle Felder aus.");
-        return;
+        return false;
     }
-    let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (!emailPattern.test(newEmail)) {
+
+    if (!isValidEmail(newEmail)) {
         alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
-        return;
+        return false;
     }
-    let phonePattern = /^[0-9]+$/;
-    if (!phonePattern.test(newTelefon)) {
+
+    if (!isValidPhoneNumber(newTelefon)) {
         alert("Bitte geben Sie nur Zahlen in das Telefonnummer-Feld ein.");
-        return;
+        return false;
     }
+    return true;
+}
+
+
+function areAllFieldsFilled(newName, newSurename, newEmail, newTelefon) {
+    return newName && newSurename && newEmail && newTelefon;
+}
+
+
+function isValidEmail(email) {
+    let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
+}
+
+
+function isValidPhoneNumber(phone) {
+    let phonePattern = /^[0-9]+$/;
+    return phonePattern.test(phone);
+}
+
+
+function clearFormFields(fullNameInput, newEmailInput, newTelefonInput) {
+    fullNameInput.value = "";
+    newEmailInput.value = "";
+    newTelefonInput.value = "";
+}
+
+
+function createNewContactObject(newName, newSurename, newEmail, newTelefon) {
     let maxContactId = Math.max(...contacts.map(contact => contact.id), -1);
     let nextContactId = maxContactId + 1;
-    let newContact = {
+
+    return {
         bgcolor: getRandomColor(),
         id: nextContactId,
         name: newName,
@@ -284,16 +300,61 @@ async function saveNewContact() {
         email: newEmail,
         telefon: newTelefon
     };
+}
+
+
+async function saveContact(newContact) {
     contacts.push(newContact);
     await setItem('contacts', JSON.stringify(contacts));
-    let modal = document.getElementById("contactModal");
-    modal.style.display = "none";
+    closeModal();
     initContact();
-    fullName.value = "";
-    newEmailInput.value = "";
-    newTelefonInput.value = "";
-    console.log('Maximale Kontakt-ID:', maxContactId);
-    console.log('Nächste verfügbare Kontakt-ID:', nextContactId);
+}
+
+
+async function updateContact(index) {
+    let newEmailInput = document.getElementById("editNewEmail");
+    let newTelefonInput = document.getElementById("editNewTelefon");
+    let fullNameInput = document.getElementById("editFullName");
+
+    let nameValidationResult = validateNameParts(fullNameInput);
+    let newName = nameValidationResult.newName;
+    let newSurename = nameValidationResult.newSurename;
+
+    let newEmail = newEmailInput.value;
+    let newTelefon = newTelefonInput.value;
+
+    let isValidContactFields = validateContactFields(newName, newSurename, newEmail, newTelefon);
+
+    if (!isValidContactFields) {
+        return;
+    }
+
+    let originalContact = contacts[index];
+    let updatedContact = createUpdatedContactObject(originalContact, newName, newSurename, newEmail, newTelefon);
+
+    updateAndSaveContact(index, updatedContact);
+}
+
+
+function createUpdatedContactObject(originalContact, newName, newSurename, newEmail, newTelefon) {
+    return {
+        bgcolor: originalContact.bgcolor,
+        id: originalContact.id,
+        name: newName,
+        surename: newSurename,
+        email: newEmail,
+        telefon: newTelefon,
+        password: originalContact.password
+    };
+}
+
+
+async function updateAndSaveContact(index, updatedContact) {
+    contacts[index] = updatedContact;
+    await setItem('contacts', JSON.stringify(contacts));
+    closeEditModal();
+    initContact();
+    showContactDetails(index);
 }
 
 
@@ -302,10 +363,9 @@ async function saveNewContact() {
  * @param {string} index 
  */
 async function deleteContact(index) {
-    console.log("deleteContact wurde aufgerufen mit Index:", index);
     if (confirm("Möchten Sie diesen Kontakt wirklich löschen?")) {
+
         contacts.splice(index, 1);
-        // IDs neu zuweisen
         for (let i = 0; i < contacts.length; i++) {
             contacts[i].id = i + 1;
         }
@@ -333,57 +393,6 @@ function editContact(index) {
     updateContactBtn.onclick = function () {
         updateContact(index);
     };
-    console.log('Edited Contact:', contact);
-}
-
-
-/**
- * keeps the contacts up to date
- * @param {string} index 
- * @returns the new contacts saved
- */
-async function updateContact(index) {
-    let newEmailInput = document.getElementById("editNewEmail");
-    let newTelefonInput = document.getElementById("editNewTelefon");
-    let fullNameInput = document.getElementById("editFullName");
-    let nameParts = fullNameInput.value.trim().split(' ');
-    let newName = nameParts[0];
-    let newSurename = nameParts[1] || '';
-    let newEmail = newEmailInput.value;
-    let newTelefon = newTelefonInput.value;
-    if (!newName || !newSurename || !newEmail || !newTelefon) {
-        alert("Bitte füllen Sie alle Felder aus.");
-        return;
-    }
-
-    // Überprüfen, ob die E-Mail-Adresse ein gültiges Format hat
-    let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (!emailPattern.test(newEmail)) {
-        alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
-        return;
-    }
-
-    if (!/^[0-9]+$/.test(newTelefon)) {
-        alert("Bitte geben Sie nur Zahlen in das Telefonnummer-Feld ein.");
-        return;
-    }
-    let originalContact = contacts[index];
-    let originalId = originalContact.id;
-    let originalBgColor = originalContact.bgcolor;
-    let originalPassword = originalContact.password;
-    contacts[index] = {
-        bgcolor: originalBgColor,
-        id: originalId,
-        name: newName,
-        surename: newSurename,
-        email: newEmail,
-        telefon: newTelefon,
-        password: originalPassword
-    };
-    await setItem('contacts', JSON.stringify(contacts));
-    closeEditModal();
-    initContact();
-    showContactDetails(index);
 }
 
 
@@ -406,7 +415,7 @@ function openEditModal() {
     let modal = document.getElementById("editModal");
     let overlay = document.querySelector(".background-overlay");
     modal.style.display = "flex";
-    overlay.style.display = "block"; // Zeige den Overlay an
+    overlay.style.display = "block";
     modal.classList.remove('editModal-slide-out');
     modal.classList.add('editModal-slide-in');
 }
@@ -420,16 +429,5 @@ function closeEditModal() {
     let overlay = document.querySelector(".background-overlay");
     modal.classList.remove('editModal-slide-in');
     modal.classList.add('editModal-slide-out');
-    overlay.style.display = "none"; // Verstecke den Overlay 
-}
-
-
-function closeButtonsMobile() {
-    let element = document.getElementById('contact-mobile-buttons');
-    let header = document.getElementById('contact-detailed-head');
-    header.classList.remove('hide-it');
-    element.classList.add('hide-it');
-
-    let invisibleDiv = document.getElementById('invisibleDiv');
-    document.body.removeChild(invisibleDiv);
+    overlay.style.display = "none";
 }
