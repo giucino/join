@@ -61,31 +61,6 @@ async function saveEditedTask(id) {
 }
 
 
-function processAndSaveSubtasks(task) {
-  let subtaskElements = document.querySelectorAll('.edit-subtask-value');
-  let updatedSubtasks = []; 
-
-  subtaskElements.forEach((element, index) => {
-      let editedTitle = element.innerText;
-
-      if (index >= 0 && index < task.subtasks.length) {
-          let editedSubtask = task.subtasks[index];
-          editedSubtask.title = editedTitle;
-
-          let updatedTitle = {
-              title: editedTitle,
-              status: false
-          };
-          updatedSubtasks.push(updatedTitle);
-      } else {
-          console.error("Subtask mit dem Index", index, "wurde nicht gefunden.");
-      }
-  });
-
-  return updatedSubtasks;
-}
-
-
 /**
  * Opens the edited task by rendering the slide card based on the given task id.
  * It also makes the slide card visible and adjusts the relevant container styles.
@@ -207,25 +182,6 @@ function addNewSubtask() {
   subInput.value = '';
 }
 
-function subtaskToAddHTML(subInputValue, i) {
-  return /*html*/ `
-        <div id="subtask-container-${i}" class="edit-subtask-container">
-            <div class="edit-subtask-item">
-                <span id="editDot" class="edit-subtask-dot"></span>           
-                <span id="${i}" class="edit-subtask-value" data-subtask-id="${i}" contenteditable="false">${subInputValue}</span>
-            </div>
-            <div class="hover-content">
-                <img onclick="editEditedSubtask(${i})" data-subtask-id="${i}" src="./img/edit_subtask.png" class="edit-edit-subtask-button">
-                <span class="separator2" id="separator2">|</span> 
-                <img onclick="deleteEditSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
-            </div>
-            <img onclick="deleteEditedSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="edit-edit-delete-subtask-button">
-            <span class="separator3" id="separator3">|</span> 
-            <img onclick="finishEditing(${i})" data-subtask-id="${i}" src="./img/add_subtask.png" class="edit-save-subtask-button">
-        </div>
-    `;
-}
-
 
 /** 
  * Renders subtasks of a given task for editing.
@@ -286,26 +242,6 @@ async function loadRenderAssignedTo(selectedContacts) {
 
 
 /**
- * Renders the HTML for a given contact, including initials and selected state.
- * @param {Object} contact - The contact to render.
- * @param {string} initials - The initials of the contact.
- * @param {boolean} isSelected - Whether the contact is selected or not.
- * @returns {string} The HTML representation of the contact.
- */
-function renderAssignedToHTML (contact, initials, isSelected){
-  return /* html */`
-    <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
-        <div class="select-contact">
-            <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-            <div class="select-name">${contact.name} ${contact.surename}</div>
-        </div>
-        <img class="select-icon" id="edit-select-check" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
-    </div>
-  `;
-}
-
-
-/**
  * Renders the searched contacts to the UI.
  * @param {Array} contacts - The list of contacts to render.
  */
@@ -320,26 +256,6 @@ function loadSearchedContact(contacts) {
 
       loadAssignedToContainer.innerHTML += loadRenderSearchedContactsHTML(contact, initials, isSelected);
   }
-}
-
-
-/**
- * Renders the HTML for a given searched contact, including initials and selected state.
- * @param {Object} contact - The contact to render.
- * @param {string} initials - The initials of the contact.
- * @param {boolean} isSelected - Whether the contact is selected or not.
- * @returns {string} The HTML representation of the contact.
- */
-function loadRenderSearchedContactsHTML(contact, initials, isSelected) {
-  return /*html*/`
-    <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
-        <div class="select-contact">
-            <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-            <div class="select-name">${contact.name} ${contact.surename}</div>
-        </div>
-        <img class="select-icon" id="edit-select-check" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
-    </div>
-  `;
 }
 
 
@@ -358,6 +274,20 @@ function loadSearchContacts(query) {
 }
 
 
+/**
+ * Toggles the selection of a contact based on the given name and surname. If the contact is already selected,
+ * it will be removed from the selection; otherwise, it will be added to the selection. After toggling the contact
+ * selection, various rendering functions are called to update the UI.
+ * 
+ * @param {string} name - The first name of the contact to be toggled.
+ * @param {string} surename - The surname of the contact to be toggled. (Note: Typo? You might mean 'surname' instead of 'surename')
+ * 
+ * @global
+ * @function
+ * @see loadRenderAssignedTo
+ * @see loadSearchedContact
+ * @see renderDisplayChosenContacts
+ */
 function loadToggleContactSelection(name, surename) {
   const contact = contacts.find(c => c.name === name && c.surename === surename);
 

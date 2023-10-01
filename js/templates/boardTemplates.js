@@ -157,3 +157,192 @@ function renderEditTask(id) {
         </div>
     `;
 }
+
+
+/**
+ * Renders the HTML for a given searched contact, including initials and selected state.
+ * @param {Object} contact - The contact to render.
+ * @param {string} initials - The initials of the contact.
+ * @param {boolean} isSelected - Whether the contact is selected or not.
+ * @returns {string} The HTML representation of the contact.
+ */
+function loadRenderSearchedContactsHTML(contact, initials, isSelected) {
+    return /*html*/`
+      <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
+          <div class="select-contact">
+              <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
+              <div class="select-name">${contact.name} ${contact.surename}</div>
+          </div>
+          <img class="select-icon" id="edit-select-check" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
+      </div>
+    `;
+}
+
+
+/**
+ * Renders the HTML for a given contact, including initials and selected state.
+ * @param {Object} contact - The contact to render.
+ * @param {string} initials - The initials of the contact.
+ * @param {boolean} isSelected - Whether the contact is selected or not.
+ * @returns {string} The HTML representation of the contact.
+ */
+function renderAssignedToHTML (contact, initials, isSelected){
+    return /* html */`
+      <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
+          <div class="select-contact">
+              <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
+              <div class="select-name">${contact.name} ${contact.surename}</div>
+          </div>
+          <img class="select-icon" id="edit-select-check" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
+      </div>
+    `;
+}
+
+
+/**
+ * Generates an HTML string for a subtask item based on the provided input value and index.
+ *
+ * @function
+ * @param {string} subInputValue - The value of the subtask to be displayed.
+ * @param {number} i - The unique index or identifier for the subtask.
+ * @returns {string} HTML representation of the subtask item.
+ * 
+ * @example
+ * 
+ * const subtaskHTML = subtaskToAddHTML('Finish writing code', 1);
+ * console.log(subtaskHTML);  // Outputs the generated HTML string
+ */
+function subtaskToAddHTML(subInputValue, i) {
+    return /*html*/ `
+        <div id="subtask-container-${i}" class="edit-subtask-container">
+            <div class="edit-subtask-item">
+                <span id="editDot" class="edit-subtask-dot"></span>           
+                <span id="${i}" class="edit-subtask-value" data-subtask-id="${i}" contenteditable="false">${subInputValue}</span>
+            </div>
+            <div class="hover-content">
+                <img onclick="editEditedSubtask(${i})" data-subtask-id="${i}" src="./img/edit_subtask.png" class="edit-edit-subtask-button">
+                <span class="separator2" id="separator2">|</span> 
+                <img onclick="deleteEditSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
+            </div>
+            <img onclick="deleteEditedSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="edit-edit-delete-subtask-button">
+            <span class="separator3" id="separator3">|</span> 
+            <img onclick="finishEditing(${i})" data-subtask-id="${i}" src="./img/add_subtask.png" class="edit-save-subtask-button">
+        </div>
+    `;
+}
+  
+
+/**
+ * Verarbeitet und speichert Teilaufgaben basierend auf den Elementen mit der Klasse "edit-subtask-value".
+ *
+ * @param {Object} task - Das Hauptaufgabenobjekt, das die Teilaufgaben enthält.
+ * @param {Array} task.subtasks - Die Liste der Teilaufgaben. Jede Teilaufgabe ist ein Objekt mit mindestens einem "title" Attribut.
+ *
+ * @returns {Array<Object>} Eine Liste von aktualisierten Teilaufgaben. Jede Teilaufgabe ist ein Objekt mit den Attributen "title" und "status".
+ * 
+ * @example
+ * const task = {
+ *   subtasks: [
+ *     { title: 'Teilaufgabe 1' },
+ *     { title: 'Teilaufgabe 2' }
+ *   ]
+ * };
+ * const updatedSubtasks = processAndSaveSubtasks(task);
+ */
+function processAndSaveSubtasks(task) {
+    let subtaskElements = document.querySelectorAll('.edit-subtask-value');
+    let updatedSubtasks = []; 
+  
+    subtaskElements.forEach((element, index) => {
+        let editedTitle = element.innerText;
+  
+        if (index >= 0 && index < task.subtasks.length) {
+            let editedSubtask = task.subtasks[index];
+            editedSubtask.title = editedTitle;
+  
+            let updatedTitle = {
+                title: editedTitle,
+                status: false
+            };
+            updatedSubtasks.push(updatedTitle);
+        } else {
+            console.error("Subtask mit dem Index", index, "wurde nicht gefunden.");
+        }
+    });
+  
+    return updatedSubtasks;
+}
+
+
+/**
+ * Renders the HTML for a subtask in the slide view.
+ *
+ * @param {Object} subtask - The subtask details.
+ * @param {number} i - The index of the subtask.
+ * @param {number} id - The ID of the parent task element.
+ * @returns {string} The generated HTML string for a subtask.
+ */
+function renderSlideSubtaskHTML(subtask, i, id) {
+    return /*html*/`
+        <div class="task-slide-subtask">
+            <input type="checkbox" id="subtaskCheckbox${i}" ${subtask.status ? 'checked' : ''} onchange="updateSubtaskStatus(${id}, ${i}, this.checked)">
+            <label for="subtaskCheckbox${i}">${subtask.title}</label>
+        </div>
+    `;
+}
+
+
+/**
+ * Renders the HTML for an assigned user in the slide view.
+ *
+ * @param {string} initials - The initials of the assigned user.
+ * @param {string} name - The full name of the assigned user.
+ * @param {string} bgcolor - The background color for the user mark.
+ * @returns {string} The generated HTML string for an assigned user.
+ */
+function renderSlideAssignedHTML(initials, name, bgcolor) {
+    return /*html*/`
+        <div class="task-slide-assigned-user">
+            <div class="user-marked blue" style="background-color: ${bgcolor}">${initials}</div>
+            <span class="task-slide-assigned-user-name">${name}</span>
+        </div>
+    `;
+}
+
+
+/**
+ * Generates the HTML for a given task element.
+ *
+ * @param {Object} element - The task element containing its details.
+ * @param {string} priorityImageSrc - The source URL for the priority image.
+ * @param {string} assignedToHTML - The HTML string representing assigned users.
+ * @param {string} progressBar - The HTML string representing the task's progress bar.
+ * @param {string} numberTasks - The count of completed tasks.
+ * @param {string} allTasks - The total count of tasks.
+ * @returns {string} The generated HTML string.
+ */
+function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBar, numberTasks, allTasks, allTasksCount) {
+    const backgroundColor = getCategoryBackgroundColor(element.category);
+    return /*html*/`
+    <div id="${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container task-touch">
+        <div class="content-container-inner">
+            <div class="board-category" style="background-color: ${backgroundColor};">${element.category}</div>
+            <div class="title-content">
+                <div class="title">${element.title}</div>
+                <div id="description" class="content">${element.description}</div>
+            </div>
+            <div id="subtasks-board" class="board-subtasks-container" style="display: ${getSubtasksDisplayStyle(allTasksCount)};">
+                <div class="progress-bar-container">
+                    ${progressBar}
+                </div>
+                <div class="subtasks">${numberTasks} / ${allTasks} Subtasks</div>
+            </div>
+            <div class="prio-container">
+                <div id="assigned-to" class="user-container-board">
+                    ${assignedToHTML}
+                </div>
+                <div class="prio-icon"><img src="${priorityImageSrc}" alt=""></div>
+            </div>
+        </div>
+    </div>`;
+}

@@ -139,6 +139,17 @@ function deleteTask(id) {
     updateHTML();
 }
 
+
+/**
+ * Updates the 'id' property for each item in the 'todos' array.
+ * 
+ * @example
+ * Assuming todos = [{id: 0}, {id: 1}]
+ * updateIDs();
+ * todos will be: [{id: 0}, {id: 1}]
+ * 
+ * @returns {void}
+ */
 function updateIDs() {
     for (let i = 0; i < todos.length; i++) {
         todos[i].id = i + 1;
@@ -147,6 +158,11 @@ function updateIDs() {
 }
 
 
+/**
+ * Deletes the specified card element from the document based on the provided ID.
+ * 
+ * @param {string|number} id - The ID of the card element to be removed.
+ */
 function deleteCard(id) {
     const elementToRemove = document.getElementById(`board-card${id}`);
     if (elementToRemove) {
@@ -222,7 +238,6 @@ function renderAssigned(element) {
 
 /**
  * Generates HTML for a specific assigned user.
- * 
  * @param {string} additionalClass - Additional CSS class for the user.
  * @param {string} bgcolor - Background color for the user's badge.
  * @param {string} initials - Initials of the assigned user.
@@ -330,46 +345,14 @@ function getCategoryBackgroundColor(category) {
 }
 
 
+/**
+ * Returns the appropriate display style based on the count of all tasks.
+ * 
+ * @param {number} allTasksCount - The total number of tasks.
+ * @returns {string} - Returns 'none' if there are no tasks, otherwise 'block'.
+ */
 function getSubtasksDisplayStyle(allTasksCount) {
     return allTasksCount === 0 ? 'none' : 'block';
-}
-
-
-/**
- * Generates the HTML for a given task element.
- *
- * @param {Object} element - The task element containing its details.
- * @param {string} priorityImageSrc - The source URL for the priority image.
- * @param {string} assignedToHTML - The HTML string representing assigned users.
- * @param {string} progressBar - The HTML string representing the task's progress bar.
- * @param {string} numberTasks - The count of completed tasks.
- * @param {string} allTasks - The total count of tasks.
- * @returns {string} The generated HTML string.
- */
-function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBar, numberTasks, allTasks, allTasksCount) {
-    const backgroundColor = getCategoryBackgroundColor(element.category);
-    return /*html*/`
-    <div id="${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container task-touch">
-        <div class="content-container-inner">
-            <div class="board-category" style="background-color: ${backgroundColor};">${element.category}</div>
-            <div class="title-content">
-                <div class="title">${element.title}</div>
-                <div id="description" class="content">${element.description}</div>
-            </div>
-            <div id="subtasks-board" class="board-subtasks-container" style="display: ${getSubtasksDisplayStyle(allTasksCount)};">
-                <div class="progress-bar-container">
-                    ${progressBar}
-                </div>
-                <div class="subtasks">${numberTasks} / ${allTasks} Subtasks</div>
-            </div>
-            <div class="prio-container">
-                <div id="assigned-to" class="user-container-board">
-                    ${assignedToHTML}
-                </div>
-                <div class="prio-icon"><img src="${priorityImageSrc}" alt=""></div>
-            </div>
-        </div>
-    </div>`;
 }
 
 
@@ -396,24 +379,6 @@ function renderSlideAssigned(element) {
 
 
 /**
- * Renders the HTML for an assigned user in the slide view.
- *
- * @param {string} initials - The initials of the assigned user.
- * @param {string} name - The full name of the assigned user.
- * @param {string} bgcolor - The background color for the user mark.
- * @returns {string} The generated HTML string for an assigned user.
- */
-function renderSlideAssignedHTML(initials, name, bgcolor) {
-    return /*html*/`
-        <div class="task-slide-assigned-user">
-            <div class="user-marked blue" style="background-color: ${bgcolor}">${initials}</div>
-            <span class="task-slide-assigned-user-name">${name}</span>
-        </div>
-    `;
-}
-
-
-/**
  * Renders the subtasks for a task in the slide view.
  *
  * @param {Object} element - The task element containing its details.
@@ -432,22 +397,4 @@ function renderSlideSubtask(element, id) {
         }
     }
     return subtasksHTML;
-}
-
-
-/**
- * Renders the HTML for a subtask in the slide view.
- *
- * @param {Object} subtask - The subtask details.
- * @param {number} i - The index of the subtask.
- * @param {number} id - The ID of the parent task element.
- * @returns {string} The generated HTML string for a subtask.
- */
-function renderSlideSubtaskHTML(subtask, i, id) {
-    return /*html*/`
-        <div class="task-slide-subtask">
-            <input type="checkbox" id="subtaskCheckbox${i}" ${subtask.status ? 'checked' : ''} onchange="updateSubtaskStatus(${id}, ${i}, this.checked)">
-            <label for="subtaskCheckbox${i}">${subtask.title}</label>
-        </div>
-    `;
 }

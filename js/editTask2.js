@@ -209,6 +209,17 @@ function editEditedSubtask(i) {
 }
 
 
+/**
+ * Applies editing classes and styles to the given container. It handles specific 
+ * UI changes for entering the editing mode like showing/hiding certain elements 
+ * and modifying some styles.
+ * 
+ * @param {HTMLElement} container - The container element to which editing styles and classes will be applied.
+ * 
+ * @example
+ * let divElement = document.querySelector(".my-container");
+ * addEditingClasses(divElement);
+ */
 function addEditingClasses(container) {
     container.classList.add("editing-mode");
     container.classList.add("no-hover");
@@ -237,6 +248,22 @@ function addEditingClasses(container) {
 }
 
 
+/**
+ * Finishes the editing mode for a given subtask.
+ *
+ * @function
+ * @name finishEditing
+ * @param {string|number} i - The unique identifier (or index) for the subtask.
+ * 
+ * @description
+ * This function achieves the following steps:
+ * 1. Gets the subtask element with the provided ID and disables its content editing.
+ * 2. Removes editing-related classes from the subtask's container.
+ * 3. Saves the edited title.
+ *
+ * @example
+ * finishEditing(3);  // finishes editing for the subtask with id '3'
+ */
 function finishEditing(i) {
     let subtaskElement = document.getElementById(i);
     if (subtaskElement) {
@@ -251,6 +278,16 @@ function finishEditing(i) {
 }
 
 
+/**
+ * Removes editing-related classes and styles from the given container element.
+ * Specifically, it:
+ * - Removes "editing-mode" and "no-hover" classes.
+ * - Resets the borderBottom style.
+ * - Changes the display styles for the child elements with the classes:
+ *   ".edit-subtask-dot", ".edit-save-subtask-button", ".edit-delete-subtask-button", and ".separator3".
+ *
+ * @param {HTMLElement} container - The container element from which editing-related classes and styles are to be removed.
+ */
 function removeEditingClasses(container) {
     container.classList.remove("editing-mode");
     container.classList.remove("no-hover");
@@ -279,6 +316,15 @@ function removeEditingClasses(container) {
 }
 
 
+/**
+ * Speichert den bearbeiteten Titel des aktuellen Tasks.
+ * Wenn der aktuelle Task nicht definiert ist oder keine Subtasks hat,
+ * wird ein Fehler in der Konsole angezeigt.
+ * 
+ * @function
+ * @returns {void} Gibt nichts zurück.
+ * @throws {Error} Wenn currentTask nicht definiert ist oder keine subtasks hat.
+ */
 function saveEditedTitle() {
     let currentTask = todos[currentTaskId];
     if (!currentTask || !currentTask.subtasks) {
