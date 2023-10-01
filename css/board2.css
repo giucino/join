@@ -80,14 +80,3 @@
 .rotate{
     transform: rotate(10deg);
 }
-
-#reset-search {
-    display: none;
-}
-
-.reset-btn {
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    right: 5px;
-}

@@ -49,6 +49,10 @@ body {
     display: flex;
 }
 
+.input-conteiner:focus-within {
+    border-color: #005DFF;
+}
+
 @media(max-width: 650px) {
     .input-conteiner {
         width: auto;
@@ -61,12 +65,28 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex: 1 0 0;
+    flex: 1  0;
+}
+
+.input-field::placeholder {
+    color: var(--style, #D1D1D1);
+    font-size: 16px;
 }
 
 .search-right {
     display: flex;
     gap: 16px;
+}
+
+#reset-search {
+    display: none;
+}
+
+.reset-btn {
+    border: none;
+    font-size: 24px;
+    color: lightgray;
+    cursor: pointer;
 }
 
 .icon {
