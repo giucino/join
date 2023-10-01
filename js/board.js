@@ -282,7 +282,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function generateTasks(element) {
   const priorityImageSrc = setPriorityImage(element.priority);
   assignedToHTML = renderAssigned(element);
-  const { subtasksHTML, completedTasksCount } = renderSubtask(element);
+  const completedTasksCount = renderSubtask(element);
   const allTasksCount = element.subtasks.length;
   const progress = (completedTasksCount / allTasksCount) * 100;
   const progressBar = progressBarHTML(element, progress);

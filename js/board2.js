@@ -228,11 +228,9 @@ function renderSubtask(element) {
                     completedTasksCount++;
                 };
             }
-
         }
-
     }
-    return { subtasksHTML, completedTasksCount };
+    return completedTasksCount;
 }
 
 
