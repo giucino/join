@@ -55,7 +55,6 @@ function createSubtaskHTML(subtaskId, subtaskValue) {
                 <img onclick="editSubtask('${subtaskId}')" src="./img/edit_subtask.png" class="edit-subtask-button">
                 <span class="separator2" id="separator2">|</span> 
                 <img onclick="deleteSubtask('${subtaskId}')" data-subtask-id="${subtaskId}" src="./img/delete_subtask.png" class="delete-subtask-button">
-                <!-- <img onclick="deleteSubtask(event)" src="./img/delete_subtask.png" class="delete-subtask-button"> --> 
             </div>
             <img onclick="deleteSubtask('${subtaskId}')" data-subtask-id="${subtaskId}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
             <span class="separator3" id="separator3">|</span> 

@@ -8,7 +8,8 @@ function filterTasks(searchTerm, status) {
     let filteredTasks = todos.filter((task) => {
         return (
             task.status === status &&
-            (task.title.includes(searchTerm) || task.category.includes(searchTerm))
+            (task.title.charAt(0).toLowerCase() === searchTerm.toLowerCase() ||
+                task.category.charAt(0).toLowerCase() === searchTerm.toLowerCase())
         );
     });
     return filteredTasks;
@@ -21,22 +22,47 @@ function filterTasks(searchTerm, status) {
 function setFilter() {
     let searchText = document.getElementById("input-field");
     currentFilter = searchText.value.toLowerCase();
-    searchText.value = "";
     updateHTML();
 }
 
 
-/**
- * Event listeners for the DOMContentLoaded event.
- */
 document.addEventListener("DOMContentLoaded", function () {
-    const input = document.getElementById("input-field");
-    const inputBtn = document.getElementById("search");
-    input.addEventListener("keypress", function (event) {
-        if (event.key === "Enter") {
-            inputBtn.click();
+    let input = document.getElementById("input-field");
+    let resetButton = document.getElementById("reset-search");
+
+    input.addEventListener("input", function () {
+        let searchValue = input.value.trim().toLowerCase();
+        if (searchValue !== "") {
+            setFilter();
+            resetButton.style.display = "block";
+        } 
+        else {
+            resetButton.style.display = "none";
         }
     });
+
+    let inputBtn = document.getElementById("search");
+    inputBtn.addEventListener("click", function () {
+        let searchValue = input.value.trim().toLowerCase();
+        if (searchValue !== "") {
+            setFilter();
+            resetButton.style.display = "block";
+        } else {
+            resetButton.style.display = "none";
+        }
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    function handleResetButtonClick() {
+        let searchText = document.getElementById("input-field");
+        searchText.value = "";  
+        resetButton.style.display = "none";
+    }
+
+    let resetButton = document.getElementById("reset-search");
+    resetButton.addEventListener("click", handleResetButtonClick);
 });
 
 

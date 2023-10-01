@@ -672,8 +672,6 @@
         width: auto;
     }
 
-
-
     .container {
         padding: 20px;
         width: 900px;
@@ -758,13 +756,11 @@
         align-items: center;
         gap: 8px;
         color: #2A3647;
-        /* Version 2/body */
         font-family: Open Sans;
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
         line-height: 120%;
-        /* 19.2px */
     }
 
     .contact-detailed-images-mobile img {
