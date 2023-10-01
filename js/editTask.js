@@ -1,8 +1,4 @@
-// let selectedPriority = '';
-// let selectedCategory = '';
-// let selectedContacts = [];
-// let subtasks = [];
-// let subtaskIdCounter = 0;
+let currentSelectedTask;
 let updatedSubtasks = [];
 let currentTaskId;
 
@@ -34,6 +30,7 @@ function editTask(id) {
   slideCardAnimationEditTask();
   const element = todos[id];
   currentTaskId = id;
+  currentSelectedTask = element;
   addSubtaskToEdit(element);
   loadSelectedPriority(element);
   loadDisplayChosenContacts();
@@ -55,9 +52,9 @@ async function saveEditedTask(id) {
   element.description = document.getElementById("edit-task-description").value;
   element.dueDate = document.getElementById("edit-due-date").value;
   element.status = currentStatus;
-  element.category = selectedCategory; // assuming selectedCategory is defined somewhere
-  element.priority = selectedPriority; // assuming selectedPriority is defined somewhere
-  element.assignedTo = selectedContacts.filter(contact => contact !== undefined); // assuming selectedContacts is defined somewhere
+  element.category = selectedCategory; 
+  element.priority = selectedPriority;
+  element.assignedTo = selectedContacts.filter(contact => contact !== undefined);
 
   element.subtasks = updatedSubtasks;
   element.id = element.id;
@@ -173,29 +170,34 @@ function highlightButton(button, bgColor, imageSrc) {
 /** 
  * Adds a new subtask to the UI based on the value of the input field.
  */
-function addNewSubtask(task) {
+function addNewSubtask() {
   const subInput = document.getElementById('edit-subtask-input');
-  const subInputValue = subInput.value;
+  const subInputValue = subInput.value.trim();
   const subtaskContainer = document.getElementById("edit-subtask-add-container");
 
-  // Nutzen Sie den Zähler für die ID und inkrementieren Sie ihn
-  subtaskContainer.innerHTML += subtaskToAddHTML(subInputValue, subtaskIdCounter++, task);
+  if (!currentSelectedTask.subtasks) {
+      currentSelectedTask.subtasks = [];
+  }
+
+  const newSubtaskId = currentSelectedTask.subtasks.length + 1;
+  subtaskContainer.innerHTML += subtaskToAddHTML(subInputValue, newSubtaskId);
+
+  currentSelectedTask.subtasks.push({ id: newSubtaskId, title: subInputValue, status: false });
+
   subInput.value = '';
 }
 
-
-function subtaskToAddHTML(subInputValue, i, task) {
+function subtaskToAddHTML(subInputValue, i) {
   return /*html*/ `
         <div id="subtask-container-${i}" class="edit-subtask-container">
             <div class="edit-subtask-item">
                 <span id="editDot" class="edit-subtask-dot"></span>           
-                <span id="${i}" class="edit-subtask-value" data-subtask-id="${i}" contenteditable="false" value="${subInputValue}">${subInputValue}</span>
+                <span id="${i}" class="edit-subtask-value" data-subtask-id="${i}" contenteditable="false">${subInputValue}</span>
             </div>
             <div class="hover-content">
                 <img onclick="editEditedSubtask(${i})" data-subtask-id="${i}" src="./img/edit_subtask.png" class="edit-edit-subtask-button">
                 <span class="separator2" id="separator2">|</span> 
                 <img onclick="deleteEditSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
-                <!-- <img onclick="deleteSubtask(event)" src="./img/delete_subtask.png" class="delete-subtask-button"> -->
             </div>
             <img onclick="deleteEditedSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="edit-edit-delete-subtask-button">
             <span class="separator3" id="separator3">|</span> 
@@ -215,7 +217,7 @@ function addSubtaskToEdit(element) {
     for (let i = 0; i < element.subtasks.length; i++) {
       const subtask = element.subtasks[i];
       if (subtask.title) {
-        subtasksHTML += subtaskToEditHTML(subtask, subtaskIdCounter++);
+        subtasksHTML += subtaskToEditHTML(subtask, i);
       }
     }
     const subtaskContainer = document.getElementById("edit-subtask-add-container");
