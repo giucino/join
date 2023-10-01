@@ -1,4 +1,4 @@
-let subtaskIdCounter = 0;
+// let subtaskIdCounter = 0;
 
 
 async function initAddTask() {

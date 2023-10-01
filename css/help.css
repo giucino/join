@@ -2,15 +2,6 @@
     box-sizing: border-box;
 }
 
-:root {
-    --ligth-blue: #005DFF;
-}
-
-body {
-    margin: 0;
-    font-family: 'Open sans', sans-serif;
-}
-
 main {
     display: flex;
 }

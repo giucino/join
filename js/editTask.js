@@ -1,7 +1,7 @@
-let selectedPriority = '';
-let selectedCategory = '';
-let selectedContacts = [];
-let subtasks = [];
+// let selectedPriority = '';
+// let selectedCategory = '';
+// let selectedContacts = [];
+// let subtasks = [];
 let updatedSubtasks = [];
 let subtaskCounter = 0;
 let currentTaskId;

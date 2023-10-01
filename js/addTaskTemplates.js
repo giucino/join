@@ -7,7 +7,7 @@ function createdTaskTemplate() {
         <div id="createTaskOverlay" class="task-overlay">
             <div class="task-success-message">
                 <p>Task added to board</p>
-                <img class="send-check" src="../img/added_task.png" alt="">
+                <img class="send-check" src="./img/added_task.png" alt="">
             </div>
         </div>
     `;

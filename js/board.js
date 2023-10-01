@@ -29,30 +29,30 @@ function refreshHTML() {
 }
 
 
-let allTodos = [...todos];
-allTodos = todos;
+// let allTodos = [...todos];
+// allTodos = todos;
 
 
-/**
- * Resets the backend data with the current 'allTodos' state.
- */
-async function resetBackend() {
-  await setItem("tasks", JSON.stringify(allTodos));
-  await loadDatas();
-}
+// /**
+//  * Resets the backend data with the current 'allTodos' state.
+//  */
+// async function resetBackend() {
+//   await setItem("tasks", JSON.stringify(allTodos));
+//   await loadDatas();
+// }
 
 
-/**
- * Load tasks data from storage into 'allTodos'.
- */
-async function loadDatas() {
-  try {
-    allTodos = JSON.parse(await getItem("tasks"));
-    console.log("Tasks:", allTodos);
-  } catch (e) {
-    console.error("Loading error:", e);
-  }
-}
+// /**
+//  * Load tasks data from storage into 'allTodos'.
+//  */
+// async function loadDatas() {
+//   try {
+//     allTodos = JSON.parse(await getItem("tasks"));
+//     console.log("Tasks:", allTodos);
+//   } catch (e) {
+//     console.error("Loading error:", e);
+//   }
+// }
 
 
 /**

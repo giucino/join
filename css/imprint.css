@@ -1,13 +1,3 @@
-:root {
-    --bg-color: #4589FF;
-    --menu: #42526E;
-}
-
-body {
-    margin: 0;
-    font-family: 'Open sans', sans-serif;
-}
-
 aside {
     position: fixed;
     top: 92px;

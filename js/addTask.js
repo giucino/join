@@ -1,8 +1,8 @@
-let selectedPriority = '';
-let selectedCategory = '';
-let selectedContacts = [];
-let subtasks = [];
-let subtaskIdCounter = 0;
+// let selectedPriority = '';
+// let selectedCategory = '';
+// let selectedContacts = [];
+// let subtasks = [];
+// let subtaskIdCounter = 0;
 
 
 async function initTask() {

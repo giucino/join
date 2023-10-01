@@ -2,19 +2,7 @@
     box-sizing: border-box;
 }
 
-:root {
-    --bg-color: #4589FF;
-    --ligth-blue: #005DFF;
-    --btn-hover: #005DFF;
-    --style: #D1D1D1;
-    --menu: #42526E;
-    --guest-log-in: #647188;
-    --error: #FF8190;
-}
-
 body {
-    margin: 0;
-    font-family: 'Open sans', sans-serif;
     animation-name: animateBgColor;
     animation-duration: 800ms;
     animation-timing-function: ease-out;

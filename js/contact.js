@@ -1,69 +1,3 @@
-let contacts = [
-    {
-        bgcolor: '#00BEE8',
-        id: 0,
-        name: 'Anna',
-        surename: 'Schmidt',
-        email: 'anna.schmidt@example.com',
-        telefon: '1234567890',
-        password: '1234'
-    },
-    {
-        bgcolor: '#00BEE8',
-        id: 1,
-        name: 'Max',
-        surename: 'Müller',
-        email: 'max.mueller@example.com',
-        telefon: '234567890',
-        password: '1234'
-    },
-    {
-        bgcolor: '#1FD7C1',
-        id: 2,
-        name: 'Sophie',
-        surename: 'Wagner',
-        email: 'sophie.wagner@example.com',
-        telefon: '3456789012',
-        password: '1234'
-    },
-    {
-        bgcolor: '#6E52FF',
-        id: 3,
-        name: 'Paul',
-        surename: 'Becker',
-        email: 'paul.becker@example.com',
-        telefon: '456789012',
-        password: '1234'
-    },
-    {
-        bgcolor: '#9327FF',
-        id: 4,
-        name: 'Laura',
-        surename: 'Hoffmann',
-        email: 'laura.hoffmann@example.com',
-        telefon: '567890123',
-        password: '1234'
-    },
-    {
-        bgcolor: '#C3FF2B',
-        id: 5,
-        name: 'Felix',
-        surename: 'Schulz',
-        email: 'felix.schulz@example.com',
-        telefon: '6789012345',
-        password: '1234'
-    },
-    {
-        bgcolor: '#FFA35E',
-        id: 6,
-        name: 'Emilia',
-        surename: 'Koch',
-        email: 'emilia.koch@example.com',
-        telefon: '7890123456',
-        password: '1234'
-    }
-];
-
 let colors = ['#0038FF', '#00BEE8', '#1FD7C1', '#6E52FF', '#9327FF', '#9747FF', '#FC71FF', '#FF4646', '#FF745E', '#FF7A00', '#FFA35E', '#FFBB2B', '#FFC701', '#FFE62B'];
 
 let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -147,24 +81,6 @@ function initLetters() {
             `;
     }
 }
-
-
-/**
- * shows the contacts on the screen
- */
-// async function showContacts() {
-//     for (let i = 0; i < contacts.length; i++) {
-//         let contact = contacts[i];
-//         if (!contact.bgcolor) {
-//             contact.bgcolor = getRandomColor();
-//         }
-//         let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
-//         let firstLetter = contact.name.charAt(0).toUpperCase();
-//         let contactsList = document.getElementById(`container-contact-${firstLetter}`);
-//         let color = contact.bgcolor;
-//         contactsList.innerHTML += showContactsHTML(i, color, initials, contact);
-//     }
-// }
 
 
 function getLoggedInUserData() {
