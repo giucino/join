@@ -1,23 +1,4 @@
 /**
- * Generates an HTML template for a subtask based on the given input value.
- *
- * @param {string} subInputValue - The value for the subtask input.
- * @returns {string} Returns an HTML string representing a subtask container.
- */
-/* function subtaskToEditHTML(subtask, index) {
-    return /*html `
-        <div class="edit-subtask-container" data-subtask-id="${index}">
-            <div class="edit-subtask-item">
-                <span class="edit-subtask-dot"></span>           
-                <input class="edit-subtask-value" value="${subtask.title}">
-            </div>
-        </div>
-    `;
-}
- */
-
-
-/**
  * Returns an HTML representation of a subtask for editing purposes.
  * 
  * @param {Object} subtask - The subtask object to be converted into HTML.
@@ -83,7 +64,6 @@ function renderEditTask(id) {
                         </div>
                         <div class="edit-due-date-input-container">
                             <input id="edit-due-date" class="edit-due-date-textfield" type="date" value="${task.dueDate}">
-                            <!-- <img src="../img/calendar.png" alt="Calendar Icon" class="due-date-calendar-icon"> -->
                         </div>
                         <div id="edit-required-date" class="edit-add-task-field-required">
                             This field is required
