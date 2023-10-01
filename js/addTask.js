@@ -1,10 +1,3 @@
-// let selectedPriority = '';
-// let selectedCategory = '';
-// let selectedContacts = [];
-// let subtasks = [];
-// let subtaskIdCounter = 0;
-
-
 async function initTask() {
     await loadContactsFromStorage();
     await loadTasks();
@@ -191,14 +184,14 @@ function addSubtask() {
 
 
 function handleSubtaskInput(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault(); 
+    if (event.key === 'Enter' && event.target.classList.contains('new-subtask-textfield')) {
+        event.preventDefault();
         addSubtask();
         document.activeElement.blur();
     }
 }
 let subtaskInput = document.querySelector('.new-subtask-textfield');
-subtaskInput.addEventListener('keydown', handleSubtaskInput);
+subtaskInput.addEventListener('keypress', handleSubtaskInput);
 
 
 function addSubtaskToContainer(subtaskId, subtaskValue) {
@@ -274,23 +267,3 @@ function saveEditedTitle(subtaskId) {
         editedSubtask.title = editedTitle;
     }
 }
-
-
-// function deleteSubtask(event) {
-//     let target = event.target;
-//     if (target.classList.contains("delete-subtask-button")) {
-        
-//         let subtaskContainer = target.closest(".subtask-container");
-        
-//         if (subtaskContainer) {
-            
-//             let index = Array.from(subtaskContainer.parentNode.children).indexOf(subtaskContainer);
-//             if (index >= 0) {
-                
-//                 subtasks.splice(index, 1);
-                
-//                 subtaskContainer.parentNode.removeChild(subtaskContainer);
-//             }
-//         }
-//     }
-// }

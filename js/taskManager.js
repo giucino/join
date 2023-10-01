@@ -1,6 +1,3 @@
-// let subtaskIdCounter = 0;
-
-
 async function initAddTask() {
     await addLoadContactsFromStorage();
     await addLoadTasks();
@@ -199,14 +196,13 @@ function addAddSubtask() {
 
 
 function addHandleSubtaskInput(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault(); 
-        addAddSubtask();
+    if (event.key === 'Enter' && event.target.classList.contains('new-subtask-textfield')) {
+        event.preventDefault();
+        addSubtask();
         document.activeElement.blur();
     }
 }
-document.addEventListener('keydown', addHandleSubtaskInput);
-
+document.addEventListener('keypress', addHandleSubtaskInput);
 
 
 function addAddSubtaskToContainer(subtaskId, subtaskValue) {
