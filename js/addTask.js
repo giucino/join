@@ -12,7 +12,9 @@ async function initTask() {
     renderCategorys();
 }
 
-
+/**
+ * 
+ */
 async function loadContactsFromStorage() {
     try {
         contacts = JSON.parse(await getItem('contacts'));
@@ -45,6 +47,13 @@ async function createTask() {
 }
 
 
+/**
+ * 
+ * @param {*} title 
+ * @param {*} description 
+ * @param {*} dueDate 
+ * @returns 
+ */
 function validateInput(title, description, dueDate) {
     if (!title) {
         showTitleInputError();

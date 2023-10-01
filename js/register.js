@@ -5,25 +5,13 @@ let isChecked = false;
  * Initializes the registration process by loading user data.
  */
 async function initRegister() {
-    // await loadUsers();
     await loadAllContacts();
 }
 
 
-// /**
-//  * Loads users from storage
-//  * @returns {Promise<void>} - A promise that resolves once the user data is loaded.
-//  */
-// async function loadUsers() {
-//     try {
-//         users = JSON.parse(await getItem('users'));
-//         console.log('Users:', users);
-//     } catch (e) {
-//         console.error('Loading error:', e);
-//     }
-// }
-
-
+/**
+ * 
+ */
 async function loadAllContacts() {
     try {
         contacts = JSON.parse(await getItem('contacts'));
@@ -71,12 +59,6 @@ async function signUpUser() {
     if (!isChecked) {
         return;
     }
-    // users.push({
-    //     username: username,
-    //     email: emailValue,
-    //     password: password.value,
-    //     initials: initials
-    // });
 
     let maxContactId = Math.max(...contacts.map(contact => contact.id), -1);
     let nextContactId = maxContactId + 1;
@@ -92,11 +74,9 @@ async function signUpUser() {
         email: emailValue,
         telefon: '',
         password: password.value,
-        // initials: initials    
     };
     contacts.push(newContact);
 
-    // await setItem('users', JSON.stringify(users));
     await setItem('contacts', JSON.stringify(contacts));
     showSuccessMessageAndRedirect();
     resetForm();
@@ -112,25 +92,6 @@ function isEmailAlreadyRegistered(email) {
     // return users.find(user => user.email === email);
     return contacts.find(contact => contact.email === email);
 }
-
-
-// /**
-//  * This function extracts initials from a username.
-//  * @param {string} username - The username from which initials are extracted.
-//  * @returns {string} - The extracted initials in uppercase letters.
-//  */
-// function extractInitials(username) {
-//     let nameParts = username.trim().split(' ');
-//     let initials = '';
-
-//     for (let i = 0; i < nameParts.length; i++) {
-//         let part = nameParts[i];
-//         if (part) {
-//             initials += part.charAt(0).toUpperCase();
-//         }
-//     }
-//     return initials;
-// }
 
 
 // async function signUpUser() {

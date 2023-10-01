@@ -252,6 +252,7 @@ function showContactDetails(index) {
     });
 }
 
+
 function showContactDetailsMobile(index) {
     // Verstecken Sie die Kontaktliste und zeigen Sie die Kontaktinformationen an
     document.getElementById('addContactBtn').style.display = 'none';
@@ -266,6 +267,7 @@ function showContactDetailsMobile(index) {
     detailsContainer.innerHTML = showContactDetailsMobileHTML(contact, initials, index);
 }
 
+
 function showEditContactsButtonsMobile() {
     let elements = document.getElementById('contact-mobile-buttons');
     let header = document.getElementById('contact-detailed-head');
@@ -279,11 +281,13 @@ function showEditContactsButtonsMobile() {
     document.body.appendChild(invisibleDiv);
 }
 
+
 function returnToContactsMobile() {
     document.querySelector('.contact-details-mobile-class').style.display = 'none'
     document.querySelector('.container').style.display = 'flex';
     document.querySelector('.add-person-button').style.display = 'flex';
 }
+
 
 /**
  * picks a color from the array colors and randomly gives the contact one
@@ -293,6 +297,7 @@ function getRandomColor() {
     let randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
 }
+
 
 /**
  * opens the screen to add new contacts
@@ -308,6 +313,7 @@ function openModal() {
     modalContainer.classList.add('modal-slide-in');
 }
 
+
 /**
  * closes the screen to add new contacts
  */
@@ -320,10 +326,7 @@ function closeModal() {
     modal.style.display = "none";
 }
 
-/**
- * saves new contacts
- * @returns contacts as string in an array
- */
+
 /**
  * saves new contacts
  * @returns contacts as string in an array
@@ -373,6 +376,7 @@ async function saveNewContact() {
     console.log('Nächste verfügbare Kontakt-ID:', nextContactId);
 }
 
+
 /**
  * function to delete the chosen contact
  * @param {string} index 
@@ -393,10 +397,7 @@ async function deleteContact(index) {
     }
 }
 
-/**
- * function to edit the chosen contact
- * @param {string} index 
- */
+
 /**
  * function to edit the chosen contact
  * @param {string} index 
@@ -415,11 +416,7 @@ function editContact(index) {
     console.log('Edited Contact:', contact);
 }
 
-/**
- * keeps the contacts up to date
- * @param {string} index 
- * @returns the new contacts saved
- */
+
 /**
  * keeps the contacts up to date
  * @param {string} index 
@@ -453,19 +450,22 @@ async function updateContact(index) {
     let originalContact = contacts[index];
     let originalId = originalContact.id;
     let originalBgColor = originalContact.bgcolor;
+    let originalPassword = originalContact.password;
     contacts[index] = {
         bgcolor: originalBgColor,
         id: originalId,
         name: newName,
         surename: newSurename,
         email: newEmail,
-        telefon: newTelefon
+        telefon: newTelefon,
+        password: originalPassword
     };
     await setItem('contacts', JSON.stringify(contacts));
     closeEditModal();
     initContact();
     showContactDetails(index);
 }
+
 
 /**
  * this function generates the left modal that shows up after clicking on edit
@@ -477,6 +477,7 @@ function generateEditContactModal(index) {
     let editContainer = document.getElementById('editModal');
     editContainer.innerHTML = generateEditContactModalHTML(index, initials, contact);
 }
+
 
 /**
  * this functions opens the edit modal
@@ -490,6 +491,7 @@ function openEditModal() {
     modal.classList.add('editModal-slide-in');
 }
 
+
 /**
  * this function closes the edit modal
  */
@@ -501,32 +503,13 @@ function closeEditModal() {
     overlay.style.display = "none"; // Verstecke den Overlay 
 }
 
+
 function closeButtonsMobile() {
     let element = document.getElementById('contact-mobile-buttons');
     let header = document.getElementById('contact-detailed-head');
     header.classList.remove('hide-it');
     element.classList.add('hide-it');
 
-    // Entfernen der unsichtbaren div
     let invisibleDiv = document.getElementById('invisibleDiv');
     document.body.removeChild(invisibleDiv);
 }
-
-// Verstecke den Modal nach der Animation
-
-
-// function toggleMenu(event) {
-//     let menuItems = document.getElementById("logoutBtn");
-
-//     event.stopPropagation();
-
-//     if (menuItems.style.display === "" || menuItems.style.display === "none") {
-//         menuItems.style.display = "flex";
-//         menuItems.style.animationName = "slideInFromRight";
-//     } else {
-//         menuItems.style.animationName = "slideOutToRight";
-//         setTimeout(() => {
-//             menuItems.style.display = "none";
-//         }, 100);
-//     }
-// }

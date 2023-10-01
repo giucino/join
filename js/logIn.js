@@ -6,23 +6,13 @@ let rememberLogIn = false;
  * Initializes the login process by loading user data.
  */
 async function initLogIn() {
-    // await loadUsers();
     await loadAllContacts();
 }
 
 
-// /**
-//  * Loads users from storage
-//  * @returns {Promise<void>} - A promise that resolves once the user data is loaded.
-//  */
-// async function loadUsers() {
-//     try {
-//         users = JSON.parse(await getItem('users'));
-//     } catch (e) {
-//         console.error('Loading error:', e);
-//     }
-// }
-
+/**
+ * Loads users from storage
+ */
 async function loadAllContacts() {
     try {
         contacts = JSON.parse(await getItem('contacts'));
@@ -106,20 +96,6 @@ function handleLogIn() {
 }
 
 
-// /**
-//  * Marks the logged-in user in the contact list.
-//  * @param {object} loggedInUser - The logged-in user object.
-//  * @returns {void}
-//  */
-// function markLoggedInUser(loggedInUser) {
-//     let loggedInUserContact = contacts.find(contact => contact.email === loggedInUser.email);
-
-//     if (loggedInUserContact) {
-//         loggedInUserContact.loggedIn = true;
-//     }
-// }
-
-
 function extractInitials(name, surename) {
     let initials = '';
 
@@ -131,25 +107,6 @@ function extractInitials(name, surename) {
     }
     return initials;
 }
-
-
-// /**
-//  * This function extracts initials from a username.
-//  * @param {string} username - The username from which initials are extracted.
-//  * @returns {string} - The extracted initials in uppercase letters.
-//  */
-// function extractInitials(username) {
-//     let nameParts = username.trim().split(' ');
-//     let initials = '';
-
-//     for (let i = 0; i < nameParts.length; i++) {
-//         let part = nameParts[i];
-//         if (part) {
-//             initials += part.charAt(0).toUpperCase();
-//         }
-//     }
-//     return initials;
-// }
 
 
 /**
