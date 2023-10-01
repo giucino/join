@@ -12,17 +12,17 @@ function subtaskToEditHTML(subtask, i) {
         <div id="subtask-container-${i}" class="edit-subtask-container">
             <div class="edit-subtask-item">
                 <span id="editDot" class="edit-subtask-dot"></span>           
-                <span id="${i}" class="edit-subtask-value" data-subtask-id="${i}" contenteditable="false" value="${subtask.title}">${subtask.title}</span>
+                <span id="${i}" class="edit-subtask-value" data-index="${i}" contenteditable="false" value="${subtask.title}">${subtask.title}</span>
             </div>
             <div class="hover-content">
-                <img onclick="editEditedSubtask(${i})" data-subtask-id="${i}" src="./img/edit_subtask.png" class="edit-edit-subtask-button">
+                <img onclick="editEditedSubtask(${i})" data-index="${i}" src="./img/edit_subtask.png" class="edit-edit-subtask-button">
                 <span class="separator2" id="separator2">|</span> 
-                <img onclick="deleteEditSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
+                <img onclick="deleteEditSubtask(${i})" data-index="${i}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
                 <!-- <img onclick="deleteSubtask(event)" src="./img/delete_subtask.png" class="delete-subtask-button"> -->
             </div>
-            <img onclick="deleteEditedSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="edit-edit-delete-subtask-button">
+            <img onclick="deleteEditedSubtask(${i})" data-index="${i}" src="./img/delete_subtask.png" class="edit-edit-delete-subtask-button">
             <span class="separator3" id="separator3">|</span> 
-            <img onclick="finishEditing(${i})" data-subtask-id="${i}" src="./img/add_subtask.png" class="edit-save-subtask-button">
+            <img onclick="finishEditing(${i})" data-index="${i}" src="./img/add_subtask.png" class="edit-save-subtask-button">
         </div>
     `;
 }

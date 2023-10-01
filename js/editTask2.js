@@ -177,19 +177,20 @@ function closeSubtaskInput() {
  * Deletes a subtask based on its ID.
  * @param {number|string} subtaskId - The ID of the subtask to delete.
  */
-function deleteEditSubtask(subtaskId) {
-    let indexToDelete = todos.subtasks.findIndex(subtask => subtask.id === subtaskId);
-
-    if (indexToDelete !== -1) {
-        todos.subtasks.splice(indexToDelete, 1);
-
-        let subtaskElement = document.getElementById(subtaskId);
+function deleteEditSubtask(indexToDelete) {
+    let task = currentSelectedTask;
+    if (!task || !task.subtasks) {
+        console.error("todos oder todos.subtasks ist nicht definiert.");
+        return;
+    }
+    if (indexToDelete >= 0 && indexToDelete < task.subtasks.length) {
+        task.subtasks.splice(indexToDelete, 1);
+        let subtaskElement = document.getElementById(`subtask-container-${indexToDelete}`);
         if (subtaskElement) {
-            subtaskElement.parentElement.parentElement.remove();
+            subtaskElement.remove();
         }
     }
 }
-
 
 /**
  * Allows the user to edit a subtask.
@@ -238,7 +239,6 @@ function addEditingClasses(container) {
 
 function finishEditing(i) {
     let subtaskElement = document.getElementById(i);
-
     if (subtaskElement) {
         subtaskElement.contentEditable = false;
     }
@@ -281,12 +281,9 @@ function removeEditingClasses(container) {
 
 function saveEditedTitle() {
     let currentTask = todos[currentTaskId];
-    console.log("currentTask in saveEditedTitle:", currentTask);
-
     if (!currentTask || !currentTask.subtasks) {
         console.error("currentTask ist nicht definiert oder hat keine subtasks.");
         return;
     }
-
     currentTask.subtasks = processAndSaveSubtasks(currentTask);
 }
