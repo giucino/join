@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
             resetButton.style.display = "block";
         } 
         else {
+            setFilter();
             resetButton.style.display = "none";
         }
     });
@@ -48,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
             setFilter();
             resetButton.style.display = "block";
         } else {
+            setFilter();
             resetButton.style.display = "none";
         }
     });
@@ -59,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let searchText = document.getElementById("input-field");
         searchText.value = "";  
         resetButton.style.display = "none";
+        setFilter(); 
     }
 
     let resetButton = document.getElementById("reset-search");
