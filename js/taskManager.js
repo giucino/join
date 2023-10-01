@@ -96,18 +96,24 @@ async function addCompleteTaskCreation() {
     setTimeout(function () {
         closeAddTaskModal();
     }, 1600);
+    updateHTML();
 }
 
 
 function addTask() {
-    let modal = document.getElementById('taskFormSlider');
-    modal.innerHTML = renderAddTask();
-    modal.style.display = "block";
-    modal.classList.remove('edditModal-slide-out');
-    modal.classList.add('edditModal-slide-in');
-    let overlay = document.querySelector(".background-overlay");
-    overlay.style.display = "block";
+    if (window.innerWidth >= 768) {
+        let modal = document.getElementById('taskFormSlider');
+        modal.innerHTML = renderAddTask();
+        modal.style.display = "block";
+        modal.classList.remove('edditModal-slide-out');
+        modal.classList.add('edditModal-slide-in');
+        let overlay = document.querySelector(".background-overlay");
+        overlay.style.display = "block";
+    } else {
+        window.location.href = 'addTask.html';
+    }
 }
+
 
 
 function closeAddTaskModal() {
@@ -198,7 +204,7 @@ function addAddSubtask() {
 function addHandleSubtaskInput(event) {
     if (event.key === 'Enter' && event.target.classList.contains('new-subtask-textfield')) {
         event.preventDefault();
-        addSubtask();
+        addAddSubtask();
         document.activeElement.blur();
     }
 }
