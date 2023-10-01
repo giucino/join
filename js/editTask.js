@@ -2,8 +2,8 @@
 // let selectedCategory = '';
 // let selectedContacts = [];
 // let subtasks = [];
+// let subtaskIdCounter = 0;
 let updatedSubtasks = [];
-let subtaskCounter = 0;
 let currentTaskId;
 
 
@@ -179,7 +179,7 @@ function addNewSubtask(task) {
   const subtaskContainer = document.getElementById("edit-subtask-add-container");
 
   // Nutzen Sie den Zähler für die ID und inkrementieren Sie ihn
-  subtaskContainer.innerHTML += subtaskToAddHTML(subInputValue, subtaskCounter++, task);
+  subtaskContainer.innerHTML += subtaskToAddHTML(subInputValue, subtaskIdCounter++, task);
   subInput.value = '';
 }
 
@@ -215,7 +215,7 @@ function addSubtaskToEdit(element) {
     for (let i = 0; i < element.subtasks.length; i++) {
       const subtask = element.subtasks[i];
       if (subtask.title) {
-        subtasksHTML += subtaskToEditHTML(subtask, subtaskCounter++);
+        subtasksHTML += subtaskToEditHTML(subtask, subtaskIdCounter++);
       }
     }
     const subtaskContainer = document.getElementById("edit-subtask-add-container");

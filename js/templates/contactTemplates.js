@@ -1,5 +1,5 @@
 function showContactDetailsHTML(contact, initials, index) {
-    return `
+    return /*html*/`
     <div class="contact-detailed-container">
         <div class="contact-detailed-top">
             <div>
@@ -10,8 +10,8 @@ function showContactDetailsHTML(contact, initials, index) {
             <div class="contact-detailed-mid">
                 <div class="contact-detailed-name">${contact.name} ${contact.surename}</div>
                 <div class="contact-detailed-edit-delete">
-                    <div class="contact-detailed-images" onclick="editContact(${index})"><img src="./img/edit.png">Edit</div>
-                    <div class="contact-detailed-images" onclick="deleteContact(${index})"><img src="./img/delete.png">Delete</div>
+                    <div class="contact-detailed-images" onclick="editContact(${index})"><img class="edit-img" src="./img/edit.png">Edit</div>
+                    <div class="contact-detailed-images" onclick="deleteContact(${index})"><img class="delete-img" src="./img/delete.png">Delete</div>
                 </div>
             </div>
         </div>

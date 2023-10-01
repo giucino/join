@@ -351,6 +351,14 @@
     line-height: 120%;
 }
 
+.task-slide-delete:hover .task-slide-delete-edit-img {
+    content: url('../img/delete_hover.png');
+}
+
+.task-slide-delete:hover .task-slide-delete-text {
+    color: #005DFF;
+    font-weight: 700;}
+
 .task-slide-placeholder {
     width: 0px;
     height: 24px;
@@ -371,4 +379,13 @@
     font-style: normal;
     font-weight: 400;
     line-height: 120%;
+}
+
+.task-slide-edit:hover .task-slide-delete-edit-img {
+    content: url('../img/edit_hover.png');
+}
+
+.task-slide-edit:hover .task-slide-edit-text {
+    color: #005DFF;
+    font-weight: 700;
 }
