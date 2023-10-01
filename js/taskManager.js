@@ -38,6 +38,7 @@ async function addCreateTask() {
     addValidateInput(title, description, dueDate);
 }
 
+
 function addValidateInput(title, description, dueDate) {
     if (!title) {
         addShowTitleInputError();

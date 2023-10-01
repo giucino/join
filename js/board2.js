@@ -1,4 +1,3 @@
-
 /**
  * Filter tasks based on a search term and status.
  * @param {string} searchTerm - The search term to filter tasks.
@@ -7,96 +6,103 @@
  */
 function filterTasks(searchTerm, status) {
     let filteredTasks = todos.filter((task) => {
-      return (
-        task.status === status &&
-        (task.title.includes(searchTerm) || task.category.includes(searchTerm))
-      );
+        return (
+            task.status === status &&
+            (task.title.includes(searchTerm) || task.category.includes(searchTerm))
+        );
     });
     return filteredTasks;
-  }
-  
-  /**
-   * Set the current filter based on the value in the input field and refresh the UI.
-   */
-  function setFilter() {
+}
+
+
+/**
+ * Set the current filter based on the value in the input field and refresh the UI.
+ */
+function setFilter() {
     let searchText = document.getElementById("input-field");
     currentFilter = searchText.value.toLowerCase();
     searchText.value = "";
     updateHTML();
-  }
-  
-  /**
-   * Event listeners for the DOMContentLoaded event.
-   */
-  document.addEventListener("DOMContentLoaded", function () {
+}
+
+
+/**
+ * Event listeners for the DOMContentLoaded event.
+ */
+document.addEventListener("DOMContentLoaded", function () {
     const input = document.getElementById("input-field");
     const inputBtn = document.getElementById("search");
     input.addEventListener("keypress", function (event) {
-      if (event.key === "Enter") {
-        inputBtn.click();
-      }
+        if (event.key === "Enter") {
+            inputBtn.click();
+        }
     });
-  });
-  
-  /**
-   * Close the task card with a slide out animation.
-   */
-  function closeCard() {
+});
+
+
+/**
+ * Close the task card with a slide out animation.
+ */
+function closeCard() {
     document.getElementById("slide-container").classList.remove("slide-in-board");
     setTimeout(() => {
-      document.getElementById("task-slide").classList.add("d-none");
-      document.getElementById("noscroll").classList.remove("noscroll");
+        document.getElementById("task-slide").classList.add("d-none");
+        document.getElementById("noscroll").classList.remove("noscroll");
     }, 800);
-  }
-  
-  /**
-   * Triggers the slide in animation for the task card.
-   */
-  function slideCardAnimation() {
+}
+
+
+/**
+ * Triggers the slide in animation for the task card.
+ */
+function slideCardAnimation() {
     document.getElementById("task-slide").classList.remove("d-none");
     setTimeout(() => {
-      document.getElementById("slide-container").classList.add("slide-in-board");
+        document.getElementById("slide-container").classList.add("slide-in-board");
     }, 50);
-  }
-  
-  /**
-   * Render and slide open the task card.
-   * @param {number} id - ID of the task to render in the card.
-   */
-  function slideCard(id) {
+}
+
+
+/**
+ * Render and slide open the task card.
+ * @param {number} id - ID of the task to render in the card.
+ */
+function slideCard(id) {
     const slideCard = document.getElementById("task-slide");
     slideCard.innerHTML = renderSlideCard(id);
     slideCardAnimation();
     document.getElementById("noscroll").classList.add("noscroll");
-  }
-  
-  /**
-   * Generates the HTML markup for the slide card.
-   * @param {number} id - ID of the task to generate markup for.
-   * @returns {string} HTML markup for the slide card.
-   */
-  function renderSlideCard(id) {
+}
+
+
+/**
+ * Generates the HTML markup for the slide card.
+ * @param {number} id - ID of the task to generate markup for.
+ * @returns {string} HTML markup for the slide card.
+ */
+function renderSlideCard(id) {
     const element = todos[id];
     const priorityImageSrc = setPriorityImage(element.priority);
     assignedToHTML = renderSlideAssigned(element);
     subtasksHTML = renderSlideSubtask(element, id);
     const generateSlideHTML = renderSlideCardHTML(
-      element,
-      priorityImageSrc,
-      assignedToHTML,
-      subtasksHTML
+        element,
+        priorityImageSrc,
+        assignedToHTML,
+        subtasksHTML
     );
     return generateSlideHTML;
-  }
-  
-  /**
-   * Remove a task from the 'todos' list and update the UI.
-   * @param {number} id - ID of the task to delete.
-   */
-  function deleteTask(id) {
+}
+
+
+/**
+ * Remove a task from the 'todos' list and update the UI.
+ * @param {number} id - ID of the task to delete.
+ */
+function deleteTask(id) {
     const indexToDelete = todos.findIndex((task) => task.id === id);
     if (indexToDelete === -1) {
-      return;
+        return;
     }
     todos.splice(indexToDelete, 1);
     deleteCard(id);
@@ -105,7 +111,8 @@ function filterTasks(searchTerm, status) {
     pushData();
     loadData();
     updateHTML();
-  }
+}
+
 
 /**
  * Updates the status of a specific subtask and pushes the updated data.
@@ -123,6 +130,7 @@ async function updateSubtaskStatus(taskId, subtaskIndex, isChecked) {
         await pushData();
     }
 }
+
 
 /**
  * Updates the progress bar based on completed subtasks.
@@ -143,6 +151,7 @@ function updateProgressBar(taskId) {
     allTasks.innerHTML = '';
     allTasks.innerHTML = allTasksCount;
 }
+
 
 /**
  * Renders the assigned users and their initials.
@@ -170,6 +179,7 @@ function renderAssigned(element) {
     return assignedToHTML;
 }
 
+
 /**
  * Generates HTML for a specific assigned user.
  * 
@@ -185,6 +195,7 @@ function generateAssignedHTML(additionalClass, bgcolor, initials) {
         </div>
     `;
 }
+
 
 /**
  * Generates the HTML representation of a subtask and counts completed subtasks.
@@ -210,6 +221,7 @@ function renderSubtask(element) {
     return { subtasksHTML, completedTasksCount };
 }
 
+
 /**
  * Generates the HTML representation of a single subtask.
  * @param {Object} subtask - The subtask data.
@@ -224,6 +236,7 @@ function generateSubtaskHTML(subtask) {
     `;
 }
 
+
 /**
  * Generates the HTML representation of a progress bar.
  * @param {Object} element - The task or entity the progress bar is associated with.
@@ -236,6 +249,7 @@ function progressBarHTML(element, progress) {
     `;
 }
 
+
 /**
  * Generates the HTML representation showing the number of completed tasks.
  * @param {number} completedTasksCount - Count of completed tasks.
@@ -247,6 +261,7 @@ function numberTasksHTML(completedTasksCount) {
     `;
 }
 
+
 /**
  * Generates the HTML representation showing the total number of tasks.
  * @param {number} allTasksCount - Total count of tasks.
@@ -257,6 +272,7 @@ function allTasksHTML(allTasksCount) {
         <span id="all-tasks">${allTasksCount}</span>
     `;
 }
+
 
 /**
  * Gets the background color based on the category.
@@ -274,6 +290,7 @@ function getCategoryBackgroundColor(category) {
             return ''; // Default background color (if any)
     }
 }
+
 
 /**
  * Generates the HTML for a given task element.
@@ -312,6 +329,7 @@ function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBa
     </div>`;
 }
 
+
 /**
  * Renders the assigned users for a task in the slide view.
  *
@@ -333,6 +351,7 @@ function renderSlideAssigned(element) {
     return assignedToHTML;
 }
 
+
 /**
  * Renders the HTML for an assigned user in the slide view.
  *
@@ -349,6 +368,7 @@ function renderSlideAssignedHTML(initials, name, bgcolor) {
         </div>
     `;
 }
+
 
 /**
  * Renders the subtasks for a task in the slide view.
@@ -371,6 +391,7 @@ function renderSlideSubtask(element, id) {
     return subtasksHTML;
 }
 
+
 /**
  * Renders the HTML for a subtask in the slide view.
  *
@@ -387,4 +408,3 @@ function renderSlideSubtaskHTML(subtask, i, id) {
         </div>
     `;
 }
-

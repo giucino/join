@@ -12,6 +12,7 @@ async function initTask() {
     renderCategorys();
 }
 
+
 /**
  * 
  */

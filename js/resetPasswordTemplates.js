@@ -49,6 +49,7 @@ function createForgotTemplate() {
     `;
 }
 
+
 /**
  * Generates the HTML content for the "Reset Password" form.
  * @returns {string} - The generated HTML content for the reset form.

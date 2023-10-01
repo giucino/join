@@ -16,6 +16,7 @@ function renderDisplayChosenContacts() {
     }
 }
 
+
 /**
  * Renders the HTML for a chosen contact with its initials.
  * 
@@ -32,6 +33,7 @@ function renderDisplayChosenContactsHTML(contact, initials) {
         </div>
     `;
 }
+
 
 /**
  * Loads and displays the chosen contacts.
@@ -52,6 +54,7 @@ function loadDisplayChosenContacts() {
     chosenContactsContainer.innerHTML = htmlContent;
 }
 
+
 /**
  * Generiert und gibt einen HTML-String für die Anzeige ausgewählter Kontakte zurück.
  *
@@ -68,6 +71,7 @@ function loadDisplayChosenContactsHTML(contact, initials) {
         </div>
     `;
 }
+
 
 /**
  * Toggles the category container's display status and updates category dropdown's visual state.
@@ -92,6 +96,7 @@ function loadToggleCategoryContainer() {
     }
 }
 
+
 /**
  * Renders the categories for editing.
  */
@@ -108,14 +113,16 @@ function editRenderCategorys() {
     }
 }
 
+
 /**
  * Loads the provided category into the selected category.
  * @param {Object} element - The element containing category data.
  */
 function loadRenderCategory(element) {
-    const category = element.category;  
+    const category = element.category;
     selectedCategory = category;
 }
+
 
 /**
  * Handles the logic when a category is selected.
@@ -137,6 +144,7 @@ function categorySelected(category) {
     categoryDropdown.classList.remove('expanded');
 }
 
+
 /**
  * Opens the subtask input and updates relevant display elements.
  */
@@ -150,6 +158,7 @@ function openSubtaskInput() {
     }
 }
 
+
 /**
  * Closes the subtask input and resets the relevant display elements.
  */
@@ -162,6 +171,7 @@ function closeSubtaskInput() {
         otherButtons[i].style.display = 'none';
     }
 }
+
 
 /**
  * Deletes a subtask based on its ID.
@@ -180,6 +190,7 @@ function deleteEditSubtask(subtaskId) {
     }
 }
 
+
 /**
  * Allows the user to edit a subtask.
  * @param {number} i - The index or unique identifier for the subtask.
@@ -196,6 +207,7 @@ function editEditedSubtask(i) {
         addEditingClasses(subtaskContainer);
     }
 }
+
 
 function addEditingClasses(container) {
     container.classList.add("editing-mode");
@@ -223,7 +235,7 @@ function addEditingClasses(container) {
         separator3.style.display = "block";
     }
 }
-    
+
 
 function finishEditing(i) {
     let subtaskElement = document.getElementById(i);
@@ -238,6 +250,7 @@ function finishEditing(i) {
     }
     saveEditedTitle();
 }
+
 
 function removeEditingClasses(container) {
     container.classList.remove("editing-mode");
@@ -270,12 +283,12 @@ function removeEditingClasses(container) {
 function saveEditedTitle() {
     let currentTask = todos[currentTaskId];
     console.log("currentTask in saveEditedTitle:", currentTask);
-    
+
     if (!currentTask || !currentTask.subtasks) {
         console.error("currentTask ist nicht definiert oder hat keine subtasks.");
         return;  // Beenden Sie die Funktion frühzeitig
     }
-     
+
     let subtaskElements = document.querySelectorAll('.edit-subtask-value');
 
     subtaskElements.forEach((element, index) => {

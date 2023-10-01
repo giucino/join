@@ -210,8 +210,8 @@ var DragDropTouch;
         };
         DragDropTouch.prototype._touchmove = function (e) {
             if (this._shouldCancelPressHoldMove(e)) {
-              this._reset();
-              return;
+                this._reset();
+                return;
             }
             if (this._shouldHandleMove(e) || this._shouldHandlePressHoldMove(e)) {
                 // see if target wants to handle move
@@ -221,7 +221,7 @@ var DragDropTouch;
                     if (e.cancelable) {
                         e.preventDefault();
                     }
-                return;
+                    return;
                 }
                 // start dragging
                 if (this._dragSource && !this._img && this._shouldStartDragging(e)) {
@@ -281,19 +281,19 @@ var DragDropTouch;
 
         // use regular condition outside of press & hold mode
         DragDropTouch.prototype._shouldHandleMove = function (e) {
-          return !DragDropTouch._ISPRESSHOLDMODE && this._shouldHandle(e);
+            return !DragDropTouch._ISPRESSHOLDMODE && this._shouldHandle(e);
         };
 
         // allow to handle moves that involve many touches for press & hold
         DragDropTouch.prototype._shouldHandlePressHoldMove = function (e) {
-          return DragDropTouch._ISPRESSHOLDMODE &&
-              this._isDragEnabled && e && e.touches && e.touches.length;
+            return DragDropTouch._ISPRESSHOLDMODE &&
+                this._isDragEnabled && e && e.touches && e.touches.length;
         };
 
         // reset data if user drags without pressing & holding
         DragDropTouch.prototype._shouldCancelPressHoldMove = function (e) {
-          return DragDropTouch._ISPRESSHOLDMODE && !this._isDragEnabled &&
-              this._getDelta(e) > DragDropTouch._PRESSHOLDMARGIN;
+            return DragDropTouch._ISPRESSHOLDMODE && !this._isDragEnabled &&
+                this._getDelta(e) > DragDropTouch._PRESSHOLDMARGIN;
         };
 
         // start dragging when specified delta is detected

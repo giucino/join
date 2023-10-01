@@ -69,6 +69,7 @@ let colors = ['#0038FF', '#00BEE8', '#1FD7C1', '#6E52FF', '#9327FF', '#9747FF', 
 let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
+
 /**
  * main function to initialize the whole site
  */
@@ -80,6 +81,7 @@ async function initContact() {
     await showContacts();
     removeEmptyLetters();
 }
+
 
 /**
  * loads the contacts from the array
@@ -93,6 +95,7 @@ async function loadAllContacts() {
     }
 }
 
+
 // let allContacts = [...contacts];
 // allContacts = contacts;
 
@@ -104,6 +107,7 @@ async function loadAllContacts() {
 //         console.error('Loading error:', e);
 //     }
 // }
+
 
 /**
  * sorts the contacts alphabeticly 
@@ -143,6 +147,7 @@ function initLetters() {
             `;
     }
 }
+
 
 /**
  * shows the contacts on the screen

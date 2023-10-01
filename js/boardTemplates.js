@@ -59,6 +59,7 @@ function renderSlideCard(id) {
     `
 }
 
+
 /**
  * Generate HTML markup for a task element.
  * @param {Task} element - The task object to generate HTML for.
@@ -90,6 +91,7 @@ function generateTasksHTML(element) {
         </div>
     </div>`;
 }
+
 
 /**
  * Generate HTML for the "No Tasks" message.

@@ -76,6 +76,7 @@ let todos = [
     }
 ];
 
+
 let categories = [
     {   categoryName: "User Story",
         categoryColor: "#FF7A00"     
@@ -84,7 +85,6 @@ let categories = [
         categoryColor: "#0038FF"     
     },
 ];
-
 
 
 /**

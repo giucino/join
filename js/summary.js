@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   getGreeting('mobile-day-time');
 });
 
+
 /**
  * Displays the appropriate greeting based on the time of the day and user status.
  * 
@@ -21,6 +22,7 @@ function getGreeting(id) {
   hideUserName(isGuest);
 }
 
+
 /**
  * Displays "Good morning" greeting during the morning hours.
  * 
@@ -37,6 +39,7 @@ function morning(dayTime, currentHour, isGuest){
     }
   }
 }
+
 
 /**
  * Displays "Good afternoon" greeting during the afternoon hours.
@@ -55,6 +58,7 @@ function afternoon(dayTime, currentHour, isGuest){
   }
 }
 
+
 /**
  * Displays "Good evening" greeting during the evening hours.
  * 
@@ -70,6 +74,7 @@ function evening(dayTime, currentHour, isGuest){
       dayTime.innerHTML = "Good evening, ";
   }
 }
+
 
 /**
  * Toggles the active class for mobile greetings and containers based on window width.
@@ -94,6 +99,7 @@ toggleActiveClass();
 
 window.addEventListener('resize', toggleActiveClass);
 
+
 /**
  * Retrieves the username of the logged-in user from local storage.
  * 
@@ -109,6 +115,7 @@ function getLoggedInUserName() {
   }
 }
 
+
 /**
  * Checks if the current user is a guest (not logged in).
  * 
@@ -118,6 +125,7 @@ function isGuestUser() {
   let userName = getLoggedInUserName();
   return !userName;
 }
+
 
 /**
  * Displays the user's name in the appropriate elements if they are logged in.
@@ -139,6 +147,7 @@ function showGreeting(isGuest) {
   }
 }
 
+
 /**
  * Hides or shows the user's name based on their guest status.
  * 
@@ -155,4 +164,3 @@ function hideUserName(isGuest) {
     userMobile.classList.remove('d-none');
   }  
 }
-

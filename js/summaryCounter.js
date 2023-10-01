@@ -1,3 +1,6 @@
+let counter = [];
+
+
 async function count() {
     await loadData();
     countUrgent();
@@ -8,12 +11,12 @@ async function count() {
     countDone();
 }
 
-let counter = [];
 
 async function loadData(){
     const getTodos = await getItem('tasks');
     counter = JSON.parse(getTodos);
 }
+
 
 function loadDueDate(dueDateString) {
     const dueDate = new Date(dueDateString);
@@ -27,6 +30,7 @@ function loadDueDate(dueDateString) {
     const formattedMonth = monthNames[month];
     return `${formattedMonth} ${day}, ${year}`;
 }
+
 
 function findNearestDueDate() {
     const now = new Date().getTime();
@@ -42,6 +46,7 @@ function findNearestDueDate() {
     return nearestDueDate ? new Date(nearestDueDate) : null;
 }
 
+
 function renderDueDate() {
     const deadlineElement = document.getElementById('deadline');
     const nearestDueDate = findNearestDueDate();
@@ -53,6 +58,7 @@ function renderDueDate() {
     }
 }
 
+
 function countUrgent() {
     const urgent = counter.filter(item => item.priority === 'high').length;
     const countUrgentElement = document.getElementById('urgent-task');
@@ -60,10 +66,12 @@ function countUrgent() {
     renderDueDate();
 }
 
+
 function countBoard() {
     const todoCountElement = document.getElementById('board-task');
     todoCountElement.innerHTML = counter.length; 
 }
+
 
 function countTodo(){
     const todoCount = counter.filter(item => item.status === 'todo').length;
@@ -71,17 +79,20 @@ function countTodo(){
     todoCountElement.innerHTML = todoCount; 
 }
 
+
 function countInProgress(){
     const inProgressCount = counter.filter(item => item.status === 'inprogress').length;
     const inProgressElement = document.getElementById('in-progress-task');
     inProgressElement.innerHTML = inProgressCount; 
 }
 
+
 function countFeedback(){
     const feedbackCount = counter.filter(item => item.status === 'feedback').length;
     const feedbackCountElement = document.getElementById('feedback-task');
     feedbackCountElement.innerHTML = feedbackCount; 
 }
+
 
 function countDone(){
     const doneCount = counter.filter(item => item.status === 'done').length;

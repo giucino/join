@@ -53,7 +53,6 @@ function markMobileLink() {
         }
     }
 }
-
 window.addEventListener('resize', markMobileLink);
 
 

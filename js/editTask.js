@@ -6,6 +6,7 @@ let updatedSubtasks = [];
 let subtaskCounter = 0;
 let currentTaskId;
 
+
 /**
  * Slideanimation for the task card.
  */
@@ -67,6 +68,7 @@ async function saveEditedTask(id) {
   updatedSubtasks = [];
 }
 
+
 /**
  * Opens the edited task by rendering the slide card based on the given task id.
  * It also makes the slide card visible and adjusts the relevant container styles.
@@ -80,6 +82,7 @@ function openEditedTask(id) {
   document.getElementById('slide-container').classList.add('open-task');  
   
 }
+
 
 /**
  * Loads and highlights the priority of a given task in the UI.
@@ -109,6 +112,7 @@ function loadSelectedPriority(task) {
     }
 }
 
+
 /**
  * Sets the priority based on the clicked button.
  * The function resets other buttons and then sets the highlight for the respective priority button.
@@ -130,6 +134,7 @@ function priority(button) {
   }
 }
 
+
 /** 
  * Resets the style of the priority buttons to their default state.
  */
@@ -148,6 +153,7 @@ function resetButtons() {
   }
 }
 
+
 /**
  * Highlights a given button by changing its background color, image source, and text color.
  *
@@ -163,6 +169,7 @@ function highlightButton(button, bgColor, imageSrc) {
   button.style.color = "white";
 }
 
+
 /** 
  * Adds a new subtask to the UI based on the value of the input field.
  */
@@ -175,6 +182,7 @@ function addNewSubtask(task) {
   subtaskContainer.innerHTML += subtaskToAddHTML(subInputValue, subtaskCounter++, task);
   subInput.value = '';
 }
+
 
 function subtaskToAddHTML(subInputValue, i, task) {
   return /*html*/ `
@@ -196,6 +204,7 @@ function subtaskToAddHTML(subInputValue, i, task) {
     `;
 }
 
+
 /** 
  * Renders subtasks of a given task for editing.
  * @param {Object} element - The task object containing subtasks.
@@ -213,6 +222,7 @@ function addSubtaskToEdit(element) {
     subtaskContainer.innerHTML = subtasksHTML;
   }
 }
+
 
 /**
  * Adds contacts to the selected contacts based on the given element's assigned contacts.
@@ -233,6 +243,7 @@ function addToSelectedContacts(element) {
   loadDisplayChosenContacts();
 }
 
+
 /**
  * Asynchronously renders the selected contacts to the UI.
  * @param {Object} selectedContacts - The list of selected contacts.
@@ -250,6 +261,7 @@ async function loadRenderAssignedTo(selectedContacts) {
     assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected);
   }
 }
+
 
 /**
  * Renders the HTML for a given contact, including initials and selected state.
@@ -270,6 +282,7 @@ function renderAssignedToHTML (contact, initials, isSelected){
   `;
 }
 
+
 /**
  * Renders the searched contacts to the UI.
  * @param {Array} contacts - The list of contacts to render.
@@ -286,6 +299,7 @@ function loadSearchedContact(contacts) {
       loadAssignedToContainer.innerHTML += loadRenderSearchedContactsHTML(contact, initials, isSelected);
   }
 }
+
 
 /**
  * Renders the HTML for a given searched contact, including initials and selected state.
@@ -306,6 +320,7 @@ function loadRenderSearchedContactsHTML(contact, initials, isSelected) {
   `;
 }
 
+
 /** 
  * Search and display contacts based on a given query.
  * @param {string} query - The query string to search for.
@@ -319,6 +334,7 @@ function loadSearchContacts(query) {
   });
   loadSearchedContact(filteredContacts);
 }
+
 
 function loadToggleContactSelection(name, surename) {
   const contact = contacts.find(c => c.name === name && c.surename === surename);
@@ -337,6 +353,7 @@ function loadToggleContactSelection(name, surename) {
   loadSearchedContact(contacts);
   renderDisplayChosenContacts();
 }
+
 
 /** 
  * Toggles the selection state of a given contact.
@@ -361,6 +378,7 @@ function toggleContactSelection(name, surename) {
   loadSearchedContact(contacts);
   renderDisplayChosenContacts();
 }
+
 
 /**
  * Toggles the display of the 'edit-loaded-contacts' container.

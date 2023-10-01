@@ -10,6 +10,7 @@ function letterListHTML(letter){
     `;
 }
 
+
 function loadContactsHTML(i, color, initials, contact){
     return `
     <div class="contact" data-contact-index="${i}" onclick="showContactDetails(${i})">
@@ -20,6 +21,7 @@ function loadContactsHTML(i, color, initials, contact){
         </div>
     </div>`;
 }
+
 
 function showContactDetailsHTML(contact, initials, index){
     return `

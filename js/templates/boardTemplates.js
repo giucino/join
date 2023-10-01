@@ -15,6 +15,8 @@
     `;
 }
  */
+
+
 /**
  * Returns an HTML representation of a subtask for editing purposes.
  * 
@@ -43,6 +45,7 @@ function subtaskToEditHTML(subtask, i) {
         </div>
     `;
 }
+
 
 /**
  * Generates the HTML markup for the task edit view.

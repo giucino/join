@@ -1,6 +1,7 @@
 let currentDraggedElement;
 let currentFilter = "";
 
+
 /**
  * Update the HTML for all task categories.
  * Calls functions to update HTML for each category.
@@ -15,6 +16,7 @@ async function updateHTML() {
   noTasks();
 }
 
+
 /**
  * Refresh the HTML for all task categories.
  */
@@ -26,8 +28,10 @@ function refreshHTML() {
   noTasks();
 }
 
+
 let allTodos = [...todos];
 allTodos = todos;
+
 
 /**
  * Resets the backend data with the current 'allTodos' state.
@@ -36,6 +40,7 @@ async function resetBackend() {
   await setItem("tasks", JSON.stringify(allTodos));
   await loadDatas();
 }
+
 
 /**
  * Load tasks data from storage into 'allTodos'.
@@ -49,12 +54,14 @@ async function loadDatas() {
   }
 }
 
+
 /**
  * Push the current tasks data into storage.
  */
 async function pushData() {
   await setItem("tasks", JSON.stringify(todos));
 }
+
 
 /**
  * Load tasks data from storage into 'todos'.
@@ -67,6 +74,7 @@ async function loadData() {
   }
 }
 
+
 /**
  * Load contact data from storage into 'contacts'.
  */
@@ -77,6 +85,7 @@ async function loadContactsFromStorage() {
     console.error("Loading error:", e);
   }
 }
+
 
 /**
  * Renders the assignees in the detail view.
@@ -94,6 +103,7 @@ function boardDetailViewAssignees(task) {
         </div> `;
   }
 }
+
 
 /**
  * Update the HTML for the "Todo" category based on the current filter.
@@ -118,6 +128,7 @@ function todo() {
   }
 }
 
+
 /**
  * Update the HTML for the "In Progress" category based on the current filter.
  */
@@ -140,6 +151,7 @@ function inProgress() {
     inProgressContainer.innerHTML += cardTaskBorder();
   }
 }
+
 
 /**
  * Update the HTML for the "Feedback" category based on the current filter.
@@ -164,6 +176,7 @@ function feedback() {
   }
 }
 
+
 /**
  * Update the HTML for the "Done" category based on the current filter.
  */
@@ -187,6 +200,7 @@ function done() {
   }
 }
 
+
 /**
  * Generate HTML for the "No Tasks" message.
  * @returns {string} HTML markup for no tasks message.
@@ -197,6 +211,7 @@ function noTasks() {
             <div class="no-tasks-to-do-text">No Tasks to do</div>
         </div>`;
 }
+
 
 /**
  * Generates an HTML string for a task border.
@@ -209,6 +224,7 @@ function cardTaskBorder(){
     `;
 }
 
+
 /**
  * Display all task borders on the page by removing the 'visibility' class.
  */
@@ -219,6 +235,7 @@ function showAllTaskBorders() {
   });
 }
 
+
 /**
  * Hide all task borders on the page by adding the 'visibility' class.
  */
@@ -228,6 +245,7 @@ function hideAllTaskBorders() {
       el.classList.add('visibility');
   });
 }
+
 
 document.addEventListener("DOMContentLoaded", function() {
     let isMouseDown = false,
@@ -255,6 +273,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
 /**
  * Generate HTML markup for a task element.
  * @param {Task} element - The task object to generate HTML for.
@@ -280,6 +299,7 @@ function generateTasks(element) {
   return generatedHTML;
 }
 
+
 /**
  * Extracts initials from a full name.
  * @param {string} name - Full name to extract initials from.
@@ -295,6 +315,7 @@ function extractInitials(name) {
   }
   return initials;
 }
+
 
 /**
  * Determine the appropriate image source based on priority.
@@ -313,6 +334,7 @@ function setPriorityImage(priority) {
   return imageSrc;
 }
 
+
 /**
  * Set the task that's currently being dragged.
  * @param {number} id - ID of the task that's being dragged.
@@ -323,6 +345,7 @@ function startDragging(id) {
   showAllTaskBorders();
 }
 
+
 /**
  * Handles the dragover event to allow dropping.
  * @param {Event} ev - The dragover event.
@@ -331,6 +354,7 @@ function allowDrop(ev) {
   ev.preventDefault();
 
 }
+
 
 /**
  * Moves a task to a specified status and updates the UI.
@@ -343,6 +367,7 @@ function moveTo(status) {
   updateHTML();
 }
 
+
 /**
  * Rotates the element with the given id by adding a 'rotate' class.
  * @param {string} id - The ID of the element to rotate.
@@ -350,6 +375,7 @@ function moveTo(status) {
 function startRotateCard(id){
     document.getElementById(id).classList.add('rotate');
 }
+
 
 /**
  * Highlights the element with the given id by adding a 'highlight' class.
@@ -359,6 +385,7 @@ function highlight(id) {
     document.getElementById(id).classList.add('highlight');
 }
 
+
 /**
  * Removes the highlight from the element with the given id by removing the 'highlight' class.
  * @param {string} id - The ID of the element to remove the highlight from.
@@ -366,6 +393,7 @@ function highlight(id) {
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('highlight');
 }
+
 
 /**
  * Implement drag and drop functionality.
