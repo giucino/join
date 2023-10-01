@@ -178,10 +178,10 @@ function closeSubtaskInput() {
  * @param {number|string} subtaskId - The ID of the subtask to delete.
  */
 function deleteEditSubtask(subtaskId) {
-    let indexToDelete = subtasks.findIndex(subtask => subtask.id === subtaskId);
+    let indexToDelete = todos.subtasks.findIndex(subtask => subtask.id === subtaskId);
 
     if (indexToDelete !== -1) {
-        subtasks.splice(indexToDelete, 1);
+        todos.subtasks.splice(indexToDelete, 1);
 
         let subtaskElement = document.getElementById(subtaskId);
         if (subtaskElement) {
@@ -201,7 +201,6 @@ function editEditedSubtask(i) {
         subtaskElement.contentEditable = true;
         subtaskElement.focus();
     }
-
     let subtaskContainer = document.getElementById(`subtask-container-${i}`);
     if (subtaskContainer) {
         addEditingClasses(subtaskContainer);
