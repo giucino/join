@@ -106,11 +106,20 @@ function deleteTask(id) {
     }
     todos.splice(indexToDelete, 1);
     deleteCard(id);
+    updateIDs();
     closeCard();
     pushData();
     loadData();
     updateHTML();
 }
+
+function updateIDs() {
+    for (let i = 0; i < todos.length; i++) {
+        todos[i].id = i + 1;
+        todos[i].id = i;
+    }
+}
+
 
 function deleteCard(id) {
     const elementToRemove = document.getElementById(`board-card${id}`);
