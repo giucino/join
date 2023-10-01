@@ -106,13 +106,18 @@ function deleteTask(id) {
     }
     todos.splice(indexToDelete, 1);
     deleteCard(id);
-    updateIDs();
     closeCard();
     pushData();
     loadData();
     updateHTML();
 }
 
+function deleteCard(id) {
+    const elementToRemove = document.getElementById(`board-card${id}`);
+    if (elementToRemove) {
+        elementToRemove.remove();
+    }
+}
 
 /**
  * Updates the status of a specific subtask and pushes the updated data.
