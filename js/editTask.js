@@ -39,6 +39,46 @@ function editTask(id) {
 }
 
 
+/**
+ * Aktualisiert das gegebene Eigenschaft des Elements mit dem Wert eines Input-Elements.
+ *
+ * @param {HTMLElement} element - Das zu aktualisierende Element.
+ * @param {string} inputId - Die ID des Input-Elements, von dem der Wert abgerufen werden soll.
+ * @param {string} prop - Die Eigenschaft des Elements, die aktualisiert werden soll.
+ */
+function updateElementFromInput(element, inputId, prop) {
+  element[prop] = document.getElementById(inputId).value;
+}
+
+
+/**
+ * Updates the properties of a given element based on various input sources.
+ * @param {Object} element - The element object to be updated.
+ * @property {string} [element.title] - The title of the element.
+ * @property {string} [element.description] - The description of the element.
+ * @property {string|Date} [element.dueDate] - The due date of the element.
+ * @property {string} [element.status] - The current status of the element.
+ * @property {string} [element.category] - The category of the element.
+ * @property {string} [element.priority] - The priority level of the element.
+ * @property {Array} [element.assignedTo] - The list of contacts assigned to the element.
+ * @property {Array} [element.subtasks] - The list of subtasks associated with the element.
+ * @example
+ * updateElementProperties(myTask);
+ * @todo: Handle properties like 'selectedCategory', 'selectedPriority', and others
+ * which aren't passed as function arguments but are used in the function.
+ */
+function updateElementProperties(element) {
+  updateElementFromInput(element, "edit-task-title", "title");
+  updateElementFromInput(element, "edit-task-description", "description");
+  updateElementFromInput(element, "edit-due-date", "dueDate");
+  element.status = element.status; 
+  element.category = selectedCategory;
+  element.priority = selectedPriority;
+  element.assignedTo = selectedContacts.filter(contact => contact !== undefined);
+  element.subtasks = processAndSaveSubtasks(element);
+}
+
+
 /** 
  * Saves the edited task by overwriting its properties and updating the local storage.
  * @param {number} id - The ID of the task being saved.
@@ -46,15 +86,7 @@ function editTask(id) {
  */
 async function saveEditedTask(id) {
   const element = todos[id];
-  const currentStatus = element.status;
-  element.title = document.getElementById("edit-task-title").value;
-  element.description = document.getElementById("edit-task-description").value;
-  element.dueDate = document.getElementById("edit-due-date").value;
-  element.status = currentStatus;
-  element.category = selectedCategory;
-  element.priority = selectedPriority;
-  element.assignedTo = selectedContacts.filter(contact => contact !== undefined);
-  element.subtasks = processAndSaveSubtasks(element);
+  updateElementProperties(element);
   todos[id] = element;
   await setItem("tasks", JSON.stringify(todos));
   openEditedTask(element.id);
@@ -85,23 +117,32 @@ function openEditedTask(id) {
  * @param {string} task.priority - The priority of the task ("high", "medium", or "low").
  */
 function loadSelectedPriority(task) {
-    const selectedPrio = task.priority;
-    let button;
-    resetButtons();
+  const priorities = {
+      high: {
+          buttonId: "edit-prio-urgent",
+          color: "#FF3D00",
+          img: "./img/prio_high_active.png"
+      },
+      medium: {
+          buttonId: "edit-prio-medium",
+          color: "#FFA800",
+          img: "./img/prio_medium_active.png"
+      },
+      low: {
+          buttonId: "edit-prio-low",
+          color: "#7AE229",
+          img: "./img/prio_low_active.png"
+      }
+  };
 
-    if (selectedPrio === "high") {
-        button = document.getElementById("edit-prio-urgent");
-        highlightButton(button, "#FF3D00", "./img/prio_high_active.png");
-        selectedPriority = "high";
-    } else if (selectedPrio === "medium") {
-        button = document.getElementById("edit-prio-medium");
-        highlightButton(button, "#FFA800", "./img/prio_medium_active.png");
-        selectedPriority = "medium";
-    } else if (selectedPrio === "low") {
-        button = document.getElementById("edit-prio-low");
-        highlightButton(button, "#7AE229", "./img/prio_low_active.png");
-        selectedPriority = "low";
-    }
+  resetButtons();
+
+  if (priorities[task.priority]) {
+      const prio = priorities[task.priority];
+      const button = document.getElementById(prio.buttonId);
+      highlightButton(button, prio.color, prio.img);
+      selectedPriority = task.priority;
+  }
 }
 
 
@@ -233,7 +274,6 @@ async function loadRenderAssignedTo(selectedContacts) {
   for (let i = 0; i < contacts.length; i++) {
     let contact = contacts[i];
     let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
-    
     const isSelected = selectedContacts[contact.id] || false;
 
     assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected);
@@ -300,7 +340,6 @@ function loadToggleContactSelection(name, surename) {
   } else {
     selectedContacts[contact.id] = `${contact.name} ${contact.surename}`;
   }
-
   loadRenderAssignedTo(selectedContacts);
   loadSearchedContact(contacts);
   renderDisplayChosenContacts();

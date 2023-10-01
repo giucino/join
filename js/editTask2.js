@@ -130,7 +130,6 @@ function loadRenderCategory(element) {
  */
 function categorySelected(category) {
     selectedCategory = category;
-
     let selectedCategoryDisplay = document.getElementById('edit-selected-category-display');
     selectedCategoryDisplay.textContent = `${selectedCategory}`;
 
@@ -179,10 +178,6 @@ function closeSubtaskInput() {
  */
 function deleteEditSubtask(indexToDelete) {
     let task = currentSelectedTask;
-    if (!task || !task.subtasks) {
-        console.error("todos oder todos.subtasks ist nicht definiert.");
-        return;
-    }
     if (indexToDelete >= 0 && indexToDelete < task.subtasks.length) {
         task.subtasks.splice(indexToDelete, 1);
         let subtaskElement = document.getElementById(`subtask-container-${indexToDelete}`);
@@ -221,29 +216,35 @@ function editEditedSubtask(i) {
  * addEditingClasses(divElement);
  */
 function addEditingClasses(container) {
-    container.classList.add("editing-mode");
-    container.classList.add("no-hover");
+    addClasses(container);
+    setDisplay(container.querySelector(".edit-subtask-dot"), "none");
+    setDisplay(container.querySelector(".edit-save-subtask-button"), "block");
+    setDisplay(container.querySelector(".edit-delete-subtask-button"), "block");
+    setDisplay(container.querySelector(".separator3"), "block");
+}
+
+
+/**
+ * Adds specific CSS classes and styles to the given container element.
+ * @param {HTMLElement} container - The DOM element to which classes and styles will be added.
+ */
+function addClasses(container) {
+    container.classList.add("editing-mode", "no-hover");
     container.style.borderBottom = "1px solid #4589FF";
+}
 
-    let dot = container.querySelector(".edit-subtask-dot");
-    let saveButton = container.querySelector(".edit-save-subtask-button");
-    let cancelButton = container.querySelector(".edit-delete-subtask-button");
-    let separator3 = container.querySelector(".separator3");
 
-    if (dot) {
-        dot.style.display = "none";
-    }
 
-    if (saveButton) {
-        saveButton.style.display = "block";
-    }
-
-    if (cancelButton) {
-        cancelButton.style.display = "block";
-    }
-
-    if (separator3) {
-        separator3.style.display = "block";
+/**
+ * Sets the display style of a DOM element. *
+ * @function
+ * @name setDisplay
+ * @param {HTMLElement|null} element - The DOM element to modify.
+ * @param {string} value - The CSS display value to set (e.g. 'none', 'block').
+ */
+function setDisplay(element, value) {
+    if (element) {
+        element.style.display = value;
     }
 }
 
@@ -279,6 +280,27 @@ function finishEditing(i) {
 
 
 /**
+ * Removes a class from the given element and optionally sets a CSS style property and value.
+ *
+ * @param {HTMLElement} element - The DOM element from which the class will be removed.
+ * @param {string} className - The class name to be removed from the element.
+ * @param {string} [styleProperty] - The CSS property to set. If not provided, this step is skipped.
+ * @param {string} [styleValue=''] - The value for the CSS property. If `styleProperty` is provided but `styleValue` isn't, it sets the property value to an empty string.
+ *
+ * @example
+ * removeClassAndStyle(document.querySelector('.my-div'), 'hide', 'display', 'block');
+ */
+function removeClassAndStyle(element, className, styleProperty, styleValue) {
+    if (element) {
+        element.classList.remove(className);
+        if (styleProperty) {
+            element.style[styleProperty] = styleValue;
+        }
+    }
+}
+
+
+/**
  * Removes editing-related classes and styles from the given container element.
  * Specifically, it:
  * - Removes "editing-mode" and "no-hover" classes.
@@ -289,30 +311,13 @@ function finishEditing(i) {
  * @param {HTMLElement} container - The container element from which editing-related classes and styles are to be removed.
  */
 function removeEditingClasses(container) {
-    container.classList.remove("editing-mode");
-    container.classList.remove("no-hover");
+    ['editing-mode', 'no-hover'].forEach(cls => container.classList.remove(cls));
     container.style.borderBottom = "";
 
-    let dot = container.querySelector(".edit-subtask-dot");
-    let saveButton = container.querySelector(".edit-save-subtask-button");
-    let cancelButton = container.querySelector(".edit-delete-subtask-button");
-    let separator3 = container.querySelector(".separator3");
-
-    if (dot) {
-        dot.style.display = "inline-block";
-    }
-
-    if (saveButton) {
-        saveButton.style.display = "none";
-    }
-
-    if (cancelButton) {
-        cancelButton.style.display = "none";
-    }
-
-    if (separator3) {
-        separator3.style.display = "none";
-    }
+    removeClassAndStyle(container.querySelector(".edit-subtask-dot"), "", "display", "inline-block");
+    removeClassAndStyle(container.querySelector(".edit-save-subtask-button"), "", "display", "none");
+    removeClassAndStyle(container.querySelector(".edit-delete-subtask-button"), "", "display", "none");
+    removeClassAndStyle(container.querySelector(".separator3"), "", "display", "none");
 }
 
 
