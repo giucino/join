@@ -304,6 +304,11 @@ function getCategoryBackgroundColor(category) {
 }
 
 
+function getSubtasksDisplayStyle(allTasksCount) {
+    return allTasksCount === 0 ? 'none' : 'block';
+}
+
+
 /**
  * Generates the HTML for a given task element.
  *
@@ -315,7 +320,7 @@ function getCategoryBackgroundColor(category) {
  * @param {string} allTasks - The total count of tasks.
  * @returns {string} The generated HTML string.
  */
-function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBar, numberTasks, allTasks) {
+function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBar, numberTasks, allTasks, allTasksCount) {
     const backgroundColor = getCategoryBackgroundColor(element.category);
     return /*html*/`
     <div id="${element.id}" onclick="slideCard(${element.id})" draggable="true" ondragstart="startDragging(${element.id})" class="content-container task-touch">
@@ -325,7 +330,7 @@ function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBa
                 <div class="title">${element.title}</div>
                 <div id="description" class="content">${element.description}</div>
             </div>
-            <div class="board-subtasks-container">
+            <div id="subtasks-board" class="board-subtasks-container" style="display: ${getSubtasksDisplayStyle(allTasksCount)};">
                 <div class="progress-bar-container">
                     ${progressBar}
                 </div>

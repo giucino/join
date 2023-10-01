@@ -294,7 +294,8 @@ function generateTasks(element) {
     assignedToHTML,
     progressBar,
     numberTasks,
-    allTasks
+    allTasks,
+    allTasksCount
   );
   return generatedHTML;
 }
