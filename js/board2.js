@@ -279,58 +279,6 @@ function renderSubtask(element) {
 
 
 /**
- * Generates the HTML representation of a single subtask.
- * @param {Object} subtask - The subtask data.
- * @returns {string} The generated HTML for the subtask.
- */
-function generateSubtaskHTML(subtask) {
-    return /*html*/`
-        <div class="task-slide-subtask">
-            <input type="checkbox" ${subtask.status ? 'checked' : ''} disabled>
-            <label>${subtask.title}</label>
-        </div>
-    `;
-}
-
-
-/**
- * Generates the HTML representation of a progress bar.
- * @param {Object} element - The task or entity the progress bar is associated with.
- * @param {number} progress - The current progress percentage.
- * @returns {string} The generated HTML for the progress bar.
- */
-function progressBarHTML(element, progress) {
-    return /*html*/`
-        <div class="progress-bar" id="progress-bar${element.id}" style="width: ${progress}%;"></div>
-    `;
-}
-
-
-/**
- * Generates the HTML representation showing the number of completed tasks.
- * @param {number} completedTasksCount - Count of completed tasks.
- * @returns {string} The generated HTML showing the number of completed tasks.
- */
-function numberTasksHTML(completedTasksCount) {
-    return /*html*/`
-        <span id="number-tasks">${completedTasksCount}</span>
-    `;
-}
-
-
-/**
- * Generates the HTML representation showing the total number of tasks.
- * @param {number} allTasksCount - Total count of tasks.
- * @returns {string} The generated HTML showing the total number of tasks.
- */
-function allTasksHTML(allTasksCount) {
-    return /*html*/`
-        <span id="all-tasks">${allTasksCount}</span>
-    `;
-}
-
-
-/**
  * Gets the background color based on the category.
  * 
  * @param {string} category - The category of the task.
@@ -350,7 +298,6 @@ function getCategoryBackgroundColor(category) {
 
 /**
  * Returns the appropriate display style based on the count of all tasks.
- * 
  * @param {number} allTasksCount - The total number of tasks.
  * @returns {string} - Returns 'none' if there are no tasks, otherwise 'block'.
  */
@@ -361,7 +308,6 @@ function getSubtasksDisplayStyle(allTasksCount) {
 
 /**
  * Renders the assigned users for a task in the slide view.
- *
  * @param {Object} element - The task element containing its details.
  * @returns {string} The generated HTML string for assigned users.
  */
@@ -383,7 +329,6 @@ function renderSlideAssigned(element) {
 
 /**
  * Renders the subtasks for a task in the slide view.
- *
  * @param {Object} element - The task element containing its details.
  * @param {number} id - The ID of the task element.
  * @returns {string} The generated HTML string for subtasks.

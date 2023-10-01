@@ -346,3 +346,54 @@ function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBa
         </div>
     </div>`;
 }
+
+/**
+ * Generates the HTML representation of a single subtask.
+ * @param {Object} subtask - The subtask data.
+ * @returns {string} The generated HTML for the subtask.
+ */
+function generateSubtaskHTML(subtask) {
+    return /*html*/`
+        <div class="task-slide-subtask">
+            <input type="checkbox" ${subtask.status ? 'checked' : ''} disabled>
+            <label>${subtask.title}</label>
+        </div>
+    `;
+}
+
+
+/**
+ * Generates the HTML representation of a progress bar.
+ * @param {Object} element - The task or entity the progress bar is associated with.
+ * @param {number} progress - The current progress percentage.
+ * @returns {string} The generated HTML for the progress bar.
+ */
+function progressBarHTML(element, progress) {
+    return /*html*/`
+        <div class="progress-bar" id="progress-bar${element.id}" style="width: ${progress}%;"></div>
+    `;
+}
+
+
+/**
+ * Generates the HTML representation showing the number of completed tasks.
+ * @param {number} completedTasksCount - Count of completed tasks.
+ * @returns {string} The generated HTML showing the number of completed tasks.
+ */
+function numberTasksHTML(completedTasksCount) {
+    return /*html*/`
+        <span id="number-tasks">${completedTasksCount}</span>
+    `;
+}
+
+
+/**
+ * Generates the HTML representation showing the total number of tasks.
+ * @param {number} allTasksCount - Total count of tasks.
+ * @returns {string} The generated HTML showing the total number of tasks.
+ */
+function allTasksHTML(allTasksCount) {
+    return /*html*/`
+        <span id="all-tasks">${allTasksCount}</span>
+    `;
+}
