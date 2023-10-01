@@ -401,25 +401,17 @@ function removeHighlight(id) {
  */
 function polyfill() {
   let currentTask;
-  // Define the dragstart event.
   document.addEventListener("dragstart", function (ev) {
-    // Get the id of the element being dragged.
     const id = ev.target.id;
-    // Set the current dragged element.
     currentTask = todos.find((task) => task.id === id);
   });
 
-  // Define the dragover event.
   document.addEventListener("dragover", function (ev) {
-    // Prevent the default action.
     ev.preventDefault();
   });
 
-  // Define the drop event.
   document.addEventListener("drop", function (ev) {
-    // Get the status of the drop zone.
     const status = ev.target.getAttribute("data-status");
-    // Move the task to the specified status.
     currentTask.status = status;
     pushData();
     loadData();

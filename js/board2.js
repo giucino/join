@@ -145,12 +145,10 @@ function deleteTask(id) {
 
 /**
  * Updates the 'id' property for each item in the 'todos' array.
- * 
  * @example
  * Assuming todos = [{id: 0}, {id: 1}]
  * updateIDs();
  * todos will be: [{id: 0}, {id: 1}]
- * 
  * @returns {void}
  */
 function updateIDs() {
