@@ -3,11 +3,9 @@ var DragDropTouch;
     'use strict';
     /**
      * Object used to hold the data that is being dragged during drag and drop operations.
-     *
      * It may hold one or more data items of different types. For more information about
      * drag and drop operations and data transfer objects, see
      * <a href="https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer">HTML Drag and Drop API</a>.
-     *
      * This object is created automatically by the @see:DragDropTouch singleton and is
      * accessible through the @see:dataTransfer property of all drag events.
      */
@@ -58,11 +56,9 @@ var DragDropTouch;
         });
         /**
          * Removes the data associated with a given type.
-         *
          * The type argument is optional. If the type is empty or not specified, the data
          * associated with all types is removed. If data for the specified type does not exist,
          * or the data transfer contains no data, this method will have no effect.
-         *
          * @param type Type of data to remove.
          */
         DataTransfer.prototype.clearData = function (type) {
@@ -76,7 +72,6 @@ var DragDropTouch;
         /**
          * Retrieves the data for a given type, or an empty string if data for that type does
          * not exist or the data transfer contains no data.
-         *
          * @param type Type of data to retrieve.
          */
         DataTransfer.prototype.getData = function (type) {
@@ -84,10 +79,8 @@ var DragDropTouch;
         };
         /**
          * Set the data for a given type.
-         *
          * For a list of recommended drag types, please see
          * https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Recommended_Drag_Types.
-         *
          * @param type Type of data to add.
          * @param value Data to add.
          */
@@ -96,7 +89,6 @@ var DragDropTouch;
         };
         /**
          * Set the image to be used for dragging if a custom one is desired.
-         *
          * @param img An image element to use as the drag feedback image.
          * @param offsetX The horizontal offset within the image.
          * @param offsetY The vertical offset within the image.
@@ -111,19 +103,15 @@ var DragDropTouch;
     DragDropTouch_1.DataTransfer = DataTransfer;
     /**
      * Defines a class that adds support for touch-based HTML5 drag/drop operations.
-     *
      * The @see:DragDropTouch class listens to touch events and raises the
      * appropriate HTML5 drag/drop events as if the events had been caused
      * by mouse actions.
-     *
      * The purpose of this class is to enable using existing, standard HTML5
      * drag/drop code on mobile devices running IOS or Android.
-     *
      * To use, include the DragDropTouch.js file on the page. The class will
      * automatically start monitoring touch events and will raise the HTML5
      * drag drop events (dragstart, dragenter, dragleave, drop, dragend) which
      * should be handled by the application.
-     *
      * For details and examples on HTML drag and drop, see
      * https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_operations.
      */
@@ -278,31 +266,26 @@ var DragDropTouch;
                 !e.defaultPrevented &&
                 e.touches && e.touches.length < 2;
         };
-
         // use regular condition outside of press & hold mode
         DragDropTouch.prototype._shouldHandleMove = function (e) {
             return !DragDropTouch._ISPRESSHOLDMODE && this._shouldHandle(e);
         };
-
         // allow to handle moves that involve many touches for press & hold
         DragDropTouch.prototype._shouldHandlePressHoldMove = function (e) {
             return DragDropTouch._ISPRESSHOLDMODE &&
                 this._isDragEnabled && e && e.touches && e.touches.length;
         };
-
         // reset data if user drags without pressing & holding
         DragDropTouch.prototype._shouldCancelPressHoldMove = function (e) {
             return DragDropTouch._ISPRESSHOLDMODE && !this._isDragEnabled &&
                 this._getDelta(e) > DragDropTouch._PRESSHOLDMARGIN;
         };
-
         // start dragging when specified delta is detected
         DragDropTouch.prototype._shouldStartDragging = function (e) {
             var delta = this._getDelta(e);
             return delta > DragDropTouch._THRESHOLD ||
                 (DragDropTouch._ISPRESSHOLDMODE && delta >= DragDropTouch._PRESSHOLDTHRESHOLD);
         }
-
         // clear all members
         DragDropTouch.prototype._reset = function () {
             this._destroyImage();
