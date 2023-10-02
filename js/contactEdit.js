@@ -69,6 +69,7 @@ async function deleteContact(index) {
         detailsContainer.innerHTML = '';
         closeEditModal();
         initContact();
+        returnToContactsMobile();
     }
 }
 
