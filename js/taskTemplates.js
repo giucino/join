@@ -133,7 +133,7 @@ function renderAddTask() {
         </div>
     </div>
     <div class="add-task-bottom-container">
-        <button type="submit" id="addCreateTaskButton" class="button-create-task">
+        <button type="submit" id="addCreateTaskButton" class="create-task-btn">
             Create Task
             <img class="button-create-task-pic" src="./img/check.svg">
         </button>
