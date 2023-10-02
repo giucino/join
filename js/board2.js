@@ -300,7 +300,7 @@ function getCategoryBackgroundColor(category) {
  * @returns {string} - Returns 'none' if there are no tasks, otherwise 'block'.
  */
 function getSubtasksDisplayStyle(allTasksCount) {
-    return allTasksCount === 0 ? 'none' : 'block';
+    return allTasksCount === 0 ? 'none' : 'flex';
 }
 
 
