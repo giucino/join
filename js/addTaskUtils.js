@@ -1,3 +1,9 @@
+/**
+ * Resets all fields and selections in the task form to their default values.
+ * 
+ * - Clears the input fields for task title, task description, and due date.
+ * - Resets the buttons, assigned-to selection, category selection, and subtasks.
+ */
 function resetTaskForm() {
     document.getElementById('taskTitle').value = '';
     document.getElementById('taskDescription').value = '';
@@ -9,6 +15,16 @@ function resetTaskForm() {
 }
 
 
+/**
+ * Resets the selected contacts and clears the search input.
+ * Also calls functions to re-render the assigned contacts and display the chosen ones.
+ * 
+ * @function
+ * @name resetAssignedToSelection
+ * @global
+ * @example
+ * resetAssignedToSelection();
+ */
 function resetAssignedToSelection() {
     selectedContacts = {};
     let searchInput = document.getElementById('searchInput');
@@ -18,6 +34,18 @@ function resetAssignedToSelection() {
 }
 
 
+/**
+ * Resets the category selection by clearing the selected category and updating the associated DOM elements.
+ * 
+ * @function
+ * @global
+ * @see {@link https://jsdoc.app/|JSDoc}
+ * 
+ * @example
+ * Assume there's a category currently selected and displayed in the UI.
+ * resetCategorySelection();
+ * The category display is now empty and the 'select-text' is shown.
+ */
 function resetCategorySelection() {
     selectedCategory = '';
     let selectedCategoryDisplay = document.getElementById('selectedCategoryDisplay');
@@ -27,7 +55,16 @@ function resetCategorySelection() {
     selectText.style.display = 'inline';
 }
 
-
+/**
+ * Clears and resets the subtasks list and input field.
+ * This function removes all subtasks, clears the subtask container,
+ * and resets the subtask input field's value to an empty string.
+ * Additionally, it closes the subtask input if it's open.
+ *
+ * @function
+ * @name resetSubtasks
+ * @returns {void}
+ */
 function resetSubtasks() {
     subtasks = [];
     let subtasksContainer = document.getElementById('subtask-add-container');
@@ -38,6 +75,10 @@ function resetSubtasks() {
 }
 
 
+/**
+ * Resets the buttons for priority choices in the UI.
+ * Clears the selectedPriority, removes highlighting, and restores default styles and images for all buttons.
+ */
 function resetButtons() {
     selectedPriority = '';
 
@@ -54,6 +95,10 @@ function resetButtons() {
 }
 
 
+/**
+ * Displays an error message and highlights the input field when a required title is missing.
+ * This function is typically used for form validation.
+ */
 function showTitleInputError() {
     let titleError = document.getElementById('requiredTitle');
     titleError.style.display = 'block';
@@ -62,6 +107,10 @@ function showTitleInputError() {
 }
 
 
+/**
+ * Resets the title input field and any associated error messages.
+ * If the input is not focused, it resets the border color of the input container.
+ */
 function resetTitleInput() {
     let titleError = document.getElementById('requiredTitle');
     titleError.style.display = 'none';
@@ -77,6 +126,10 @@ let titleInput = document.getElementById('taskTitle');
 titleInput.addEventListener('input', resetTitleInput);
 
 
+/**
+ * Displays an error message and updates the border color of the description input field.
+ * @function
+ */
 function showDescriptionInputError() {
     let descriptionError = document.getElementById('requiredDescription');
     descriptionError.style.display = 'block';
@@ -85,6 +138,9 @@ function showDescriptionInputError() {
 }
 
 
+/**
+ * Resets the description input field and hides any associated error message.
+ */
 function resetDescriptionInput() {
     let descriptionError = document.getElementById('requiredDescription');
     descriptionError.style.display = 'none';
@@ -96,6 +152,10 @@ let descriptionInput = document.getElementById('taskDescription');
 descriptionInput.addEventListener('input', resetDescriptionInput);
 
 
+/**
+ * Displays an error message and updates the border color of the date input container
+ * to indicate an input error.
+ */
 function showDateInputError() {
     let dateError = document.getElementById('requiredDate');
     dateError.style.display = 'block';
@@ -104,6 +164,10 @@ function showDateInputError() {
 }
 
 
+/**
+ * Resets the date input field and hides any associated error messages.
+ * If the input is not focused, it resets the border color of the input container.
+ */
 function resetDateInput() {
     let dateError = document.getElementById('requiredDate');
     dateError.style.display = 'none';
@@ -118,19 +182,31 @@ function resetDateInput() {
 let dateInput = document.getElementById('dueDate');
 dateInput.addEventListener('input', resetDateInput);
 
-
+/**
+ * Displays an error message for a required priority field.
+ * This function sets the display style of the element with the ID 'requiredPriority' to 'block',
+ * making the error message visible.
+ */
 function showPriorityError() {
     let priorityError = document.getElementById('requiredPriority');
     priorityError.style.display = 'block';
 }
 
 
+/**
+ * Hides the priority error message element with the ID 'requiredPriority'.
+ * This function sets the 'display' style property to 'none' to hide the error message.
+ */
 function hidePriorityError() {
     let priorityError = document.getElementById('requiredPriority');
     priorityError.style.display = 'none';
 }
 
 
+/**
+ * Displays an error message and updates the border color of the category dropdown input
+ * to indicate that a category selection is required.
+ */
 function showSelectCategoryError() {
     let assignedError = document.getElementById('requiredCategory');
     assignedError.style.display = 'block';
@@ -139,6 +215,9 @@ function showSelectCategoryError() {
 }
 
 
+/**
+ * Resets the select category input field and error message.
+ */
 function resetSelectCategory() {
     let categoryError = document.getElementById('requiredCategory');
     categoryError.style.display = 'none';
