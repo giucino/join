@@ -1,3 +1,8 @@
+/**
+ * Renders the HTML content for the "Add Task" modal.
+ *
+ * @returns {string} The HTML content of the modal.
+ */
 function renderAddTask() {
     return /* html */ `
 <div class="float-add-task-container">
@@ -154,6 +159,15 @@ function addCreatedTaskTemplate() {
 }
 
 
+/**
+ * Renders a contact as HTML with optional selection and current user indicator.
+ *
+ * @param {object} contact - The contact object with properties like name, surename, and bgcolor.
+ * @param {string} initials - The initials to display.
+ * @param {boolean} isSelected - Whether the contact is selected.
+ * @param {boolean} isCurrentUser - Whether the contact is the current user.
+ * @returns {string} The HTML representation of the contact with optional selection and user indicator.
+ */
 function addRenderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
         let userMarker = isCurrentUser ? " (you)" : "";
 
@@ -169,6 +183,18 @@ function addRenderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
 }
 
 
+/**
+ * Generates HTML markup for rendering a contact in a search result.
+ *
+ * @param {Object} contact - The contact information.
+ * @param {string} contact.name - The contact's first name.
+ * @param {string} contact.surename - The contact's last name.
+ * @param {string} contact.bgcolor - The background color for the contact's initial.
+ * @param {string} initials - The initials of the contact.
+ * @param {boolean} isSelected - Indicates whether the contact is selected.
+ * @param {boolean} isCurrentUser - Indicates whether the contact is the current user.
+ * @returns {string} The HTML markup for rendering the contact.
+ */
 function addRenderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser) {
         let userMarker = isCurrentUser ? " (you)" : "";
 
@@ -184,6 +210,13 @@ function addRenderSearchedContactsHTML(contact, initials, isSelected, isCurrentU
 }
 
 
+/**
+ * Generates HTML for a subtask container with edit and delete buttons.
+ *
+ * @param {string} subtaskId - The ID of the subtask container.
+ * @param {string} subtaskValue - The value/content of the subtask.
+ * @returns {string} The HTML markup for the subtask container.
+ */
 function addCreateSubtaskHTML(subtaskId, subtaskValue) {
     return /*html*/`
         <div id="add-subtask-container-${subtaskId}" class="subtask-container">

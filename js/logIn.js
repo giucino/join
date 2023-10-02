@@ -96,6 +96,13 @@ function handleLogIn() {
 }
 
 
+/**
+ * Extracts the initials from the given name and surname.
+ *
+ * @param {string} name - The name from which to extract the initial.
+ * @param {string} surename - The surname from which to extract the initial.
+ * @returns {string} The initials of the name and surname (e.g., "JD" for "John Doe").
+ */
 function extractInitials(name, surename) {
     let initials = '';
 
