@@ -1,0 +1,74 @@
+@media(max-width: 1200px) {
+    .modal {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+    }
+
+    .modal-content {
+        position: static;
+    }
+
+    #closeContactModalBtn {
+        position: relative;
+        top: -85px;
+        right: -255px;
+    }
+}
+
+@media(max-width: 1180px) {
+    .container {
+        padding: 20px;
+        width: 600px;
+    }
+
+    .add-person-button {
+        right: 42px;
+    }
+}
+
+@media(max-width: 890px) {
+    .container {
+        padding: 20px;
+        width: 500px;
+    }
+
+    .add-person-button {
+        right: 60px;
+    }
+}
+
+/* Media Query für Bildschirmbreite von maximal 768px */
+@media(max-width: 768px) {
+    .container {
+        margin-left: 0;
+    }
+
+    .add-person-button {
+        right: 40px;
+    }
+
+    #contact-details-mobile {
+        margin-left: 0;
+    }
+}
+
+@media(max-width: 450px) {
+    .container {
+        width: 310px;
+    }
+
+    .container-contact-all {
+        width: auto;
+    }
+
+    .add-person-button {
+        right: 23px;
+    }
+
+    .contact-detailed-name {
+        font-size: 36px;
+    }
+}
