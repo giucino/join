@@ -14,6 +14,23 @@ function createdTaskTemplate() {
 }
 
 
+/**
+ * Renders an assigned contact as an HTML element.
+ *
+ * @function
+ * @name renderAssignedToHTML
+ * @param {Object} contact - The contact to render.
+ * @param {string} contact.name - The first name of the contact.
+ * @param {string} contact.surename - The surname/last name of the contact.
+ * @param {string} contact.bgcolor - The background color for the initials container.
+ * @param {string} initials - The initials of the contact.
+ * @param {boolean} isSelected - A flag indicating if the contact is currently selected.
+ * @param {boolean} isCurrentUser - A flag indicating if the contact is the current user.
+ * @returns {string} - Returns the rendered HTML string.
+ * @example
+ * const contact = { name: 'John', surename: 'Doe', bgcolor: '#fafafa' };
+ * const htmlString = renderAssignedToHTML(contact, 'JD', true, false);
+ */
 function renderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
     let userMarker = isCurrentUser ? " (you)" : "";
 
@@ -29,6 +46,19 @@ function renderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
 }
 
 
+/**
+ * Generates an HTML string for a contact based on the provided details.
+ *
+ * @function renderSearchedContactsHTML
+ * @param {Object} contact - The contact object containing details of the user.
+ * @param {string} contact.name - The first name of the contact.
+ * @param {string} contact.surename - The surname of the contact.
+ * @param {string} contact.bgcolor - Background color for the initials div.
+ * @param {string} initials - The initials of the contact.
+ * @param {boolean} isSelected - A flag indicating if the contact is selected.
+ * @param {boolean} isCurrentUser - A flag indicating if the contact is the current user.
+ * @returns {string} The generated HTML string for the contact.
+ */
 function renderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser) {
     let userMarker = isCurrentUser ? " (you)" : "";
 
@@ -44,6 +74,18 @@ function renderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser
 }
 
 
+/**
+ * Generates HTML markup for a subtask with the given ID and value.
+ *
+ * @function
+ * @param {string|number} subtaskId - The unique identifier for the subtask.
+ * @param {string} subtaskValue - The display value of the subtask.
+ * @returns {string} The HTML string representing the subtask.
+ * @example
+ * 
+ * let html = createSubtaskHTML(1, "Do laundry");
+ * // Returns the HTML markup for the subtask with ID 1 and value "Do laundry".
+ */
 function createSubtaskHTML(subtaskId, subtaskValue) {
     return /*html*/`
         <div id="subtask-container-${subtaskId}" class="subtask-container">
