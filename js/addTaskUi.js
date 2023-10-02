@@ -1,3 +1,11 @@
+/**
+ * Applies border color on focus and blur events to elements within a container.
+ *
+ * @param {string} containerSelector - CSS selector for the container elements.
+ * @param {string} inputSelector - CSS selector for the input elements within the container.
+ * @param {string} focusColor - CSS color value applied to the container border when the input is focused.
+ * @param {string} blurColor - CSS color value applied to the container border when the input loses focus.
+ */
 function applyBorderColorOnFocusAndBlur(containerSelector, inputSelector, focusColor, blurColor) {
     const containers = document.querySelectorAll(containerSelector);
 
@@ -43,6 +51,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+/**
+ * Changes the border color of a textarea element based on focus, blur, and input events.
+ *
+ * @function
+ * @param {HTMLTextAreaElement} textarea - The textarea element whose border color needs to be modified.
+ * @example
+ *
+ * // Assuming you have a textarea with the id 'myTextarea'
+ * const textarea = document.getElementById('myTextarea');
+ * changeTextAreaBorderOnFocusBlurInput(textarea);
+ * 
+ */
 function changeTextAreaBorderOnFocusBlurInput(textarea) {
     textarea.addEventListener('focus', () => {
         textarea.style.border = '1px solid #4589FF';
@@ -63,6 +83,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+/**
+ * Sets the priority based on the button clicked. Resets other buttons and hides any priority errors.
+ *
+ * @param {HTMLElement} button - The button element that was clicked to set the priority.
+ * @throws {Error} Throws an error if the button ID does not match any expected priority.
+ */
 function priority(button) {
     resetButtons();
     hidePriorityError();
@@ -80,6 +106,13 @@ function priority(button) {
 }
 
 
+/**
+ * Highlights a button by changing its background color, image source, and text color.
+ *
+ * @param {HTMLElement} button - The button to highlight.
+ * @param {string} bgColor - The background color to apply to the button.
+ * @param {string} imageSrc - The image source URL for the button's inner image.
+ */
 function highlightButton(button, bgColor, imageSrc) {
     button.classList.add('highlighted');
     button.style.backgroundColor = bgColor;
@@ -89,11 +122,36 @@ function highlightButton(button, bgColor, imageSrc) {
 }
 
 
+/**
+ * Retrieves the logged-in user's data from local storage.
+ * 
+ * @function
+ * @returns {Object} The logged-in user's data, or an empty object if no data is found.
+ */
 function getLoggedInUserData() {
     return JSON.parse(localStorage.getItem('loggedInUser')) || {};
 }
 
 
+/**
+ * Asynchronously renders the contacts assigned to the user.
+ *
+ * It fetches the logged-in user data, gets the container for loading contacts,
+ * and iterates over the list of contacts to render each contact's assigned information.
+ * For each contact, it generates the initials from their name and surename, checks if the contact
+ * is selected or if it matches the logged-in user's email, and then updates the container's HTML.
+ *
+ * @async
+ * @function
+ * @requires getLoggedInUserData - A function to fetch the logged-in user's data.
+ * @requires renderAssignedToHTML - A function to generate the HTML representation of a contact's assigned data.
+ * @global
+ * @throws {Error} Throws an error if any issues arise while rendering.
+ *
+ * @example
+ * // Assuming all required functions and global variables are present and correctly set up:
+ * renderAssignedTo();
+ */
 async function renderAssignedTo() {
     let loggedInUserData = getLoggedInUserData();
 
@@ -111,6 +169,29 @@ async function renderAssignedTo() {
 }
 
 
+/**
+ * Renders the contacts that were searched for and updates the HTML container.
+ * It goes through each contact, computes the initials from their name and surename,
+ * checks if the contact is selected and if the contact is the current logged in user,
+ * and finally uses another function `renderSearchedContactsHTML` to update the DOM.
+ * 
+ * @param {Object[]} contacts - An array of contact objects.
+ * @param {string} contacts[].name - First name of the contact.
+ * @param {string} contacts[].surename - Last name (or surename) of the contact.
+ * @param {string} contacts[].email - Email address of the contact.
+ * @param {number} contacts[].id - Unique ID of the contact.
+ * 
+ * @returns {void}
+ * 
+ * @example
+ * 
+ * const contacts = [
+ *   { id: 1, name: 'John', surename: 'Doe', email: 'john.doe@example.com' },
+ *   { id: 2, name: 'Jane', surename: 'Smith', email: 'jane.smith@example.com' }
+ * ];
+ * 
+ * renderSearchedContact(contacts);
+ */
 function renderSearchedContact(contacts) {
     let loggedInUserData = getLoggedInUserData();
 
@@ -128,6 +209,16 @@ function renderSearchedContact(contacts) {
 }
 
 
+/**
+ * Toggles the visibility of the "assignedToContainer" and synchronizes 
+ * the display of the "contactsContainer" accordingly. 
+ * Also manages the 'expanded' class of the "assignedToDropdown".
+ *
+ * @function
+ * @example
+ * // To toggle the display of the containers
+ * toggleAssignedToContainer();
+ */
 function toggleAssignedToContainer() {
     let assignedToContainer = document.getElementById('loadedContacts');
     let contactsContainer = document.querySelector('.contacts-container');
@@ -144,6 +235,19 @@ function toggleAssignedToContainer() {
 }
 
 
+/**
+ * Display the chosen contacts on the page by appending them to
+ * the 'chosenContacts' container. For each chosen contact, their initials
+ * are displayed with a specified background color.
+ * 
+ * Assumes the following:
+ * 1. An HTML container with the id 'chosenContacts' exists in the DOM.
+ * 2. The `contacts` array exists in the current scope, with each contact
+ *    object having properties: 'id', 'name', 'surname', and 'bgcolor'.
+ * 3. The `selectedContacts` object exists in the current scope, where
+ *    each key is a contact's 'id' and its value is a boolean indicating
+ *    if the contact is selected.
+ */
 function displayChosenContacts() {
     let chosenContactsContainer = document.getElementById('chosenContacts');
     chosenContactsContainer.innerHTML = '';
@@ -164,6 +268,15 @@ function displayChosenContacts() {
 }
 
 
+/**
+ * Renders categories into the `loadedCategories` DOM element.
+ * Each category will be displayed in a div with the class "category".
+ * When a category is clicked, the `categorySelected` function is called with the category name as an argument.
+ * 
+ * @function
+ * @global
+ * @requires categories - An array of objects where each object should have a 'categoryName' property.
+ */
 function renderCategorys() {
     let categoryContainer = document.getElementById('loadedCategories');
     categoryContainer.innerHTML = '';
@@ -177,6 +290,14 @@ function renderCategorys() {
 }
 
 
+/**
+ * Toggles the visibility of the category container.
+ * - When the category container is displayed, it hides the container and makes necessary style adjustments.
+ * - When the category container is not displayed, it shows the container, makes necessary style adjustments, and renders the categories.
+ * 
+ * @function
+ * @returns {void} Returns nothing.
+ */
 function toggleCategoryContainer() {
     let selectText = document.querySelector('.select-text');
     selectText.style.display = 'inline';
@@ -201,6 +322,13 @@ function toggleCategoryContainer() {
 }
 
 
+/**
+ * Updates the UI based on the selected category.
+ *
+ * @param {string} category - The category that has been selected.
+ * @function
+ * @returns {void}
+ */
 function categorySelected(category) {
     selectedCategory = category;
 
@@ -219,6 +347,10 @@ function categorySelected(category) {
 }
 
 
+/**
+ * Opens the subtask input by hiding the 'open-subtask-button', focusing the 'subtaskInput', 
+ * and displaying the separator and all 'add-subtask-button' elements.
+ */
 function openSubtaskInput() {
     document.querySelector('.open-subtask-button').style.display = 'none';
     document.getElementById('subtaskInput').focus();
@@ -230,6 +362,13 @@ function openSubtaskInput() {
 }
 
 
+/**
+ * Closes the subtask input field and updates the display of related UI elements.
+ * - Hides the new subtask textfield and its associated input elements.
+ * - Resets the styling of the add-subtask-input.
+ * - Hides the separator.
+ * - Hides all add-subtask-buttons.
+ */
 function closeSubtaskInput() {
     document.querySelector('.open-subtask-button').style.display = 'inline-block';
     document.querySelector('.new-subtask-textfield').value = '';
@@ -238,61 +377,5 @@ function closeSubtaskInput() {
     let otherButtons = document.querySelectorAll('.add-subtask-button');
     for (let i = 0; i < otherButtons.length; i++) {
         otherButtons[i].style.display = 'none';
-    }
-}
-
-
-function addEditingClasses(container) {
-    container.classList.add("editing-mode");
-    container.classList.add("no-hover");
-    container.style.borderBottom = "1px solid #4589FF";
-
-    let dot = container.querySelector(".subtask-dot");
-    let saveButton = container.querySelector(".save-subtask-button");
-    let cancelButton = container.querySelector(".edit-delete-subtask-button");
-    let separator3 = container.querySelector(".separator3");
-
-    if (dot) {
-        dot.style.display = "none";
-    }
-
-    if (saveButton) {
-        saveButton.style.display = "block";
-    }
-
-    if (cancelButton) {
-        cancelButton.style.display = "block";
-    }
-
-    if (separator3) {
-        separator3.style.display = "block";
-    }
-}
-
-
-function removeEditingClasses(container) {
-    container.classList.remove("editing-mode");
-    container.classList.remove("no-hover");
-    container.style.borderBottom = "";
-
-    let dot = container.querySelector(".subtask-dot");
-    let saveButton = container.querySelector(".save-subtask-button");
-    let cancelButton = container.querySelector(".edit-delete-subtask-button");
-    let separator3 = container.querySelector(".separator3");
-
-    if (dot) {
-        dot.style.display = "inline-block";
-    }
-
-    if (saveButton) {
-        saveButton.style.display = "none";
-    }
-
-    if (cancelButton) {
-        cancelButton.style.display = "none";
-    }
-
-    if (separator3) {
-        separator3.style.display = "none";
     }
 }
