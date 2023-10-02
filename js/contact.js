@@ -18,7 +18,7 @@ async function initContact() {
 
 
 /**
- * loads the contacts from the array
+ * Loads all contacts from the storage.
  */
 async function loadAllContacts() {
     try {
@@ -30,7 +30,7 @@ async function loadAllContacts() {
 
 
 /**
- * sorts the contacts alphabeticly 
+ * Sorts the contacts array alphabetically by name. 
  */
 function sortContacts() {
     contacts.sort((a, b) => {
@@ -48,7 +48,7 @@ function sortContacts() {
 
 
 /**
- * render the letters as headers for the contacts
+ * Renders the alphabet letters as headers for the contacts.
  */
 function initLetters() {
     let letterList = document.getElementById('container-letter');
@@ -65,8 +65,8 @@ function initLetters() {
 
 
 /**
- * this function loads the logged in user from backend
- * @returns logged in user
+ * Retrieves the logged-in user's data from local storage.
+ * @returns {Object} The logged-in user's data.
  */
 function getLoggedInUserData() {
     return JSON.parse(localStorage.getItem('loggedInUser')) || {};
@@ -74,7 +74,7 @@ function getLoggedInUserData() {
 
 
 /**
- * this function shows the contacts rendered
+ * Displays the contacts on the page.
  */
 async function showContacts() {
     let loggedInUserData = getLoggedInUserData();
@@ -94,8 +94,8 @@ async function showContacts() {
 
 
 /**
- * this function counts as a handle clicker to find out if its mobile or for the pc version by comparing the width
- * @param {*} index 
+ * Handles the contact click event to determine the display mode (mobile or desktop).
+ * @param {number} index - The index of the clicked contact.
  */
 function handleContactClick(index) {
     if (window.innerWidth <= 1200) {
@@ -107,7 +107,7 @@ function handleContactClick(index) {
 
 
 /**
- * this function hides the unused letters of the alphabet that are used as headers
+ * Hides the unused alphabet letters that are used as headers.
  */
 function removeEmptyLetters() {
     for (let i = 0; i < letters.length; i++) {
@@ -122,9 +122,8 @@ function removeEmptyLetters() {
 
 
 /**
- * shows the contact details that show up if you press on the contacts
- * makes the contact clickable twice to hide the chosen contact
- * @param {integer} index 
+ * Displays the details of a selected contact.
+ * @param {number} index - The index of the selected contact.
  */
 let isContainerVisible = false;
 function showContactDetails(index) {
@@ -156,8 +155,8 @@ function showContactDetails(index) {
 
 
 /**
- * picks a color from the array colors and randomly gives the contact one
- * @returns color rgb
+ * Returns a random color from the colors array.
+ * @returns {string} A random color code.
  */
 function getRandomColor() {
     let randomIndex = Math.floor(Math.random() * colors.length);
@@ -166,7 +165,7 @@ function getRandomColor() {
 
 
 /**
- * opens the screen to add new contacts
+ * Opens the modal to add new contacts.
  */
 function openModal() {
     let modalHTML = generateAddContactModalHTML();
@@ -181,7 +180,7 @@ function openModal() {
 
 
 /**
- * closes the screen to add new contacts
+ * Closes the modal used for adding new contacts.
  */
 function closeModal() {
     let modal = document.getElementById("contactModal");
@@ -193,8 +192,8 @@ function closeModal() {
 
 
 /**
- * this funktion saves new contacts in the contacts array
- * @returns contact
+ * Saves a new contact to the contacts array.
+ * @returns {Promise<void>}
  */
 async function saveNewContact() {
     let newEmailInput = document.getElementById("newEmail");
@@ -217,9 +216,9 @@ async function saveNewContact() {
 
 
 /**
- * this funtion validates the written name for new contacts
- * @param {*} fullNameInput 
- * @returns 
+ * Validates the name input for new contacts.
+ * @param {HTMLInputElement} fullNameInput - The input element containing the full name.
+ * @returns {Object} An object containing the first and last name.
  */
 function validateNameParts(fullNameInput) {
     let nameParts = extractNameParts(fullNameInput.value);
@@ -229,12 +228,25 @@ function validateNameParts(fullNameInput) {
 }
 
 
+/**
+ * Extracts the first and last name from a full name string.
+ * @param {string} fullName - The full name string.
+ * @returns {Object} An object containing the first and last name.
+ */
 function extractNameParts(fullName) {
     let nameParts = fullName.trim().split(' ');
     return { newName: nameParts[0], newSurename: nameParts[1] };
 }
 
 
+/**
+ * Validates the contact fields for correctness.
+ * @param {string} newName - The first name.
+ * @param {string} newSurename - The last name.
+ * @param {string} newEmail - The email address.
+ * @param {string} newTelefon - The phone number.
+ * @returns {boolean} True if all fields are valid, false otherwise.
+ */
 function validateContactFields(newName, newSurename, newEmail, newTelefon) {
     if (!areAllFieldsFilled(newName, newSurename, newEmail, newTelefon)) {
         alert("Bitte füllen Sie alle Felder aus.");
@@ -250,6 +262,7 @@ function validateContactFields(newName, newSurename, newEmail, newTelefon) {
     }
     return true;
 }
+
 
 
 function areAllFieldsFilled(newName, newSurename, newEmail, newTelefon) {
@@ -269,6 +282,12 @@ function isValidPhoneNumber(phone) {
 }
 
 
+/**
+ * Clears the form fields after saving a contact.
+ * @param {HTMLInputElement} fullNameInput - The input element for full name.
+ * @param {HTMLInputElement} newEmailInput - The input element for email.
+ * @param {HTMLInputElement} newTelefonInput - The input element for phone number.
+ */
 function clearFormFields(fullNameInput, newEmailInput, newTelefonInput) {
     fullNameInput.value = "";
     newEmailInput.value = "";
@@ -276,6 +295,14 @@ function clearFormFields(fullNameInput, newEmailInput, newTelefonInput) {
 }
 
 
+/**
+ * Creates a new contact object.
+ * @param {string} newName - The first name.
+ * @param {string} newSurename - The last name.
+ * @param {string} newEmail - The email address.
+ * @param {string} newTelefon - The phone number.
+ * @returns {Object} The new contact object.
+ */
 function createNewContactObject(newName, newSurename, newEmail, newTelefon) {
     let maxContactId = Math.max(...contacts.map(contact => contact.id), -1);
     let nextContactId = maxContactId + 1;
@@ -290,6 +317,11 @@ function createNewContactObject(newName, newSurename, newEmail, newTelefon) {
 }
 
 
+/**
+ * Saves a contact to the contacts array and updates local storage.
+ * @param {Object} newContact - The contact object to save.
+ * @returns {Promise<void>}
+ */
 async function saveContact(newContact) {
     contacts.push(newContact);
     await setItem('contacts', JSON.stringify(contacts));
@@ -298,6 +330,11 @@ async function saveContact(newContact) {
 }
 
 
+/**
+ * Updates an existing contact in the contacts array.
+ * @param {number} index - The index of the contact to update.
+ * @returns {Promise<void>}
+ */
 async function updateContact(index) {
     let newEmailInput = document.getElementById("editNewEmail");
     let newTelefonInput = document.getElementById("editNewTelefon");
@@ -313,11 +350,19 @@ async function updateContact(index) {
     }
     let originalContact = contacts[index];
     let updatedContact = createUpdatedContactObject(originalContact, newName, newSurename, newEmail, newTelefon);
-
     updateAndSaveContact(index, updatedContact);
 }
 
 
+/**
+ * Creates an updated contact object based on the original contact and new data.
+ * @param {Object} originalContact - The original contact object.
+ * @param {string} newName - The updated first name.
+ * @param {string} newSurename - The updated last name.
+ * @param {string} newEmail - The updated email address.
+ * @param {string} newTelefon - The updated phone number.
+ * @returns {Object} The updated contact object.
+ */
 function createUpdatedContactObject(originalContact, newName, newSurename, newEmail, newTelefon) {
     return {
         bgcolor: originalContact.bgcolor,
@@ -331,6 +376,13 @@ function createUpdatedContactObject(originalContact, newName, newSurename, newEm
 }
 
 
+
+/**
+ * Updates a contact in the contacts array and saves the updated list to local storage.
+ * @param {number} index - The index of the contact to update.
+ * @param {Object} updatedContact - The updated contact object.
+ * @returns {Promise<void>}
+ */
 async function updateAndSaveContact(index, updatedContact) {
     contacts[index] = updatedContact;
     await setItem('contacts', JSON.stringify(contacts));

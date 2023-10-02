@@ -1,6 +1,6 @@
 /**
- * function to edit the chosen contact
- * @param {string} index 
+ * Edits the specified contact.
+ * @param {number} index - The index of the contact to edit.
  */
 function editContact(index) {
     let contact = contacts[index];
@@ -18,8 +18,8 @@ function editContact(index) {
 
 
 /**
- * this function generates the left modal that shows up after clicking on edit
- * @param {integer} index 
+ * Generates the edit modal for a specific contact.
+ * @param {number} index - The index of the contact to edit.
  */
 function generateEditContactModal(index) {
     let contact = contacts[index];
@@ -30,7 +30,7 @@ function generateEditContactModal(index) {
 
 
 /**
- * this functions opens the edit modal
+ * Opens the edit modal.
  */
 function openEditModal() {
     let modal = document.getElementById("editModal");
@@ -43,7 +43,7 @@ function openEditModal() {
 
 
 /**
- * this function closes the edit modal
+ * Closes the edit modal.
  */
 function closeEditModal() {
     let modal = document.getElementById("editModal");
@@ -55,8 +55,9 @@ function closeEditModal() {
 
 
 /**
- * function to delete the chosen contact
- * @param {string} index 
+ * Deletes the specified contact after user confirmation.
+ * @param {number} index - The index of the contact to delete.
+ * @returns {Promise<void>}
  */
 async function deleteContact(index) {
     if (confirm("Möchten Sie diesen Kontakt wirklich löschen?")) {
@@ -74,21 +75,21 @@ async function deleteContact(index) {
 }
 
 
+/**
+ * Displays a notification indicating that a contact was successfully added.
+ */
 function showContactAdded(){
     let contactAddedContainer = document.getElementById('contactAddedContainer');
     contactAddedContainer.innerHTML = /*html*/ `    <div> Contact successfully created </div> 
                                                     <div> <img src="./img/vector.svg"></div> `;
-    // Zeige die Box und starte die Slide-Animation
     contactAddedContainer.style.display = 'flex';
     setTimeout(() => {
         contactAddedContainer.classList.add('show');
     }, 10);
-    // Warte eine bestimmte Zeit (z.B. 2 Sekunden) und starte dann die Slide-out-Animation
     setTimeout(() => {
         contactAddedContainer.classList.remove('show');
-        // Verberge die Box nach der Animation
         setTimeout(() => {
             contactAddedContainer.style.display = 'none';
         }, 500);
-    }, 2000); // 2 Sekunden Wartezeit
+    }, 2000);
 }
