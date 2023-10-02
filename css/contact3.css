@@ -1,3 +1,32 @@
+.contact-added{
+    position: fixed;
+    left: 50%;
+    bottom: -1000px;
+    height: 74px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 8px;
+    border-radius: 20px;
+    background: var(--version-2-main-color, #4589FF);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+    color: var(--white, #FFF);
+    font-family: Open Sans;
+    font-size: 23px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    transition: bottom 0.5s;
+    display: none;
+    transform: translateX(-50%);
+}
+
+.show {
+    bottom: 50%;
+    display: flex;
+    transform: translate(-50%, -50%);
+}
+
 @media(max-width: 1200px) {
     .modal {
         display: none;
@@ -40,7 +69,6 @@
     }
 }
 
-/* Media Query für Bildschirmbreite von maximal 768px */
 @media(max-width: 768px) {
     .container {
         margin-left: 0;

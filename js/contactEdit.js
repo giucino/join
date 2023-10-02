@@ -71,3 +71,24 @@ async function deleteContact(index) {
         initContact();
     }
 }
+
+
+function showContactAdded(){
+    let contactAddedContainer = document.getElementById('contactAddedContainer');
+    contactAddedContainer.innerHTML = /*html*/ `    <div> Contact successfully created </div> 
+                                                    <div> <img src="./img/vector.svg"></div> `;
+    // Zeige die Box und starte die Slide-Animation
+    contactAddedContainer.style.display = 'flex';
+    setTimeout(() => {
+        contactAddedContainer.classList.add('show');
+    }, 10);
+
+    // Warte eine bestimmte Zeit (z.B. 2 Sekunden) und starte dann die Slide-out-Animation
+    setTimeout(() => {
+        contactAddedContainer.classList.remove('show');
+        // Verberge die Box nach der Animation
+        setTimeout(() => {
+            contactAddedContainer.style.display = 'none';
+        }, 500);
+    }, 2000); // 2 Sekunden Wartezeit
+}

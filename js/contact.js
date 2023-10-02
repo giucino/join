@@ -29,19 +29,6 @@ async function loadAllContacts() {
 }
 
 
-// let allContacts = [...contacts];
-// allContacts = contacts;
-
-// async function reloadContacts() {
-//     try {
-//         await setItem('contacts', JSON.stringify(contacts));
-//         console.log('Contacts:', allContacts);
-//     } catch (e) {
-//         console.error('Loading error:', e);
-//     }
-// }
-
-
 /**
  * sorts the contacts alphabeticly 
  */
@@ -77,14 +64,20 @@ function initLetters() {
 }
 
 
+/**
+ * this function loads the logged in user from backend
+ * @returns logged in user
+ */
 function getLoggedInUserData() {
     return JSON.parse(localStorage.getItem('loggedInUser')) || {};
 }
 
 
+/**
+ * this function shows the contacts rendered
+ */
 async function showContacts() {
     let loggedInUserData = getLoggedInUserData();
-
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
         if (!contact.bgcolor) {
@@ -95,7 +88,6 @@ async function showContacts() {
         let contactsList = document.getElementById(`container-contact-${firstLetter}`);
         let color = contact.bgcolor;
         let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
-
         contactsList.innerHTML += showContactsHTML(i, color, initials, contact, isCurrentUser);
     }
 }
@@ -128,6 +120,7 @@ function removeEmptyLetters() {
     }
 }
 
+
 /**
  * shows the contact details that show up if you press on the contacts
  * makes the contact clickable twice to hide the chosen contact
@@ -138,11 +131,9 @@ function showContactDetails(index) {
     let detailsContainer = document.getElementById('contact-details');
     let contact = contacts[index];
     let allContacts = document.querySelectorAll('.contact');
-
     allContacts.forEach(contactElement => {
         contactElement.classList.remove('contact-selected');
     });
-
     let selectedContactElement = document.querySelector(`[data-contact-index="${index}"]`);
     if (isContainerVisible && detailsContainer.getAttribute('data-current-index') == index) {
         detailsContainer.style.display = 'none';
@@ -201,35 +192,39 @@ function closeModal() {
 }
 
 
+/**
+ * this funktion saves new contacts in the contacts array
+ * @returns contact
+ */
 async function saveNewContact() {
     let newEmailInput = document.getElementById("newEmail");
     let newTelefonInput = document.getElementById("newTelefon");
     let fullNameInput = document.getElementById("fullName");
-
     let nameValidationResult = validateNameParts(fullNameInput);
     let newName = nameValidationResult.newName;
     let newSurename = nameValidationResult.newSurename;
-
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
-
     let isValidContactFields = validateContactFields(newName, newSurename, newEmail, newTelefon);
-
     if (!isValidContactFields) {
         return;
     }
-
     let newContact = createNewContactObject(newName, newSurename, newEmail, newTelefon);
     saveContact(newContact);
     clearFormFields(fullNameInput, newEmailInput, newTelefonInput);
+    showContactAdded();
 }
 
 
+/**
+ * this funtion validates the written name for new contacts
+ * @param {*} fullNameInput 
+ * @returns 
+ */
 function validateNameParts(fullNameInput) {
     let nameParts = extractNameParts(fullNameInput.value);
     let newName = nameParts.newName;
     let newSurename = nameParts.newSurename || '';
-
     return { newName, newSurename };
 }
 
@@ -245,12 +240,10 @@ function validateContactFields(newName, newSurename, newEmail, newTelefon) {
         alert("Bitte füllen Sie alle Felder aus.");
         return false;
     }
-
     if (!isValidEmail(newEmail)) {
         alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
         return false;
     }
-
     if (!isValidPhoneNumber(newTelefon)) {
         alert("Bitte geben Sie nur Zahlen in das Telefonnummer-Feld ein.");
         return false;
@@ -286,7 +279,6 @@ function clearFormFields(fullNameInput, newEmailInput, newTelefonInput) {
 function createNewContactObject(newName, newSurename, newEmail, newTelefon) {
     let maxContactId = Math.max(...contacts.map(contact => contact.id), -1);
     let nextContactId = maxContactId + 1;
-
     return {
         bgcolor: getRandomColor(),
         id: nextContactId,
@@ -310,20 +302,15 @@ async function updateContact(index) {
     let newEmailInput = document.getElementById("editNewEmail");
     let newTelefonInput = document.getElementById("editNewTelefon");
     let fullNameInput = document.getElementById("editFullName");
-
     let nameValidationResult = validateNameParts(fullNameInput);
     let newName = nameValidationResult.newName;
     let newSurename = nameValidationResult.newSurename;
-
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
-
     let isValidContactFields = validateContactFields(newName, newSurename, newEmail, newTelefon);
-
     if (!isValidContactFields) {
         return;
     }
-
     let originalContact = contacts[index];
     let updatedContact = createUpdatedContactObject(originalContact, newName, newSurename, newEmail, newTelefon);
 
