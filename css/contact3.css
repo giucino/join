@@ -1,6 +1,7 @@
 .contact-added{
     position: fixed;
     left: 50%;
+    width: 360px;
     bottom: -1000px;
     height: 74px;
     justify-content: center;
