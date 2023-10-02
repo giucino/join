@@ -4,6 +4,7 @@ body {
 
 .highlight {
     background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
 }
 
 .visibility{
@@ -162,10 +163,6 @@ body {
     gap: 24px;
     flex: 1 0 0;
     align-self: stretch;
-}
-
-.scroll-container {
-    border-radius: 30px;
 }
 
 @media(max-width: 1440px) {
