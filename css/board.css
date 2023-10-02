@@ -164,7 +164,9 @@ body {
     align-self: stretch;
 }
 
-
+.scroll-container {
+    border-radius: 30px;
+}
 
 @media(max-width: 1440px) {
     .board-container {
@@ -178,7 +180,6 @@ body {
         width: 850px;
         flex: 1;
         overflow-x: scroll;
-        border-radius: 30px;
         cursor: grab;
     }
     .grabbing{
@@ -187,9 +188,6 @@ body {
     .scroll-container::-webkit-scrollbar {
         display: none;
     }
-    /* .scroll-container:hover {
-        cursor: grab;
-    } */
     .task-container{
         width: unset;
         align-items: unset;
@@ -392,15 +390,4 @@ body {
     align-items: center;
     gap: 10px;
 
-}
-
-.board-subtasks-container {
-    box-sizing: border-box;
-    display: flex;
-    padding-right: 0px;
-    justify-content: space-between;
-    align-items: center;
-    gap: 11px;
-    width: 218px;
-    height: 16px;
 }
