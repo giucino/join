@@ -354,7 +354,7 @@ function categorySelected(category) {
 function openSubtaskInput() {
     document.querySelector('.open-subtask-button').style.display = 'none';
     document.getElementById('subtaskInput').focus();
-    document.getElementById('separator').style.display = 'inline-flex'
+    document.getElementById('separator').style.display = 'inline-flex';
     let otherButtons = document.querySelectorAll('.add-subtask-button');
     for (let i = 0; i < otherButtons.length; i++) {
         otherButtons[i].style.display = 'inline-block';
@@ -373,7 +373,7 @@ function closeSubtaskInput() {
     document.querySelector('.open-subtask-button').style.display = 'inline-block';
     document.querySelector('.new-subtask-textfield').value = '';
     document.querySelector('.add-subtask-input').style.borderBottom = "1px solid #D1D1D1";
-    document.getElementById('separator').style.display = 'none'
+    document.getElementById('separator').style.display = 'none';
     let otherButtons = document.querySelectorAll('.add-subtask-button');
     for (let i = 0; i < otherButtons.length; i++) {
         otherButtons[i].style.display = 'none';
