@@ -12,7 +12,7 @@ function renderSlideCardHTML(element, priorityImageSrc, assignedToHTML, subtasks
     const backgroundColor = getCategoryBackgroundColor(element.category);
     return /*html*/ `
     <div id="slide-container" class="slide-container">
-    <div id="task-slide-container${element.id}" class="task-slide-container">
+    <div id="task-slide-container${element.id}" class="task-slide-container" onclick="event.stopPropagation()">
         <div class="task-slide-headline">
             <div class="task-slide-headline-left" style="background-color: ${backgroundColor};"><span class="task-slide-category">${element.category}</span></div>
             <div id="task-slide-close" onclick="closeCard(${element.id}), loadData()" class="task-slide-headline-right"><img src="./img/close.png" alt="Schließen"></div>

@@ -80,6 +80,12 @@ function closeCard() {
     }, 800);
 }
 
+document.addEventListener("click", function(event) {
+    const slideContainer = document.getElementById("slide-container");
+    if (slideContainer && event.target === slideContainer) {
+        closeCard();
+    }
+});
 
 /**
  * Triggers the slide in animation for the task card.
