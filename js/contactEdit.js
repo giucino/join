@@ -13,6 +13,7 @@ function editContact(index) {
     updateContactBtn.onclick = function () {
         updateContact(index);
     };
+    returnToContactsMobile();
 }
 
 
@@ -59,7 +60,6 @@ function closeEditModal() {
  */
 async function deleteContact(index) {
     if (confirm("Möchten Sie diesen Kontakt wirklich löschen?")) {
-
         contacts.splice(index, 1);
         for (let i = 0; i < contacts.length; i++) {
             contacts[i].id = i + 1;
@@ -83,7 +83,6 @@ function showContactAdded(){
     setTimeout(() => {
         contactAddedContainer.classList.add('show');
     }, 10);
-
     // Warte eine bestimmte Zeit (z.B. 2 Sekunden) und starte dann die Slide-out-Animation
     setTimeout(() => {
         contactAddedContainer.classList.remove('show');

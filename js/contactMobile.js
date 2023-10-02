@@ -20,6 +20,7 @@ function showEditContactsButtonsMobile() {
     invisibleDiv.id = 'invisibleDiv';
     invisibleDiv.onclick = closeButtonsMobile;
     document.body.appendChild(invisibleDiv);
+    contact-detailed-images-mobile.classList.add('hide-it');
 }
 
 
