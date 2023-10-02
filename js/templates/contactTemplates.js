@@ -1,3 +1,14 @@
+function generateLetterListHTML(letter) {
+    return /*html*/`
+    <div id="container-${letter}" class="container-letter-item">
+        <div class="letter-title"> ${letter} </div>
+        <div class="letter-title-underline"> </div>
+        <div id="container-contact-${letter}" class="container-contacts"></div>
+    </div>
+    `;
+}
+
+
 function showContactDetailsHTML(contact, initials, index) {
     return /*html*/`
     <div class="contact-detailed-container">

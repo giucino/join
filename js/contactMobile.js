@@ -1,4 +1,3 @@
-
 function showContactDetailsMobile(index) {
     document.getElementById('addContactBtn').style.display = 'none';
     document.getElementById('contact-list-container').style.display = 'none';
