@@ -213,6 +213,7 @@ function editEditedSubtask(i) {
     if (subtaskContainer) {
         addEditingClasses(subtaskContainer);
     }
+    addSubtaskToEdit(i);
 }
 
 
