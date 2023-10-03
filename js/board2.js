@@ -4,16 +4,29 @@
  * @param {string} status - The status to filter tasks.
  * @returns {Task[]} Array of filtered tasks.
  */
+// function filterTasks(searchTerm, status) {
+//     let filteredTasks = todos.filter((task) => {
+//         return (
+//             task.status === status &&
+//             (task.title.charAt(0).toLowerCase() === searchTerm.toLowerCase() ||
+//                 task.category.charAt(0).toLowerCase() === searchTerm.toLowerCase())
+//         );
+//     });
+//     return filteredTasks;
+// }
+
 function filterTasks(searchTerm, status) {
     let filteredTasks = todos.filter((task) => {
+        let lowerCaseSearchTerm = searchTerm.toLowerCase();
         return (
             task.status === status &&
-            (task.title.charAt(0).toLowerCase() === searchTerm.toLowerCase() ||
-                task.category.charAt(0).toLowerCase() === searchTerm.toLowerCase())
+            (task.title.toLowerCase().startsWith(lowerCaseSearchTerm) ||
+                task.description.toLowerCase().startsWith(lowerCaseSearchTerm))
         );
     });
     return filteredTasks;
 }
+
 
 
 /**

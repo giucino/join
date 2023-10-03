@@ -24,52 +24,76 @@ function addApplyBorderColorOnFocusAndBlur(containerSelector, inputSelector, foc
 }
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    addApplyBorderColorOnFocusAndBlur(
-        '.add-task-titel-textcontainer',
-        '.add-task-titel-textfield',
-        '#4589FF',
-        '#D1D1D1'
-    );
-    addApplyBorderColorOnFocusAndBlur(
-        '.due-date-input-container',
-        '.due-date-textfield',
-        '#4589FF',
-        '#D1D1D1'
-    );
-    addApplyBorderColorOnFocusAndBlur(
-        '.add-assigned-to-choicefield',
-        '#addSearchInput',
-        '#4589FF',
-        '#D1D1D1'
-    );
-    addApplyBorderColorOnFocusAndBlur(
-        '.add-subtask-input',
-        '#addSubtaskInput',
-        '#4589FF',
-        '#D1D1D1'
-    );
+document.addEventListener('input', (event) => {
+    const target = event.target;
+
+    if (target.matches('.add-task-titel-textfield')) {
+        console.log('Input found:', target);
+
+        addApplyBorderColorOnFocusAndBlur(
+            '.add-task-titel-textcontainer',
+            '.add-task-titel-textfield',
+            '#4589FF',
+            '#D1D1D1'
+        );
+    } else if (target.matches('.due-date-textfield')) {
+        addApplyBorderColorOnFocusAndBlur(
+            '.due-date-input-container',
+            '.due-date-textfield',
+            '#4589FF',
+            '#D1D1D1'
+        );
+    } else if (target.matches('#addSubtaskInput')) {
+        console.log('Input found:', target);
+
+        addApplyBorderColorOnFocusAndBlur(
+            '.add-subtask-input',
+            '#addSubtaskInput',
+            '#4589FF',
+            '#D1D1D1'
+        );
+    }
 });
 
 
-// function addChangeTextAreaBorderOnFocusBlurInput(textarea) {
-//     textarea.addEventListener('focus', () => {
-//         textarea.style.border = '1px solid #4589FF';
-//     });
+document.addEventListener('DOMContentLoaded', () => {
+    document.body.addEventListener('input', (event) => {
+        const textarea = event.target;
 
-//     textarea.addEventListener('blur', () => {
-//         textarea.style.border = '1px solid #D1D1D1';
-//     });
+        if (textarea && textarea.id === 'addTaskDescription') {
+            console.log('Textarea found:', textarea);
 
-//     textarea.addEventListener('input', () => {
-//         textarea.style.border = '1px solid #4589FF';
-//     });
-// }
+            addChangeTextAreaBorderOnFocusBlurInput(textarea);
 
-// document.addEventListener('input', () => {
-//     let textarea = document.getElementById('addTaskDescription');
-//     addChangeTextAreaBorderOnFocusBlurInput(textarea);
-// });
+            textarea.addEventListener('input', () => {
+                console.log('Textarea input event triggered on:', textarea);
+                addChangeTextAreaBorderOnFocusBlurInput(textarea);
+            });
+        } else {
+            console.log('Textarea not found!');
+        }
+    });
+});
+
+
+function addChangeTextAreaBorderOnFocusBlurInput(textarea) {
+    console.log('Function called with textarea:', textarea);
+
+    textarea.addEventListener('focus', () => {
+        console.log('Textarea focused');
+        textarea.style.border = '1px solid #4589FF';
+    });
+
+    textarea.addEventListener('blur', () => {
+        console.log('Textarea blurred');
+        textarea.style.border = '1px solid #D1D1D1';
+    });
+
+    textarea.addEventListener('input', () => {
+        console.log('Textarea input event');
+        textarea.style.border = '1px solid #4589FF';
+    });
+}
 
 
 /**
@@ -144,9 +168,6 @@ async function addRenderAssignedTo() {
         assignedToContainer.innerHTML += addRenderAssignedToHTML(contact, initials, isSelected, isCurrentUser);
     }
 }
-// document.addEventListener('DOMContentLoaded', async function () {
-//     await addRenderAssignedTo(); // Hier wird die Funktion aufgerufen, nachdem das DOM vollständig geladen wurde.
-// });
 
 
 /**

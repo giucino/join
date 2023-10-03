@@ -80,14 +80,14 @@ function boardDetailViewAssignees(task) {
 
 
 /**
- * Update the HTML for the "Todo" category based on the current filter.
+ * Update the HTML for the "Todo" description based on the current filter.
  */
 function todo() {
   let filteredTodo = todos.filter(
     (task) =>
       task["status"] === "todo" &&
       (task.title.toLowerCase().includes(currentFilter) ||
-        task.category.toLowerCase().includes(currentFilter))
+        task.description.toLowerCase().includes(currentFilter))
   );
   const todoContainer = document.getElementById("todo");
   todoContainer.innerHTML = "";
@@ -104,14 +104,14 @@ function todo() {
 
 
 /**
- * Update the HTML for the "In Progress" category based on the current filter.
+ * Update the HTML for the "In Progress" description based on the current filter.
  */
 function inProgress() {
   let filteredInProgress = todos.filter(
     (task) =>
       task["status"] === "inprogress" &&
       (task.title.toLowerCase().includes(currentFilter) ||
-        task.category.toLowerCase().includes(currentFilter))
+        task.description.toLowerCase().includes(currentFilter))
   );
   const inProgressContainer = document.getElementById("in-progress");
   inProgressContainer.innerHTML = "";
@@ -128,14 +128,14 @@ function inProgress() {
 
 
 /**
- * Update the HTML for the "Feedback" category based on the current filter.
+ * Update the HTML for the "Feedback" description based on the current filter.
  */
 function feedback() {
   let filteredFeedback = todos.filter(
     (task) =>
       task["status"] === "feedback" &&
       (task.title.toLowerCase().includes(currentFilter) ||
-        task.category.toLowerCase().includes(currentFilter))
+        task.description.toLowerCase().includes(currentFilter))
   );
   const feedbackContainer = document.getElementById("feedback");
   feedbackContainer.innerHTML = "";
@@ -152,14 +152,14 @@ function feedback() {
 
 
 /**
- * Update the HTML for the "Done" category based on the current filter.
+ * Update the HTML for the "Done" description based on the current filter.
  */
 function done() {
   let filteredDone = todos.filter(
     (task) =>
       task["status"] === "done" &&
       (task.title.toLowerCase().includes(currentFilter) ||
-        task.category.toLowerCase().includes(currentFilter))
+        task.description.toLowerCase().includes(currentFilter))
   );
   const doneContainer = document.getElementById("done");
   doneContainer.innerHTML = "";

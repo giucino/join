@@ -110,18 +110,10 @@ function addShowTitleInputError() {
 function addResetTitleInput() {
     let titleError = document.getElementById('addRequiredTitle');
     titleError.style.display = 'none';
-
-    let titleInput = document.querySelector('.add-task-titel-textcontainer');
-    let input = titleInput.querySelector('.add-task-titel-textfield');
-
-    if (!input.matches(':focus')) {
-        titleInput.style.borderColor = '#D1D1D1';
-    }
 }
-// let titleInput = document.getElementById('addTaskTitle');
-// titleInput.addEventListener('input', addResetTitleInput);
+
 document.body.addEventListener('input', function (event) {
-    if (event.target.id === 'addTaskTitle') {
+    if (event.target.classList.contains('add-task-titel-textfield')) {
         addResetTitleInput();
     }
 });
@@ -146,14 +138,9 @@ function addShowDescriptionInputError() {
 function addResetDescriptionInput() {
     let descriptionError = document.getElementById('addRequiredDescription');
     descriptionError.style.display = 'none';
-
-    let descriptionInput = document.querySelector('.add-task-description-textfield');
-    descriptionInput.style.borderColor = '#D1D1D1';
 }
-// let descriptionInput = document.getElementById('addTaskDescription');
-// descriptionInput.addEventListener('input', addResetDescriptionInput);
 document.body.addEventListener('input', function (event) {
-    if (event.target.id === 'addTaskDescription') {
+    if (event.target.classList.contains('add-task-description-textfield')) {
         addResetDescriptionInput();
     }
 });
@@ -177,16 +164,8 @@ function addShowDateInputError() {
 function addResetDateInput() {
     let dateError = document.getElementById('addRequiredDate');
     dateError.style.display = 'none';
-
-    let dateInput = document.querySelector('.due-date-input-container');
-    let input = dateInput.querySelector('.due-date-textfield');
-
-    if (!input.matches(':focus')) {
-        dateInput.style.borderColor = '#D1D1D1';
-    }
 }
-// let dateInput = document.getElementById('addDueDate');
-// dateInput.addEventListener('input', addResetDateInput);
+
 document.body.addEventListener('input', function (event) {
     if (event.target.id === 'addDueDate') {
         addResetDateInput();
@@ -243,13 +222,9 @@ function addResetSelectCategory() {
     categoryError.style.display = 'none';
 
     let categoryInput = document.querySelector('.category-choicefield')
-    let input = categoryInput.querySelector('.select-text');
-    if (!input.matches(':focus')) {
-        categoryInput.style.borderColor = '#D1D1D1';
-    }
+    categoryInput.style.borderColor = '#D1D1D1';
 }
-// let categoryDropdown = document.querySelector('.category-dropdown');
-// categoryDropdown.addEventListener('click', addResetSelectCategory);
+
 document.body.addEventListener('click', function (event) {
     if (event.target.classList.contains('category-dropdown')) {
         addResetSelectCategory();

@@ -121,33 +121,94 @@ function removeEmptyLetters() {
 }
 
 
+let isContainerVisible = false;
+
+
 /**
  * Displays the details of a selected contact.
  * @param {number} index - The index of the selected contact.
  */
-let isContainerVisible = false;
+// function showContactDetails(index) {
+//     let detailsContainer = document.getElementById('contact-details');
+//     let contact = contacts[index];
+//     let allContacts = document.querySelectorAll('.contact');
+
+//     allContacts.forEach(contactElement => {
+//         contactElement.classList.remove('contact-selected');
+//     });
+
+//     let selectedContactElement = document.querySelector(`[data-contact-index="${index}"]`);
+//     if (isContainerVisible && detailsContainer.getAttribute('data-current-index') == index) {
+//         detailsContainer.style.display = 'none';
+//         isContainerVisible = false;
+//     } else {
+//         let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+//         detailsContainer.innerHTML = showContactDetailsHTML(contact, initials, index);
+//         detailsContainer.style.display = 'inline-flex';
+//         detailsContainer.setAttribute('data-current-index', index);
+//         if (!isContainerVisible) {
+//             detailsContainer.classList.add('slide-in');
+//         }
+//         isContainerVisible = true;
+//         selectedContactElement.classList.add('contact-selected');
+//     }
+//     detailsContainer.addEventListener('animationend', function () {
+//         detailsContainer.classList.remove('slide-in');
+//     });
+// }
+
+
 function showContactDetails(index) {
     let detailsContainer = document.getElementById('contact-details');
-    let contact = contacts[index];
+    resetAllContactsSelection();
+    let selectedContactElement = document.querySelector(`[data-contact-index="${index}"]`);
+
+    toggleDetailsContainerVisibility(detailsContainer, index);
+
+    selectedContactElement.classList.add('contact-selected');
+    handleAnimationEnd(detailsContainer);
+}
+
+
+function resetAllContactsSelection() {
     let allContacts = document.querySelectorAll('.contact');
     allContacts.forEach(contactElement => {
         contactElement.classList.remove('contact-selected');
     });
-    let selectedContactElement = document.querySelector(`[data-contact-index="${index}"]`);
+}
+
+
+function toggleDetailsContainerVisibility(detailsContainer, index) {
     if (isContainerVisible && detailsContainer.getAttribute('data-current-index') == index) {
-        detailsContainer.style.display = 'none';
-        isContainerVisible = false;
+        // hideDetailsContainer(detailsContainer);
     } else {
-        let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
-        detailsContainer.innerHTML = showContactDetailsHTML(contact, initials, index);
-        detailsContainer.style.display = 'inline-flex';
-        detailsContainer.setAttribute('data-current-index', index);
-        if (!isContainerVisible) {
-            detailsContainer.classList.add('slide-in');
-        }
-        isContainerVisible = true;
-        selectedContactElement.classList.add('contact-selected');
+        showContactDetailsContent(detailsContainer, index);
     }
+}
+
+
+function hideDetailsContainer(detailsContainer) {
+    detailsContainer.style.display = 'none';
+    isContainerVisible = false;
+}
+
+
+function showContactDetailsContent(detailsContainer, index) {
+    let contact = contacts[index];
+    let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+    detailsContainer.innerHTML = showContactDetailsHTML(contact, initials, index);
+    detailsContainer.style.display = 'inline-flex';
+    detailsContainer.setAttribute('data-current-index', index);
+
+    if (!isContainerVisible) {
+        detailsContainer.classList.add('slide-in');
+    }
+
+    isContainerVisible = true;
+}
+
+
+function handleAnimationEnd(detailsContainer) {
     detailsContainer.addEventListener('animationend', function () {
         detailsContainer.classList.remove('slide-in');
     });

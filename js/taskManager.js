@@ -146,9 +146,8 @@ function processValidInput(title, description, dueDate) {
  * Completes the task creation process by performing the following steps:
  * 1. Persists the updated 'tasks' to local storage.
  * 2. Displays a message indicating that the task has been created.
- * 3. Resets the task creation form.
- * 4. Sets a timeout to close the add task modal after 1.6 seconds.
- * 5. Updates the HTML to reflect the changes.
+ * 3. Closes the opened modal
+ * 4. Updates the HTML to reflect the changes.
  * @async
  * @function addCompleteTaskCreation
  * @throws {Error} Throws an error if an error occurs during local storage operation.
@@ -156,11 +155,7 @@ function processValidInput(title, description, dueDate) {
 async function addCompleteTaskCreation() {
     await setItem('tasks', JSON.stringify(todos));
     addShowCreatedTaskMessage();
-    addResetTaskForm();
-
-    setTimeout(function () {
-        closeAddTaskModal();
-    }, 1600);
+    closeAddTaskModal();
     updateHTML();
 }
 
@@ -179,7 +174,7 @@ function addTask() {
         modal.style.display = "block";
         modal.classList.remove('edditModal-slide-out');
         modal.classList.add('edditModal-slide-in');
-        let overlay = document.querySelector(".background-overlay");
+        let overlay = document.querySelector(".task-background-overlay");
         overlay.style.display = "block";
     } else {
         window.location.href = 'addTask.html';
@@ -187,19 +182,28 @@ function addTask() {
 }
 
 
-
 /**
  * Closes the add task modal and hides the overlay.
  */
 function closeAddTaskModal() {
     let modal = document.getElementById("taskFormSlider");
-    modal.innerHTML = '';
-    modal.style.display = "none";
     modal.classList.remove('edditModal-slide-in');
     modal.classList.add('edditModal-slide-out');
-    let overlay = document.querySelector(".background-overlay");
+    let overlay = document.querySelector(".task-background-overlay");
     overlay.style.display = "none";
 }
+
+/**
+ * Handles the click event on the overlay to close the add task modal.
+ * @param {Event} event - The click event.
+ * @returns {void}
+ */
+function handleOverlayClick(event) {
+    if (event.target.classList.contains("task-background-overlay")) {
+        closeAddTaskModal();
+    }
+}
+document.querySelector(".task-background-overlay").addEventListener("click", handleOverlayClick);
 
 
 /**

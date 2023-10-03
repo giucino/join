@@ -48,14 +48,14 @@ function renderSlideCardHTML(element, priorityImageSrc, assignedToHTML, subtasks
                 </div>
             </div>
             <div class="task-slide-delete-edit-container">
-                <div class="task-slide-delete">
+                <div class="task-slide-delete" onclick="deleteTask(${element.id})">
                     <img class="task-slide-delete-edit-img" src="./img/delete.png" alt="">
-                    <span onclick="deleteTask(${element.id})" class="task-slide-delete-text">Delete</span>
+                    <span class="task-slide-delete-text">Delete</span>
                 </div>
                 <div class="task-slide-placeholder"></div>
-                <div class="task-slide-edit">
+                <div class="task-slide-edit" onclick="editTask(${element.id})">
                     <img class="task-slide-delete-edit-img" src="./img/edit.png" alt="">
-                    <span onclick="editTask(${element.id})" class="task-slide-edit-text">Edit</span>
+                    <span class="task-slide-edit-text">Edit</span>
                 </div>
             </div>
         </div>

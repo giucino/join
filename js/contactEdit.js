@@ -78,7 +78,7 @@ async function deleteContact(index) {
 /**
  * Displays a notification indicating that a contact was successfully added.
  */
-function showContactAdded(){
+function showContactAdded() {
     let contactAddedContainer = document.getElementById('contactAddedContainer');
     contactAddedContainer.innerHTML = /*html*/ `    <div> Contact successfully created </div> 
                                                     <div> <img src="./img/vector.svg"></div> `;

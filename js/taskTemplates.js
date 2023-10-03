@@ -13,7 +13,7 @@ function renderAddTask() {
     <div class="add-task-content">
         <div class="add-task-container-first">
             <div class="add-task-container-titel">
-                <div class="add-task-titel-textcontainer">
+                <div id="add-task-titel-textcontainer" class="add-task-titel-textcontainer">
                     <input id="addTaskTitle" class="add-task-titel-textfield" placeholder="Enter a title">
                 </div>
                 <div id="addRequiredTitle" class="add-task-field-required">
