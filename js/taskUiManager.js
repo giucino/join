@@ -28,8 +28,6 @@ document.addEventListener('input', (event) => {
     const target = event.target;
 
     if (target.matches('.add-task-titel-textfield')) {
-        console.log('Input found:', target);
-
         addApplyBorderColorOnFocusAndBlur(
             '.add-task-titel-textcontainer',
             '.add-task-titel-textfield',
@@ -44,8 +42,6 @@ document.addEventListener('input', (event) => {
             '#D1D1D1'
         );
     } else if (target.matches('#addSubtaskInput')) {
-        console.log('Input found:', target);
-
         addApplyBorderColorOnFocusAndBlur(
             '.add-subtask-input',
             '#addSubtaskInput',
@@ -61,36 +57,26 @@ document.addEventListener('DOMContentLoaded', () => {
         const textarea = event.target;
 
         if (textarea && textarea.id === 'addTaskDescription') {
-            console.log('Textarea found:', textarea);
-
             addChangeTextAreaBorderOnFocusBlurInput(textarea);
 
             textarea.addEventListener('input', () => {
-                console.log('Textarea input event triggered on:', textarea);
                 addChangeTextAreaBorderOnFocusBlurInput(textarea);
             });
-        } else {
-            console.log('Textarea not found!');
         }
     });
 });
 
 
 function addChangeTextAreaBorderOnFocusBlurInput(textarea) {
-    console.log('Function called with textarea:', textarea);
-
     textarea.addEventListener('focus', () => {
-        console.log('Textarea focused');
         textarea.style.border = '1px solid #4589FF';
     });
 
     textarea.addEventListener('blur', () => {
-        console.log('Textarea blurred');
         textarea.style.border = '1px solid #D1D1D1';
     });
 
     textarea.addEventListener('input', () => {
-        console.log('Textarea input event');
         textarea.style.border = '1px solid #4589FF';
     });
 }
