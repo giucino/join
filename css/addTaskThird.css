@@ -227,8 +227,6 @@
     }
 
     .add-task-container {
-        /* display: flex; */
-        /* padding: 144px 16px 90px 116px; */
         padding: 20px;
         margin-top: 124px;
         margin-bottom: 156px;
@@ -256,6 +254,12 @@
         width: 100%;
         height: 100px;
     }
+
+    .priority-choice-inner {
+        font-size: 16px;
+        width: 121px;
+        padding: 14px 8px;
+    }
 }
 
 
@@ -266,8 +270,6 @@
     }
 
     .add-task-container {
-        /* display: flex; */
-        /* padding: 144px 16px 90px 116px; */
         padding: 20px;
         margin-top: 124px;
         margin-bottom: 156px;

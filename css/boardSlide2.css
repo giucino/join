@@ -60,7 +60,7 @@
 }
 
 #addTaskDescription:hover {
-    border: 1px solid #4589FF ;
+    border: 1px solid #4589FF;
 }
 
 #addTaskDescription::placeholder {
@@ -147,18 +147,17 @@
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-/****** Media Query für Bildschirmbreite von maximal 768px ******/
-@media(max-width: 768px) {
+/***** Media Query für Bildschirmbreite von maximal 1024px ******/
+@media(max-width: 1600px) {
 
-    /* .add-task-content {
-        height: 65%;
-    } */
-}
-
-/*****Media Query für Bildschirmbreite von maximal 768px ******/
-@media(max-width: 1024px) {
-    
     .add-task-content {
         height: 550px;
+    }
+}
+
+/***** Media Query für Bildschirmhöhe von 600px oder mehr ******/
+@media screen and (min-height: 791px) {
+    .add-task-content {
+        height: 750px;
     }
 }
