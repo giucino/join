@@ -224,7 +224,6 @@
     #taskForm {
         display: flex;
         justify-content: center;
-        /* width: 80vw; */
     }
 
     .add-task-container {
@@ -264,7 +263,6 @@
     #taskForm {
         display: flex;
         justify-content: center;
-        /* width: 80vw; */
     }
 
     .add-task-container {

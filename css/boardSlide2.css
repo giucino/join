@@ -3,6 +3,7 @@
     position: fixed;
     top: 0;
     right: 0;
+    bottom: 0;
     z-index: 55;
     height: 100vh;
 }
@@ -37,6 +38,33 @@
     font-weight: 700;
     line-height: 120%;
     margin: 0;
+}
+
+#addTaskDescription {
+    width: 93%;
+    min-height: 90px;
+    color: black;
+    font-family: 'Open sans', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 22.80px;
+    word-wrap: break-word;
+    outline: none;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 1px solid #D1D1D1;
+    resize: vertical;
+    cursor: pointer;
+    padding: 18px 16px
+}
+
+#addTaskDescription:hover {
+    border: 1px solid #4589FF ;
+}
+
+#addTaskDescription::placeholder {
+    color: var(--style, #D1D1D1);
 }
 
 .close-add-task {
@@ -89,23 +117,34 @@
 }
 
 @keyframes float-in {
-    from {
-        right: -600px;
+    0% {
+        transform: translateX(100%);
     }
 
-    to {
-        right: 0;
+    100% {
+        transform: translateX(0);
     }
 }
 
 @keyframes float-out {
-    from {
-        right: 0;
+    0% {
+        transform: translateX(0);
     }
 
-    to {
-        right: -600px;
+    100% {
+        transform: translateX(100%);
     }
+}
+
+.task-background-overlay {
+    display: none;
+    position: fixed;
+    z-index: 54;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 /****** Media Query für Bildschirmbreite von maximal 768px ******/
