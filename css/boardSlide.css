@@ -10,11 +10,11 @@
     z-index: 15;
 }
 
-/* .edit-task-slide {
+.edit-task-slide {
     position: fixed;
     width: 100vw;
     height: 100vh;
-} */
+}
 
 .slide-in-board {
     bottom: 0 !important;
