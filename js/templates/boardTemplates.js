@@ -18,9 +18,8 @@ function subtaskToEditHTML(subtask, i) {
                 <img onclick="editEditedSubtask(${i})" data-index="${i}" src="./img/edit_subtask.png" class="edit-edit-subtask-button">
                 <span class="separator2" id="separator2">|</span> 
                 <img onclick="deleteEditSubtask(${i})" data-index="${i}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
-                <!-- <img onclick="deleteSubtask(event)" src="./img/delete_subtask.png" class="delete-subtask-button"> -->
             </div>
-            <img onclick="deleteEditedSubtask(${i})" data-index="${i}" src="./img/delete_subtask.png" class="edit-edit-delete-subtask-button">
+            <img onclick="deleteEditSubtask(${i})" data-index="${i}" src="./img/delete_subtask.png" class="edit-edit-delete-subtask-button">
             <span class="separator3" id="separator3">|</span> 
             <img onclick="finishEditing(${i})" data-index="${i}" src="./img/add_subtask.png" class="edit-save-subtask-button">
         </div>
@@ -133,7 +132,7 @@ function renderEditTask(id) {
                             Subtasks
                         </div>
                         <div class="add-subtask-input">
-                            <input onclick="openSubtaskInput()" type="text" id="edit-subtask-input" class="new-subtask-textfield" placeholder="Add new subtask">
+                            <input onclick="openSubtaskInput()" type="text" id="edit-subtask-input" class="edit-new-subtask-textfield" placeholder="Add new subtask">
                             <img onclick="openSubtaskInput()" class="open-subtask-button" src="./img/open_subtask.png">
                             <img onclick="closeSubtaskInput()" class="add-subtask-button hidden" id="edit-close-subtask" src="./img/close_subtask.png"> 
                             <span class="separator" id="edit-separator">|</span> 
@@ -224,13 +223,13 @@ function subtaskToAddHTML(subInputValue, i) {
                 <span class="separator2" id="separator2">|</span> 
                 <img onclick="deleteEditSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
             </div>
-            <img onclick="deleteEditedSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="edit-edit-delete-subtask-button">
+            <img onclick="deleteEditSubtask(${i})" data-subtask-id="${i}" src="./img/delete_subtask.png" class="edit-edit-delete-subtask-button">
             <span class="separator3" id="separator3">|</span> 
             <img onclick="finishEditing(${i})" data-subtask-id="${i}" src="./img/add_subtask.png" class="edit-save-subtask-button">
         </div>
     `;
 }
-  
+
 
 /**
  * Verarbeitet und speichert Teilaufgaben basierend auf den Elementen mit der Klasse "edit-subtask-value".

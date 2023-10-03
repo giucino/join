@@ -184,15 +184,15 @@
     cursor: pointer;
 }
 
-#closeSubtask:hover {
+#edit-close-subtask:hover {
     content: url('../img/close_subtask_hover.png');
 }
 
-#addNewSubtask:hover {
+#edit-add-new-subtask:hover {
     content: url('../img/add_subtask_hover.png');
 }
 
-.edit-separator {
+#edit-separator {
     display: none;
     opacity: 0.2;
 }
@@ -234,6 +234,12 @@
     margin-right: 5px;
 }
 
+.edit-subtask-value {
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
 .hover-content {
     display: flex;
     align-items: center;
@@ -251,6 +257,41 @@
 .edit-subtask-container:hover .hover-content .separator2,
 .edit-subtask-container:hover .hover-content img {
     display: inline-block;
+}
+
+.editing-mode:hover .hover-content .separator2,
+.editing-mode:hover .hover-content img {
+    display: none;
+}
+
+.edit-edit-subtask-button,
+.edit-delete-subtask-button {
+    cursor: pointer;
+}
+
+.edit-edit-delete-subtask-button,
+.edit-save-subtask-button {
+    display: none;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+
+.edit-edit-delete-subtask-button:hover {
+    content: url('../img/delete_subtask_hover.png');
+}
+
+.edit-save-subtask-button:hover {
+    content: url('../img/add_subtask_hover.png');
+}
+
+.separator3 {
+    display: none;
+    opacity: 0.2;
+}
+
+.no-hover:hover {
+    background: none;
 }
 
 .edit-add-task-buttons {
@@ -338,35 +379,12 @@
     content: url('../img/check_active.png');
 }
 
-.edit-subtask-value {
-    border: none;
-    outline: none;
-    width: 100%;
-}
-
 .border-bottom{
     border-bottom: 1px solid #D1D1D1;
 }
 
 .d-none{
     display: none;
-}
-
-.no-hover:hover {
-    background: none;
-}
-
-.edit-edit-delete-subtask-button,
-.edit-save-subtask-button {
-    display: none;
-    cursor: pointer;
-    width: 24px;
-    height: 24px;
-}
-
-.edit-edit-subtask-button,
-.edit-delete-subtask-button {
-    cursor: pointer;
 }
 
 .inline-flex{

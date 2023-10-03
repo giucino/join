@@ -221,7 +221,18 @@ function addNewSubtask() {
   currentSelectedTask.subtasks.push({ id: newSubtaskId, title: subInputValue, status: false });
 
   subInput.value = '';
+  closeSubtaskInput();
 }
+
+
+function handleEditSubtaskInput(event) {
+  if (event.key === 'Enter' && event.target.classList.contains('edit-new-subtask-textfield')) {
+      event.preventDefault();
+      addNewSubtask();
+      document.activeElement.blur();
+  }
+}
+document.addEventListener('keypress', handleEditSubtaskInput);
 
 
 /** 
