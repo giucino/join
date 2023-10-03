@@ -75,6 +75,7 @@ function updateElementProperties(element) {
   element.category = selectedCategory;
   element.priority = selectedPriority;
   element.assignedTo = selectedContacts.filter(contact => contact !== undefined);
+  element.bgcolor = extractColor(element);
   element.subtasks = processAndSaveSubtasks(element);
 }
 

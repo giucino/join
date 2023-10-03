@@ -42,11 +42,11 @@ function loadDisplayChosenContacts() {
     const chosenContactsContainer = document.getElementById('edit-chosen-contacts');
     let htmlContent = '';
 
-    for (const id in selectedContacts) {
+    for (let id in selectedContacts) {
         if (selectedContacts.hasOwnProperty(id)) {
-            const contact = contacts.find(c => c.id === parseInt(id));
+            let contact = contacts.find(c => c.id === parseInt(id));
             if (contact) {
-                const initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+                let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
                 htmlContent += loadDisplayChosenContactsHTML(contact, initials);
             }
         }
@@ -427,3 +427,29 @@ function saveEditedTitle() {
     }
     currentTask.subtasks = processAndSaveSubtasks(currentTask);
 }
+
+
+/**
+ * Extracts background colors from an element's assignedTo array by matching
+ * first and last names with a list of contacts.
+ *
+ * @param {Object} element - The element to extract colors from.
+ * @param {string[]} element.assignedTo - An array of full names assigned to the element.
+ * @param {Object[]} contacts - An array of contact objects with name and bgcolor properties.
+ * @returns {string[]} An array of background colors corresponding to the assigned names.
+ */
+function extractColor(element) {
+    const colors = [];
+  
+    for (let i = 0; i < element.assignedTo.length; i++) {
+      const fullName = element.assignedTo[i];
+      const [firstName, lastName] = fullName.split(' ');
+  
+      const contact = contacts.find(contact => 
+        contact.name === firstName && contact.surename === lastName
+      );
+      colors.push(contact ? contact.bgcolor : '');
+    }
+  
+    return colors;
+}  
