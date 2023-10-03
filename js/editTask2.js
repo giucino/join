@@ -181,45 +181,22 @@ function deleteEditSubtask(indexToDelete) {
     console.log('Current selected task:', currentSelectedTask);
     let task = currentSelectedTask;
     if (indexToDelete >= 0 && indexToDelete < task.subtasks.length) {
+        console.log('Subtasks array length:', currentSelectedTask.subtasks.length);
+        console.log('Deleting subtask with index:', indexToDelete);
+
         task.subtasks.splice(indexToDelete, 1);
         let subtaskElement = document.getElementById(`subtask-container-${indexToDelete}`);
         if (subtaskElement) {
             subtaskElement.remove();
+            console.log('Subtask element removed successfully');
+
         } else {
             console.log('Invalid subtaskId:', subtaskId);
-        }
-    }
-}
-
-
-function deleteEditSubtask(indexToDelete) {
-    console.log('Current selected task:', currentSelectedTask);
-
-    if (currentSelectedTask && currentSelectedTask.subtasks) {
-        console.log('Subtasks array length:', currentSelectedTask.subtasks.length);
-    } else {
-        console.error('No subtasks array found in the current selected task');
-        return;
-    }
-
-    console.log('Index to delete:', indexToDelete);
-
-    if (indexToDelete >= 0 && indexToDelete < currentSelectedTask.subtasks.length) {
-        console.log('Deleting subtask with index:', indexToDelete);
-        currentSelectedTask.subtasks.splice(indexToDelete, 1);
-
-        let subtaskElement = document.getElementById(`subtask-container-${indexToDelete}`);
-        if (subtaskElement) {
-            subtaskElement.remove();
-            console.log('Subtask element removed successfully');
-        } else {
             console.error('Subtask element not found for index:', indexToDelete);
+
         }
-    } else {
-        console.error('Invalid indexToDelete:', indexToDelete);
     }
 }
-
 
 
 /**
