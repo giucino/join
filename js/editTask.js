@@ -381,27 +381,3 @@ function toggleContactSelection(name, surename) {
   loadSearchedContact(contacts);
   renderDisplayChosenContacts();
 }
-
-
-/**
- * Toggles the display of the 'edit-loaded-contacts' container.
- * Also manages the display state and class of related elements.
- * 
- * @function
- * @name loadToggleAssignedToContainer
- * @returns {void} Does not return any value.
- */
-function loadToggleAssignedToContainer() {
-  let assignedToContainer = document.getElementById('edit-loaded-contacts');
-  let contactsContainer = document.querySelector('.edit-contacts-container');
-  let assignedToDropdown = document.querySelector('.edit-assigned-to-dropdown');
-
-  if (assignedToContainer.style.display === 'block') {
-      assignedToContainer.style.display = 'none';
-      assignedToDropdown.classList.remove('expanded');
-  } else {
-      assignedToContainer.style.display = 'block';
-      assignedToDropdown.classList.add('expanded');
-  }
-  contactsContainer.style.display = assignedToContainer.style.display;
-}

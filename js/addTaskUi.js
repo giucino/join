@@ -345,37 +345,3 @@ function categorySelected(category) {
     categoryDropdown.classList.remove('expanded');
     categoryDropdown.style.borderBottom = "1px solid #D1D1D1";;
 }
-
-
-/**
- * Opens the subtask input by hiding the 'open-subtask-button', focusing the 'subtaskInput', 
- * and displaying the separator and all 'add-subtask-button' elements.
- */
-function openSubtaskInput() {
-    document.querySelector('.open-subtask-button').style.display = 'none';
-    document.getElementById('subtaskInput').focus();
-    document.getElementById('separator').style.display = 'inline-flex';
-    let otherButtons = document.querySelectorAll('.add-subtask-button');
-    for (let i = 0; i < otherButtons.length; i++) {
-        otherButtons[i].style.display = 'inline-block';
-    }
-}
-
-
-/**
- * Closes the subtask input field and updates the display of related UI elements.
- * - Hides the new subtask textfield and its associated input elements.
- * - Resets the styling of the add-subtask-input.
- * - Hides the separator.
- * - Hides all add-subtask-buttons.
- */
-function closeSubtaskInput() {
-    document.querySelector('.open-subtask-button').style.display = 'inline-block';
-    document.querySelector('.new-subtask-textfield').value = '';
-    document.querySelector('.add-subtask-input').style.borderBottom = "1px solid #D1D1D1";
-    document.getElementById('separator').style.display = 'none';
-    let otherButtons = document.querySelectorAll('.add-subtask-button');
-    for (let i = 0; i < otherButtons.length; i++) {
-        otherButtons[i].style.display = 'none';
-    }
-}

@@ -67,6 +67,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+/**
+ * Adds event listeners to change the border color of a textarea on focus, blur, and input events.
+ *
+ * @param {HTMLTextAreaElement} textarea - The textarea element to which the event listeners will be added.
+ * @returns {void}
+ */
 function addChangeTextAreaBorderOnFocusBlurInput(textarea) {
     textarea.addEventListener('focus', () => {
         textarea.style.border = '1px solid #4589FF';
@@ -232,8 +238,6 @@ function addDisplayChosenContacts() {
 
 /**
  * Adds and renders categories in the specified container.
- * @function
- * @name addRenderCategorys
  * @memberof window
  * @global
  * @description This function populates the specified container with category elements,

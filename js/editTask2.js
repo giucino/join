@@ -1,4 +1,28 @@
 /**
+ * Toggles the display of the 'edit-loaded-contacts' container.
+ * Also manages the display state and class of related elements.
+ * 
+ * @function
+ * @name loadToggleAssignedToContainer
+ * @returns {void} Does not return any value.
+ */
+function loadToggleAssignedToContainer() {
+    let assignedToContainer = document.getElementById('edit-loaded-contacts');
+    let contactsContainer = document.querySelector('.edit-contacts-container');
+    let assignedToDropdown = document.querySelector('.edit-assigned-to-dropdown');
+
+    if (assignedToContainer.style.display === 'block') {
+        assignedToContainer.style.display = 'none';
+        assignedToDropdown.classList.remove('expanded');
+    } else {
+        assignedToContainer.style.display = 'block';
+        assignedToDropdown.classList.add('expanded');
+    }
+    contactsContainer.style.display = assignedToContainer.style.display;
+}
+
+
+/**
  * Renders and displays the selected contacts.
  */
 function renderDisplayChosenContacts() {
@@ -267,7 +291,6 @@ function setDisplay(element, value) {
  * @function
  * @name finishEditing
  * @param {string|number} i - The unique identifier (or index) for the subtask.
- * 
  * @description
  * This function achieves the following steps:
  * 1. Gets the subtask element with the provided ID and disables its content editing.
@@ -373,6 +396,5 @@ function extractColor(element) {
         );
         colors.push(contact ? contact.bgcolor : '');
     }
-
     return colors;
 }  

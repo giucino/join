@@ -93,3 +93,223 @@ function showContactAdded() {
         }, 500);
     }, 2000);
 }
+
+
+/**
+ * Saves a new contact to the contacts array.
+ * @returns {Promise<void>}
+ */
+async function saveNewContact() {
+    let newEmailInput = document.getElementById("newEmail");
+    let newTelefonInput = document.getElementById("newTelefon");
+    let fullNameInput = document.getElementById("fullName");
+    let nameValidationResult = validateNameParts(fullNameInput);
+    let newName = nameValidationResult.newName;
+    let newSurename = nameValidationResult.newSurename;
+    let newEmail = newEmailInput.value;
+    let newTelefon = newTelefonInput.value;
+    let isValidContactFields = validateContactFields(newName, newSurename, newEmail, newTelefon);
+    if (!isValidContactFields) {
+        return;
+    }
+    let newContact = createNewContactObject(newName, newSurename, newEmail, newTelefon);
+    saveContact(newContact);
+    clearFormFields(fullNameInput, newEmailInput, newTelefonInput);
+    showContactAdded();
+}
+
+
+/**
+ * Validates the name input for new contacts.
+ * @param {HTMLInputElement} fullNameInput - The input element containing the full name.
+ * @returns {Object} An object containing the first and last name.
+ */
+function validateNameParts(fullNameInput) {
+    let nameParts = extractNameParts(fullNameInput.value);
+    let newName = nameParts.newName;
+    let newSurename = nameParts.newSurename || '';
+    return { newName, newSurename };
+}
+
+
+/**
+ * Extracts the first and last name from a full name string.
+ * @param {string} fullName - The full name string.
+ * @returns {Object} An object containing the first and last name.
+ */
+function extractNameParts(fullName) {
+    let nameParts = fullName.trim().split(' ');
+    return { newName: nameParts[0], newSurename: nameParts[1] };
+}
+
+
+/**
+ * Validates the contact fields for correctness.
+ * @param {string} newName - The first name.
+ * @param {string} newSurename - The last name.
+ * @param {string} newEmail - The email address.
+ * @param {string} newTelefon - The phone number.
+ * @returns {boolean} True if all fields are valid, false otherwise.
+ */
+function validateContactFields(newName, newSurename, newEmail, newTelefon) {
+    if (!areAllFieldsFilled(newName, newSurename, newEmail, newTelefon)) {
+        alert("Bitte füllen Sie alle Felder aus.");
+        return false;
+    }
+    if (!isValidEmail(newEmail)) {
+        alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+        return false;
+    }
+    if (!isValidPhoneNumber(newTelefon)) {
+        alert("Bitte geben Sie nur Zahlen in das Telefonnummer-Feld ein.");
+        return false;
+    }
+    return true;
+}
+
+
+/**
+ * Checks if all the provided fields have values.
+ *
+ * @param {string} newName - The new name value.
+ * @param {string} newSurename - The new surname value.
+ * @param {string} newEmail - The new email value.
+ * @param {string} newTelefon - The new telephone value.
+ * @returns {boolean} Returns true if all fields are filled; otherwise, false.
+ */
+function areAllFieldsFilled(newName, newSurename, newEmail, newTelefon) {
+    return newName && newSurename && newEmail && newTelefon;
+}
+
+
+/**
+ * Checks if the provided email address is valid based on a regular expression pattern.
+ *
+ * @param {string} email - The email address to validate.
+ * @returns {boolean} Returns true if the email is valid; otherwise, false.
+ */
+function isValidEmail(email) {
+    let emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
+}
+
+
+/**
+ * Checks if the provided phone number is valid based on a regular expression pattern.
+ *
+ * @param {string} phone - The phone number to validate.
+ * @returns {boolean} Returns true if the phone number is valid; otherwise, false.
+ */
+function isValidPhoneNumber(phone) {
+    let phonePattern = /^[0-9]+$/;
+    return phonePattern.test(phone);
+}
+
+
+/**
+ * Clears the form fields after saving a contact.
+ * @param {HTMLInputElement} fullNameInput - The input element for full name.
+ * @param {HTMLInputElement} newEmailInput - The input element for email.
+ * @param {HTMLInputElement} newTelefonInput - The input element for phone number.
+ */
+function clearFormFields(fullNameInput, newEmailInput, newTelefonInput) {
+    fullNameInput.value = "";
+    newEmailInput.value = "";
+    newTelefonInput.value = "";
+}
+
+
+/**
+ * Creates a new contact object.
+ * @param {string} newName - The first name.
+ * @param {string} newSurename - The last name.
+ * @param {string} newEmail - The email address.
+ * @param {string} newTelefon - The phone number.
+ * @returns {Object} The new contact object.
+ */
+function createNewContactObject(newName, newSurename, newEmail, newTelefon) {
+    let maxContactId = Math.max(...contacts.map(contact => contact.id), -1);
+    let nextContactId = maxContactId + 1;
+    return {
+        bgcolor: getRandomColor(),
+        id: nextContactId,
+        name: newName,
+        surename: newSurename,
+        email: newEmail,
+        telefon: newTelefon
+    };
+}
+
+
+/**
+ * Saves a contact to the contacts array and updates local storage.
+ * @param {Object} newContact - The contact object to save.
+ * @returns {Promise<void>}
+ */
+async function saveContact(newContact) {
+    contacts.push(newContact);
+    await setItem('contacts', JSON.stringify(contacts));
+    closeModal();
+    initContact();
+}
+
+
+/**
+ * Updates an existing contact in the contacts array.
+ * @param {number} index - The index of the contact to update.
+ * @returns {Promise<void>}
+ */
+async function updateContact(index) {
+    let newEmailInput = document.getElementById("editNewEmail");
+    let newTelefonInput = document.getElementById("editNewTelefon");
+    let fullNameInput = document.getElementById("editFullName");
+    let nameValidationResult = validateNameParts(fullNameInput);
+    let newName = nameValidationResult.newName;
+    let newSurename = nameValidationResult.newSurename;
+    let newEmail = newEmailInput.value;
+    let newTelefon = newTelefonInput.value;
+    let isValidContactFields = validateContactFields(newName, newSurename, newEmail, newTelefon);
+    if (!isValidContactFields) {
+        return;
+    }
+    let originalContact = contacts[index];
+    let updatedContact = createUpdatedContactObject(originalContact, newName, newSurename, newEmail, newTelefon);
+    updateAndSaveContact(index, updatedContact);
+}
+
+
+/**
+ * Creates an updated contact object based on the original contact and new data.
+ * @param {Object} originalContact - The original contact object.
+ * @param {string} newName - The updated first name.
+ * @param {string} newSurename - The updated last name.
+ * @param {string} newEmail - The updated email address.
+ * @param {string} newTelefon - The updated phone number.
+ * @returns {Object} The updated contact object.
+ */
+function createUpdatedContactObject(originalContact, newName, newSurename, newEmail, newTelefon) {
+    return {
+        bgcolor: originalContact.bgcolor,
+        id: originalContact.id,
+        name: newName,
+        surename: newSurename,
+        email: newEmail,
+        telefon: newTelefon,
+        password: originalContact.password
+    };
+}
+
+
+/**
+ * Updates a contact in the contacts array and saves the updated list to local storage.
+ * @param {number} index - The index of the contact to update.
+ * @param {Object} updatedContact - The updated contact object.
+ * @returns {Promise<void>}
+ */
+async function updateAndSaveContact(index, updatedContact) {
+    contacts[index] = updatedContact;
+    await setItem('contacts', JSON.stringify(contacts));
+    closeEditModal();
+    initContact();
+    showContactDetails(index);
+}

@@ -4,17 +4,6 @@
  * @param {string} status - The status to filter tasks.
  * @returns {Task[]} Array of filtered tasks.
  */
-// function filterTasks(searchTerm, status) {
-//     let filteredTasks = todos.filter((task) => {
-//         return (
-//             task.status === status &&
-//             (task.title.charAt(0).toLowerCase() === searchTerm.toLowerCase() ||
-//                 task.category.charAt(0).toLowerCase() === searchTerm.toLowerCase())
-//         );
-//     });
-//     return filteredTasks;
-// }
-
 function filterTasks(searchTerm, status) {
     let filteredTasks = todos.filter((task) => {
         let lowerCaseSearchTerm = searchTerm.toLowerCase();
@@ -28,7 +17,6 @@ function filterTasks(searchTerm, status) {
 }
 
 
-
 /**
  * Set the current filter based on the value in the input field and refresh the UI.
  */
@@ -39,6 +27,10 @@ function setFilter() {
 }
 
 
+/**
+ * Handles the input and click event for the search functionality.
+ * Updates the filter and displays or hides the reset button based on the search input value.
+ */
 document.addEventListener("DOMContentLoaded", function () {
     let input = document.getElementById("input-field");
     let resetButton = document.getElementById("reset-search");
@@ -69,6 +61,17 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+/**
+ * Handles the click event for the reset button in the search functionality.
+ * Clears the search input field, hides the reset button, and triggers the filter update.
+ *
+ * @function
+ * @name handleResetButtonClick
+ * 
+ * Resets the search input field and triggers the filter update when the reset button is clicked.
+ * @listens click
+ * @param {Event} event - The click event.
+ */
 document.addEventListener("DOMContentLoaded", function () {
     function handleResetButtonClick() {
         let searchText = document.getElementById("input-field");
@@ -99,6 +102,7 @@ document.addEventListener("click", function(event) {
         closeCard();
     }
 });
+
 
 /**
  * Triggers the slide in animation for the task card.
@@ -189,6 +193,7 @@ function deleteCard(id) {
         elementToRemove.remove();
     }
 }
+
 
 /**
  * Updates the status of a specific subtask and pushes the updated data.
