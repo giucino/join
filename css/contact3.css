@@ -1,8 +1,8 @@
-.contact-detailed-images-mobile:hover{
+.contact-detailed-images-mobile:hover {
     color: var(--bg-color, #4589FF);
 }
 
-.contact-added{
+.contact-added {
     position: fixed;
     left: 50%;
     width: 360px;
@@ -50,16 +50,27 @@
         top: -85px;
         right: -255px;
     }
+
+    #contact-mobile-buttons {
+        right: 60px;
+        bottom: 135px;
+    }
+
+    .contact-detailed-images-head {
+        right: 60px;
+        bottom: 135px;
+    }
+
+    .add-person-button {
+        right: 60px;
+        bottom: 135px;
+    }
 }
 
 @media(max-width: 1180px) {
     .container {
         padding: 20px;
         width: 600px;
-    }
-
-    .add-person-button {
-        right: 42px;
     }
 }
 
@@ -68,10 +79,6 @@
         padding: 20px;
         width: 500px;
     }
-
-    .add-person-button {
-        right: 60px;
-    }
 }
 
 @media(max-width: 768px) {
@@ -79,29 +86,70 @@
         margin-left: 0;
     }
 
-    .add-person-button {
-        right: 40px;
+    #contact-details-mobile {
+        margin-left: -30px;
+    }
+}
+
+@media(max-width: 540px) {
+    .edit-content-top {
+        width: 371px;
     }
 
-    #contact-details-mobile {
-        margin-left: 0;
+    .modal-content-top {
+        width: 371px;
+    }
+
+    #closeEditModalBtn{
+        right: -221px;
+    }
+
+    #closeContactModalBtn{
+        right: -221px;
+    }
+}
+
+@media(max-width: 485px) {
+    .edit-content-top {
+        width: 290px;
+    }
+
+    .modal-content-top {
+        width: 290px;
+    }
+
+    .modal-input-frame {
+        width: 290px;
+    }
+
+    .add-contact-buttons-inner {
+        flex-direction: column;
+    }
+
+    #closeEditModalBtn{
+        right: -172px;
+    }
+
+    #closeContactModalBtn{
+        right: -172px;
     }
 }
 
 @media(max-width: 450px) {
     .container {
-        width: 310px;
+        margin-left: -94px;
     }
 
     .container-contact-all {
         width: auto;
     }
 
-    .add-person-button {
-        right: 23px;
-    }
-
     .contact-detailed-name {
         font-size: 36px;
+    }
+
+    .contact {
+        width: 260px;
+        gap: 0;
     }
 }
