@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: storage.js</title>
+    <title>JSDoc: Source: board3.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: storage.js</h1>
+    <h1 class="page-title">Source: board3.js</h1>
 
     
 
@@ -26,36 +26,69 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const STORAGE_TOKEN = TOKEN;
-const STORAGE_URL = BACKEND_URL;
-
-
-/**
- * Sets an item using a key-value pair in the storage.
- * @param {string} key - The key for the item.
- * @param {*} value - The value to be stored.
- * @returns {Promise&lt;Object>} - A Promise containing the JSON response object.
+            <pre class="prettyprint source linenums"><code>/**
+ * Generates the overall task HTML representation.
+ * @param {Object} element - The task data.
+ * @param {string} priorityImageSrc - The source URL of the priority image.
+ * @param {string} assignedToHTML - The HTML representation of assigned users.
+ * @param {string} progressBar - The HTML representation of the progress bar.
+ * @param {string} numberTasks - The HTML representation of the number of tasks.
+ * @param {string} allTasks - The HTML representation of all tasks.
+ * @returns {string} The generated HTML for the overall task.
  */
-async function setItem(key, value) {
-    const payload = { key, value, token: STORAGE_TOKEN };
-    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
-        .then(res => res.json());
-}
-
-
-/**
- * Gets the value linked to the given key from storage.
- * @param {string} key - The key used for searching..
- * @returns {Promise&lt;any>} - A Promise that resolves to the retrieved value.
- * @throws {string} - If data with the given key is not found.
- */
-async function getItem(key) {
-    const url = `${STORAGE_URL}?key=${key}&amp;token=${STORAGE_TOKEN}`;
-    return fetch(url).then(res => res.json()).then(res => {
-        if (res.data) {
-            return res.data.value;
-        } throw `Could not find data with key "${key}".`;
-    });
+function renderSlideCardHTML(element, priorityImageSrc, assignedToHTML, subtasksHTML) {
+    const backgroundColor = getCategoryBackgroundColor(element.category);
+    return /*html*/ `
+    &lt;div id="slide-container" class="slide-container">
+    &lt;div id="task-slide-container${element.id}" class="task-slide-container" onclick="event.stopPropagation()">
+        &lt;div class="task-slide-headline">
+            &lt;div class="task-slide-headline-left" style="background-color: ${backgroundColor};">&lt;span class="task-slide-category">${element.category}&lt;/span>&lt;/div>
+            &lt;div id="task-slide-close" onclick="closeCard(${element.id}), loadData()" class="task-slide-headline-right">&lt;img src="./img/close.png" alt="Schließen">&lt;/div>
+        &lt;/div>
+        &lt;span id="task-slide-title" class="task-slide-title">${element.title}&lt;/span>
+        &lt;span id="task-slide-description" class="task-slide-description">${element.description}&lt;/span>
+        &lt;div class="task-slide-due-date-container">
+            &lt;span class="task-slide-due-date">Due date: &lt;/span>
+            &lt;span id="task-slide-due-date" class="task-slide-due-date-date">${element.dueDate}&lt;/span>
+        &lt;/div>
+        &lt;div class="task-slide-prio-container">
+            &lt;span class="task-slide-prio-text">Priority: &lt;/span>
+            &lt;div class="task-slide-prio-text-img">
+                &lt;span class="task-slide-prio-text-">${element.priority}&lt;/span>
+                &lt;img id="task-slide-prio-img" src="${priorityImageSrc}" alt="">
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="task-slide-assigned-container">
+            &lt;span class="task-slide-assigned-test">Assigned To:&lt;/span>
+            &lt;div class="task-slide-assigned-user-container">
+            &lt;div class="task-slide-assigned-user-container">
+        &lt;div class="task-slide-assigned-user-contact">
+            ${assignedToHTML}
+            &lt;button class="task-slide-btn" type="checkbox" disabled>&lt;/button>
+        &lt;/div>
+    &lt;/div>
+    &lt;div>
+        &lt;/div>
+            &lt;div class="task-slide-subtasks-container">
+                &lt;span class="task-slide-subtasks-text">Subtasks&lt;/span>
+                &lt;div class="task-slide-subtasks-tasks" id="subtasksContainer">
+                    ${subtasksHTML}
+                &lt;/div>
+            &lt;/div>
+            &lt;div class="task-slide-delete-edit-container">
+                &lt;div class="task-slide-delete" onclick="deleteTask(${element.id})">
+                    &lt;img class="task-slide-delete-edit-img" src="./img/delete.png" alt="">
+                    &lt;span class="task-slide-delete-text">Delete&lt;/span>
+                &lt;/div>
+                &lt;div class="task-slide-placeholder">&lt;/div>
+                &lt;div class="task-slide-edit" onclick="editTask(${element.id})">
+                    &lt;img class="task-slide-delete-edit-img" src="./img/edit.png" alt="">
+                    &lt;span class="task-slide-edit-text">Edit&lt;/span>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    `;
 }</code></pre>
         </article>
     </section>

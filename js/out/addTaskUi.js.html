@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: storage.js</title>
+    <title>JSDoc: Source: addTaskUi.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: storage.js</h1>
+    <h1 class="page-title">Source: addTaskUi.js</h1>
 
     
 
@@ -26,36 +26,352 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const STORAGE_TOKEN = TOKEN;
-const STORAGE_URL = BACKEND_URL;
+            <pre class="prettyprint source linenums"><code>/**
+ * Applies border color on focus and blur events to elements within a container.
+ *
+ * @param {string} containerSelector - CSS selector for the container elements.
+ * @param {string} inputSelector - CSS selector for the input elements within the container.
+ * @param {string} focusColor - CSS color value applied to the container border when the input is focused.
+ * @param {string} blurColor - CSS color value applied to the container border when the input loses focus.
+ */
+function applyBorderColorOnFocusAndBlur(containerSelector, inputSelector, focusColor, blurColor) {
+    const containers = document.querySelectorAll(containerSelector);
+
+    containers.forEach(container => {
+        const input = container.querySelector(inputSelector);
+
+        input.addEventListener('focus', () => {
+            container.style.borderColor = focusColor;
+        });
+
+        input.addEventListener('blur', () => {
+            container.style.borderColor = blurColor;
+        });
+    });
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyBorderColorOnFocusAndBlur(
+        '.add-task-titel-textcontainer',
+        '.add-task-titel-textfield',
+        '#4589FF',
+        '#D1D1D1'
+    );
+    applyBorderColorOnFocusAndBlur(
+        '.due-date-input-container',
+        '.due-date-textfield',
+        '#4589FF',
+        '#D1D1D1'
+    );
+    applyBorderColorOnFocusAndBlur(
+        '.assigned-to-choicefield',
+        '#searchInput',
+        '#4589FF',
+        '#D1D1D1'
+    );
+    applyBorderColorOnFocusAndBlur(
+        '.add-subtask-input',
+        '#subtaskInput',
+        '#4589FF',
+        '#D1D1D1'
+    );
+});
 
 
 /**
- * Sets an item using a key-value pair in the storage.
- * @param {string} key - The key for the item.
- * @param {*} value - The value to be stored.
- * @returns {Promise&lt;Object>} - A Promise containing the JSON response object.
+ * Changes the border color of a textarea element based on focus, blur, and input events.
+ *
+ * @function
+ * @param {HTMLTextAreaElement} textarea - The textarea element whose border color needs to be modified.
+ * @example
+ *
+ * // Assuming you have a textarea with the id 'myTextarea'
+ * const textarea = document.getElementById('myTextarea');
+ * changeTextAreaBorderOnFocusBlurInput(textarea);
+ * 
  */
-async function setItem(key, value) {
-    const payload = { key, value, token: STORAGE_TOKEN };
-    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
-        .then(res => res.json());
+function changeTextAreaBorderOnFocusBlurInput(textarea) {
+    textarea.addEventListener('focus', () => {
+        textarea.style.border = '1px solid #4589FF';
+    });
+
+    textarea.addEventListener('blur', () => {
+        textarea.style.border = '1px solid #D1D1D1';
+    });
+
+    textarea.addEventListener('input', () => {
+        textarea.style.border = '1px solid #4589FF';
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    let textarea = document.getElementById('taskDescription');
+    changeTextAreaBorderOnFocusBlurInput(textarea);
+});
+
+
+/**
+ * Sets the priority based on the button clicked. Resets other buttons and hides any priority errors.
+ *
+ * @param {HTMLElement} button - The button element that was clicked to set the priority.
+ * @throws {Error} Throws an error if the button ID does not match any expected priority.
+ */
+function priority(button) {
+    resetButtons();
+    hidePriorityError();
+
+    if (button.id === 'prioUrgent') {
+        highlightButton(button, '#FF3D00', './img/prio_high_active.png');
+        selectedPriority = 'high';
+    } else if (button.id === 'prioMedium') {
+        highlightButton(button, '#FFA800', './img/prio_medium_active.png');
+        selectedPriority = 'medium';
+    } else if (button.id === 'prioLow') {
+        highlightButton(button, '#7AE229', './img/prio_low_active.png');
+        selectedPriority = 'low';
+    }
 }
 
 
 /**
- * Gets the value linked to the given key from storage.
- * @param {string} key - The key used for searching..
- * @returns {Promise&lt;any>} - A Promise that resolves to the retrieved value.
- * @throws {string} - If data with the given key is not found.
+ * Highlights a button by changing its background color, image source, and text color.
+ *
+ * @param {HTMLElement} button - The button to highlight.
+ * @param {string} bgColor - The background color to apply to the button.
+ * @param {string} imageSrc - The image source URL for the button's inner image.
  */
-async function getItem(key) {
-    const url = `${STORAGE_URL}?key=${key}&amp;token=${STORAGE_TOKEN}`;
-    return fetch(url).then(res => res.json()).then(res => {
-        if (res.data) {
-            return res.data.value;
-        } throw `Could not find data with key "${key}".`;
-    });
+function highlightButton(button, bgColor, imageSrc) {
+    button.classList.add('highlighted');
+    button.style.backgroundColor = bgColor;
+    let image = button.querySelector('.priority-choice-inner-pic img');
+    image.src = imageSrc;
+    button.style.color = 'white';
+}
+
+
+/**
+ * Retrieves the logged-in user's data from local storage.
+ * 
+ * @function
+ * @returns {Object} The logged-in user's data, or an empty object if no data is found.
+ */
+function getLoggedInUserData() {
+    return JSON.parse(localStorage.getItem('loggedInUser')) || {};
+}
+
+
+/**
+ * Asynchronously renders the contacts assigned to the user.
+ *
+ * It fetches the logged-in user data, gets the container for loading contacts,
+ * and iterates over the list of contacts to render each contact's assigned information.
+ * For each contact, it generates the initials from their name and surename, checks if the contact
+ * is selected or if it matches the logged-in user's email, and then updates the container's HTML.
+ *
+ * @async
+ * @function
+ * @requires getLoggedInUserData - A function to fetch the logged-in user's data.
+ * @requires renderAssignedToHTML - A function to generate the HTML representation of a contact's assigned data.
+ * @global
+ * @throws {Error} Throws an error if any issues arise while rendering.
+ *
+ * @example
+ * // Assuming all required functions and global variables are present and correctly set up:
+ * renderAssignedTo();
+ */
+async function renderAssignedTo() {
+    let loggedInUserData = getLoggedInUserData();
+
+    let assignedToContainer = document.getElementById('loadedContacts');
+    assignedToContainer.innerHTML = '';
+
+    for (let i = 0; i &lt; contacts.length; i++) {
+        let contact = contacts[i];
+        let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+        let isSelected = selectedContacts[contact.id] || false;
+        let isCurrentUser = loggedInUserData &amp;&amp; contact.email === loggedInUserData.email;
+
+        assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected, isCurrentUser);
+    }
+}
+
+
+/**
+ * Renders the contacts that were searched for and updates the HTML container.
+ * It goes through each contact, computes the initials from their name and surename,
+ * checks if the contact is selected and if the contact is the current logged in user,
+ * and finally uses another function `renderSearchedContactsHTML` to update the DOM.
+ * 
+ * @param {Object[]} contacts - An array of contact objects.
+ * @param {string} contacts[].name - First name of the contact.
+ * @param {string} contacts[].surename - Last name (or surename) of the contact.
+ * @param {string} contacts[].email - Email address of the contact.
+ * @param {number} contacts[].id - Unique ID of the contact.
+ * 
+ * @returns {void}
+ * 
+ * @example
+ * 
+ * const contacts = [
+ *   { id: 1, name: 'John', surename: 'Doe', email: 'john.doe@example.com' },
+ *   { id: 2, name: 'Jane', surename: 'Smith', email: 'jane.smith@example.com' }
+ * ];
+ * 
+ * renderSearchedContact(contacts);
+ */
+function renderSearchedContact(contacts) {
+    let loggedInUserData = getLoggedInUserData();
+
+    let assignedToContainer = document.getElementById('loadedContacts');
+    assignedToContainer.innerHTML = '';
+
+    for (let i = 0; i &lt; contacts.length; i++) {
+        let contact = contacts[i];
+        let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+        let isSelected = selectedContacts[contact.id] || false;
+        let isCurrentUser = loggedInUserData &amp;&amp; contact.email === loggedInUserData.email;
+
+        assignedToContainer.innerHTML += renderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser);
+    }
+}
+
+
+/**
+ * Toggles the visibility of the "assignedToContainer" and synchronizes 
+ * the display of the "contactsContainer" accordingly. 
+ * Also manages the 'expanded' class of the "assignedToDropdown".
+ *
+ * @function
+ * @example
+ * // To toggle the display of the containers
+ * toggleAssignedToContainer();
+ */
+function toggleAssignedToContainer() {
+    let assignedToContainer = document.getElementById('loadedContacts');
+    let contactsContainer = document.querySelector('.contacts-container');
+    let assignedToDropdown = document.querySelector('.assigned-to-dropdown');
+
+    if (assignedToContainer.style.display === 'block') {
+        assignedToContainer.style.display = 'none';
+        assignedToDropdown.classList.remove('expanded');
+    } else {
+        assignedToContainer.style.display = 'block';
+        assignedToDropdown.classList.add('expanded');
+    }
+    contactsContainer.style.display = assignedToContainer.style.display;
+}
+
+
+/**
+ * Display the chosen contacts on the page by appending them to
+ * the 'chosenContacts' container. For each chosen contact, their initials
+ * are displayed with a specified background color.
+ * 
+ * Assumes the following:
+ * 1. An HTML container with the id 'chosenContacts' exists in the DOM.
+ * 2. The `contacts` array exists in the current scope, with each contact
+ *    object having properties: 'id', 'name', 'surname', and 'bgcolor'.
+ * 3. The `selectedContacts` object exists in the current scope, where
+ *    each key is a contact's 'id' and its value is a boolean indicating
+ *    if the contact is selected.
+ */
+function displayChosenContacts() {
+    let chosenContactsContainer = document.getElementById('chosenContacts');
+    chosenContactsContainer.innerHTML = '';
+
+    for (let i = 0; i &lt; contacts.length; i++) {
+        let contact = contacts[i];
+        let isSelected = selectedContacts[contact.id];
+
+        if (isSelected) {
+            let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+            chosenContactsContainer.innerHTML += /*html*/`
+                &lt;div class="chosen-contact">
+                    &lt;div class="initial" style="background-color: ${contact.bgcolor}">${initials}&lt;/div>
+                &lt;/div>
+            `;
+        }
+    }
+}
+
+
+/**
+ * Renders categories into the `loadedCategories` DOM element.
+ * Each category will be displayed in a div with the class "category".
+ * When a category is clicked, the `categorySelected` function is called with the category name as an argument.
+ * 
+ * @function
+ * @global
+ * @requires categories - An array of objects where each object should have a 'categoryName' property.
+ */
+function renderCategorys() {
+    let categoryContainer = document.getElementById('loadedCategories');
+    categoryContainer.innerHTML = '';
+
+    for (let i = 0; i &lt; categories.length; i++) {
+        let category = categories[i].categoryName;
+        categoryContainer.innerHTML += `
+            &lt;div class="category" onclick="categorySelected('${category}')">${category}&lt;/div>
+            `;
+    }
+}
+
+
+/**
+ * Toggles the visibility of the category container.
+ * - When the category container is displayed, it hides the container and makes necessary style adjustments.
+ * - When the category container is not displayed, it shows the container, makes necessary style adjustments, and renders the categories.
+ * 
+ * @function
+ * @returns {void} Returns nothing.
+ */
+function toggleCategoryContainer() {
+    let selectText = document.querySelector('.select-text');
+    selectText.style.display = 'inline';
+
+    let selectedCategoryDisplay = document.getElementById('selectedCategoryDisplay');
+    selectedCategoryDisplay.textContent = '';
+
+    let categoryContainer = document.getElementById('loadedCategories');
+    let categoryDropdown = document.querySelector('.category-dropdown');
+
+    if (categoryContainer.style.display === 'block') {
+        categoryContainer.style.display = 'none';
+        categoryDropdown.classList.remove('expanded');
+        categoryDropdown.style.borderBottom = "1px solid #D1D1D1";
+
+    } else {
+        categoryContainer.style.display = 'block';
+        categoryDropdown.classList.add('expanded');
+        categoryDropdown.style.borderBottom = "1px solid #4589FF";
+        renderCategorys();
+    }
+}
+
+
+/**
+ * Updates the UI based on the selected category.
+ *
+ * @param {string} category - The category that has been selected.
+ * @function
+ * @returns {void}
+ */
+function categorySelected(category) {
+    selectedCategory = category;
+
+    let selectedCategoryDisplay = document.getElementById('selectedCategoryDisplay');
+    selectedCategoryDisplay.textContent = `${selectedCategory}`;
+
+    let selectText = document.querySelector('.select-text');
+    selectText.style.display = 'none';
+
+    let categoryContainer = document.getElementById('loadedCategories');
+    categoryContainer.style.display = 'none';
+
+    let categoryDropdown = document.querySelector('.category-dropdown');
+    categoryDropdown.classList.remove('expanded');
+    categoryDropdown.style.borderBottom = "1px solid #D1D1D1";;
 }</code></pre>
         </article>
     </section>

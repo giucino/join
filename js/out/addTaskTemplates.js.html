@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: storage.js</title>
+    <title>JSDoc: Source: addTaskTemplates.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: storage.js</h1>
+    <h1 class="page-title">Source: addTaskTemplates.js</h1>
 
     
 
@@ -26,36 +26,111 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const STORAGE_TOKEN = TOKEN;
-const STORAGE_URL = BACKEND_URL;
-
-
-/**
- * Sets an item using a key-value pair in the storage.
- * @param {string} key - The key for the item.
- * @param {*} value - The value to be stored.
- * @returns {Promise&lt;Object>} - A Promise containing the JSON response object.
+            <pre class="prettyprint source linenums"><code>/**
+ * Creates a success message template.
+ * @returns {string} - The HTML template for a success message overlay.
  */
-async function setItem(key, value) {
-    const payload = { key, value, token: STORAGE_TOKEN };
-    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
-        .then(res => res.json());
+function createdTaskTemplate() {
+    return /*html*/ `
+        &lt;div id="createTaskOverlay" class="task-overlay">
+            &lt;div class="task-success-message">
+                &lt;p>Task added to board&lt;/p>
+                &lt;img class="send-check" src="./img/added_task.png" alt="">
+            &lt;/div>
+        &lt;/div>
+    `;
 }
 
 
 /**
- * Gets the value linked to the given key from storage.
- * @param {string} key - The key used for searching..
- * @returns {Promise&lt;any>} - A Promise that resolves to the retrieved value.
- * @throws {string} - If data with the given key is not found.
+ * Renders an assigned contact as an HTML element.
+ *
+ * @function
+ * @name renderAssignedToHTML
+ * @param {Object} contact - The contact to render.
+ * @param {string} contact.name - The first name of the contact.
+ * @param {string} contact.surename - The surname/last name of the contact.
+ * @param {string} contact.bgcolor - The background color for the initials container.
+ * @param {string} initials - The initials of the contact.
+ * @param {boolean} isSelected - A flag indicating if the contact is currently selected.
+ * @param {boolean} isCurrentUser - A flag indicating if the contact is the current user.
+ * @returns {string} - Returns the rendered HTML string.
+ * @example
+ * const contact = { name: 'John', surename: 'Doe', bgcolor: '#fafafa' };
+ * const htmlString = renderAssignedToHTML(contact, 'JD', true, false);
  */
-async function getItem(key) {
-    const url = `${STORAGE_URL}?key=${key}&amp;token=${STORAGE_TOKEN}`;
-    return fetch(url).then(res => res.json()).then(res => {
-        if (res.data) {
-            return res.data.value;
-        } throw `Could not find data with key "${key}".`;
-    });
+function renderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
+    let userMarker = isCurrentUser ? " (you)" : "";
+
+    return /*html*/`
+        &lt;div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
+            &lt;div class="select-contact">
+                &lt;div class="initial" style="background-color: ${contact.bgcolor}">${initials}&lt;/div>
+                &lt;div class="select-name">${contact.name} ${contact.surename}${userMarker}&lt;/div>
+            &lt;/div>
+            &lt;img class="select-icon" id="selectCheck" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
+        &lt;/div>
+    `;
+}
+
+
+/**
+ * Generates an HTML string for a contact based on the provided details.
+ *
+ * @function renderSearchedContactsHTML
+ * @param {Object} contact - The contact object containing details of the user.
+ * @param {string} contact.name - The first name of the contact.
+ * @param {string} contact.surename - The surname of the contact.
+ * @param {string} contact.bgcolor - Background color for the initials div.
+ * @param {string} initials - The initials of the contact.
+ * @param {boolean} isSelected - A flag indicating if the contact is selected.
+ * @param {boolean} isCurrentUser - A flag indicating if the contact is the current user.
+ * @returns {string} The generated HTML string for the contact.
+ */
+function renderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser) {
+    let userMarker = isCurrentUser ? " (you)" : "";
+
+    return /*html*/`
+        &lt;div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
+            &lt;div class="select-contact">
+                &lt;div class="initial" style="background-color: ${contact.bgcolor}">${initials}&lt;/div>
+                &lt;div class="select-name">${contact.name} ${contact.surename}${userMarker}&lt;/div>
+            &lt;/div>
+            &lt;img class="select-icon" id="selectCheck" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
+        &lt;/div>
+    `;
+}
+
+
+/**
+ * Generates HTML markup for a subtask with the given ID and value.
+ *
+ * @function
+ * @param {string|number} subtaskId - The unique identifier for the subtask.
+ * @param {string} subtaskValue - The display value of the subtask.
+ * @returns {string} The HTML string representing the subtask.
+ * @example
+ * 
+ * let html = createSubtaskHTML(1, "Do laundry");
+ * // Returns the HTML markup for the subtask with ID 1 and value "Do laundry".
+ */
+function createSubtaskHTML(subtaskId, subtaskValue) {
+    return /*html*/`
+        &lt;div id="subtask-container-${subtaskId}" class="subtask-container">
+            &lt;div class="subtask-item">
+                &lt;span class="subtask-dot">&lt;/span>           
+                &lt;span id="${subtaskId}" data-subtask-id="${subtaskId}" class="subtask-value" contenteditable="false">${subtaskValue}&lt;/span>
+            &lt;/div>
+            &lt;div class="hover-content">
+                &lt;img onclick="editSubtask('${subtaskId}')" src="./img/edit_subtask.png" class="edit-subtask-button">
+                &lt;span class="separator2" id="separator2">|&lt;/span> 
+                &lt;img onclick="deleteSubtask('${subtaskId}')" data-subtask-id="${subtaskId}" src="./img/delete_subtask.png" class="delete-subtask-button">
+            &lt;/div>
+            &lt;img onclick="deleteSubtask('${subtaskId}')" data-subtask-id="${subtaskId}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
+            &lt;span class="separator3" id="separator3">|&lt;/span> 
+            &lt;img onclick="finishEditing('${subtaskId}')" src="./img/add_subtask.png" class="save-subtask-button">
+        &lt;/div>
+    `;
 }</code></pre>
         </article>
     </section>

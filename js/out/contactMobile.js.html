@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: storage.js</title>
+    <title>JSDoc: Source: contactMobile.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: storage.js</h1>
+    <h1 class="page-title">Source: contactMobile.js</h1>
 
     
 
@@ -26,36 +26,57 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const STORAGE_TOKEN = TOKEN;
-const STORAGE_URL = BACKEND_URL;
-
-
-/**
- * Sets an item using a key-value pair in the storage.
- * @param {string} key - The key for the item.
- * @param {*} value - The value to be stored.
- * @returns {Promise&lt;Object>} - A Promise containing the JSON response object.
+            <pre class="prettyprint source linenums"><code>/**
+ * Displays the details of a selected contact in mobile view.
+ * @param {number} index - The index of the selected contact.
  */
-async function setItem(key, value) {
-    const payload = { key, value, token: STORAGE_TOKEN };
-    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
-        .then(res => res.json());
+function showContactDetailsMobile(index) {
+    document.getElementById('addContactBtn').style.display = 'none';
+    document.getElementById('contact-list-container').style.display = 'none';
+    let detailsContainer = document.getElementById('contact-details-mobile');
+    detailsContainer.style.display = 'block';
+    document.querySelector('.container').style.display = 'none';
+    let contact = contacts[index];
+    let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+    detailsContainer.innerHTML = showContactDetailsMobileHTML(contact, initials, index);
 }
 
 
 /**
- * Gets the value linked to the given key from storage.
- * @param {string} key - The key used for searching..
- * @returns {Promise&lt;any>} - A Promise that resolves to the retrieved value.
- * @throws {string} - If data with the given key is not found.
+ * Displays the edit buttons for contacts in mobile view.
  */
-async function getItem(key) {
-    const url = `${STORAGE_URL}?key=${key}&amp;token=${STORAGE_TOKEN}`;
-    return fetch(url).then(res => res.json()).then(res => {
-        if (res.data) {
-            return res.data.value;
-        } throw `Could not find data with key "${key}".`;
-    });
+function showEditContactsButtonsMobile() {
+    let elements = document.getElementById('contact-mobile-buttons');
+    let header = document.getElementById('contact-detailed-head');
+    header.classList.add('hide-it');
+    elements.classList.remove('hide-it');
+    let invisibleDiv = document.createElement('div');
+    invisibleDiv.id = 'invisibleDiv';
+    invisibleDiv.onclick = closeButtonsMobile;
+    document.body.appendChild(invisibleDiv);
+}
+
+
+/**
+ * Returns to the main contacts view in mobile mode.
+ */
+function returnToContactsMobile() {
+    document.querySelector('.contact-details-mobile-class').style.display = 'none'
+    document.querySelector('.container').style.display = 'flex';
+    document.querySelector('.add-person-button').style.display = 'flex';
+}
+
+
+/**
+ * Closes the edit buttons for contacts in mobile view.
+ */
+function closeButtonsMobile() {
+    let element = document.getElementById('contact-mobile-buttons');
+    let header = document.getElementById('contact-detailed-head');
+    header.classList.remove('hide-it');
+    element.classList.add('hide-it');
+    let invisibleDiv = document.getElementById('invisibleDiv');
+    document.body.removeChild(invisibleDiv);
 }</code></pre>
         </article>
     </section>
