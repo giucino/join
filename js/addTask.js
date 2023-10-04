@@ -152,6 +152,7 @@ function validateSelections(title, description, dueDate) {
  */
 function processValidInput(title, description, dueDate) {
     const extractedBgcolors = extractBgcolor(selectedContacts);
+    const cleanedSelectedContacts = selectedContacts.filter(contact => contact !== null && contact !== undefined);
     const highestId = todos.reduce((maxId, currentTodo) => {
         return currentTodo.id > maxId ? currentTodo.id : maxId;
     }, 0);
@@ -166,7 +167,7 @@ function processValidInput(title, description, dueDate) {
         status: 'todo',
         priority: selectedPriority,
         dueDate: dueDate,
-        assignedTo: selectedContacts,
+        assignedTo: cleanedSelectedContacts,
         bgcolor: extractedBgcolors,
         subtasks: subtasks
     };
@@ -247,7 +248,6 @@ function searchContacts(query) {
  */
 function toggleContactSelection(name, surename) {
     const contact = contacts.find(c => c.name === name && c.surename === surename);
-
     if (!contact) {
         return;
     }
@@ -256,10 +256,10 @@ function toggleContactSelection(name, surename) {
 
     if (selectedContacts[contactId]) {
         delete selectedContacts[contactId];
-        delete selectedContacts[contactId];
     } else {
         selectedContacts[contactId] = contactKey;
     }
+
     renderAssignedTo();
     renderSearchedContact(contacts);
     displayChosenContacts();
@@ -285,7 +285,9 @@ function toggleContactSelection(name, surename) {
  */
 function extractBgcolor(selectedContacts) {
     const bgcolors = [];
-    for (const contactName of selectedContacts) {
+    const validContacts = selectedContacts.filter(contactName => contactName);
+
+    for (const contactName of validContacts) {
         const foundContact = contacts.find(c => `${c.name} ${c.surename}` === contactName);
         if (foundContact && foundContact.bgcolor) {
             bgcolors.push(foundContact.bgcolor);
