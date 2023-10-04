@@ -142,13 +142,9 @@ function validateSelections(title, description, dueDate) {
  *
  * @throws {Error} If any required parameter is not provided or invalid.
  *
- * @todo Implement validation checks for each parameter.
- * @todo Decouple the function for better modularity.
- *
  * @see {@link extractBgcolor} for details on how background colors are determined.
  * @see {@link completeTaskCreation} to understand the post-todo-creation process.
  *
- * Note: The function has dependencies on multiple external variables and functions like `todos`, `selectedCategory`, `extractBgcolor`, etc. It's recommended to decouple these dependencies for more reusable and testable code.
  */
 function processValidInput(title, description, dueDate) {
     const extractedBgcolors = extractBgcolor(selectedContacts);
@@ -276,8 +272,6 @@ function toggleContactSelection(name, surename) {
  * 
  * extractBgcolor(['John Doe', 'Jane Doe']); // returns ['#ff0000', '#00ff00']
  * 
- * @note
- * The contacts variable is not passed as an argument, so it should be in the scope of this function or be globally available.
  */
 function extractBgcolor(selectedContacts) {
     const bgcolors = [];
