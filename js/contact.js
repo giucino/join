@@ -8,7 +8,6 @@ let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
  * main function to initialize the whole site
  */
 async function initContact() {
-    // await reloadContacts();
     await loadAllContacts();
     sortContacts();
     initLetters();
