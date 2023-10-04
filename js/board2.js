@@ -243,12 +243,12 @@ function updateProgressBar(taskId) {
 function renderAssigned(element) {
     let assignedToHTML = '';
     const filteredAssignedTo = element.assignedTo.filter(name => name !== undefined);
-    const bgcolors = element.bgcolor || [];
+    const bgcolors = element.bgcolor;
 
     let leftPosition = -7;
     for (let i = 0; i < filteredAssignedTo.length; i++) {
         const name = filteredAssignedTo[i];
-        const bgcolor = bgcolors[i] || '';
+        const bgcolor = bgcolors[i];
 
         if (name) {
             const initials = extractInitials(name);
