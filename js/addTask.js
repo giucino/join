@@ -241,10 +241,6 @@ function searchContacts(query) {
  * Assuming there's a contact {id: 1, name: 'John', surename: 'Doe'} in the `contacts` array
  * toggleContactSelection('John', 'Doe');
  * 
- * @todo
- * - Ensure contacts and selectedContacts are globally available or passed as arguments.
- * - It seems `delete selectedContacts[contactId];` is called twice, might be an error.
- * - It might be more efficient to pass an ID rather than name and surname.
  */
 function toggleContactSelection(name, surename) {
     const contact = contacts.find(c => c.name === name && c.surename === surename);

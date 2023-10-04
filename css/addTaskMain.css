@@ -95,8 +95,7 @@
 
 .add-task-description-textfield {
     width: 93%;
-    /* max-width: 440px; */
-    min-height: 90px;
+    height: 90px;
     color: black;
     font-family: 'Open sans', sans-serif;
     font-size: 19px;

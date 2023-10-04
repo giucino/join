@@ -38,7 +38,6 @@ document.getElementById('signUpForm').addEventListener('submit', function (event
  */
 async function signUpUser() {
     let username = document.getElementById('username').value;
-    // let initials = extractInitials(username);
     let passWord = getPasswordInputValue();
     let confirmPassword = getConfirmPasswordInputValue();
 
@@ -89,7 +88,6 @@ async function signUpUser() {
  * @returns {boolean} - Returns true if the email is already registered, false otherwise.
  */
 function isEmailAlreadyRegistered(email) {
-    // return users.find(user => user.email === email);
     return contacts.find(contact => contact.email === email);
 }
 
