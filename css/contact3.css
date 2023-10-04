@@ -79,12 +79,14 @@
     .container {
         padding: 20px;
         width: 500px;
+        margin-left: 100px;
     }
 }
 
 @media(max-width: 768px) {
     .container {
         margin-left: 0;
+        width: 402px;
     }
 
     #contact-details-mobile {
@@ -138,7 +140,8 @@
 
 @media(max-width: 450px) {
     .container {
-        margin-left: -94px;
+        margin-left: -21px;
+        width: 340px;
     }
 
     .container-contact-all {
@@ -152,5 +155,17 @@
     .contact {
         width: 260px;
         gap: 0;
+    }
+}
+
+@media(max-width: 360px) {
+    .container {
+        margin-left: -21px;
+        width: 323px;
+        padding: 4px;
+    }
+
+    .contact {
+        width: 250px;
     }
 }
