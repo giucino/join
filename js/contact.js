@@ -234,6 +234,7 @@ function openModal() {
     overlay.style.display = "flex";
     modalContainer.classList.remove('modal-slide-out');
     modalContainer.classList.add('modal-slide-in');
+    document.querySelector('.background-overlay').style.display = 'block';
 }
 
 
@@ -246,4 +247,52 @@ function closeModal() {
     modal.classList.remove('modal-slide-in');
     modal.classList.add('modal-slide-out');
     overlay.style.display = "none";
+    document.querySelector('.background-overlay').style.display = 'none';
+}
+
+
+/**
+ * Closes the 'contactModal' when clicking outside of its content.
+ * 
+ * @param {Event} event - The DOM event triggered from the click.
+ */
+function closeModalBackAddContact(event) {
+    if (event.target.classList.contains('modal')) {
+        let modal = document.getElementById("contactModal");
+        let overlay = document.querySelector(".background-overlay");
+        modal.classList.remove('modal-slide-in');
+        modal.classList.add('modal-slide-out');
+        overlay.style.display = "none";
+        document.querySelector('.background-overlay').style.display = 'none';
+    }
+}
+
+
+/**
+ * Closes the 'editModal' and hides the overlay.
+ */
+function closeModalEdit() {
+    let modal = document.getElementById("editModal");
+    let overlay = document.querySelector(".background-overlay");
+    modal.classList.remove('editModal-slide-in');
+    modal.classList.add('editModal-slide-out');
+    overlay.style.display = "none";
+    document.querySelector('.background-overlay').style.display = 'none';
+}
+
+
+/**
+ * Closes the 'editModal' when clicking outside of its content.
+ * 
+ * @param {Event} event - The DOM event triggered from the click.
+ */
+function closeModalBackEditContact(event) {
+    if (event.target.classList.contains('edit-modal')) {
+        let modal = document.getElementById("editModal");
+        let overlay = document.querySelector(".background-overlay");
+        modal.classList.remove('editModal-slide-in');
+        modal.classList.add('editModal-slide-out');
+        overlay.style.display = "none";
+        document.querySelector('.background-overlay').style.display = 'none';
+    }
 }
