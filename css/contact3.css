@@ -63,6 +63,7 @@
     }
 
     .add-person-button {
+        position: fixed;
         right: 60px;
         bottom: 135px;
     }
