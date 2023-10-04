@@ -215,3 +215,51 @@
         width: 250px;
     }
 }
+
+@media(max-height: 820px){
+    
+    .modal-content-top{
+        padding: 12px 47px;
+        gap: 2px;
+    }
+
+    .edit-content-top{
+        padding: 12px 47px;
+        gap: 2px;
+    }
+
+    #closeContactModalBtn{
+        top: 0;
+    }
+
+    #closeEditModalBtn{
+        top: 0;
+    }
+
+    .modal-headline{
+        font-size: 24px;
+    }
+
+    .modal-text{
+        font-size: 16px;
+    }
+
+    .modal-input-img {
+        width: 34px;
+        height: 34px;
+    }
+
+    .initial-big {
+        width: 46px;
+        height: 46px;
+        font-size: 19px;
+    }
+
+    .modal-input-img img{
+        width: 34px;
+        height: 34px;
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+}
