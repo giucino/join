@@ -38,7 +38,7 @@ function renderEditTask(id) {
     return /* html */ `
         <div id="edit-slide-container" class="edit-slide-container">
             <form id="edit-taskForm" onsubmit="saveEditedTask(${id}); return false;" class="edit-task-slide-container">
-                <div class="edit-add-task-container">
+                <div class="edit-add-task-container scroll-slide-edit-container">
                     <div class="edit-add-task-container-first">
                         <div class="edit-add-task-container-titel">
                             <div class="edit-add-task-titel-textcontainer">
