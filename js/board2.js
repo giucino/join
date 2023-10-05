@@ -64,10 +64,8 @@ document.addEventListener("DOMContentLoaded", function () {
 /**
  * Handles the click event for the reset button in the search functionality.
  * Clears the search input field, hides the reset button, and triggers the filter update.
- *
  * @function
  * @name handleResetButtonClick
- * 
  * Resets the search input field and triggers the filter update when the reset button is clicked.
  * @listens click
  * @param {Event} event - The click event.
@@ -184,7 +182,6 @@ function updateIDs() {
 
 /**
  * Deletes the specified card element from the document based on the provided ID.
- * 
  * @param {string|number} id - The ID of the card element to be removed.
  */
 function deleteCard(id) {
@@ -197,7 +194,6 @@ function deleteCard(id) {
 
 /**
  * Updates the status of a specific subtask and pushes the updated data.
- * 
  * @async
  * @param {number} taskId - ID of the task.
  * @param {number} subtaskIndex - Index of the subtask to be updated.
@@ -215,7 +211,6 @@ async function updateSubtaskStatus(taskId, subtaskIndex, isChecked) {
 
 /**
  * Updates the progress bar based on completed subtasks.
- * 
  * @param {number} taskId - ID of the task.
  */
 function updateProgressBar(taskId) {
@@ -235,29 +230,62 @@ function updateProgressBar(taskId) {
 
 
 /**
- * Renders the assigned users and their initials.
- * 
- * @param {Object} element - Task element containing assigned users.
- * @returns {string} HTML string of rendered users.
+ * Renders a list of assigned elements with a maximum number of contacts to show.
+ * @param {Element} element - The element to render.
+ * @returns {string} The rendered HTML content.
  */
 function renderAssigned(element) {
-    let assignedToHTML = '';
-    const filteredAssignedTo = element.assignedTo.filter(name => name !== undefined);
-    const bgcolors = element.bgcolor;
+    const maxContactsToShow = 3;
+    const { filteredAssignedTo, bgcolors } = filterAndColor(element);
+    const { rendered, leftPosition } = renderContacts(filteredAssignedTo, bgcolors, maxContactsToShow);
+    return rendered + renderAdditionalContacts(leftPosition, filteredAssignedTo.length - maxContactsToShow);
+}
 
-    let leftPosition = -7;
-    for (let i = 0; i < filteredAssignedTo.length; i++) {
-        const name = filteredAssignedTo[i];
-        const bgcolor = bgcolors[i];
 
-        if (name) {
-            const initials = extractInitials(name);
+/**
+ * Filters out undefined values from the 'assignedTo' array and retrieves the 'bgcolor'.
+ * @param {Object} element - The input element containing 'assignedTo' and 'bgcolor' properties.
+ * @param {Array<string>} element.assignedTo - An array of assignedTo values.
+ * @param {string} element.bgcolor - The background color to be retrieved.
+ * @returns {Object} An object containing the filtered 'assignedTo' array and the 'bgcolor'.
+ */
+function filterAndColor(element) {
+    return {
+        filteredAssignedTo: element.assignedTo.filter(name => name !== undefined),
+        bgcolors: element.bgcolor
+    };
+}
+
+
+/**
+ * Renders a list of contacts with customized background colors and maximum items to display.
+ * @param {Array} contacts - An array of contact objects to render.
+ * @param {Array} bgcolors - An array of background colors corresponding to each contact.
+ * @param {number} max - The maximum number of contacts to render.
+ * @returns {Object} An object containing the rendered HTML and the final leftPosition value.
+ */
+function renderContacts(contacts, bgcolors, max) {
+    let result = '', leftPosition = -7;
+    for (let i = 0; i < Math.min(contacts.length, max); i++) {
+        if (contacts[i]) {
             const additionalClass = `negativ-gap-${leftPosition}`;
+            result += generateAssignedHTML(additionalClass, bgcolors[i], extractInitials(contacts[i]));
             leftPosition -= 7;
-            assignedToHTML += generateAssignedHTML(additionalClass, bgcolor, initials);
         }
     }
-    return assignedToHTML;
+    return { rendered: result, leftPosition: leftPosition };
+}
+
+
+/**
+ * Renders additional contacts with a specified left position and remaining count.
+ * @param {number} leftPosition - The left position for rendering the additional contacts.
+ * @param {number} remaining - The number of remaining additional contacts to render.
+ * @returns {string} The HTML representation of additional contacts, or an empty string if no additional contacts are to be rendered.
+ */
+function renderAdditionalContacts(leftPosition, remaining) {
+    return remaining > 0 ? /*html*/`
+        <div class="user-marked media negativ-gap-${leftPosition}" style="background-color: #4589FF">+${remaining}</div>` : '';
 }
 
 
