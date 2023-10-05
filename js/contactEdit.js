@@ -156,6 +156,10 @@ function validateContactFields(newName, newSurename, newEmail, newTelefon) {
         alert("Bitte füllen Sie alle Felder aus.");
         return false;
     }
+    if (!isValidName(newName)) {
+        alert("Ungültiges Namensformat.");
+        return false;
+    }
     if (!isValidEmail(newEmail)) {
         alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
         return false;
@@ -179,6 +183,18 @@ function validateContactFields(newName, newSurename, newEmail, newTelefon) {
  */
 function areAllFieldsFilled(newName, newSurename, newEmail, newTelefon) {
     return newName && newSurename && newEmail && newTelefon;
+}
+
+
+/**
+ * Checks if the provided name is valid based on a regular expression pattern.
+ *
+ * @param {string} newName - The name to validate.
+ * @returns {boolean} Returns true if the name is valid; otherwise, false.
+ */
+function isValidName(newName) {
+    let namePattern = /^[^0-9]/;
+    return namePattern.test(newName);
 }
 
 
