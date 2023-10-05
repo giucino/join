@@ -1,0 +1,9 @@
+.scroll-slide-edit-container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 650px;
+    width: 448px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}

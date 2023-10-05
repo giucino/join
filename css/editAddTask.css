@@ -1,14 +1,11 @@
 .edit-add-task-container {
     display: inline-flex;
+    height: 650px;
     flex-direction: column;
     align-items: flex-start;
     overflow: auto;
     gap: 24px;
     flex-shrink: 0;
-}
-
-.edit-add-task-container::-webkit-scrollbar{
-    width: 0;
 }
 
 .edit-add-task-container-first {
@@ -41,12 +38,6 @@
     display: inline-flex;
     cursor: pointer;
 }
-
-/* .add-task-titel-textcontainer:hover,
-.edit-add-task-titel-textcontainer:hover
-{
-    border-bottom: 1px solid var(--bg-color);
-} */
 
 .edit-add-task-titel-textfield{
     color: black;

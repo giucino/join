@@ -1,3 +1,45 @@
+/* width */
+.scroll-slide-container::-webkit-scrollbar, 
+.scroll-slide-edit-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+.scroll-slide-container::-webkit-scrollbar-track, 
+.scroll-slide-edit-container::-webkit-scrollbar-track {
+    border-radius: 30px;
+    background: #f1f1f1;
+}
+
+/* Handle */
+.scroll-slide-container::-webkit-scrollbar-thumb, 
+.scroll-slide-edit-container::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+.scroll-slide-container::-webkit-scrollbar-thumb:hover, 
+.scroll-slide-edit-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.task-slide-edit-text {
+    color: #2A3647;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.task-slide-edit:hover .task-slide-delete-edit-img {
+    content: url('../img/edit_hover.png');
+}
+
+.task-slide-edit:hover .task-slide-edit-text {
+    color: #005DFF;
+    font-weight: 700;
+}
+
 #taskFormSlider {
     display: none;
     position: fixed;
