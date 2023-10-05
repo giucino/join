@@ -141,11 +141,14 @@ h2 {
     display: none;
 }
 
+#user-profile {
+    display: none !important;
+}
+
 .header-container-right {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-right: -120px;
 }
 
 
