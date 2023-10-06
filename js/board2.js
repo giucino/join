@@ -201,39 +201,50 @@ function deleteCard(id) {
 
 
 /**
+ * Calculates the progress of a todo item based on its subtasks.
+ *
+ * @param {Array} todos - The array of todo items.
+ * @param {number} todoId - The ID of the todo item for which to calculate progress.
+ * @returns {number} The progress percentage of the todo item.
+ */
+function calculateProgress(todos, todoId) {
+    const todo = todos.find(t => t.id === todoId);
+    if (!todo || !todo.subtasks) return 0;
+
+    const completedSubtasks = todo.subtasks.filter(subtask => subtask.status).length;
+    return (completedSubtasks / todo.subtasks.length) * 100;
+}
+
+
+/**
  * Updates the status of a specific subtask and pushes the updated data.
  * @async
  * @param {number} taskId - ID of the task.
  * @param {number} subtaskIndex - Index of the subtask to be updated.
  * @param {boolean} isChecked - New status of the subtask.
  */
-async function updateSubtaskStatus(taskId, subtaskIndex, isChecked) {
-    if (taskId >= 0 && taskId < todos.length && subtaskIndex >= 0 && subtaskIndex < todos[taskId].subtasks.length) {
-        todos[taskId].subtasks[subtaskIndex].status = isChecked;
-        renderSlideCard(taskId);
-        updateProgressBar(taskId);
-        await pushData();
+function updateSubtaskStatus(todoId, subtaskId, isChecked) {
+    // Finden Sie das Todo und aktualisieren Sie den Subtask-Status
+    const todo = todos.find(t => t.id === todoId);
+    if (todo && todo.subtasks && todo.subtasks[subtaskId]) {
+        todo.subtasks[subtaskId].status = isChecked;
     }
+    updateProgressBar(todos, todoId);
+    pushData();
 }
 
 
 /**
- * Updates the progress bar based on completed subtasks.
- * @param {number} taskId - ID of the task.
+ * Updates the progress bar for a specific todo item based on the current progress.
+ * @param {Array<Object>} todos - The array of todo objects.
+ * @param {string} todoId - The ID of the todo item to update the progress bar for.
  */
-function updateProgressBar(taskId) {
-    const task = todos[taskId];
-    const progressBar = document.getElementById(`progress-bar${task.id}`);
-    const allTasksCount = task.subtasks.length;
-    const completedTasksCount = task.subtasks.filter(subtask => subtask.status).length;
-    const progress = (completedTasksCount / allTasksCount) * 100;
-    progressBar.style.width = `${progress}%`;
-    const numberTasks = document.getElementById('number-tasks');
-    const allTasks = document.getElementById('all-tasks');
-    numberTasks.innerHTML = '';
-    numberTasks.innerHTML = completedTasksCount;
-    allTasks.innerHTML = '';
-    allTasks.innerHTML = allTasksCount;
+function updateProgressBar(todos, todoId) {
+    const progress = calculateProgress(todos, todoId);
+    const progressBar = document.getElementById(`progress-bar${todoId}`);
+    if (progressBar) {
+        progressBar.style.width = `${progress}%`;
+    }
 }
 
 
@@ -382,25 +393,4 @@ function renderSlideAssigned(element) {
         }
     }
     return assignedToHTML;
-}
-
-
-/**
- * Renders the subtasks for a task in the slide view.
- * @param {Object} element - The task element containing its details.
- * @param {number} id - The ID of the task element.
- * @returns {string} The generated HTML string for subtasks.
- */
-function renderSlideSubtask(element, id) {
-    let subtasksHTML = '';
-    if (element.subtasks && Array.isArray(element.subtasks)) {
-        for (let i = 0; i < element.subtasks.length; i++) {
-            const subtask = element.subtasks[i];
-            if (subtask.title) {
-                subtasksHTML += renderSlideSubtaskHTML(subtask, i, id);
-                updateHTML();
-            };
-        }
-    }
-    return subtasksHTML;
 }

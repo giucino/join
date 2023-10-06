@@ -1,4 +1,25 @@
 /**
+ * Renders the subtasks for a task in the slide view.
+ * @param {Object} element - The task element containing its details.
+ * @param {number} id - The ID of the task element.
+ * @returns {string} The generated HTML string for subtasks.
+ */
+function renderSlideSubtask(element, id) {
+    let subtasksHTML = '';
+    if (element.subtasks && Array.isArray(element.subtasks)) {
+        for (let i = 0; i < element.subtasks.length; i++) {
+            const subtask = element.subtasks[i];
+            if (subtask.title) {
+                subtasksHTML += renderSlideSubtaskHTML(subtask, i, id);
+                updateHTML();
+            };
+        }
+    }
+    return subtasksHTML;
+}
+
+
+/**
  * Generates the overall task HTML representation.
  * @param {Object} element - The task data.
  * @param {string} priorityImageSrc - The source URL of the priority image.
