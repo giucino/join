@@ -1,3 +1,5 @@
+let openedWindow;
+
 /**
  * Marks the active link in the navigation based on the current URL.
  */
@@ -137,4 +139,27 @@ function showLoggedInUserInitials() {
     if (initials) {
         initials.textContent = loggedInUserData;
     }
+}
+
+
+/**
+ * Opens the provided URL in a new browser tab or window.
+ * @param {string} url - The URL to be opened in a new tab.
+ * @returns {void}
+ */
+function openInNewTab(url) {
+    window.open(url, '_blank');
+}
+
+
+/**
+ * Closes the current browser tab.
+ * This function calls the `window.close()` method to close the currently
+ * active browser tab or window.
+ * @example
+ * Close the current tab
+ * closeCurrentTab();
+ */
+function closeCurrentTab() {
+    window.close();
 }
