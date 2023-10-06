@@ -231,6 +231,7 @@ function updateSubtaskStatus(todoId, subtaskId, isChecked) {
     }
     updateProgressBar(todos, todoId);
     pushData();
+    refreshHTML();
 }
 
 
