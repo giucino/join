@@ -101,6 +101,7 @@
     }
     .scroll-slide-container {
         transform: scale(0.8);
+        width: 320px;
     }
 }
 
