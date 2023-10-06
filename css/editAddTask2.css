@@ -1,12 +1,3 @@
-.edit-category-choicefield {
-    display: flex;
-    width: 440px;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--style, #D1D1D1);
-    background: var(--white, #FFF);
-}
-
 .edit-category-choicefield:hover {
     border-bottom: 1px solid var(--bg-color);
 }
@@ -389,4 +380,14 @@
 
 .inline-flex{
     display: inline-flex;
+}
+
+.scroll-slide-edit-container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 650px;
+    width: 448px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }

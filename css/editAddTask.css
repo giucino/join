@@ -337,11 +337,6 @@
     height: 24px;
 }
 
-/* .select-icon:hover {
-    background-image: url('../img/check-button-hover.png');
-    cursor: pointer;
-} */
-
 .edit-contact-container.selected {
     background-color: #4589FF;
     border-radius: 10px;
@@ -385,4 +380,13 @@
     font-style: normal;
     font-weight: 700;
     line-height: 120%;
+}
+
+.edit-category-choicefield {
+    display: flex;
+    width: 440px;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--style, #D1D1D1);
+    background: var(--white, #FFF);
 }
