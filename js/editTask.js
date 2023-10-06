@@ -276,10 +276,23 @@ function addToSelectedContacts(element) {
 
 
 /**
+ * Retrieves the logged-in user's data from local storage.
+ * 
+ * @function
+ * @returns {Object} The logged-in user's data, or an empty object if no data is found.
+ */
+function getLoggedInUserData() {
+  return JSON.parse(localStorage.getItem('loggedInUser')) || {};
+}
+
+
+/**
  * Asynchronously renders the selected contacts to the UI.
  * @param {Object} selectedContacts - The list of selected contacts.
  */
 async function loadRenderAssignedTo(selectedContacts) {
+  let loggedInUserData = getLoggedInUserData();
+
   let assignedToContainer = document.getElementById('edit-loaded-contacts');
   assignedToContainer.innerHTML = '';
   
@@ -287,8 +300,9 @@ async function loadRenderAssignedTo(selectedContacts) {
     let contact = contacts[i];
     let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
     const isSelected = selectedContacts[contact.id] || false;
+    let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
 
-    assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected);
+    assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected, isCurrentUser);
   }
 }
 
@@ -298,6 +312,8 @@ async function loadRenderAssignedTo(selectedContacts) {
  * @param {Array} contacts - The list of contacts to render.
  */
 function loadSearchedContact(contacts) {
+  let loggedInUserData = getLoggedInUserData();
+
   let loadAssignedToContainer = document.getElementById('edit-loaded-contacts');
   loadAssignedToContainer.innerHTML = '';
 
@@ -305,8 +321,9 @@ function loadSearchedContact(contacts) {
       let contact = contacts[i];
       let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
       const isSelected = selectedContacts[contact.id] || false;
+      let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
 
-      loadAssignedToContainer.innerHTML += loadRenderSearchedContactsHTML(contact, initials, isSelected);
+      loadAssignedToContainer.innerHTML += loadRenderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser);
   }
 }
 
