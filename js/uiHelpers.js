@@ -1,5 +1,3 @@
-let openedWindow;
-
 /**
  * Marks the active link in the navigation based on the current URL.
  */
