@@ -193,7 +193,7 @@ function areAllFieldsFilled(newName, newSurename, newEmail, newTelefon) {
  * @returns {boolean} Returns true if the name is valid; otherwise, false.
  */
 function isValidName(newName) {
-    let namePattern = /^[^0-9]/;
+    let namePattern = /^[a-zA-Z][a-zA-Z^0-9!@#$%^&*(),.?":{}|<>']*$/;
     return namePattern.test(newName);
 }
 
