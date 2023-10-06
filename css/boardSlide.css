@@ -131,7 +131,6 @@
 @media(max-width: 480px) {
     .edit-task-slide-container {
         transform: scale(0.6);
-        /* position: unset; */
         top: -150px;
         left: -70px;
     }

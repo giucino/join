@@ -203,3 +203,9 @@
         height: 750px;
     }
 }
+
+@media (max-width: 480px) {
+    .task-slide-title {
+        font-size: 31px;
+    }
+}
