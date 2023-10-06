@@ -224,7 +224,6 @@ function calculateProgress(todos, todoId) {
  * @param {boolean} isChecked - New status of the subtask.
  */
 function updateSubtaskStatus(todoId, subtaskId, isChecked) {
-    // Finden Sie das Todo und aktualisieren Sie den Subtask-Status
     const todo = todos.find(t => t.id === todoId);
     if (todo && todo.subtasks && todo.subtasks[subtaskId]) {
         todo.subtasks[subtaskId].status = isChecked;
