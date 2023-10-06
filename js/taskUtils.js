@@ -225,6 +225,13 @@ function addResetSelectCategory() {
     categoryInput.style.borderColor = '#D1D1D1';
 }
 
+
+/**
+ * Sets up an event listener for click events on the body of the document.
+ * 
+ * When any element with the class `category-dropdown` is clicked, this script calls the 
+ * `addResetSelectCategory` function to handle the category reset logic.
+ */
 document.body.addEventListener('click', function (event) {
     if (event.target.classList.contains('category-dropdown')) {
         addResetSelectCategory();

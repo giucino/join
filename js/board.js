@@ -164,8 +164,8 @@ function done() {
   const doneContainer = document.getElementById("done");
   doneContainer.innerHTML = "";
   if (filteredDone.length === 0) {
-    doneContainer.innerHTML += noTasks();    
-    doneContainer.innerHTML += cardTaskBorder();;    
+    doneContainer.innerHTML += noTasks();
+    doneContainer.innerHTML += cardTaskBorder();;
   } else {
     filteredDone.forEach((task) => {
       doneContainer.innerHTML += generateTasks(task);
@@ -192,8 +192,8 @@ function noTasks() {
  * 
  * @returns {string} An HTML string representing the task border.
  */
-function cardTaskBorder(){
-    return /*html*/`
+function cardTaskBorder() {
+  return /*html*/`
         <div id="show-task-border" class="show-task-border visibility"></div>
     `;
 }
@@ -205,7 +205,7 @@ function cardTaskBorder(){
 function showAllTaskBorders() {
   const elements = document.querySelectorAll('.show-task-border');
   elements.forEach(el => {
-      el.classList.remove('visibility');
+    el.classList.remove('visibility');
   });
 }
 
@@ -216,35 +216,59 @@ function showAllTaskBorders() {
 function hideAllTaskBorders() {
   const elements = document.querySelectorAll('.show-task-border');
   elements.forEach(el => {
-      el.classList.add('visibility');
+    el.classList.add('visibility');
   });
 }
 
 
-document.addEventListener("DOMContentLoaded", function() {
-    let isMouseDown = false,
-        startX, scrollLeftStart;
+/**
+ * Sets up event listeners to enable a "click and drag" scrolling functionality on an element with the class `.scroll-container`.
+ * 
+ * Once the DOM content is fully loaded, this script allows users to click and drag horizontally within the `.scroll-container` 
+ * to scroll its content. The visual feedback is provided by adding a `grabbing` class to the container during the drag action.
+ */
+document.addEventListener("DOMContentLoaded", function () {
+  /** @type {boolean} Flag to track if the mouse button is pressed down. */
+  let isMouseDown = false,
+    /** @type {boolean} Flag to track if the mouse button is pressed down. */
+    /** @type {number} The initial scroll position of the container when the mouse button is pressed down. */
 
-    let container = document.querySelector('.scroll-container');
+    startX, scrollLeftStart;
+  /** @type {HTMLElement} The container element that the user can click and drag to scroll. */
 
-    container.addEventListener('mousedown', function(e) {
-        container.classList.add('grabbing');
-        isMouseDown = true;
-        startX = e.pageX;
-        scrollLeftStart = container.scrollLeft;
-    });
+  let container = document.querySelector('.scroll-container');
 
-    container.addEventListener('mousemove', function(e) {
-        
-        if (!isMouseDown) return;
-        let x = e.pageX;
-        container.scrollLeft = scrollLeftStart + startX - x;
-    });
+  /**
+   * Event listener for the mousedown event on the container.
+   * Initializes the drag action by recording the initial mouse position and scroll position.
+   * @param {MouseEvent} e - The mouse event object.
+   */
+  container.addEventListener('mousedown', function (e) {
+    container.classList.add('grabbing');
+    isMouseDown = true;
+    startX = e.pageX;
+    scrollLeftStart = container.scrollLeft;
+  });
 
-    document.addEventListener('mouseup', function() {
-        container.classList.remove('grabbing');
-        isMouseDown = false;
-    });
+  /**
+   * Event listener for the mousemove event on the container.
+   * Updates the scroll position of the container based on the mouse movement.
+   * @param {MouseEvent} e - The mouse event object.
+   */
+  container.addEventListener('mousemove', function (e) {
+    if (!isMouseDown) return;
+    let x = e.pageX;
+    container.scrollLeft = scrollLeftStart + startX - x;
+  });
+
+  /**
+  * Event listener for the mouseup event on the document.
+  * Ends the drag action and removes the visual feedback.
+  */
+  document.addEventListener('mouseup', function () {
+    container.classList.remove('grabbing');
+    isMouseDown = false;
+  });
 });
 
 
@@ -347,8 +371,8 @@ function moveTo(status) {
  * Rotates the element with the given id by adding a 'rotate' class.
  * @param {string} id - The ID of the element to rotate.
  */
-function startRotateCard(id){
-    document.getElementById(id).classList.add('rotate');
+function startRotateCard(id) {
+  document.getElementById(id).classList.add('rotate');
 }
 
 
@@ -357,7 +381,7 @@ function startRotateCard(id){
  * @param {string} id - The ID of the element to highlight.
  */
 function highlight(id) {
-    document.getElementById(id).classList.add('highlight');
+  document.getElementById(id).classList.add('highlight');
 }
 
 
@@ -366,7 +390,7 @@ function highlight(id) {
  * @param {string} id - The ID of the element to remove the highlight from.
  */
 function removeHighlight(id) {
-    document.getElementById(id).classList.remove('highlight');
+  document.getElementById(id).classList.remove('highlight');
 }
 
 

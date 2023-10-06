@@ -94,6 +94,14 @@ function closeCard() {
     }, 800);
 }
 
+
+/**
+ * Sets up a global click event listener to close the card if the click occurs outside of its content.
+ * 
+ * When a click event is detected on the document, this script checks if the clicked target is the 
+ * element with the ID `slide-container`. If it is, the `closeCard` function is called to close or 
+ * hide the card.
+ */
 document.addEventListener("click", function(event) {
     const slideContainer = document.getElementById("slide-container");
     if (slideContainer && event.target === slideContainer) {

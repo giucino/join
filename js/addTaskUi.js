@@ -23,7 +23,14 @@ function applyBorderColorOnFocusAndBlur(containerSelector, inputSelector, focusC
 }
 
 
+/**
+ * Sets up event listeners to apply specific border colors to various input fields when they receive focus or lose focus.
+ * This function is executed once the DOM content is fully loaded.
+ */
 document.addEventListener('DOMContentLoaded', () => {
+    /**
+     * Applies border color changes for the title text container and its associated text field.
+     */
     applyBorderColorOnFocusAndBlur(
         '.add-task-titel-textcontainer',
         '.add-task-titel-textfield',
@@ -77,8 +84,21 @@ function changeTextAreaBorderOnFocusBlurInput(textarea) {
     });
 }
 
+
+/**
+ * Sets up an event listener to change the border of a textarea element when it receives focus, loses focus, or has input.
+ * This function is executed once the DOM content is fully loaded.
+ */
 document.addEventListener('DOMContentLoaded', () => {
+    /**
+     * The textarea element whose border will be changed on focus, blur, or input events.
+     * @type {HTMLTextAreaElement}
+     */
     let textarea = document.getElementById('taskDescription');
+
+    /**
+     * Calls a function to handle the changing of the textarea border based on focus, blur, or input events.
+     */
     changeTextAreaBorderOnFocusBlurInput(textarea);
 });
 

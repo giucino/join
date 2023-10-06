@@ -48,7 +48,13 @@ async function addLoadTasks() {
     }
 }
 
-
+/**
+ * Sets up an event listener for the submission of the 'taskFormSlider' form.
+ * 
+ * When the form with the ID `taskFormSlider` is submitted, this script prevents the default form submission 
+ * behavior (which might cause a page reload) and instead calls the `addCreateTask` function to handle the 
+ * task creation logic.
+ */
 document.getElementById('taskFormSlider').addEventListener('submit', function (event) {
     event.preventDefault();
     addCreateTask();
