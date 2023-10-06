@@ -228,27 +228,19 @@ function hideAllTaskBorders() {
  * to scroll its content. The visual feedback is provided by adding a `grabbing` class to the container during the drag action.
  */
 document.addEventListener("DOMContentLoaded", function () {
-  /** @type {boolean} Flag to track if the mouse button is pressed down. */
   let isMouseDown = false,
-    /** @type {boolean} Flag to track if the mouse button is pressed down. */
-    /** @type {number} The initial scroll position of the container when the mouse button is pressed down. */
-
     startX, scrollLeftStart;
-  /** @type {HTMLElement} The container element that the user can click and drag to scroll. */
 
   let container = document.querySelector('.scroll-container');
 
-  /**
-   * Event listener for the mousedown event on the container.
-   * Initializes the drag action by recording the initial mouse position and scroll position.
-   * @param {MouseEvent} e - The mouse event object.
-   */
+
   container.addEventListener('mousedown', function (e) {
     container.classList.add('grabbing');
     isMouseDown = true;
     startX = e.pageX;
     scrollLeftStart = container.scrollLeft;
   });
+
 
   /**
    * Event listener for the mousemove event on the container.
@@ -260,6 +252,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let x = e.pageX;
     container.scrollLeft = scrollLeftStart + startX - x;
   });
+
 
   /**
   * Event listener for the mouseup event on the document.

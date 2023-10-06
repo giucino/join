@@ -31,6 +31,12 @@ document.getElementById('signUpForm').addEventListener('submit', function (event
 });
 
 
+/**
+ * Registers a new user.
+ * 
+ * @returns {Promise<void>} A promise that resolves upon successful registration.
+ * @throws {Error} An error if the registration fails.
+ */
 async function signUpUser() {
     const username = document.getElementById('username').value;
     const passWord = getPasswordInputValue();
@@ -58,10 +64,17 @@ async function signUpUser() {
     }
 
     let newContact = createNewContact(username, emailValue, passWord);
-    saveContact(newContact);
+    registerContact(newContact);
 }
 
 
+/**
+ * Validates whether the entered passwords match.
+ * 
+ * @param {string} password - The password entered by the user.
+ * @param {string} confirmPassword - The confirmation of the entered password.
+ * @returns {boolean} Returns true if passwords match, false otherwise.
+ */
 function validatePasswordMatch(password, confirmPassword) {
     if (password !== confirmPassword) {
         showPasswordMatchError();
@@ -82,15 +95,28 @@ function isEmailAlreadyRegistered(email) {
 }
 
 
+/**
+ * Tests if the username adheres to the specified format.
+ * @param {string} username - The username to be validated.
+ * @returns {boolean} Returns true if the username is in a valid format, false otherwise.
+ */
 function isValidUsername(username) {
     return /^[a-zA-Z][^0-9!@#$%^&*(),.?":{}|<>']*$/.test(username);
 }
 
 
+/**
+ * Creates a new contact object based on provided information.
+ * 
+ * @param {string} username - The username or full name of the contact.
+ * @param {string} email - The email address of the contact.
+ * @param {string} password - The password associated with the contact.
+ * @returns {Object} Returns a new contact object.
+ */
 function createNewContact(username, email, password) {
     let maxContactId = Math.max(...contacts.map(contact => contact.id), -1);
     let nextContactId = maxContactId + 1;
-    const { newName, newSurename } = extractNameParts(username);
+    let { newName, newSurename } = extractNameParts(username);
 
     return {
         bgcolor: getRandomColor(),
@@ -104,73 +130,29 @@ function createNewContact(username, email, password) {
 }
 
 
+/**
+ * Extracts the first and last name parts from a full name.
+ * 
+ * @param {string} username - The full name to extract parts from.
+ * @returns {Object} Returns an object with the properties `newName` and `newSurename`.
+ */
 function extractNameParts(username) {
-    const nameParts = username.trim().split(' ');
-    const newName = nameParts[0];
-    const newSurename = nameParts[1] || '';
+    let nameParts = username.trim().split(' ');
+    let newName = nameParts[0];
+    let newSurename = nameParts[1] || '';
     return { newName, newSurename };
 }
 
 
 /**
- * Saves a contact to the contacts array and updates local storage.
- * @param {Object} newContact - The contact object to save.
- * @returns {Promise<void>}
+ * Registers a new contact, updates the storage, and performs related actions.
+ * 
+ * @param {Object} newContact - The contact object to be registered.
+ * @returns {Promise<void>} A promise that resolves upon successful registration.
  */
-async function saveContact(newContact) {
+async function registerContact(newContact) {
     contacts.push(newContact);
     await setItem('contacts', JSON.stringify(contacts));
     showSuccessMessageAndRedirect();
     resetForm();
 }
-
-
-// /**
-//  * Handles the user sign-up process. Validates the provided inputs, registers the user if inputs are valid,
-//  * and displays relevant error messages if needed.
-//  * @returns {Promise<void>} - A Promise that resolves once the user registration process is completed.
-//  */
-// async function signUpUser() {
-//     let username = document.getElementById('username').value;
-//     let passWord = getPasswordInputValue();
-//     let confirmPassword = getConfirmPasswordInputValue();
-
-//     resetSignUpFormStyle();
-
-//     if (passWord !== confirmPassword) {
-//         showPasswordMatchError();
-//         shakePasswordInput();
-//         return;
-//     }
-
-//     let emailValue = email.value;
-//     if (isEmailAlreadyRegistered(emailValue)) {
-//         showEmailAlreadyRegisteredError();
-//         return;
-//     }
-
-//     if (!isChecked) {
-//         return;
-//     }
-
-//     let maxContactId = Math.max(...contacts.map(contact => contact.id), -1);
-//     let nextContactId = maxContactId + 1;
-//     let nameParts = username.trim().split(' ');
-//     let newName = nameParts[0];
-//     let newSurename = nameParts[1] || '';
-
-//     let newContact = {
-//         bgcolor: getRandomColor(),
-//         id: nextContactId,
-//         name: newName,
-//         surename: newSurename,
-//         email: emailValue,
-//         telefon: '',
-//         password: password.value,
-//     };
-//     contacts.push(newContact);
-
-//     await setItem('contacts', JSON.stringify(contacts));
-//     showSuccessMessageAndRedirect();
-//     resetForm();
-// }

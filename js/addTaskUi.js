@@ -90,15 +90,7 @@ function changeTextAreaBorderOnFocusBlurInput(textarea) {
  * This function is executed once the DOM content is fully loaded.
  */
 document.addEventListener('DOMContentLoaded', () => {
-    /**
-     * The textarea element whose border will be changed on focus, blur, or input events.
-     * @type {HTMLTextAreaElement}
-     */
     let textarea = document.getElementById('taskDescription');
-
-    /**
-     * Calls a function to handle the changing of the textarea border based on focus, blur, or input events.
-     */
     changeTextAreaBorderOnFocusBlurInput(textarea);
 });
 

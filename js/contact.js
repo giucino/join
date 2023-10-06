@@ -131,7 +131,7 @@ function showContactDetails(index) {
     resetAllContactsSelection();
     let selectedContactElement = document.querySelector(`[data-contact-index="${index}"]`);
 
-    toggleDetailsContainerVisibility(detailsContainer, index);
+    showContactDetailsContent(detailsContainer, index);
 
     selectedContactElement.classList.add('contact-selected');
     handleAnimationEnd(detailsContainer);
@@ -146,22 +146,6 @@ function resetAllContactsSelection() {
     allContacts.forEach(contactElement => {
         contactElement.classList.remove('contact-selected');
     });
-}
-
-
-/**
- * Toggles the visibility of the details container based on its current state.
- *
- * @param {HTMLElement} detailsContainer - The details container element.
- * @param {number} index - The index of the contact associated with the details container.
- */
-
-function toggleDetailsContainerVisibility(detailsContainer, index) {
-    if (isContainerVisible && detailsContainer.getAttribute('data-current-index') == index) {
-        // hideDetailsContainer(detailsContainer);
-    } else {
-        showContactDetailsContent(detailsContainer, index);
-    }
 }
 
 

@@ -1,8 +1,6 @@
 /**
  * Initializes the addition of tasks by loading contacts from storage
  * and loading tasks asynchronously.
- * @async
- * @function initAddTask
  * @returns {Promise<void>} A promise that resolves when tasks are loaded.
  */
 async function initAddTask() {
@@ -13,16 +11,7 @@ async function initAddTask() {
 
 /**
  * Asynchronously loads contacts data from storage and assigns it to the 'contacts' variable.
- * @async
- * @function
  * @throws {Error} Throws an error if there's an issue parsing or loading the data.
- * @example
- * try {
- *   await addLoadContactsFromStorage();
- *   Access the 'contacts' variable with the loaded data here.
- * } catch (error) {
- *   console.error('Loading error:', error);
- * }
  */
 async function addLoadContactsFromStorage() {
     try {
@@ -155,8 +144,6 @@ function processValidInput(title, description, dueDate) {
  * 2. Displays a message indicating that the task has been created.
  * 3. Closes the opened modal
  * 4. Updates the HTML to reflect the changes.
- * @async
- * @function addCompleteTaskCreation
  * @throws {Error} Throws an error if an error occurs during local storage operation.
  */
 async function addCompleteTaskCreation() {
@@ -171,7 +158,6 @@ async function addCompleteTaskCreation() {
  * Opens a task form for adding a new task. The behavior depends on the window width:
  * - If the window width is greater than or equal to 768 pixels, it displays a modal with a task form.
  * - If the window width is less than 768 pixels, it redirects to the 'addTask.html' page.
- * @function
  * @throws {Error} If the 'taskFormSlider' element is not found in the DOM.
  */
 function addTask() {
@@ -199,6 +185,7 @@ function closeAddTaskModal() {
     let overlay = document.querySelector(".task-background-overlay");
     overlay.style.display = "none";
 }
+
 
 /**
  * Handles the click event on the overlay to close the add task modal.
@@ -291,7 +278,6 @@ function addExtractBgcolor(selectedContacts) {
  * This function retrieves the value from the new subtask input field, trims it, and
  * adds it to the subtask container with a generated subtask ID. If the input is empty,
  * it does nothing.
- * @function
  * @returns {void}
  */
 function addAddSubtask() {
@@ -323,6 +309,7 @@ function addHandleSubtaskInput(event) {
     }
 }
 document.addEventListener('keypress', addHandleSubtaskInput);
+
 
 /**
  * Adds a new subtask to a container and updates the DOM with the new subtask HTML.

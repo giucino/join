@@ -25,34 +25,77 @@ function markMobileLink() {
 
     if (screenWidth < 1024) {
         for (let i = 0; i < links.length; i++) {
-            let link = links[i];
-            let image = link.querySelector('img');
-            let isActive = link.classList.contains('active');
-
-            if (isActive) {
-                if (link.id === 'summary-link') {
-                    image.src = 'img/summary_mobile.png';
-                } else if (link.id === 'add_task-link') {
-                    image.src = 'img/edit_square_mobile.png';
-                } else if (link.id === 'board-link') {
-                    image.src = 'img/board_sidebar_mobile.png';
-                } else if (link.id === 'contact-link') {
-                    image.src = 'img/contacts_mobile.png';
-                }
-            } else {
-                if (link.id === 'summary-link') {
-                    image.src = 'img/summary.png';
-                } else if (link.id === 'add_task-link') {
-                    image.src = 'img/edit_square.png';
-                } else if (link.id === 'board-link') {
-                    image.src = 'img/board_sidebar.png';
-                } else if (link.id === 'contact-link') {
-                    image.src = 'img/contacts.png';
-                }
-            }
+            updateLinkImage(links[i]);
         }
     }
 }
+
+
+/**
+ * Updates the image of a navigation link based on its active state.
+ * @param {HTMLElement} link - The navigation link element.
+ */
+function updateLinkImage(link) {
+    let image = link.querySelector('img');
+    let isActive = link.classList.contains('active');
+
+    if (isActive) {
+        updateMobileLinkImage(link, image);
+    } else {
+        updateDesktopLinkImage(link, image);
+    }
+}
+
+
+/**
+ * Updates the image of a navigation link for mobile view based on the link's ID.
+ * @param {HTMLElement} link - The navigation link element.
+ * @param {HTMLImageElement} image - The image element within the navigation link.
+ */
+function updateMobileLinkImage(link, image) {
+    switch (link.id) {
+        case 'summary-link':
+            image.src = 'img/summary_mobile.png';
+            break;
+        case 'add_task-link':
+            image.src = 'img/edit_square_mobile.png';
+            break;
+        case 'board-link':
+            image.src = 'img/board_sidebar_mobile.png';
+            break;
+        case 'contact-link':
+            image.src = 'img/contacts_mobile.png';
+            break;
+        default:
+            break;
+    }
+}
+
+
+/**
+ * Updates the image of a navigation link for desktop view based on the link's ID.
+ * @param {HTMLElement} link - The navigation link element.
+ * @param {HTMLImageElement} image - The image element within the navigation link.
+ */
+function updateDesktopLinkImage(link, image) {
+    switch (link.id) {
+        case 'summary-link':
+            image.src = 'img/summary.png';
+            break;
+        case 'add_task-link':
+            image.src = 'img/edit_square.png';
+            break;
+        case 'board-link':
+            image.src = 'img/board_sidebar.png';
+            break;
+        case 'contact-link':
+            image.src = 'img/contacts.png';
+            break;
+        default:
+            break;
+    }
+}
+
 window.addEventListener('resize', markMobileLink);
 
 

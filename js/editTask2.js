@@ -202,22 +202,12 @@ function closeSubtaskInput() {
  * @param {number|string} subtaskId - The ID of the subtask to delete.
  */
 function deleteEditSubtask(indexToDelete) {
-    console.log('Current selected task:', currentSelectedTask);
     let task = currentSelectedTask;
     if (indexToDelete >= 0 && indexToDelete < task.subtasks.length) {
-        console.log('Subtasks array length:', currentSelectedTask.subtasks.length);
-        console.log('Deleting subtask with index:', indexToDelete);
-
         task.subtasks.splice(indexToDelete, 1);
         let subtaskElement = document.getElementById(`subtask-container-${indexToDelete}`);
         if (subtaskElement) {
             subtaskElement.remove();
-            console.log('Subtask element removed successfully');
-
-        } else {
-            console.log('Invalid subtaskId:', subtaskId);
-            console.error('Subtask element not found for index:', indexToDelete);
-
         }
     }
 }
