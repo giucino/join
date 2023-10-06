@@ -1,4 +1,28 @@
 /**
+ * Implement drag and drop functionality.
+ */
+function polyfill() {
+    let currentTask;
+    document.addEventListener("dragstart", function (ev) {
+      const id = ev.target.id;
+      currentTask = todos.find((task) => task.id === id);
+    });
+  
+    document.addEventListener("dragover", function (ev) {
+      ev.preventDefault();
+    });
+  
+    document.addEventListener("drop", function (ev) {
+      const status = ev.target.getAttribute("data-status");
+      currentTask.status = status;
+      pushData();
+      loadData();
+      updateHTML();
+    });
+  }
+
+
+/**
  * Renders the subtasks for a task in the slide view.
  * @param {Object} element - The task element containing its details.
  * @param {number} id - The ID of the task element.
