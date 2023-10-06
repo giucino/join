@@ -112,6 +112,13 @@ function addResetTitleInput() {
     titleError.style.display = 'none';
 }
 
+
+/**
+ * Add an event listener to the document's body to handle input events on elements
+ * with the 'add-task-description-textfield' class.
+ *
+ * @param {Event} event - The input event triggered.
+ */
 document.body.addEventListener('input', function (event) {
     if (event.target.classList.contains('add-task-titel-textfield')) {
         addResetTitleInput();
@@ -139,6 +146,14 @@ function addResetDescriptionInput() {
     let descriptionError = document.getElementById('addRequiredDescription');
     descriptionError.style.display = 'none';
 }
+
+
+/**
+ * Add an event listener to the document body to capture input events on elements
+ * with the 'add-task-description-textfield' class and trigger the 'addResetDescriptionInput' function.
+ *
+ * @param {Event} event - The input event object.
+ */
 document.body.addEventListener('input', function (event) {
     if (event.target.classList.contains('add-task-description-textfield')) {
         addResetDescriptionInput();
@@ -166,6 +181,12 @@ function addResetDateInput() {
     dateError.style.display = 'none';
 }
 
+
+/**
+ * Attaches an event listener to the document body for the 'input' event.
+ *
+ * @param {Event} event - The input event object.
+ */
 document.body.addEventListener('input', function (event) {
     if (event.target.id === 'addDueDate') {
         addResetDateInput();

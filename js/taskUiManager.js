@@ -24,6 +24,14 @@ function addApplyBorderColorOnFocusAndBlur(containerSelector, inputSelector, foc
 }
 
 
+/**
+ * Adds an event listener to handle input events on specific elements and applies border color changes on focus and blur.
+ *
+ * @param {string} containerSelector - The selector for the container element.
+ * @param {string} inputSelector - The selector for the input element.
+ * @param {string} focusColor - The border color to apply on focus.
+ * @param {string} blurColor - The border color to apply on blur.
+ */
 document.addEventListener('input', (event) => {
     const target = event.target;
 
@@ -52,6 +60,13 @@ document.addEventListener('input', (event) => {
 });
 
 
+/**
+ * Attaches an event listener to the 'DOMContentLoaded' event and listens for 'input' events on the document body.
+ * If the input event target is a textarea with the id 'addTaskDescription', it adds a change in the textarea's border style
+ * on focus and blur input events.
+ *
+ * @param {Event} event - The 'DOMContentLoaded' event object.
+ */
 document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('input', (event) => {
         const textarea = event.target;
@@ -369,37 +384,5 @@ function addAddEditingClasses(container) {
 
     if (separator3) {
         separator3.style.display = "block";
-    }
-}
-
-
-/**
- * Removes editing-related CSS classes and styles from a container element.
- * @param {HTMLElement} container - The container element to remove classes and styles from.
- */
-function addRemoveEditingClasses(container) {
-    container.classList.remove("editing-mode");
-    container.classList.remove("no-hover");
-    container.style.borderBottom = "";
-
-    let dot = container.querySelector(".subtask-dot");
-    let saveButton = container.querySelector(".save-subtask-button");
-    let cancelButton = container.querySelector(".edit-delete-subtask-button");
-    let separator3 = container.querySelector(".separator3");
-
-    if (dot) {
-        dot.style.display = "inline-block";
-    }
-
-    if (saveButton) {
-        saveButton.style.display = "none";
-    }
-
-    if (cancelButton) {
-        cancelButton.style.display = "none";
-    }
-
-    if (separator3) {
-        separator3.style.display = "none";
     }
 }
