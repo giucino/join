@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: storage.js</title>
+    <title>JSDoc: Source: taskUiManager2.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: storage.js</h1>
+    <h1 class="page-title">Source: taskUiManager2.js</h1>
 
     
 
@@ -26,36 +26,35 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const STORAGE_TOKEN = TOKEN;
-const STORAGE_URL = BACKEND_URL;
-
-
-/**
- * Sets an item using a key-value pair in the storage.
- * @param {string} key - The key for the item.
- * @param {*} value - The value to be stored.
- * @returns {Promise&lt;Object>} - A Promise containing the JSON response object.
+            <pre class="prettyprint source linenums"><code>/**
+ * Removes editing-related CSS classes and styles from a container element.
+ * @param {HTMLElement} container - The container element to remove classes and styles from.
  */
-async function setItem(key, value) {
-    const payload = { key, value, token: STORAGE_TOKEN };
-    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
-        .then(res => res.json());
-}
+function addRemoveEditingClasses(container) {
+    container.classList.remove("editing-mode");
+    container.classList.remove("no-hover");
+    container.style.borderBottom = "";
 
+    let dot = container.querySelector(".subtask-dot");
+    let saveButton = container.querySelector(".save-subtask-button");
+    let cancelButton = container.querySelector(".edit-delete-subtask-button");
+    let separator3 = container.querySelector(".separator3");
 
-/**
- * Gets the value linked to the given key from storage.
- * @param {string} key - The key used for searching..
- * @returns {Promise&lt;any>} - A Promise that resolves to the retrieved value.
- * @throws {string} - If data with the given key is not found.
- */
-async function getItem(key) {
-    const url = `${STORAGE_URL}?key=${key}&amp;token=${STORAGE_TOKEN}`;
-    return fetch(url).then(res => res.json()).then(res => {
-        if (res.data) {
-            return res.data.value;
-        } throw `Could not find data with key "${key}".`;
-    });
+    if (dot) {
+        dot.style.display = "inline-block";
+    }
+
+    if (saveButton) {
+        saveButton.style.display = "none";
+    }
+
+    if (cancelButton) {
+        cancelButton.style.display = "none";
+    }
+
+    if (separator3) {
+        separator3.style.display = "none";
+    }
 }</code></pre>
         </article>
     </section>
