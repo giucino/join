@@ -165,16 +165,17 @@ function renderEditTask(id) {
  * @param {boolean} isSelected - Whether the contact is selected or not.
  * @returns {string} The HTML representation of the contact.
  */
-function loadRenderSearchedContactsHTML(contact, initials, isSelected) {
+function loadRenderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser) {
+    let userMarker = isCurrentUser ? " (you)" : "";
+
     return /*html*/`
       <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
           <div class="select-contact">
               <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-              <div class="select-name">${contact.name} ${contact.surename}</div>
+              <div class="select-name">${contact.name} ${contact.surename}${userMarker}</div>
           </div>
           <img class="select-icon" id="edit-select-check" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
-      </div>
-    `;
+      </div>`;
 }
 
 
@@ -195,8 +196,7 @@ function renderAssignedToHTML (contact, initials, isSelected, isCurrentUser){
               <div class="select-name">${contact.name} ${contact.surename}${userMarker}</div>
           </div>
           <img class="select-icon" id="edit-select-check" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
-      </div>
-    `;
+      </div>`;
 }
 
 
