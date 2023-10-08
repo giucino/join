@@ -70,7 +70,7 @@ async function deleteContact(index) {
         closeEditModal();
         initContact();
         returnToContactsMobile();
-}
+    }
 
 
 /**
@@ -149,19 +149,19 @@ function extractNameParts(fullName) {
  */
 function validateContactFields(newName, newEmail, newTelefon) {
     if (!areAllFieldsFilled(newName, newEmail, newTelefon)) {
-        alert("Bitte füllen Sie alle Felder aus.");
+        alert("Please fill out all fields.");
         return false;
     }
     if (!isValidName(newName)) {
-        alert("Ungültiges Namensformat.");
+        alert("Invalid name format. Names should only contain letters and at least your first name is required.");
         return false;
     }
     if (!isValidEmail(newEmail)) {
-        alert("Bitte geben Sie eine gültige E-Mail-Adresse ein.");
+        alert("Please enter a valid email address.");
         return false;
     }
     if (!isValidPhoneNumber(newTelefon)) {
-        alert("Bitte geben Sie nur Zahlen in das Telefonnummer-Feld ein.");
+        alert("Please enter only numbers in the phone number field.");
         return false;
     }
     return true;
