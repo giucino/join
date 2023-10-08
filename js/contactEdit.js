@@ -1,3 +1,4 @@
+
 /**
  * Edits the specified contact.
  * @param {number} index - The index of the contact to edit.
