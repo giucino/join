@@ -45,8 +45,6 @@ subtaskInput.addEventListener('keypress', handleSubtaskInput);
  *
  * @param {number|string} subtaskId - The unique identifier for the subtask.
  * @param {string} subtaskValue - The title or value of the subtask.
- *
- * @returns {void}
  */
 function addSubtaskToContainer(subtaskId, subtaskValue) {
     subtasks.push({
@@ -62,7 +60,6 @@ function addSubtaskToContainer(subtaskId, subtaskValue) {
 /**
  * Deletes a subtask with the given ID from the subtasks array and removes its corresponding element from the DOM.
  *
- * @function
  * @param {string|number} subtaskId - The ID of the subtask to delete.
  * @throws Will throw an error if `subtasks` is not defined in the scope.
  */
@@ -83,9 +80,7 @@ function deleteSubtask(subtaskId) {
 /**
  * Makes the specified subtask editable and focuses on it. Also adds editing classes to its container.
  *
- * @function
  * @param {string} subtaskId - The ID of the subtask element to be edited.
- * @returns {void}
  * 
  * @example
  * // Assuming there's a DOM element with the ID "subtask1" and another with the ID "subtask-container-subtask1".
@@ -134,9 +129,8 @@ function finishEditing(subtaskId) {
 /**
  * Updates the title of a subtask with the given ID.
  * 
- * @function
  * @param {string} subtaskId - The ID of the subtask to be updated.
- * @returns {void}
+ * 
  * @example
  * 
  * let subtasks = [

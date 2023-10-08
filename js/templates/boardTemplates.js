@@ -4,7 +4,6 @@
  * @param {Object} subtask - The subtask object to be converted into HTML.
  * @param {string} subtask.title - The title of the subtask.
  * @param {number} i - The index or ID associated with the subtask, used for data attributes and action handlers.
- * 
  * @returns {string} The HTML representation of the subtask for editing.
  */
 function subtaskToEditHTML(subtask, i) {
@@ -28,7 +27,7 @@ function subtaskToEditHTML(subtask, i) {
 
 
 /**
- * Generates the HTML markup for the task edit view.
+ * Generates the HTML markup for the task edit view. 
  * 
  * @param {number} id - The ID of the task to be edited.
  * @returns {string} HTML markup of the edit view for the task.
@@ -160,6 +159,7 @@ function renderEditTask(id) {
 
 /**
  * Renders the HTML for a given searched contact, including initials and selected state.
+ * 
  * @param {Object} contact - The contact to render.
  * @param {string} initials - The initials of the contact.
  * @param {boolean} isSelected - Whether the contact is selected or not.
@@ -181,6 +181,7 @@ function loadRenderSearchedContactsHTML(contact, initials, isSelected, isCurrent
 
 /**
  * Renders the HTML for a given contact, including initials and selected state.
+ * 
  * @param {Object} contact - The contact to render.
  * @param {string} initials - The initials of the contact.
  * @param {boolean} isSelected - Whether the contact is selected or not.
@@ -202,16 +203,10 @@ function renderAssignedToHTML (contact, initials, isSelected, isCurrentUser){
 
 /**
  * Generates an HTML string for a subtask item based on the provided input value and index.
- *
- * @function
+ * 
  * @param {string} subInputValue - The value of the subtask to be displayed.
  * @param {number} i - The unique index or identifier for the subtask.
  * @returns {string} HTML representation of the subtask item.
- * 
- * @example
- * 
- * const subtaskHTML = subtaskToAddHTML('Finish writing code', 1);
- * console.log(subtaskHTML);  // Outputs the generated HTML string
  */
 function subtaskToAddHTML(subInputValue, i) {
     return /*html*/ `
@@ -234,21 +229,11 @@ function subtaskToAddHTML(subInputValue, i) {
 
 
 /**
- * Verarbeitet und speichert Teilaufgaben basierend auf den Elementen mit der Klasse "edit-subtask-value".
- *
- * @param {Object} task - Das Hauptaufgabenobjekt, das die Teilaufgaben enthält.
- * @param {Array} task.subtasks - Die Liste der Teilaufgaben. Jede Teilaufgabe ist ein Objekt mit mindestens einem "title" Attribut.
- *
- * @returns {Array<Object>} Eine Liste von aktualisierten Teilaufgaben. Jede Teilaufgabe ist ein Objekt mit den Attributen "title" und "status".
+ * Processes and saves subtasks based on elements with the class "edit-subtask-value".
  * 
- * @example
- * const task = {
- *   subtasks: [
- *     { title: 'Teilaufgabe 1' },
- *     { title: 'Teilaufgabe 2' }
- *   ]
- * };
- * const updatedSubtasks = processAndSaveSubtasks(task);
+ * @param {Object} task - The main task object that contains the subtasks.
+ * @param {Array} task.subtasks - The list of subtasks. Each subtask is an object with at least a "title" attribute.
+ * @returns {Array<Object>} A list of updated subtasks. Each subtask is an object with the attributes "title" and "status".
  */
 function processAndSaveSubtasks(task) {
     let subtaskElements = document.querySelectorAll('.edit-subtask-value');
@@ -277,7 +262,7 @@ function processAndSaveSubtasks(task) {
 
 /**
  * Renders the HTML for a subtask in the slide view.
- *
+ * 
  * @param {Object} subtask - The subtask details.
  * @param {number} i - The index of the subtask.
  * @param {number} id - The ID of the parent task element.
@@ -295,7 +280,7 @@ function renderSlideSubtaskHTML(subtask, i, id) {
 
 /**
  * Renders the HTML for an assigned user in the slide view.
- *
+ * 
  * @param {string} initials - The initials of the assigned user.
  * @param {string} name - The full name of the assigned user.
  * @param {string} bgcolor - The background color for the user mark.
@@ -313,7 +298,7 @@ function renderSlideAssignedHTML(initials, name, bgcolor) {
 
 /**
  * Generates the HTML for a given task element.
- *
+ * 
  * @param {Object} element - The task element containing its details.
  * @param {string} priorityImageSrc - The source URL for the priority image.
  * @param {string} assignedToHTML - The HTML string representing assigned users.
@@ -350,6 +335,7 @@ function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBa
 
 /**
  * Generates the HTML representation of a single subtask.
+ * 
  * @param {Object} subtask - The subtask data.
  * @returns {string} The generated HTML for the subtask.
  */
@@ -365,6 +351,7 @@ function generateSubtaskHTML(subtask) {
 
 /**
  * Generates the HTML representation of a progress bar.
+ * 
  * @param {Object} element - The task or entity the progress bar is associated with.
  * @param {number} progress - The current progress percentage.
  * @returns {string} The generated HTML for the progress bar.
@@ -378,6 +365,7 @@ function progressBarHTML(element, progress) {
 
 /**
  * Generates the HTML representation showing the number of completed tasks.
+ * 
  * @param {number} completedTasksCount - Count of completed tasks.
  * @returns {string} The generated HTML showing the number of completed tasks.
  */
@@ -390,6 +378,7 @@ function numberTasksHTML(completedTasksCount) {
 
 /**
  * Generates the HTML representation showing the total number of tasks.
+ * 
  * @param {number} allTasksCount - Total count of tasks.
  * @returns {string} The generated HTML showing the total number of tasks.
  */

@@ -65,6 +65,7 @@ function initLetters() {
 
 /**
  * Retrieves the logged-in user's data from local storage.
+ * 
  * @returns {Object} The logged-in user's data.
  */
 function getLoggedInUserData() {
@@ -94,6 +95,7 @@ async function showContacts() {
 
 /**
  * Handles the contact click event to determine the display mode (mobile or desktop).
+ * 
  * @param {number} index - The index of the clicked contact.
  */
 function handleContactClick(index) {
@@ -125,6 +127,7 @@ let isContainerVisible = false;
 
 /**
  * Shows the details of a contact based on its index.
+ * 
  * @param {number} index - The index of the contact whose details should be displayed.
  */
 function showContactDetails(index) {
@@ -141,7 +144,7 @@ function showContactDetails(index) {
 
 /**
 * Resets the selection state of all contact elements.
- * */
+*/
 function resetAllContactsSelection() {
     let allContacts = document.querySelectorAll('.contact');
     allContacts.forEach(contactElement => {
@@ -150,20 +153,12 @@ function resetAllContactsSelection() {
 }
 
 
-/**
-* Hides the details container by setting its display property to 'none'. 
-* @param {*} detailsContainer 
- */
-function hideDetailsContainer(detailsContainer) {
-    detailsContainer.style.display = 'none';
-    isContainerVisible = false;
-}
-
 
 /**
  * Displays the contact details content in the specified details container.
  * The content includes information like name, surname, and initials of the contact.
  * The details container is given a "slide-in" animation if it was not visible before.
+ * 
  * @param {HTMLElement} detailsContainer - The container element where the contact details content will be displayed.
  * @param {number} index - The index of the contact in the contacts array.
  */
@@ -185,6 +180,7 @@ function showContactDetailsContent(detailsContainer, index) {
 /**
  * Handles the "animationend" event for the specified details container.
  * Removes the "slide-in" class from the details container when the animation ends.
+ * 
  * @param {HTMLElement} detailsContainer - The container element with the animation to handle.
  */
 function handleAnimationEnd(detailsContainer) {
@@ -196,6 +192,7 @@ function handleAnimationEnd(detailsContainer) {
 
 /**
  * Returns a random color from the colors array.
+ * 
  * @returns {string} A random color code.
  */
 function getRandomColor() {
@@ -234,6 +231,7 @@ function closeModal() {
 
 /**
  * Closes the 'contactModal' when clicking outside of its content.
+ * 
  * @param {Event} event - The DOM event triggered from the click.
  */
 function closeModalBackAddContact(event) {

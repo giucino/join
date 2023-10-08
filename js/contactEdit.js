@@ -1,6 +1,6 @@
-
 /**
  * Edits the specified contact.
+ * 
  * @param {number} index - The index of the contact to edit.
  */
 function editContact(index) {
@@ -57,6 +57,7 @@ function closeEditModal() {
 
 /**
  * Deletes the specified contact after user confirmation.
+ * 
  * @param {number} index - The index of the contact to delete.
  */
 async function deleteContact(index) {
@@ -118,6 +119,7 @@ async function saveNewContact() {
 
 /**
  * Validates the name input for new contacts.
+ * 
  * @param {HTMLInputElement} fullNameInput - The input element containing the full name.
  * @returns {Object} An object containing the first and last name.
  */
@@ -131,6 +133,7 @@ function validateNameParts(fullNameInput) {
 
 /**
  * Extracts the first and last name from a full name string.
+ * 
  * @param {string} fullName - The full name string.
  * @returns {Object} An object containing the first and last name.
  */
@@ -142,6 +145,7 @@ function extractNameParts(fullName) {
 
 /**
  * Validates the contact fields for correctness.
+ * 
  * @param {string} newName - The first name.
  * @param {string} newEmail - The email address.
  * @param {string} newTelefon - The phone number.
@@ -254,6 +258,7 @@ function createNewContactObject(newName, newSurename, newEmail, newTelefon) {
 
 /**
  * Saves a contact to the contacts array and updates local storage.
+ * 
  * @param {Object} newContact - The contact object to save.
  */
 async function saveContact(newContact) {
@@ -266,6 +271,7 @@ async function saveContact(newContact) {
 
 /**
  * Updates an existing contact in the contacts array.
+ * 
  * @param {number} index - The index of the contact to update.
  */
 async function updateContact(index) {
@@ -289,6 +295,7 @@ async function updateContact(index) {
 
 /**
  * Creates an updated contact object based on the original contact and new data.
+ * 
  * @param {Object} originalContact - The original contact object.
  * @param {string} newName - The updated first name.
  * @param {string} newSurename - The updated last name.
@@ -311,6 +318,7 @@ function createUpdatedContactObject(originalContact, newName, newSurename, newEm
 
 /**
  * Updates a contact in the contacts array and saves the updated list to local storage.
+ * 
  * @param {number} index - The index of the contact to update.
  * @param {Object} updatedContact - The updated contact object.
  */

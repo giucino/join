@@ -19,9 +19,6 @@ function resetTaskForm() {
  * Resets the selected contacts and clears the search input.
  * Also calls functions to re-render the assigned contacts and display the chosen ones.
  * 
- * @function
- * @name resetAssignedToSelection
- * @global
  * @example
  * resetAssignedToSelection();
  */
@@ -37,8 +34,6 @@ function resetAssignedToSelection() {
 /**
  * Resets the category selection by clearing the selected category and updating the associated DOM elements.
  * 
- * @function
- * @global
  * @see {@link https://jsdoc.app/|JSDoc}
  * 
  * @example
@@ -60,10 +55,6 @@ function resetCategorySelection() {
  * This function removes all subtasks, clears the subtask container,
  * and resets the subtask input field's value to an empty string.
  * Additionally, it closes the subtask input if it's open.
- *
- * @function
- * @name resetSubtasks
- * @returns {void}
  */
 function resetSubtasks() {
     subtasks = [];
@@ -128,7 +119,6 @@ titleInput.addEventListener('input', resetTitleInput);
 
 /**
  * Displays an error message and updates the border color of the description input field.
- * @function
  */
 function showDescriptionInputError() {
     let descriptionError = document.getElementById('requiredDescription');

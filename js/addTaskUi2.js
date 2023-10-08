@@ -73,9 +73,7 @@ function addEditingClasses(container) {
 /**
  * Removes editing-related classes and styles from a given container element.
  *
- * @function
  * @param {HTMLElement} container - The container element to clean up.
- * @returns {void}
  *
  * @example
  * const container = document.querySelector('.some-container');

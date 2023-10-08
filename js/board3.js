@@ -24,6 +24,7 @@ function polyfill() {
 
 /**
  * Renders the subtasks for a task in the slide view.
+ * 
  * @param {Object} element - The task element containing its details.
  * @param {number} id - The ID of the task element.
  * @returns {string} The generated HTML string for subtasks.
@@ -45,6 +46,7 @@ function renderSlideSubtask(element, id) {
 
 /**
  * Generates the overall task HTML representation.
+ * 
  * @param {Object} element - The task data.
  * @param {string} priorityImageSrc - The source URL of the priority image.
  * @param {string} assignedToHTML - The HTML representation of assigned users.

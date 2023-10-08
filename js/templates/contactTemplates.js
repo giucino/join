@@ -2,7 +2,6 @@
  * Generates an HTML string for a letter container.
  * 
  * @param {string} letter - The letter to be used in the HTML template.
- * 
  * @returns {string} The generated HTML string for the letter container.
  * 
  * @example
@@ -22,7 +21,7 @@ function generateLetterListHTML(letter) {
 
 /**
  * Generates and returns an HTML representation of a contact's detailed view.
- *
+ * 
  * @param {Object} contact - The contact object.
  * @param {string} contact.name - The first name of the contact.
  * @param {string} contact.surename - The surname (or last name) of the contact.
@@ -31,7 +30,6 @@ function generateLetterListHTML(letter) {
  * @param {string} contact.telefon - The phone number of the contact.
  * @param {string} initials - The initials of the contact.
  * @param {number} index - The index of the contact in the data source (e.g., an array).
- *
  * @returns {string} - The HTML string representing the contact's detailed view.
  */
 function showContactDetailsHTML(contact, initials, index) {
@@ -62,8 +60,6 @@ function showContactDetailsHTML(contact, initials, index) {
 /**
  * Generate an HTML string to display detailed contact information in a mobile view.
  * 
- * @function
- * @name showContactDetailsMobileHTML
  * @param {Object} contact - The contact details.
  * @param {string} contact.name - First name of the contact.
  * @param {string} contact.surename - Surname of the contact.
@@ -109,9 +105,7 @@ function showContactDetailsMobileHTML(contact, initials, index) {
 
 /**
  * Generates an HTML string to display a contact.
- *
- * @function
- * @name showContactsHTML
+ * 
  * @param {number} i - The index of the contact in the contacts list.
  * @param {string} color - The background color for the initials div.
  * @param {string} initials - The initials of the contact.
@@ -138,9 +132,8 @@ function showContactsHTML(i, color, initials, contact, isCurrentUser) {
 
 
 /**
- * Generates the HTML string for the "Add Contact" modal.
- *
- * @function
+ * Generates the HTML string for the "Add Contact" modal. 
+ * 
  * @returns {string} The HTML content for the "Add Contact" modal.
  * 
  * @example
@@ -197,15 +190,13 @@ function generateAddContactModalHTML() {
 
 /**
  * Generates the HTML content for the edit contact modal.
- *
- * @function
+ * 
  * @param {number} index - The index of the contact in the contacts list.
  * @param {string} initials - The initials of the contact.
  * @param {Object} contact - The contact object.
  * @param {string} contact.bgcolor - The background color for the initials div.
- *
  * @returns {string} The generated HTML string for the edit contact modal.
- *
+ * 
  * @example
  * const htmlContent = generateEditContactModalHTML(0, 'AB', { bgcolor: '#ff0000' });
  */
@@ -255,14 +246,13 @@ function generateEditContactModalHTML(index, initials, contact) {
 
 /**
  * Generates the HTML string for the edit contact modal on mobile.
- *
+ * 
  * @param {number} index - The index of the contact in the list.
  * @param {string} initials - The initials of the contact name.
  * @param {object} contact - The contact object containing details about the contact.
  * @param {string} contact.bgcolor - The background color for the contact initials display.
- *
  * @returns {string} The HTML string representation of the edit contact modal.
- *
+ * 
  * @example
  * const contact = { bgcolor: '#FF5733' };
  * const html = generateEditContactMobileHTML(0, 'AB', contact);

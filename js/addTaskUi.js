@@ -61,8 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
 /**
  * Changes the border color of a textarea element based on focus, blur, and input events.
  *
- * @function
  * @param {HTMLTextAreaElement} textarea - The textarea element whose border color needs to be modified.
+ * 
  * @example
  *
  * // Assuming you have a textarea with the id 'myTextarea'
@@ -137,7 +137,6 @@ function highlightButton(button, bgColor, imageSrc) {
 /**
  * Retrieves the logged-in user's data from local storage.
  * 
- * @function
  * @returns {Object} The logged-in user's data, or an empty object if no data is found.
  */
 function getLoggedInUserData() {
@@ -153,11 +152,8 @@ function getLoggedInUserData() {
  * For each contact, it generates the initials from their name and surename, checks if the contact
  * is selected or if it matches the logged-in user's email, and then updates the container's HTML.
  *
- * @async
- * @function
  * @requires getLoggedInUserData - A function to fetch the logged-in user's data.
  * @requires renderAssignedToHTML - A function to generate the HTML representation of a contact's assigned data.
- * @global
  * @throws {Error} Throws an error if any issues arise while rendering.
  *
  * @example
@@ -193,10 +189,7 @@ async function renderAssignedTo() {
  * @param {string} contacts[].email - Email address of the contact.
  * @param {number} contacts[].id - Unique ID of the contact.
  * 
- * @returns {void}
- * 
  * @example
- * 
  * const contacts = [
  *   { id: 1, name: 'John', surename: 'Doe', email: 'john.doe@example.com' },
  *   { id: 2, name: 'Jane', surename: 'Smith', email: 'jane.smith@example.com' }
@@ -226,7 +219,6 @@ function renderSearchedContact(contacts) {
  * the display of the "contactsContainer" accordingly. 
  * Also manages the 'expanded' class of the "assignedToDropdown".
  *
- * @function
  * @example
  * // To toggle the display of the containers
  * toggleAssignedToContainer();
@@ -285,8 +277,6 @@ function displayChosenContacts() {
  * Each category will be displayed in a div with the class "category".
  * When a category is clicked, the `categorySelected` function is called with the category name as an argument.
  * 
- * @function
- * @global
  * @requires categories - An array of objects where each object should have a 'categoryName' property.
  */
 function renderCategorys() {
@@ -307,7 +297,6 @@ function renderCategorys() {
  * - When the category container is displayed, it hides the container and makes necessary style adjustments.
  * - When the category container is not displayed, it shows the container, makes necessary style adjustments, and renders the categories.
  * 
- * @function
  * @returns {void} Returns nothing.
  */
 function toggleCategoryContainer() {
@@ -338,8 +327,6 @@ function toggleCategoryContainer() {
  * Updates the UI based on the selected category.
  *
  * @param {string} category - The category that has been selected.
- * @function
- * @returns {void}
  */
 function categorySelected(category) {
     selectedCategory = category;
