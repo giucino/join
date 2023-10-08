@@ -5,7 +5,7 @@
     gap: 72px;
     padding-top: 100px;
     max-width: 912px;
-    height: 591px;
+    height: 491px;
 }
 
 .greetings {
@@ -117,10 +117,8 @@
 .placeholder {
     width: 0;
     height: 145px;
-    /* background: rgb(255, 255, 255); */
     border-width: 2px;
     border-style: solid;
-    /* border-color: rgb(255, 255, 255); */
     border-image: initial;
 }
 
@@ -129,7 +127,6 @@
     flex-direction: column;
     width: 274px;
     height: 81px;
-    /* color: white; */
     gap: 13px;
 }
 
