@@ -121,9 +121,10 @@ function removeEmptyLetters() {
 
 
 let isContainerVisible = false;
+
+
 /**
  * Shows the details of a contact based on its index.
- *
  * @param {number} index - The index of the contact whose details should be displayed.
  */
 function showContactDetails(index) {
@@ -163,7 +164,6 @@ function hideDetailsContainer(detailsContainer) {
  * Displays the contact details content in the specified details container.
  * The content includes information like name, surname, and initials of the contact.
  * The details container is given a "slide-in" animation if it was not visible before.
- *
  * @param {HTMLElement} detailsContainer - The container element where the contact details content will be displayed.
  * @param {number} index - The index of the contact in the contacts array.
  */
@@ -185,7 +185,6 @@ function showContactDetailsContent(detailsContainer, index) {
 /**
  * Handles the "animationend" event for the specified details container.
  * Removes the "slide-in" class from the details container when the animation ends.
- * 
  * @param {HTMLElement} detailsContainer - The container element with the animation to handle.
  */
 function handleAnimationEnd(detailsContainer) {
@@ -217,7 +216,6 @@ function openModal() {
     overlay.style.display = "flex";
     modalContainer.classList.remove('modal-slide-out');
     modalContainer.classList.add('modal-slide-in');
-    document.querySelector('.background-overlay').style.display = 'block';
 }
 
 
@@ -230,13 +228,12 @@ function closeModal() {
     modal.classList.remove('modal-slide-in');
     modal.classList.add('modal-slide-out');
     overlay.style.display = "none";
-    document.querySelector('.background-overlay').style.display = 'none';
+    modal.style.display = "none";
 }
 
 
 /**
  * Closes the 'contactModal' when clicking outside of its content.
- * 
  * @param {Event} event - The DOM event triggered from the click.
  */
 function closeModalBackAddContact(event) {
@@ -246,7 +243,7 @@ function closeModalBackAddContact(event) {
         modal.classList.remove('modal-slide-in');
         modal.classList.add('modal-slide-out');
         overlay.style.display = "none";
-        document.querySelector('.background-overlay').style.display = 'none';
+        modal.style.display = "none";
     }
 }
 
@@ -260,13 +257,12 @@ function closeModalEdit() {
     modal.classList.remove('editModal-slide-in');
     modal.classList.add('editModal-slide-out');
     overlay.style.display = "none";
-    document.querySelector('.background-overlay').style.display = 'none';
+    modal.style.display = "none";
 }
 
 
 /**
- * Closes the 'editModal' when clicking outside of its content.
- * 
+ * Closes the 'editModal' when clicking outside of its content. 
  * @param {Event} event - The DOM event triggered from the click.
  */
 function closeModalBackEditContact(event) {
@@ -276,6 +272,6 @@ function closeModalBackEditContact(event) {
         modal.classList.remove('editModal-slide-in');
         modal.classList.add('editModal-slide-out');
         overlay.style.display = "none";
-        document.querySelector('.background-overlay').style.display = 'none';
+        modal.style.display = "none";
     }
 }

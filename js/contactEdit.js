@@ -57,10 +57,8 @@ function closeEditModal() {
 /**
  * Deletes the specified contact after user confirmation.
  * @param {number} index - The index of the contact to delete.
- * @returns {Promise<void>}
  */
 async function deleteContact(index) {
-    if (confirm("Möchten Sie diesen Kontakt wirklich löschen?")) {
         contacts.splice(index, 1);
         for (let i = 0; i < contacts.length; i++) {
             contacts[i].id = i + 1;
@@ -71,7 +69,6 @@ async function deleteContact(index) {
         closeEditModal();
         initContact();
         returnToContactsMobile();
-    }
 }
 
 
@@ -97,7 +94,6 @@ function showContactAdded() {
 
 /**
  * Saves a new contact to the contacts array.
- * @returns {Promise<void>}
  */
 async function saveNewContact() {
     let newEmailInput = document.getElementById("newEmail");
@@ -108,7 +104,7 @@ async function saveNewContact() {
     let newSurename = nameValidationResult.newSurename;
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
-    let isValidContactFields = validateContactFields(newName, newSurename, newEmail, newTelefon);
+    let isValidContactFields = validateContactFields(newName, newEmail, newTelefon);
     if (!isValidContactFields) {
         return;
     }
@@ -146,13 +142,12 @@ function extractNameParts(fullName) {
 /**
  * Validates the contact fields for correctness.
  * @param {string} newName - The first name.
- * @param {string} newSurename - The last name.
  * @param {string} newEmail - The email address.
  * @param {string} newTelefon - The phone number.
  * @returns {boolean} True if all fields are valid, false otherwise.
  */
-function validateContactFields(newName, newSurename, newEmail, newTelefon) {
-    if (!areAllFieldsFilled(newName, newSurename, newEmail, newTelefon)) {
+function validateContactFields(newName, newEmail, newTelefon) {
+    if (!areAllFieldsFilled(newName, newEmail, newTelefon)) {
         alert("Bitte füllen Sie alle Felder aus.");
         return false;
     }
@@ -176,13 +171,12 @@ function validateContactFields(newName, newSurename, newEmail, newTelefon) {
  * Checks if all the provided fields have values.
  *
  * @param {string} newName - The new name value.
- * @param {string} newSurename - The new surname value.
  * @param {string} newEmail - The new email value.
  * @param {string} newTelefon - The new telephone value.
  * @returns {boolean} Returns true if all fields are filled; otherwise, false.
  */
-function areAllFieldsFilled(newName, newSurename, newEmail, newTelefon) {
-    return newName && newSurename && newEmail && newTelefon;
+function areAllFieldsFilled(newName, newEmail, newTelefon) {
+    return newName && newEmail && newTelefon;
 }
 
 
@@ -260,7 +254,6 @@ function createNewContactObject(newName, newSurename, newEmail, newTelefon) {
 /**
  * Saves a contact to the contacts array and updates local storage.
  * @param {Object} newContact - The contact object to save.
- * @returns {Promise<void>}
  */
 async function saveContact(newContact) {
     contacts.push(newContact);
@@ -273,7 +266,6 @@ async function saveContact(newContact) {
 /**
  * Updates an existing contact in the contacts array.
  * @param {number} index - The index of the contact to update.
- * @returns {Promise<void>}
  */
 async function updateContact(index) {
     let newEmailInput = document.getElementById("editNewEmail");
@@ -284,7 +276,7 @@ async function updateContact(index) {
     let newSurename = nameValidationResult.newSurename;
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
-    let isValidContactFields = validateContactFields(newName, newSurename, newEmail, newTelefon);
+    let isValidContactFields = validateContactFields(newName, newEmail, newTelefon);
     if (!isValidContactFields) {
         return;
     }
@@ -320,7 +312,6 @@ function createUpdatedContactObject(originalContact, newName, newSurename, newEm
  * Updates a contact in the contacts array and saves the updated list to local storage.
  * @param {number} index - The index of the contact to update.
  * @param {Object} updatedContact - The updated contact object.
- * @returns {Promise<void>}
  */
 async function updateAndSaveContact(index, updatedContact) {
     contacts[index] = updatedContact;
