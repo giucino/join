@@ -1,33 +1,27 @@
 /**
- * Implement drag and drop functionality.
+ * Move a task with the specified ID to a new status for mobile.
+ * @param {number} id - The ID of the task to be moved.
+ * @param {string} status - The new status to assign to the task.
  */
-function polyfill() {
-    let currentTask;
-    document.addEventListener("dragstart", function (ev) {
-      const id = ev.target.id;
-      currentTask = todos.find((task) => task.id === id);
-    });
-  
-    document.addEventListener("dragover", function (ev) {
-      ev.preventDefault();
-    });
-  
-    document.addEventListener("drop", function (ev) {
-      const status = ev.target.getAttribute("data-status");
-      currentTask.status = status;
-      pushData();
-      loadData();
-      updateHTML();
-    });
-  }
+function moveToMobile(id, status) {
+    let currentMobiletask = todos.find((task) => task.id === id);
+    if (currentMobiletask) {
+        currentMobiletask.status = status;
+        pushData();
+        loadData();
+        refreshHTML();
+    } else {
+        console.error('Task with ID', id, 'not found.');
+    }
+}
+
+
 
 
 /**
  * Renders the subtasks for a task in the slide view.
- * 
  * @param {Object} element - The task element containing its details.
  * @param {number} id - The ID of the task element.
- * @returns {string} The generated HTML string for subtasks.
  */
 function renderSlideSubtask(element, id) {
     let subtasksHTML = '';
@@ -46,14 +40,12 @@ function renderSlideSubtask(element, id) {
 
 /**
  * Generates the overall task HTML representation.
- * 
  * @param {Object} element - The task data.
  * @param {string} priorityImageSrc - The source URL of the priority image.
  * @param {string} assignedToHTML - The HTML representation of assigned users.
  * @param {string} progressBar - The HTML representation of the progress bar.
  * @param {string} numberTasks - The HTML representation of the number of tasks.
  * @param {string} allTasks - The HTML representation of all tasks.
- * @returns {string} The generated HTML for the overall task.
  */
 function renderSlideCardHTML(
   element,

@@ -10,12 +10,6 @@
     z-index: 15;
 }
 
-/* .edit-task-slide {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-} */
-
 .slide-in-board {
     bottom: 0 !important;
     animation: slide-in 1s ease-in-out;
@@ -35,7 +29,7 @@
     height: 100vh;
     position: fixed;
     bottom: -4000px;
-    transition: 2.0s;
+    transition: 1.0s;
 }
 
 @media(max-width: 480px) {
