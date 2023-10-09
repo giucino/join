@@ -147,7 +147,6 @@
     display: none;
     position: fixed;
     z-index: 56;
-    /* Ein Wert kleiner als der des Modals */
     left: 0;
     top: 0;
     width: 100%;

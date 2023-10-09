@@ -225,7 +225,6 @@ function closeModal() {
     modal.classList.remove('modal-slide-in');
     modal.classList.add('modal-slide-out');
     overlay.style.display = "none";
-    modal.style.display = "none";
 }
 
 
@@ -241,7 +240,6 @@ function closeModalBackAddContact(event) {
         modal.classList.remove('modal-slide-in');
         modal.classList.add('modal-slide-out');
         overlay.style.display = "none";
-        modal.style.display = "none";
     }
 }
 
@@ -255,7 +253,6 @@ function closeModalEdit() {
     modal.classList.remove('editModal-slide-in');
     modal.classList.add('editModal-slide-out');
     overlay.style.display = "none";
-    modal.style.display = "none";
 }
 
 
@@ -270,6 +267,5 @@ function closeModalBackEditContact(event) {
         modal.classList.remove('editModal-slide-in');
         modal.classList.add('editModal-slide-out');
         overlay.style.display = "none";
-        modal.style.display = "none";
     }
 }
