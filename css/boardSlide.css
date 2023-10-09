@@ -71,10 +71,11 @@
 
 @keyframes slideInFromBottom {
     from {
-      transform: translate(-50%, 100%);
+        transform: translate(-50%, 100%);
     }
+
     to {
-      transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
     }
 }
 
@@ -82,6 +83,7 @@
     from {
         transform: translate(-50%, -50%);
     }
+
     to {
         transform: translate(-50%, 100%);
     }
@@ -113,6 +115,7 @@
         transform: scale(0.7);
         position: unset;
     }
+
     .scroll-slide-container {
         transform: scale(0.8);
         width: 320px;
@@ -390,7 +393,8 @@
 
 .task-slide-delete:hover .task-slide-delete-text {
     color: #005DFF;
-    font-weight: 700;}
+    font-weight: 700;
+}
 
 .task-slide-placeholder {
     width: 0px;

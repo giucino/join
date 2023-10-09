@@ -183,7 +183,7 @@ function loadRenderSearchedContactsHTML(contact, initials, isSelected, isCurrent
  * @param {string} initials - The initials of the contact.
  * @param {boolean} isSelected - Whether the contact is selected or not.
  */
-function renderAssignedToHTML (contact, initials, isSelected, isCurrentUser){
+function renderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
     let userMarker = isCurrentUser ? " (you)" : "";
 
     return /* html */`
@@ -231,15 +231,15 @@ function subtaskToAddHTML(subInputValue, i) {
  */
 function processAndSaveSubtasks(task) {
     let subtaskElements = document.querySelectorAll('.edit-subtask-value');
-    let updatedSubtasks = []; 
-  
+    let updatedSubtasks = [];
+
     subtaskElements.forEach((element, index) => {
         let editedTitle = element.innerText;
-  
+
         if (index >= 0 && index < task.subtasks.length) {
             let editedSubtask = task.subtasks[index];
             editedSubtask.title = editedTitle;
-  
+
             let updatedTitle = {
                 title: editedTitle,
                 status: false
@@ -249,7 +249,7 @@ function processAndSaveSubtasks(task) {
             console.error("Subtask mit dem Index", index, "wurde nicht gefunden.");
         }
     });
-  
+
     return updatedSubtasks;
 }
 
