@@ -299,10 +299,10 @@ function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBa
                 <div id="dropdown-mobile" class="dropdown hide" onclick="event.stopPropagation()">
                     <img src="./img/hamburger_menu.svg" alt="Dropdown Trigger">
                     <div class="dropdown-content">
-                        <a href="#" onclick="moveToMobile(${element.id}, 'todo')">Todo</a>
-                        <a href="#" onclick="moveToMobile(${element.id}, 'inprogress')">In progress</a>
-                        <a href="#" onclick="moveToMobile(${element.id}, 'feedback')">Await feedback</a>
-                        <a href="#" onclick="moveToMobile(${element.id}, 'done')">done</a>
+                        ${getStatusLinkHTML(element, 'todo', 'Todo')}
+                        ${getStatusLinkHTML(element, 'inprogress', 'In progress')}
+                        ${getStatusLinkHTML(element, 'feedback', 'Await feedback')}
+                        ${getStatusLinkHTML(element, 'done', 'Done')}
                     </div>
                 </div>
             </div>

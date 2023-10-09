@@ -1,4 +1,18 @@
 /**
+ * Generates an HTML link for changing the status of an element.
+ * @param {Object} element - The element to which the status link belongs.
+ * @param {string} status - The desired status to set when the link is clicked.
+ * @param {string} label - The label or text to display on the link.
+ */
+function getStatusLinkHTML(element, status, label) {
+    if(element.status === status) {
+        return ''; // Wenn der aktuelle Status dem Link-Status entspricht, gib nichts zurück (d.h. blende den Link aus)
+    }
+    return `<a href="#" onclick="moveToMobile(${element.id}, '${status}')">${label}</a>`;
+}
+
+
+/**
  * Move a task with the specified ID to a new status for mobile.
  * @param {number} id - The ID of the task to be moved.
  * @param {string} status - The new status to assign to the task.
