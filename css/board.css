@@ -129,7 +129,7 @@ body {
     background: #091931;
 }
 
-@media(max-width: 850px) {
+@media(max-width: 650px) {
     .add-btn {
         display: none;
     }
@@ -204,6 +204,10 @@ body {
     }
     .scroll-container {
         width: 570px;
+    }
+    .search-add-task-container{
+        padding-left: 18px;
+        left: unset;
     }
 }
 
