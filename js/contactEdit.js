@@ -7,7 +7,7 @@ function editContact(index) {
     let contact = contacts[index];
     openEditModal();
     generateEditContactModal(index);
-    document.getElementById("editFullName").value = `${contact.name} ${contact.surename}`;
+    document.getElementById("editFullName").value = `${contact.name} ${contact.surname}`;
     document.getElementById("editNewEmail").value = contact.email;
     document.getElementById("editNewTelefon").value = contact.telefon;
     const updateContactBtn = document.getElementById("updateContactBtn");
@@ -25,7 +25,7 @@ function editContact(index) {
  */
 function generateEditContactModal(index) {
     let contact = contacts[index];
-    let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+    let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
     let editContainer = document.getElementById('editModal');
     editContainer.innerHTML = generateEditContactModalHTML(index, initials, contact);
 }
@@ -104,14 +104,14 @@ async function saveNewContact() {
     let fullNameInput = document.getElementById("fullName");
     let nameValidationResult = validateNameParts(fullNameInput);
     let newName = nameValidationResult.newName;
-    let newSurename = nameValidationResult.newSurename;
+    let newsurname = nameValidationResult.newsurname;
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
     let isValidContactFields = validateContactFields(newName, newEmail, newTelefon);
     if (!isValidContactFields) {
         return;
     }
-    let newContact = createNewContactObject(newName, newSurename, newEmail, newTelefon);
+    let newContact = createNewContactObject(newName, newsurname, newEmail, newTelefon);
     saveContact(newContact);
     clearFormFields(fullNameInput, newEmailInput, newTelefonInput);
     showContactAdded();
@@ -127,8 +127,8 @@ async function saveNewContact() {
 function validateNameParts(fullNameInput) {
     let nameParts = extractNameParts(fullNameInput.value);
     let newName = nameParts.newName;
-    let newSurename = nameParts.newSurename || '';
-    return { newName, newSurename };
+    let newsurname = nameParts.newsurname || '';
+    return { newName, newsurname };
 }
 
 
@@ -140,7 +140,7 @@ function validateNameParts(fullNameInput) {
  */
 function extractNameParts(fullName) {
     let nameParts = fullName.trim().split(' ');
-    return { newName: nameParts[0], newSurename: nameParts[1] };
+    return { newName: nameParts[0], newsurname: nameParts[1] };
 }
 
 
@@ -239,19 +239,19 @@ function clearFormFields(fullNameInput, newEmailInput, newTelefonInput) {
 /**
  * Creates a new contact object.
  * @param {string} newName - The first name.
- * @param {string} newSurename - The last name.
+ * @param {string} newsurname - The last name.
  * @param {string} newEmail - The email address.
  * @param {string} newTelefon - The phone number.
  * @returns {Object} The new contact object.
  */
-function createNewContactObject(newName, newSurename, newEmail, newTelefon) {
+function createNewContactObject(newName, newsurname, newEmail, newTelefon) {
     let maxContactId = Math.max(...contacts.map(contact => contact.id), -1);
     let nextContactId = maxContactId + 1;
     return {
         bgcolor: getRandomColor(),
         id: nextContactId,
         name: newName,
-        surename: newSurename,
+        surname: newsurname,
         email: newEmail,
         telefon: newTelefon
     };
@@ -282,7 +282,7 @@ async function updateContact(index) {
     let fullNameInput = document.getElementById("editFullName");
     let nameValidationResult = validateNameParts(fullNameInput);
     let newName = nameValidationResult.newName;
-    let newSurename = nameValidationResult.newSurename;
+    let newsurname = nameValidationResult.newsurname;
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
     let isValidContactFields = validateContactFields(newName, newEmail, newTelefon);
@@ -290,7 +290,7 @@ async function updateContact(index) {
         return;
     }
     let originalContact = contacts[index];
-    let updatedContact = createUpdatedContactObject(originalContact, newName, newSurename, newEmail, newTelefon);
+    let updatedContact = createUpdatedContactObject(originalContact, newName, newsurname, newEmail, newTelefon);
     updateAndSaveContact(index, updatedContact);
 }
 
@@ -300,17 +300,17 @@ async function updateContact(index) {
  * 
  * @param {Object} originalContact - The original contact object.
  * @param {string} newName - The updated first name.
- * @param {string} newSurename - The updated last name.
+ * @param {string} newsurname - The updated last name.
  * @param {string} newEmail - The updated email address.
  * @param {string} newTelefon - The updated phone number.
  * @returns {Object} The updated contact object.
  */
-function createUpdatedContactObject(originalContact, newName, newSurename, newEmail, newTelefon) {
+function createUpdatedContactObject(originalContact, newName, newsurname, newEmail, newTelefon) {
     return {
         bgcolor: originalContact.bgcolor,
         id: originalContact.id,
         name: newName,
-        surename: newSurename,
+        surname: newsurname,
         email: newEmail,
         telefon: newTelefon,
         password: originalContact.password

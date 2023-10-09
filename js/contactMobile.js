@@ -10,7 +10,7 @@ function showContactDetailsMobile(index) {
     detailsContainer.style.display = 'block';
     document.querySelector('.container').style.display = 'none';
     let contact = contacts[index];
-    let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+    let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
     detailsContainer.innerHTML = showContactDetailsMobileHTML(contact, initials, index);
 }
 

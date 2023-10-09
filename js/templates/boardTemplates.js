@@ -166,10 +166,10 @@ function loadRenderSearchedContactsHTML(contact, initials, isSelected, isCurrent
     let userMarker = isCurrentUser ? " (you)" : "";
 
     return /*html*/`
-      <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
+      <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surname}')">
           <div class="select-contact">
               <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-              <div class="select-name">${contact.name} ${contact.surename}${userMarker}</div>
+              <div class="select-name">${contact.name} ${contact.surname}${userMarker}</div>
           </div>
           <img class="select-icon" id="edit-select-check" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
       </div>`;
@@ -187,10 +187,10 @@ function renderAssignedToHTML (contact, initials, isSelected, isCurrentUser){
     let userMarker = isCurrentUser ? " (you)" : "";
 
     return /* html */`
-      <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
+      <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surname}')">
           <div class="select-contact">
               <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-              <div class="select-name">${contact.name} ${contact.surename}${userMarker}</div>
+              <div class="select-name">${contact.name} ${contact.surname}${userMarker}</div>
           </div>
           <img class="select-icon" id="edit-select-check" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
       </div>`;

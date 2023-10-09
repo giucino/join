@@ -149,7 +149,7 @@ function getLoggedInUserData() {
  *
  * It fetches the logged-in user data, gets the container for loading contacts,
  * and iterates over the list of contacts to render each contact's assigned information.
- * For each contact, it generates the initials from their name and surename, checks if the contact
+ * For each contact, it generates the initials from their name and surname, checks if the contact
  * is selected or if it matches the logged-in user's email, and then updates the container's HTML.
  *
  * @requires getLoggedInUserData - A function to fetch the logged-in user's data.
@@ -168,7 +168,7 @@ async function renderAssignedTo() {
 
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
-        let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+        let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
         let isSelected = selectedContacts[contact.id] || false;
         let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
 
@@ -179,20 +179,20 @@ async function renderAssignedTo() {
 
 /**
  * Renders the contacts that were searched for and updates the HTML container.
- * It goes through each contact, computes the initials from their name and surename,
+ * It goes through each contact, computes the initials from their name and surname,
  * checks if the contact is selected and if the contact is the current logged in user,
  * and finally uses another function `renderSearchedContactsHTML` to update the DOM.
  * 
  * @param {Object[]} contacts - An array of contact objects.
  * @param {string} contacts[].name - First name of the contact.
- * @param {string} contacts[].surename - Last name (or surename) of the contact.
+ * @param {string} contacts[].surname - Last name (or surname) of the contact.
  * @param {string} contacts[].email - Email address of the contact.
  * @param {number} contacts[].id - Unique ID of the contact.
  * 
  * @example
  * const contacts = [
- *   { id: 1, name: 'John', surename: 'Doe', email: 'john.doe@example.com' },
- *   { id: 2, name: 'Jane', surename: 'Smith', email: 'jane.smith@example.com' }
+ *   { id: 1, name: 'John', surname: 'Doe', email: 'john.doe@example.com' },
+ *   { id: 2, name: 'Jane', surname: 'Smith', email: 'jane.smith@example.com' }
  * ];
  * 
  * renderSearchedContact(contacts);
@@ -205,7 +205,7 @@ function renderSearchedContact(contacts) {
 
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
-        let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+        let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
         let isSelected = selectedContacts[contact.id] || false;
         let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
 
@@ -247,7 +247,7 @@ function toggleAssignedToContainer() {
  * Assumes the following:
  * 1. An HTML container with the id 'chosenContacts' exists in the DOM.
  * 2. The `contacts` array exists in the current scope, with each contact
- *    object having properties: 'id', 'name', 'surename', and 'bgcolor'.
+ *    object having properties: 'id', 'name', 'surname', and 'bgcolor'.
  * 3. The `selectedContacts` object exists in the current scope, where
  *    each key is a contact's 'id' and its value is a boolean indicating
  *    if the contact is selected.
@@ -261,7 +261,7 @@ function displayChosenContacts() {
         let isSelected = selectedContacts[contact.id];
 
         if (isSelected) {
-            let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+            let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
             chosenContactsContainer.innerHTML += /*html*/`
                 <div class="chosen-contact">
                     <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>

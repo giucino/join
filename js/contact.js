@@ -83,7 +83,7 @@ async function showContacts() {
         if (!contact.bgcolor) {
             contact.bgcolor = getRandomColor();
         }
-        let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+        let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
         let firstLetter = contact.name.charAt(0).toUpperCase();
         let contactsList = document.getElementById(`container-contact-${firstLetter}`);
         let color = contact.bgcolor;
@@ -156,7 +156,7 @@ function resetAllContactsSelection() {
 
 /**
  * Displays the contact details content in the specified details container.
- * The content includes information like name, surename, and initials of the contact.
+ * The content includes information like name, surname, and initials of the contact.
  * The details container is given a "slide-in" animation if it was not visible before.
  * 
  * @param {HTMLElement} detailsContainer - The container element where the contact details content will be displayed.
@@ -164,7 +164,7 @@ function resetAllContactsSelection() {
  */
 function showContactDetailsContent(detailsContainer, index) {
     let contact = contacts[index];
-    let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+    let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
     detailsContainer.innerHTML = showContactDetailsHTML(contact, initials, index);
     detailsContainer.style.display = 'inline-flex';
     detailsContainer.setAttribute('data-current-index', index);

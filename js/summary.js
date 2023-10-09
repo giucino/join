@@ -109,7 +109,7 @@ function getLoggedInUserName() {
   let userData = JSON.parse(localStorage.getItem('loggedInUser'));
 
   if (userData && userData.name) {
-    return `${userData.name} ${userData.surename || ''}`;
+    return `${userData.name} ${userData.surname || ''}`;
   } else {
     return '';
   }

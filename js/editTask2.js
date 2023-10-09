@@ -30,7 +30,7 @@ function renderDisplayChosenContacts() {
         const isSelected = selectedContacts[contact.id];
 
         if (isSelected) {
-            let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+            let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
             chosenContactsContainer.innerHTML += renderDisplayChosenContactsHTML(contact, initials);
         }
     }
@@ -65,7 +65,7 @@ function loadDisplayChosenContacts() {
         if (selectedContacts.hasOwnProperty(id)) {
             let contact = contacts.find(c => c.id === parseInt(id));
             if (contact) {
-                let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+                let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
                 htmlContent += loadDisplayChosenContactsHTML(contact, initials);
             }
         }
@@ -376,7 +376,7 @@ function extractColor(element) {
         const [firstName, lastName] = fullName.split(' ');
 
         const contact = contacts.find(contact =>
-            contact.name === firstName && contact.surename === lastName
+            contact.name === firstName && contact.surname === lastName
         );
         colors.push(contact ? contact.bgcolor : '');
     }

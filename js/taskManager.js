@@ -223,7 +223,7 @@ function addSearchContacts(query) {
     let filteredContacts = contacts.filter(contact => {
         return (
             contact.name.toLowerCase().startsWith(query.toLowerCase()) ||
-            contact.surename.toLowerCase().startsWith(query.toLowerCase())
+            contact.surname.toLowerCase().startsWith(query.toLowerCase())
         );
     });
     addRenderSearchedContact(filteredContacts);
@@ -231,19 +231,19 @@ function addSearchContacts(query) {
 
 
 /**
- * Toggles the selection of a contact based on their name and surename.
+ * Toggles the selection of a contact based on their name and surname.
  * 
  * @param {string} name - The name of the contact to toggle.
- * @param {string} surename - The surename of the contact to toggle.
+ * @param {string} surname - The surname of the contact to toggle.
  */
-function addToggleContactSelection(name, surename) {
-    const contact = contacts.find(c => c.name === name && c.surename === surename);
+function addToggleContactSelection(name, surname) {
+    const contact = contacts.find(c => c.name === name && c.surname === surname);
 
     if (!contact) {
         return;
     }
     const contactId = contact.id;
-    const contactKey = `${contact.name} ${contact.surename}`;
+    const contactKey = `${contact.name} ${contact.surname}`;
 
     if (selectedContacts[contactId]) {
         delete selectedContacts[contactId];
@@ -267,7 +267,7 @@ function addExtractBgcolor(selectedContacts) {
     const validContacts = selectedContacts.filter(contactName => contactName);
 
     for (const contactName of validContacts) {
-        const foundContact = contacts.find(c => `${c.name} ${c.surename}` === contactName);
+        const foundContact = contacts.find(c => `${c.name} ${c.surname}` === contactName);
         if (foundContact && foundContact.bgcolor) {
             bgcolors.push(foundContact.bgcolor);
         }
