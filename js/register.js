@@ -15,7 +15,6 @@ async function initRegister() {
 async function loadAllContacts() {
     try {
         contacts = JSON.parse(await getItem('contacts'));
-        console.log('Contacts:', contacts);
     } catch (e) {
         console.error('Loading error:', e);
     }

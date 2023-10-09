@@ -309,6 +309,7 @@
 
     100% {
         transform: translateX(1000px);
+        display: none;
     }
 }
 
@@ -337,6 +338,7 @@
 
     100% {
         transform: translateX(-1000px);
+        display: none;
     }
 }
 
@@ -361,6 +363,7 @@
 
     100% {
         transform: translateX(-1000px);
+        display: none;
     }
 }
 

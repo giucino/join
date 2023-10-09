@@ -29,3 +29,24 @@ async function getItem(key) {
         } throw `Could not find data with key "${key}".`;
     });
 }
+
+let selectedPriority = '';
+let selectedCategory = '';
+let selectedStatus = '';
+let selectedContacts = [];
+let subtasks = [];
+let subtaskIdCounter = 0;
+let contacts = [];
+let todos = [];
+
+
+let categories = [
+    {
+        categoryName: "User Story",
+        categoryColor: "#FF7A00"
+    },
+    {
+        categoryName: "Technical Task",
+        categoryColor: "#0038FF"
+    },
+];
