@@ -63,6 +63,7 @@ async function loadContactsFromStorage() {
 
 /**
  * Renders the assignees in the detail view.
+ * 
  * @param {object} task the task whose information should be rendered
  */
 function boardDetailViewAssignees(task) {
@@ -177,6 +178,7 @@ function done() {
 
 /**
  * Generate HTML for the "No Tasks" message.
+ * 
  * @returns {string} HTML markup for no tasks message.
  */
 function noTasks() {
@@ -223,7 +225,6 @@ function hideAllTaskBorders() {
 
 /**
  * Sets up event listeners to enable a "click and drag" scrolling functionality on an element with the class `.scroll-container`.
- * 
  * Once the DOM content is fully loaded, this script allows users to click and drag horizontally within the `.scroll-container` 
  * to scroll its content. The visual feedback is provided by adding a `grabbing` class to the container during the drag action.
  */
@@ -245,6 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
   /**
    * Event listener for the mousemove event on the container.
    * Updates the scroll position of the container based on the mouse movement.
+   * 
    * @param {MouseEvent} e - The mouse event object.
    */
   container.addEventListener('mousemove', function (e) {
@@ -267,6 +269,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /**
  * Generate HTML markup for a task element.
+ * 
  * @param {Task} element - The task object to generate HTML for.
  * @returns {string} HTML markup for the task element.
  */
@@ -294,6 +297,7 @@ function generateTasks(element) {
 
 /**
  * Extracts initials from a full name.
+ * 
  * @param {string} name - Full name to extract initials from.
  * @returns {string} Extracted initials.
  */
@@ -311,6 +315,7 @@ function extractInitials(name) {
 
 /**
  * Determine the appropriate image source based on priority.
+ * 
  * @param {string} priority - The priority level (low, medium, high).
  * @returns {string} The URL to the appropriate image.
  */
@@ -329,6 +334,7 @@ function setPriorityImage(priority) {
 
 /**
  * Set the task that's currently being dragged.
+ * 
  * @param {number} id - ID of the task that's being dragged.
  */
 function startDragging(id) {
@@ -340,6 +346,7 @@ function startDragging(id) {
 
 /**
  * Handles the dragover event to allow dropping.
+ * 
  * @param {Event} ev - The dragover event.
  */
 function allowDrop(ev) {
@@ -350,6 +357,7 @@ function allowDrop(ev) {
 
 /**
  * Moves a task to a specified status and updates the UI.
+ * 
  * @param {string} status - The new status for the dragged task.
  */
 function moveTo(status) {
@@ -362,6 +370,7 @@ function moveTo(status) {
 
 /**
  * Rotates the element with the given id by adding a 'rotate' class.
+ * 
  * @param {string} id - The ID of the element to rotate.
  */
 function startRotateCard(id) {
@@ -371,6 +380,7 @@ function startRotateCard(id) {
 
 /**
  * Highlights the element with the given id by adding a 'highlight' class.
+ * 
  * @param {string} id - The ID of the element to highlight.
  */
 function highlight(id) {
@@ -380,6 +390,7 @@ function highlight(id) {
 
 /**
  * Removes the highlight from the element with the given id by removing the 'highlight' class.
+ * 
  * @param {string} id - The ID of the element to remove the highlight from.
  */
 function removeHighlight(id) {

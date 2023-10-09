@@ -156,7 +156,7 @@ function resetAllContactsSelection() {
 
 /**
  * Displays the contact details content in the specified details container.
- * The content includes information like name, surname, and initials of the contact.
+ * The content includes information like name, surename, and initials of the contact.
  * The details container is given a "slide-in" animation if it was not visible before.
  * 
  * @param {HTMLElement} detailsContainer - The container element where the contact details content will be displayed.
@@ -258,6 +258,7 @@ function closeModalEdit() {
 
 /**
  * Closes the 'editModal' when clicking outside of its content. 
+ * 
  * @param {Event} event - The DOM event triggered from the click.
  */
 function closeModalBackEditContact(event) {

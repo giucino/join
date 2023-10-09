@@ -34,7 +34,6 @@ document.getElementById('signUpForm').addEventListener('submit', function (event
 /**
  * Registers a new user.
  * 
- * @returns {Promise<void>} A promise that resolves upon successful registration.
  * @throws {Error} An error if the registration fails.
  */
 async function signUpUser() {
@@ -87,6 +86,7 @@ function validatePasswordMatch(password, confirmPassword) {
 
 /**
  * Checks if the provided email is already registered.
+ * 
  * @param {string} email - The email to check.
  * @returns {boolean} - Returns true if the email is already registered, false otherwise.
  */
@@ -97,6 +97,7 @@ function isEmailAlreadyRegistered(email) {
 
 /**
  * Tests if the username adheres to the specified format.
+ * 
  * @param {string} username - The username to be validated.
  * @returns {boolean} Returns true if the username is in a valid format, false otherwise.
  */
@@ -148,7 +149,6 @@ function extractNameParts(username) {
  * Registers a new contact, updates the storage, and performs related actions.
  * 
  * @param {Object} newContact - The contact object to be registered.
- * @returns {Promise<void>} A promise that resolves upon successful registration.
  */
 async function registerContact(newContact) {
     contacts.push(newContact);

@@ -247,7 +247,7 @@ function toggleAssignedToContainer() {
  * Assumes the following:
  * 1. An HTML container with the id 'chosenContacts' exists in the DOM.
  * 2. The `contacts` array exists in the current scope, with each contact
- *    object having properties: 'id', 'name', 'surname', and 'bgcolor'.
+ *    object having properties: 'id', 'name', 'surename', and 'bgcolor'.
  * 3. The `selectedContacts` object exists in the current scope, where
  *    each key is a contact's 'id' and its value is a boolean indicating
  *    if the contact is selected.
@@ -296,8 +296,6 @@ function renderCategorys() {
  * Toggles the visibility of the category container.
  * - When the category container is displayed, it hides the container and makes necessary style adjustments.
  * - When the category container is not displayed, it shows the container, makes necessary style adjustments, and renders the categories.
- * 
- * @returns {void} Returns nothing.
  */
 function toggleCategoryContainer() {
     let selectText = document.querySelector('.select-text');

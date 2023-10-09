@@ -86,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
  * Adds event listeners to change the border color of a textarea on focus, blur, and input events.
  *
  * @param {HTMLTextAreaElement} textarea - The textarea element to which the event listeners will be added.
- * @returns {void}
  */
 function addChangeTextAreaBorderOnFocusBlurInput(textarea) {
     textarea.addEventListener('focus', () => {
@@ -105,7 +104,6 @@ function addChangeTextAreaBorderOnFocusBlurInput(textarea) {
 
 /**
  * Adds a priority to a button element and updates the selectedPriority variable.
- *
  * This function adds visual effects to the specified button based on its ID and sets
  * the selectedPriority variable accordingly.
  *
@@ -130,6 +128,7 @@ function addPriority(button) {
 
 /**
  * Adds highlighting to a button by changing its background color, image source, and text color.
+ * 
  * @param {HTMLElement} button - The button element to be highlighted.
  * @param {string} bgColor - The background color to set for the button.
  * @param {string} imageSrc - The source URL for the image to be displayed inside the button.
@@ -145,6 +144,7 @@ function addHighlightButton(button, bgColor, imageSrc) {
 
 /**
  * Retrieves the data of the currently logged-in user from the browser's localStorage.
+ * 
  * @returns {Object} The data of the logged-in user as an object, or an empty object if no user is logged in.
  */
 function getLoggedInUserData() {
@@ -156,9 +156,6 @@ function getLoggedInUserData() {
  * Asynchronously renders a list of contacts and their assignment status.
  * Clears the content of the 'addLoadedContacts' container and populates it
  * with HTML elements representing the contacts.
- * @async
- * @function
- * @returns {void}
  */
 async function addRenderAssignedTo() {
     let loggedInUserData = getLoggedInUserData();
@@ -179,6 +176,7 @@ async function addRenderAssignedTo() {
 
 /**
  * Renders a list of searched contacts and adds them to the specified container element.
+ * 
  * @param {Array} contacts - An array of contact objects to be rendered.
  */
 function addRenderSearchedContact(contacts) {
@@ -228,8 +226,6 @@ function addToggleAssignedToContainer() {
  * is selected based on the `selectedContacts` object. If a contact is selected,
  * it adds a corresponding HTML element to the `chosenContactsContainer` displaying
  * the contact's initials in a colored box.
- * 
- * @function
  */
 function addDisplayChosenContacts() {
     let chosenContactsContainer = document.getElementById('addChosenContacts');
@@ -253,9 +249,7 @@ function addDisplayChosenContacts() {
 
 /**
  * Adds and renders categories in the specified container.
- * @memberof window
- * @global
- * @description This function populates the specified container with category elements,
+ * This function populates the specified container with category elements,
  * each of which can be clicked to trigger the "addCategorySelected" function with the
  * selected category name.
  */
@@ -301,8 +295,8 @@ function addToggleCategoryContainer() {
 
 /**
  * Sets the selected category and updates the UI accordingly.
+ * 
  * @param {string} category - The category to be selected.
- * @returns {void}
  */
 function addCategorySelected(category) {
     selectedCategory = category;
@@ -358,6 +352,7 @@ function addCloseSubtaskInput() {
 
 /**
  * Adds editing-related CSS classes and styles to a given container element.
+ * 
  * @param {HTMLElement} container - The container element to which editing classes and styles will be added.
  */
 function addAddEditingClasses(container) {

@@ -189,14 +189,13 @@ function showCreatedTaskMessage() {
 
 /**
  * Searches through the list of contacts for matches based on the given query.
- * Filters contacts whose name or surname starts with the provided query.
+ * Filters contacts whose name or surename starts with the provided query.
  *
- * @function
- * @param {string} query - The search term to match against contact names and surnames.
+ * @param {string} query - The search term to match against contact names and surenames.
  *
  * @example
- * Assume `contacts` is a global array containing contact objects with `name` and `surname` properties.
- * searchContacts('John'); // will call `renderSearchedContact` with all contacts named John or with a surname starting with John.
+ * Assume `contacts` is a global array containing contact objects with `name` and `surename` properties.
+ * searchContacts('John'); // will call `renderSearchedContact` with all contacts named John or with a surename starting with John.
  *
  * @throws {TypeError} - If the contacts array or its individual items do not have the expected structure, the function might throw.
  * (Note: The actual function provided does not have explicit error handling, so this is a speculative error type.)
@@ -212,10 +211,10 @@ function searchContacts(query) {
 }
 
 /**
- * Toggles the selection state of a contact in the list based on their name and surname.
+ * Toggles the selection state of a contact in the list based on their name and surename.
  *
  * @param {string} name - The first name of the contact.
- * @param {string} surename - The surname of the contact.
+ * @param {string} surename - The surename of the contact.
  * 
  * @example
  * Assuming there's a contact {id: 1, name: 'John', surename: 'Doe'} in the `contacts` array

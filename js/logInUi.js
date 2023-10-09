@@ -3,6 +3,7 @@ let passwordMatchError = document.getElementById('passwordMatchError');
 
 /**
  * Retrieves the value of the email input field.
+ * 
  * @returns {string} - The value of the email input field.
  */
 function getEmailInputValue() {
@@ -13,6 +14,7 @@ function getEmailInputValue() {
 
 /**
  * Retrieves the value of the password input field.
+ * 
  * @returns {string} - The value of the password input field.
  */
 function getPasswordInputValue() {
@@ -92,6 +94,7 @@ let passwordIcon = document.getElementById('passwordIcon');
 
 /**
  * Updates the visibility icon of a password input field based on its current state.
+ * 
  * @param {HTMLInputElement} passwordInput - The password input element.
  * @param {HTMLImageElement} passwordIcon - The visibility icon associated with the password input.
  */
@@ -106,6 +109,7 @@ function updatePasswordVisibility(passwordInput, passwordIcon) {
 
 /**
  * Toggles the visibility of a password input between masked and visible.
+ * 
  * @param {HTMLInputElement} passwordInput - The password input element.
  * @param {HTMLImageElement} passwordIcon - The visibility icon associated with the password input.
  */
@@ -152,7 +156,6 @@ function togglerememberCheck() {
 
 /**
 * The remember check element.
-* @type {HTMLImageElement}
 */
 const rememberCheck = document.getElementById('rememberCheck');
 rememberCheck.addEventListener('click', togglerememberCheck);
@@ -216,6 +219,7 @@ function removeHoverButtonBackground() {
 
 /**
  * Saves user data upon login.
+ * 
  * @param {string} userEmail - The user's email.
  * @param {string} userPassword - The user's password.
  * @param {boolean} rememberStatus - The remember me status.

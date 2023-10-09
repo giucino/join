@@ -1,5 +1,6 @@
 /**
  * Displays the reset content, hiding the specified element and showing the reset content.
+ * 
  * @param {string} hideId - The id of the element to hide.
  * @param {string} showId - The id of the element to show.
  */
@@ -80,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function () {
 /**
  * Resets the password reset form style, checks if passwords match,
  * and triggers appropriate actions based on the outcome.
- * @returns {void}
  */
 function validateAndSubmitResetForm() {
     let passWord = getResetPasswordValue();
@@ -108,6 +108,7 @@ function resetForm() {
 
 /**
  * Retrieves the value of the password input field.
+ * 
  * @returns {string} The value of the password input field.
  */
 function getResetPasswordValue() {
@@ -118,6 +119,7 @@ function getResetPasswordValue() {
 
 /**
  * Retrieves the value of the confirm password input field.
+ * 
  * @returns {string} The value of the confirm password input field.
  */
 function getResetConfirmPasswordValue() {

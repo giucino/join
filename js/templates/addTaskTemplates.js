@@ -20,7 +20,7 @@ function createdTaskTemplate() {
  * 
  * @param {Object} contact - The contact to render.
  * @param {string} contact.name - The first name of the contact.
- * @param {string} contact.surename - The surname/last name of the contact.
+ * @param {string} contact.surename - The surename/last name of the contact.
  * @param {string} contact.bgcolor - The background color for the initials container.
  * @param {string} initials - The initials of the contact.
  * @param {boolean} isSelected - A flag indicating if the contact is currently selected.
@@ -52,7 +52,7 @@ function renderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
  * @function renderSearchedContactsHTML
  * @param {Object} contact - The contact object containing details of the user.
  * @param {string} contact.name - The first name of the contact.
- * @param {string} contact.surename - The surname of the contact.
+ * @param {string} contact.surename - The surename of the contact.
  * @param {string} contact.bgcolor - Background color for the initials div.
  * @param {string} initials - The initials of the contact.
  * @param {boolean} isSelected - A flag indicating if the contact is selected.

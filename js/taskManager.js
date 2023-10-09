@@ -1,7 +1,6 @@
 /**
  * Initializes the addition of tasks by loading contacts from storage
  * and loading tasks asynchronously.
- * @returns {Promise<void>} A promise that resolves when tasks are loaded.
  */
 async function initAddTask() {
     await addLoadContactsFromStorage();
@@ -11,6 +10,7 @@ async function initAddTask() {
 
 /**
  * Asynchronously loads contacts data from storage and assigns it to the 'contacts' variable.
+ * 
  * @throws {Error} Throws an error if there's an issue parsing or loading the data.
  */
 async function addLoadContactsFromStorage() {
@@ -25,8 +25,7 @@ async function addLoadContactsFromStorage() {
 /**
  * Asynchronously loads tasks from local storage and populates the 'todos' array.
  * If loading fails, it logs an error message to the console.
- * @async
- * @function addLoadTasks
+ * 
  * @throws {Error} If there is an issue with parsing the stored tasks.
  */
 async function addLoadTasks() {
@@ -39,7 +38,6 @@ async function addLoadTasks() {
 
 /**
  * Sets up an event listener for the submission of the 'taskFormSlider' form.
- * 
  * When the form with the ID `taskFormSlider` is submitted, this script prevents the default form submission 
  * behavior (which might cause a page reload) and instead calls the `addCreateTask` function to handle the 
  * task creation logic.
@@ -53,9 +51,6 @@ document.getElementById('taskFormSlider').addEventListener('submit', function (e
 /**
  * Asynchronously adds a new task with the provided title, description, and due date.
  * Retrieves input values from HTML elements with specific IDs and validates them.
- * @async
- * @function addCreateTask
- * @returns {void}
  */
 async function addCreateTask() {
     const title = document.getElementById('addTaskTitle').value;
@@ -68,6 +63,7 @@ async function addCreateTask() {
 /**
  * Validates the input values for title, description, and due date.
  * If any of these values are missing, it shows corresponding input errors.
+ * 
  * @param {string} title - The title input value.
  * @param {string} description - The description input value.
  * @param {string} dueDate - The due date input value.
@@ -89,6 +85,7 @@ function addValidateInput(title, description, dueDate) {
 
 /**
  * Validates user selections for a task before processing the input.
+ * 
  * @param {string} title - The title of the task.
  * @param {string} description - The description of the task.
  * @param {Date} dueDate - The due date for the task.
@@ -108,6 +105,7 @@ function addValidateSelections(title, description, dueDate) {
 
 /**
  * Processes valid input and adds a new todo item to the 'todos' array.
+ * 
  * @param {string} title - The title of the todo item.
  * @param {string} description - The description of the todo item.
  * @param {string} dueDate - The due date for the todo item.
@@ -144,6 +142,7 @@ function processValidInput(title, description, dueDate) {
  * 2. Displays a message indicating that the task has been created.
  * 3. Closes the opened modal
  * 4. Updates the HTML to reflect the changes.
+ * 
  * @throws {Error} Throws an error if an error occurs during local storage operation.
  */
 async function addCompleteTaskCreation() {
@@ -158,6 +157,7 @@ async function addCompleteTaskCreation() {
  * Opens a task form for adding a new task. The behavior depends on the window width:
  * - If the window width is greater than or equal to 768 pixels, it displays a modal with a task form.
  * - If the window width is less than 768 pixels, it redirects to the 'addTask.html' page.
+ * 
  * @throws {Error} If the 'taskFormSlider' element is not found in the DOM.
  */
 function addTask() {
@@ -189,8 +189,8 @@ function closeAddTaskModal() {
 
 /**
  * Handles the click event on the overlay to close the add task modal.
+ * 
  * @param {Event} event - The click event.
- * @returns {void}
  */
 function handleOverlayClick(event) {
     if (event.target.classList.contains("task-background-overlay")) {
@@ -216,6 +216,7 @@ function addShowCreatedTaskMessage() {
 
 /**
  * Filters the contacts list based on a query and renders the matching contacts.
+ * 
  * @param {string} query - The search query to filter contacts by.
  */
 function addSearchContacts(query) {
@@ -231,6 +232,7 @@ function addSearchContacts(query) {
 
 /**
  * Toggles the selection of a contact based on their name and surename.
+ * 
  * @param {string} name - The name of the contact to toggle.
  * @param {string} surename - The surename of the contact to toggle.
  */
@@ -256,6 +258,7 @@ function addToggleContactSelection(name, surename) {
 
 /**
  * Extracts the background colors from an array of selected contact names.
+ * 
  * @param {string[]} selectedContacts - An array of contact names to extract background colors from.
  * @returns {string[]} An array of background colors corresponding to the selected contact names.
  */
@@ -278,7 +281,6 @@ function addExtractBgcolor(selectedContacts) {
  * This function retrieves the value from the new subtask input field, trims it, and
  * adds it to the subtask container with a generated subtask ID. If the input is empty,
  * it does nothing.
- * @returns {void}
  */
 function addAddSubtask() {
     let subtaskInput = document.querySelector('.new-subtask-textfield');
@@ -299,6 +301,7 @@ function addAddSubtask() {
 
 /**
  * Handles the 'Enter' key press event for a text input field with the class 'new-subtask-textfield'.
+ * 
  * @param {Event} event - The keyboard event object.
  */
 function addHandleSubtaskInput(event) {
@@ -313,6 +316,7 @@ document.addEventListener('keypress', addHandleSubtaskInput);
 
 /**
  * Adds a new subtask to a container and updates the DOM with the new subtask HTML.
+ * 
  * @param {string} subtaskId - The unique identifier for the subtask.
  * @param {string} subtaskValue - The title or content of the subtask.
  */
@@ -329,6 +333,7 @@ function addAddSubtaskToContainer(subtaskId, subtaskValue) {
 
 /**
  * Removes a subtask from the subtasks array and the corresponding HTML element from the DOM.
+ * 
  * @param {string} subtaskId - The ID of the subtask to be deleted.
  */
 function addDeleteSubtask(subtaskId) {
@@ -349,6 +354,7 @@ function addDeleteSubtask(subtaskId) {
  * Enables editing mode for a subtask element identified by its ID.
  * This function sets the `contentEditable` property of the subtask element to true,
  * allowing the user to edit its content, and gives it focus for immediate editing.
+ * 
  * @param {string} subtaskId - The ID of the subtask element to be edited.
  */
 function addEditSubtask(subtaskId) {
@@ -367,6 +373,7 @@ function addEditSubtask(subtaskId) {
 
 /**
  * Disables content editing for a subtask element and performs necessary cleanup actions.
+ * 
  * @param {string} subtaskId - The ID of the subtask element to finish editing.
  */
 function addFinishEditing(subtaskId) {
@@ -386,6 +393,7 @@ function addFinishEditing(subtaskId) {
 
 /**
  * Updates the title of a subtask based on user-edited content and saves it.
+ * 
  * @param {string} subtaskId - The unique identifier of the subtask to update.
  */
 function addSaveEditedTitle(subtaskId) {

@@ -73,7 +73,6 @@ document.addEventListener('DOMContentLoaded', addForgotBlurEvents);
  * is not found in the users array, displays an email not found error.
  * 
  * @param {Event} event - The event object triggered by the form submission.
- * @returns {void}
  */
 function showForgotAndRedirect(event) {
     let emailInput = document.getElementById('emailForgot');
@@ -94,6 +93,7 @@ function showForgotAndRedirect(event) {
 
 /**
  * Checks if the given email exists in the users array.
+ * 
  * @param {string} email - The email to check.
  * @returns {boolean} - True if the email exists in the users array, false otherwise.
  */

@@ -24,7 +24,7 @@ function generateLetterListHTML(letter) {
  * 
  * @param {Object} contact - The contact object.
  * @param {string} contact.name - The first name of the contact.
- * @param {string} contact.surename - The surname (or last name) of the contact.
+ * @param {string} contact.surename - The surename (or last name) of the contact.
  * @param {string} [contact.bgcolor] - The background color for the initials. Optional.
  * @param {string} contact.email - The email address of the contact.
  * @param {string} contact.telefon - The phone number of the contact.
@@ -62,7 +62,7 @@ function showContactDetailsHTML(contact, initials, index) {
  * 
  * @param {Object} contact - The contact details.
  * @param {string} contact.name - First name of the contact.
- * @param {string} contact.surename - Surname of the contact.
+ * @param {string} contact.surename - Surename of the contact.
  * @param {string} contact.email - Email address of the contact.
  * @param {string} contact.telefon - Telephone number of the contact.
  * @param {string} [contact.bgcolor] - Background color for the contact initials. If not provided, a random color will be used.
@@ -111,7 +111,7 @@ function showContactDetailsMobileHTML(contact, initials, index) {
  * @param {string} initials - The initials of the contact.
  * @param {Object} contact - The contact details.
  * @param {string} contact.name - The first name of the contact.
- * @param {string} contact.surename - The surname of the contact.
+ * @param {string} contact.surename - The surename of the contact.
  * @param {string} contact.email - The email address of the contact.
  * @param {boolean} isCurrentUser - A flag to determine if the contact is the current user.
  * @returns {string} An HTML string representation of the contact.

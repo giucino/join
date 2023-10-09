@@ -4,9 +4,6 @@
  * - Clears the task description input field.
  * - Clears the due date input field.
  * - Calls functions to reset buttons, assigned to selection, category selection, and subtasks.
- *
- * @function
- * @returns {void}
  */
 function addResetTaskForm() {
     document.getElementById('addTaskTitle').value = '';
@@ -21,7 +18,6 @@ function addResetTaskForm() {
 
 /**
  * Resets the selected contacts, clears the search input field, and updates the UI.
- *
  * This function clears the selectedContacts object, resets the value of the
  * search input field with the id 'addSearchInput', and updates the user interface
  * by calling the functions addRenderAssignedTo and addDisplayChosenContacts.
@@ -97,11 +93,6 @@ function addShowTitleInputError() {
 /**
  * Hides the error message and resets the border color of the title input field
  * in the add task form.
- *
- * @function
- * @name addResetTitleInput
- * @memberof global
- * @global
  *
  * @example
  * // Call this function to reset the title input field in the add task form
@@ -196,7 +187,6 @@ document.body.addEventListener('input', function (event) {
 
 /**
  * Displays an error message for a required priority field in a user interface.
- *
  * This function retrieves an HTML element with the ID 'addRequiredPriority' and sets its
  * style to 'block', making it visible as an error message.
  */
@@ -208,8 +198,7 @@ function addShowPriorityError() {
 
 /**
  * Hides the priority error message element with the specified ID.
- * @function
- * @name addHidePriorityError
+ * 
  * @example
  * Example usage:
  * Assuming you have an HTML element with the ID 'addRequiredPriority':
@@ -249,7 +238,6 @@ function addResetSelectCategory() {
 
 /**
  * Sets up an event listener for click events on the body of the document.
- * 
  * When any element with the class `category-dropdown` is clicked, this script calls the 
  * `addResetSelectCategory` function to handle the category reset logic.
  */

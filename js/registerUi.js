@@ -3,6 +3,7 @@ let passwordMatchError = document.getElementById('signUpMatchError');
 
 /**
  * Retrieves the value of the password input field.
+ * 
  * @returns {string} The value of the password input field.
  */
 function getPasswordInputValue() {
@@ -13,6 +14,7 @@ function getPasswordInputValue() {
 
 /**
  * Retrieves the value of the confirm password input field.
+ * 
  * @returns {string} The value of the confirm password input field.
  */
 function getConfirmPasswordInputValue() {
@@ -113,6 +115,7 @@ function togglePrivacyCheck() {
 
 /**
 * The privacy check element.
+
 * @type {HTMLImageElement}
 */
 const privacyCheck = document.getElementById('privacyCheck');
@@ -183,6 +186,7 @@ let confirmPasswordIcon = document.getElementById('confirmPasswordIcon');
 
 /**
  * Handle the visibility icon based on the input value.
+ * 
  * @param {HTMLElement} inputElement - The password input element.
  * @param {HTMLElement} iconElement - The visibility icon element.
  */
@@ -219,6 +223,7 @@ confirmPasswordInput.addEventListener('input', function () {
 
 /**
  * Toggles the visibility of a password input field and updates the icon.
+ * 
  * @param {HTMLInputElement} inputElement - The password input element to toggle.
  * @param {HTMLImageElement} iconElement - The icon element associated with the input.
  */
@@ -253,6 +258,7 @@ confirmPasswordIcon.addEventListener('click', function () {
 
 /**
  * Creates a success message template.
+ * 
  * @returns {string} - The HTML template for a success message overlay.
  */
 function createSuccessMessageTemplate() {

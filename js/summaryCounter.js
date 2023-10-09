@@ -3,9 +3,7 @@ let counter = [];
 
 /**
  * Asynchronously loads data and counts tasks in various categories.
- * @async
- * @function
- * @returns {Promise<void>} Resolves when all counting and data loading operations are complete.
+ * 
  * @throws {Error} Throws an error if there's a problem during the data loading or counting process.
  */
 async function count() {
@@ -21,10 +19,8 @@ async function count() {
 
 /**
  * Asynchronously loads data.
- * @async
- * @function
+ * 
  * @throws {Error} Throws an error if the data cannot be parsed or loaded.
- * @returns {Promise<void>}
  */
 async function loadData(){
     const getTodos = await getItem('tasks');
@@ -34,8 +30,10 @@ async function loadData(){
 
 /**
  * Converts a due date string into a formatted string of the form "Month Day, Year".
+ * 
  * @param {string} dueDateString - A string representation of a date (e.g., "YYYY-MM-DD").
  * @returns {string} A formatted string representing the due date.
+ * 
  * @example
  * returns "September 30, 2023"
  * loadDueDate("2023-09-30");
@@ -58,10 +56,13 @@ function loadDueDate(dueDateString) {
  * Finds the nearest due date from a list of tasks.
  * Iterates through the `counter` array of tasks, checks for tasks with `dueDate`,
  * and finds the one that is closest to the current time.
+ * 
  * @returns {Date|null} The nearest due date as a Date object or null if no tasks with due dates are found.
+ * 
  * @example
  * const counter = [{dueDate: '2023-09-30T12:00:00'}, {dueDate: '2023-09-29T11:00:00'}];
  * findNearestDueDate(); // Returns Date object representing '2023-09-29T11:00:00'
+ * 
  * @todo Update the function to accept tasks array as parameter rather than using a global variable.
  */
 function findNearestDueDate() {
@@ -82,13 +83,13 @@ function findNearestDueDate() {
 /**
  * Renders the nearest due date in the 'deadline' DOM element.
  * If there's no due date found, it sets the content to "No Due Date".
- * @function
- * @returns {void} 
+ * 
  * @example
  * Assuming there's an element with the ID 'deadline' and 
  * findNearestDueDate returns a valid due date
  * renderDueDate();
  * The 'deadline' element will display the nearest due date or "No Due Date" if none found.
+ * 
  * @todo
  * - Perhaps expand this function to accept a target DOM element ID as a parameter.
  * - Handle potential errors or exceptions while fetching or formatting dates.
@@ -109,7 +110,7 @@ function renderDueDate() {
  * Counts and displays the number of items with 'high' priority.
  * It then updates the element with ID 'urgent-task' to display the count
  * and triggers a re-render of due dates.
- * @function
+ * 
  * @requires counter - An external array or object that contains a list of items.
  *                     Each item should have a 'priority' property.
  * @throws Will throw an error if the 'urgent-task' element is not found.
@@ -125,8 +126,7 @@ function countUrgent() {
 
 /**
  * Updates the innerHTML of the element with id 'board-task' to the length of the global `counter` array.
- * @function
- * @global
+ * 
  * @todo Ideally, the `counter` variable should be passed as an argument to avoid global dependencies.
  */
 function countBoard() {
@@ -150,9 +150,9 @@ function countTodo(){
 /**
  * Counts the number of items with the status 'inprogress' from the global 'counter' array
  * and updates the innerHTML of the 'in-progress-task' element with the count.
- * @function
- * @global
+
  * @requires counter - An external/global array that contains items with a status property.
+
  * @example
  * Assuming the global 'counter' array has items with different statuses
  * countInProgress();
@@ -181,9 +181,6 @@ function countFeedback(){
 /**
  * Counts the number of items with a status of 'done' and displays the count
  * in an element with the id 'done-task'.
- * @function
- * @global
- * @returns {void}
  */
 function countDone(){
     const doneCount = counter.filter(item => item.status === 'done').length;

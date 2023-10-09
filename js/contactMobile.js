@@ -1,5 +1,6 @@
 /**
  * Displays the details of a selected contact in mobile view.
+ * 
  * @param {number} index - The index of the selected contact.
  */
 function showContactDetailsMobile(index) {

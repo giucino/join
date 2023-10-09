@@ -20,6 +20,7 @@ function editContact(index) {
 
 /**
  * Generates the edit modal for a specific contact.
+ * 
  * @param {number} index - The index of the contact to edit.
  */
 function generateEditContactModal(index) {
@@ -223,6 +224,7 @@ function isValidPhoneNumber(phone) {
 
 /**
  * Clears the form fields after saving a contact.
+ * 
  * @param {HTMLInputElement} fullNameInput - The input element for full name.
  * @param {HTMLInputElement} newEmailInput - The input element for email.
  * @param {HTMLInputElement} newTelefonInput - The input element for phone number.

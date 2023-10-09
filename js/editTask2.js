@@ -1,10 +1,6 @@
 /**
  * Toggles the display of the 'edit-loaded-contacts' container.
  * Also manages the display state and class of related elements.
- * 
- * @function
- * @name loadToggleAssignedToContainer
- * @returns {void} Does not return any value.
  */
 function loadToggleAssignedToContainer() {
     let assignedToContainer = document.getElementById('edit-loaded-contacts');
@@ -44,7 +40,6 @@ function renderDisplayChosenContacts() {
 /**
  * Renders the HTML for a chosen contact with its initials.
  * 
- * @function
  * @param {Object} contact - The contact information.
  * @param {string} contact.bgcolor - The background color for the initials div.
  * @param {string} initials - The initials of the contact.
@@ -140,6 +135,7 @@ function editRenderCategorys() {
 
 /**
  * Loads the provided category into the selected category.
+ * 
  * @param {Object} element - The element containing category data.
  */
 function loadRenderCategory(element) {
@@ -150,6 +146,7 @@ function loadRenderCategory(element) {
 
 /**
  * Handles the logic when a category is selected.
+ * 
  * @param {string} category - The name of the selected category.
  */
 function categorySelected(category) {
@@ -199,6 +196,7 @@ function closeSubtaskInput() {
 
 /**
  * Deletes a subtask based on its ID.
+ * 
  * @param {number|string} subtaskId - The ID of the subtask to delete.
  */
 function deleteEditSubtask(indexToDelete) {
@@ -215,6 +213,7 @@ function deleteEditSubtask(indexToDelete) {
 
 /**
  * Allows the user to edit a subtask.
+ * 
  * @param {number} i - The index or unique identifier for the subtask.
  */
 function editEditedSubtask(i) {
@@ -252,6 +251,7 @@ function addEditingClasses(container) {
 
 /**
  * Adds specific CSS classes and styles to the given container element.
+ * 
  * @param {HTMLElement} container - The DOM element to which classes and styles will be added.
  */
 function addClasses(container) {
@@ -263,8 +263,7 @@ function addClasses(container) {
 
 /**
  * Sets the display style of a DOM element. *
- * @function
- * @name setDisplay
+ * 
  * @param {HTMLElement|null} element - The DOM element to modify.
  * @param {string} value - The CSS display value to set (e.g. 'none', 'block').
  */
@@ -278,10 +277,7 @@ function setDisplay(element, value) {
 /**
  * Finishes the editing mode for a given subtask.
  *
- * @function
- * @name finishEditing
  * @param {string|number} i - The unique identifier (or index) for the subtask.
- * @description
  * This function achieves the following steps:
  * 1. Gets the subtask element with the provided ID and disables its content editing.
  * 2. Removes editing-related classes from the subtask's container.
@@ -347,13 +343,11 @@ function removeEditingClasses(container) {
 
 
 /**
- * Speichert den bearbeiteten Titel des aktuellen Tasks.
- * Wenn der aktuelle Task nicht definiert ist oder keine Subtasks hat,
- * wird ein Fehler in der Konsole angezeigt.
+ * Saves the edited title of the current task.
+ * If the current task is not defined or has no subtasks,
+ * an error is displayed in the console.
  * 
- * @function
- * @returns {void} Gibt nichts zurück.
- * @throws {Error} Wenn currentTask nicht definiert ist oder keine subtasks hat.
+ * @throws {Error} If currentTask is not defined or has no subtasks.
  */
 function saveEditedTitle() {
     let currentTask = todos[currentTaskId];

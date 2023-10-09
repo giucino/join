@@ -1,5 +1,6 @@
 /**
  * Filter tasks based on a search term and status.
+ * 
  * @param {string} searchTerm - The search term to filter tasks.
  * @param {string} status - The status to filter tasks.
  * @returns {Task[]} Array of filtered tasks.
@@ -65,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
  * Handles the click event for the reset button in the search functionality.
  * Clears the search input field, hides the reset button, and triggers the filter update.
  * Resets the search input field and triggers the filter update when the reset button is clicked.
+ * 
  * @listens click
  * @param {Event} event - The click event.
  */
@@ -94,8 +96,7 @@ function closeCard() {
 
 
 /**
- * Sets up a global click event listener to close the card if the click occurs outside of its content.
- * 
+ * Sets up a global click event listener to close the card if the click occurs outside of its content. 
  * When a click event is detected on the document, this script checks if the clicked target is the 
  * element with the ID `slide-container`. If it is, the `closeCard` function is called to close or 
  * hide the card.
@@ -121,6 +122,7 @@ function slideCardAnimation() {
 
 /**
  * Render and slide open the task card.
+ * 
  * @param {number} id - ID of the task to render in the card.
  */
 function slideCard(id) {
@@ -133,6 +135,7 @@ function slideCard(id) {
 
 /**
  * Generates the HTML markup for the slide card.
+ * 
  * @param {number} id - ID of the task to generate markup for.
  * @returns {string} HTML markup for the slide card.
  */
@@ -153,6 +156,7 @@ function renderSlideCard(id) {
 
 /**
  * Remove a task from the 'todos' list and update the UI.
+ * 
  * @param {number} id - ID of the task to delete.
  */
 function deleteTask(id) {

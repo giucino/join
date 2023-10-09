@@ -1,6 +1,5 @@
 /**
  * Initializes the application by including HTML fragments, marking links, and showing user initials.
- * @returns {Promise<void>} A Promise that resolves when the initialization is complete.
  */
 async function init() {
     await includeHTML();
@@ -11,7 +10,6 @@ async function init() {
 
 /**
  * Includes HTML fragments into specific elements with the "w3-include-html" attribute.
- * @returns {Promise<void>} A Promise that resolves when HTML inclusion is complete.
  */
 async function includeHTML() {
     let includeElements = document.querySelectorAll('[w3-include-html]');

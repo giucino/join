@@ -22,6 +22,7 @@ function slideCardAnimationEditTask() {
 
 /** 
  * Starts the task editing process by rendering the task and starting the slide animation.
+ * 
  * @param {number} id - The ID of the task to be edited.
  */
 function editTask(id) {
@@ -53,6 +54,7 @@ function updateElementFromInput(element, inputId, prop) {
 
 /**
  * Updates the properties of a given element based on various input sources.
+ * 
  * @param {Object} element - The element object to be updated.
  * @property {string} [element.title] - The title of the element.
  * @property {string} [element.description] - The description of the element.
@@ -62,6 +64,7 @@ function updateElementFromInput(element, inputId, prop) {
  * @property {string} [element.priority] - The priority level of the element.
  * @property {Array} [element.assignedTo] - The list of contacts assigned to the element.
  * @property {Array} [element.subtasks] - The list of subtasks associated with the element.
+ * 
  * @example
  * updateElementProperties(myTask);
  * @todo: Handle properties like 'selectedCategory', 'selectedPriority', and others
@@ -82,8 +85,8 @@ function updateElementProperties(element) {
 
 /** 
  * Saves the edited task by overwriting its properties and updating the local storage.
+ * 
  * @param {number} id - The ID of the task being saved.
- * @async
  */
 async function saveEditedTask(id) {
   const element = todos[id];
@@ -238,6 +241,7 @@ document.addEventListener('keypress', handleEditSubtaskInput);
 
 /** 
  * Renders subtasks of a given task for editing.
+ * 
  * @param {Object} element - The task object containing subtasks.
  */
 function addSubtaskToEdit(element) {
@@ -257,6 +261,7 @@ function addSubtaskToEdit(element) {
 
 /**
  * Adds contacts to the selected contacts based on the given element's assigned contacts.
+ * 
  * @param {Object} element - The element containing assigned contacts.
  */
 function addToSelectedContacts(element) {
@@ -278,7 +283,6 @@ function addToSelectedContacts(element) {
 /**
  * Retrieves the logged-in user's data from local storage.
  * 
- * @function
  * @returns {Object} The logged-in user's data, or an empty object if no data is found.
  */
 function getLoggedInUserData() {
@@ -288,6 +292,7 @@ function getLoggedInUserData() {
 
 /**
  * Asynchronously renders the selected contacts to the UI.
+ * 
  * @param {Object} selectedContacts - The list of selected contacts.
  */
 async function loadRenderAssignedTo(selectedContacts) {
@@ -309,6 +314,7 @@ async function loadRenderAssignedTo(selectedContacts) {
 
 /**
  * Renders the searched contacts to the UI.
+ * 
  * @param {Array} contacts - The list of contacts to render.
  */
 function loadSearchedContact(contacts) {
@@ -330,6 +336,7 @@ function loadSearchedContact(contacts) {
 
 /** 
  * Search and display contacts based on a given query.
+ * 
  * @param {string} query - The query string to search for.
  */
 function loadSearchContacts(query) {
@@ -344,15 +351,13 @@ function loadSearchContacts(query) {
 
 
 /**
- * Toggles the selection of a contact based on the given name and surname. If the contact is already selected,
+ * Toggles the selection of a contact based on the given name and surename. If the contact is already selected,
  * it will be removed from the selection; otherwise, it will be added to the selection. After toggling the contact
  * selection, various rendering functions are called to update the UI.
  * 
  * @param {string} name - The first name of the contact to be toggled.
- * @param {string} surename - The surname of the contact to be toggled. (Note: Typo? You might mean 'surname' instead of 'surename')
+ * @param {string} surename - The surename of the contact to be toggled.
  * 
- * @global
- * @function
  * @see loadRenderAssignedTo
  * @see loadSearchedContact
  * @see renderDisplayChosenContacts
@@ -378,7 +383,7 @@ function loadToggleContactSelection(name, surename) {
 /** 
  * Toggles the selection state of a given contact.
  * @param {string} name - The first name of the contact.
- * @param {string} surename - The surname of the contact.
+ * @param {string} surename - The surename of the contact.
  */
 function toggleContactSelection(name, surename) {
   const contact = contacts.find(c => c.name === name && c.surename === surename);

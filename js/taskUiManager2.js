@@ -1,5 +1,6 @@
 /**
  * Removes editing-related CSS classes and styles from a container element.
+ * 
  * @param {HTMLElement} container - The container element to remove classes and styles from.
  */
 function addRemoveEditingClasses(container) {
