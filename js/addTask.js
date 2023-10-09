@@ -148,7 +148,7 @@ function processValidInput(title, description, dueDate) {
         title: title,
         description: description,
         category: selectedCategory, 
-        status: 'todo',
+        status: selectedStatus,
         priority: selectedPriority,
         dueDate: dueDate,
         assignedTo: cleanedSelectedContacts,

@@ -124,7 +124,7 @@ function processValidInput(title, description, dueDate) {
         title: title,
         description: description,
         category: selectedCategory,
-        status: 'todo',
+        status: selectedStatus,
         priority: selectedPriority,
         dueDate: dueDate,
         assignedTo: cleanedSelectedContacts,
@@ -160,7 +160,8 @@ async function addCompleteTaskCreation() {
  * 
  * @throws {Error} If the 'taskFormSlider' element is not found in the DOM.
  */
-function addTask() {
+function addTask(status) {
+    selectedStatus = status;
     if (window.innerWidth >= 768) {
         let modal = document.getElementById('taskFormSlider');
         modal.innerHTML = renderAddTask();

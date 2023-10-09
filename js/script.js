@@ -1,5 +1,6 @@
 let selectedPriority = '';
 let selectedCategory = '';
+let selectedStatus = '';
 let selectedContacts = [];
 let subtasks = [];
 let subtaskIdCounter = 0;
