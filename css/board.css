@@ -204,6 +204,7 @@ body::-webkit-scrollbar-thumb:hover {
         position: absolute;
         flex-direction: column;
         justify-content: center;
+        padding: 236px 10px 50px 10px;
     }
     .scroll-container {
         display: flex;
@@ -234,7 +235,7 @@ body::-webkit-scrollbar-thumb:hover {
     .board-container {
         position: static;
         justify-content: center;
-        padding: 236px 18px 12px 18px;
+        padding: 236px 18px 100px 18px;
     }
     .scroll-container {
         width: 570px;
