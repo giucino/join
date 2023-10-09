@@ -12,7 +12,6 @@
 
 .slide-in-board {
     bottom: 0 !important;
-    animation: slide-in 1s ease-in-out;
 }
 
 .open-task {
@@ -43,8 +42,6 @@
     width: 100vw;
     height: 100vh;
     position: fixed;
-    bottom: -4000px;
-    transition: 1.0s;
 }
 
 @media(max-width: 480px) {
@@ -69,6 +66,29 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    animation: slideInFromBottom 1s ease-in-out forwards;
+}
+
+@keyframes slideInFromBottom {
+    from {
+      transform: translate(-50%, 100%);
+    }
+    to {
+      transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes slideOutToBottom {
+    from {
+        transform: translate(-50%, -50%);
+    }
+    to {
+        transform: translate(-50%, 100%);
+    }
+}
+
+.task-slide-container.animate-out {
+    animation: slideOutToBottom 1s ease-in-out forwards;
 }
 
 .scroll-slide-container {
@@ -114,6 +134,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    animation: slideInFromBottom 0s forwards;
 }
 
 @media(max-width: 768px) {

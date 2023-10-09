@@ -88,10 +88,11 @@ document.addEventListener("DOMContentLoaded", function () {
  */
 function closeCard() {
     document.getElementById("slide-container").classList.remove("slide-in-board");
+    document.querySelector('.task-slide-container').classList.add('animate-out');
     setTimeout(() => {
         document.getElementById("task-slide").classList.add("d-none");
         document.getElementById("noscroll").classList.remove("noscroll");
-    }, 800);
+    }, 100);
 }
 
 

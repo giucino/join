@@ -32,8 +32,6 @@ function moveToMobile(id, status) {
 }
 
 
-
-
 /**
  * Renders the subtasks for a task in the slide view.
  * 
