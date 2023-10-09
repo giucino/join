@@ -10,7 +10,7 @@ let contacts = [
         bgcolor: '#00BEE8',
         id: 0,
         name: 'Anna',
-        surename: 'Schmidt',
+        surname: 'Schmidt',
         email: 'anna.schmidt@example.com',
         telefon: '1234567890',
         password: '1234'
@@ -19,7 +19,7 @@ let contacts = [
         bgcolor: '#00BEE8',
         id: 1,
         name: 'Max',
-        surename: 'Müller',
+        surname: 'Müller',
         email: 'max.mueller@example.com',
         telefon: '234567890',
         password: '1234'
@@ -28,7 +28,7 @@ let contacts = [
         bgcolor: '#1FD7C1',
         id: 2,
         name: 'Sophie',
-        surename: 'Wagner',
+        surname: 'Wagner',
         email: 'sophie.wagner@example.com',
         telefon: '3456789012',
         password: '1234'
@@ -37,7 +37,7 @@ let contacts = [
         bgcolor: '#6E52FF',
         id: 3,
         name: 'Paul',
-        surename: 'Becker',
+        surname: 'Becker',
         email: 'paul.becker@example.com',
         telefon: '456789012',
         password: '1234'
@@ -46,7 +46,7 @@ let contacts = [
         bgcolor: '#9327FF',
         id: 4,
         name: 'Laura',
-        surename: 'Hoffmann',
+        surname: 'Hoffmann',
         email: 'laura.hoffmann@example.com',
         telefon: '567890123',
         password: '1234'
@@ -55,7 +55,7 @@ let contacts = [
         bgcolor: '#C3FF2B',
         id: 5,
         name: 'Felix',
-        surename: 'Schulz',
+        surname: 'Schulz',
         email: 'felix.schulz@example.com',
         telefon: '6789012345',
         password: '1234'
@@ -64,7 +64,7 @@ let contacts = [
         bgcolor: '#FFA35E',
         id: 6,
         name: 'Emilia',
-        surename: 'Koch',
+        surname: 'Koch',
         email: 'emilia.koch@example.com',
         telefon: '7890123456',
         password: '1234'

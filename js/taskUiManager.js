@@ -165,7 +165,7 @@ async function addRenderAssignedTo() {
 
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
-        let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+        let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
         let isSelected = selectedContacts[contact.id] || false;
         let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
 
@@ -187,7 +187,7 @@ function addRenderSearchedContact(contacts) {
 
     for (let i = 0; i < contacts.length; i++) {
         let contact = contacts[i];
-        let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+        let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
         let isSelected = selectedContacts[contact.id] || false;
         let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
 
@@ -236,7 +236,7 @@ function addDisplayChosenContacts() {
         let isSelected = selectedContacts[contact.id];
 
         if (isSelected) {
-            let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+            let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
             chosenContactsContainer.innerHTML += /*html*/`
                 <div class="chosen-contact">
                     <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>

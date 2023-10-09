@@ -268,10 +268,10 @@ function addToSelectedContacts(element) {
   const assigneds = element.assignedTo;
   
   for (let name of assigneds) {
-    const contact = contacts.find(c => `${c.name} ${c.surename}` === name);
+    const contact = contacts.find(c => `${c.name} ${c.surname}` === name);
     if (contact) {
       if (!selectedContacts[contact.id]) {
-        selectedContacts[contact.id] = `${contact.name} ${contact.surename}`;
+        selectedContacts[contact.id] = `${contact.name} ${contact.surname}`;
       }
     }
   }
@@ -303,7 +303,7 @@ async function loadRenderAssignedTo(selectedContacts) {
   
   for (let i = 0; i < contacts.length; i++) {
     let contact = contacts[i];
-    let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+    let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
     const isSelected = selectedContacts[contact.id] || false;
     let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
 
@@ -325,7 +325,7 @@ function loadSearchedContact(contacts) {
 
   for (let i = 0; i < contacts.length; i++) {
       let contact = contacts[i];
-      let initials = `${contact.name.charAt(0)}${contact.surename.charAt(0)}`.toUpperCase();
+      let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
       const isSelected = selectedContacts[contact.id] || false;
       let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
 
@@ -343,7 +343,7 @@ function loadSearchContacts(query) {
   let filteredContacts = contacts.filter(contact => {
       return (
           contact.name.toLowerCase().startsWith(query.toLowerCase()) ||
-          contact.surename.toLowerCase().startsWith(query.toLowerCase())
+          contact.surname.toLowerCase().startsWith(query.toLowerCase())
       );
   });
   loadSearchedContact(filteredContacts);
@@ -351,19 +351,19 @@ function loadSearchContacts(query) {
 
 
 /**
- * Toggles the selection of a contact based on the given name and surename. If the contact is already selected,
+ * Toggles the selection of a contact based on the given name and surname. If the contact is already selected,
  * it will be removed from the selection; otherwise, it will be added to the selection. After toggling the contact
  * selection, various rendering functions are called to update the UI.
  * 
  * @param {string} name - The first name of the contact to be toggled.
- * @param {string} surename - The surename of the contact to be toggled.
+ * @param {string} surname - The surname of the contact to be toggled.
  * 
  * @see loadRenderAssignedTo
  * @see loadSearchedContact
  * @see renderDisplayChosenContacts
  */
-function loadToggleContactSelection(name, surename) {
-  const contact = contacts.find(c => c.name === name && c.surename === surename);
+function loadToggleContactSelection(name, surname) {
+  const contact = contacts.find(c => c.name === name && c.surname === surname);
 
   if (!contact) {
       return;
@@ -372,7 +372,7 @@ function loadToggleContactSelection(name, surename) {
   if (selectedContacts[contact.id]) {
     delete selectedContacts[contact.id];
   } else {
-    selectedContacts[contact.id] = `${contact.name} ${contact.surename}`;
+    selectedContacts[contact.id] = `${contact.name} ${contact.surname}`;
   }
   loadRenderAssignedTo(selectedContacts);
   loadSearchedContact(contacts);
@@ -383,16 +383,16 @@ function loadToggleContactSelection(name, surename) {
 /** 
  * Toggles the selection state of a given contact.
  * @param {string} name - The first name of the contact.
- * @param {string} surename - The surename of the contact.
+ * @param {string} surname - The surname of the contact.
  */
-function toggleContactSelection(name, surename) {
-  const contact = contacts.find(c => c.name === name && c.surename === surename);
+function toggleContactSelection(name, surname) {
+  const contact = contacts.find(c => c.name === name && c.surname === surname);
 
   if (!contact) {
       return;
   }
   const contactId = contact.id;
-  const contactKey = `${contact.name} ${contact.surename}`;
+  const contactKey = `${contact.name} ${contact.surname}`;
 
   if (selectedContacts[contactId]) {
       delete selectedContacts[contactId];

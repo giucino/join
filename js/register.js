@@ -117,13 +117,13 @@ function isValidUsername(username) {
 function createNewContact(username, email, password) {
     let maxContactId = Math.max(...contacts.map(contact => contact.id), -1);
     let nextContactId = maxContactId + 1;
-    let { newName, newSurename } = extractNameParts(username);
+    let { newName, newsurname } = extractNameParts(username);
 
     return {
         bgcolor: getRandomColor(),
         id: nextContactId,
         name: newName,
-        surename: newSurename,
+        surname: newsurname,
         email,
         telefon: '',
         password,
@@ -135,13 +135,13 @@ function createNewContact(username, email, password) {
  * Extracts the first and last name parts from a full name.
  * 
  * @param {string} username - The full name to extract parts from.
- * @returns {Object} Returns an object with the properties `newName` and `newSurename`.
+ * @returns {Object} Returns an object with the properties `newName` and `newsurname`.
  */
 function extractNameParts(username) {
     let nameParts = username.trim().split(' ');
     let newName = nameParts[0];
-    let newSurename = nameParts[1] || '';
-    return { newName, newSurename };
+    let newsurname = nameParts[1] || '';
+    return { newName, newsurname };
 }
 
 

@@ -189,13 +189,13 @@ function showCreatedTaskMessage() {
 
 /**
  * Searches through the list of contacts for matches based on the given query.
- * Filters contacts whose name or surename starts with the provided query.
+ * Filters contacts whose name or surname starts with the provided query.
  *
- * @param {string} query - The search term to match against contact names and surenames.
+ * @param {string} query - The search term to match against contact names and surnames.
  *
  * @example
- * Assume `contacts` is a global array containing contact objects with `name` and `surename` properties.
- * searchContacts('John'); // will call `renderSearchedContact` with all contacts named John or with a surename starting with John.
+ * Assume `contacts` is a global array containing contact objects with `name` and `surname` properties.
+ * searchContacts('John'); // will call `renderSearchedContact` with all contacts named John or with a surname starting with John.
  *
  * @throws {TypeError} - If the contacts array or its individual items do not have the expected structure, the function might throw.
  * (Note: The actual function provided does not have explicit error handling, so this is a speculative error type.)
@@ -204,30 +204,30 @@ function searchContacts(query) {
     let filteredContacts = contacts.filter(contact => {
         return (
             contact.name.toLowerCase().startsWith(query.toLowerCase()) ||
-            contact.surename.toLowerCase().startsWith(query.toLowerCase())
+            contact.surname.toLowerCase().startsWith(query.toLowerCase())
         );
     });
     renderSearchedContact(filteredContacts);
 }
 
 /**
- * Toggles the selection state of a contact in the list based on their name and surename.
+ * Toggles the selection state of a contact in the list based on their name and surname.
  *
  * @param {string} name - The first name of the contact.
- * @param {string} surename - The surename of the contact.
+ * @param {string} surname - The surname of the contact.
  * 
  * @example
- * Assuming there's a contact {id: 1, name: 'John', surename: 'Doe'} in the `contacts` array
+ * Assuming there's a contact {id: 1, name: 'John', surname: 'Doe'} in the `contacts` array
  * toggleContactSelection('John', 'Doe');
  * 
  */
-function toggleContactSelection(name, surename) {
-    const contact = contacts.find(c => c.name === name && c.surename === surename);
+function toggleContactSelection(name, surname) {
+    const contact = contacts.find(c => c.name === name && c.surname === surname);
     if (!contact) {
         return;
     }
     const contactId = contact.id;
-    const contactKey = `${contact.name} ${contact.surename}`;
+    const contactKey = `${contact.name} ${contact.surname}`;
 
     if (selectedContacts[contactId]) {
         delete selectedContacts[contactId];
@@ -244,13 +244,13 @@ function toggleContactSelection(name, surename) {
 /**
  * Extracts background colors from the provided list of selected contact names.
  * 
- * @param {string[]} selectedContacts - An array of contact names, where each name is in the format "name surename".
+ * @param {string[]} selectedContacts - An array of contact names, where each name is in the format "name surname".
  * @returns {string[]} - An array of background colors corresponding to the provided contact names.
  * 
  * @example
  * const contacts = [
- *    { name: 'John', surename: 'Doe', bgcolor: '#ff0000' },
- *    { name: 'Jane', surename: 'Doe', bgcolor: '#00ff00' }
+ *    { name: 'John', surname: 'Doe', bgcolor: '#ff0000' },
+ *    { name: 'Jane', surname: 'Doe', bgcolor: '#00ff00' }
  * ];
  * 
  * extractBgcolor(['John Doe', 'Jane Doe']); // returns ['#ff0000', '#00ff00']
@@ -261,7 +261,7 @@ function extractBgcolor(selectedContacts) {
     const validContacts = selectedContacts.filter(contactName => contactName);
 
     for (const contactName of validContacts) {
-        const foundContact = contacts.find(c => `${c.name} ${c.surename}` === contactName);
+        const foundContact = contacts.find(c => `${c.name} ${c.surname}` === contactName);
         if (foundContact && foundContact.bgcolor) {
             bgcolors.push(foundContact.bgcolor);
         }

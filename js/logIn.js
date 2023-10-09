@@ -75,12 +75,12 @@ function handleLogIn() {
         let loggedInUser = contacts.find(contact => contact.email === email && contact.password === password);
 
         if (loggedInUser) {
-            let initials = extractInitials(loggedInUser.name, loggedInUser.surename);
+            let initials = extractInitials(loggedInUser.name, loggedInUser.surname);
 
             let userData = {
                 email: loggedInUser.email,
                 name: loggedInUser.name,
-                surename: loggedInUser.surename,                
+                surname: loggedInUser.surname,                
                 password: loggedInUser.password,
                 initials: initials,
                 rememberStatus: rememberLogIn,
@@ -97,20 +97,20 @@ function handleLogIn() {
 
 
 /**
- * Extracts the initials from the given name and surename.
+ * Extracts the initials from the given name and surname.
  *
  * @param {string} name - The name from which to extract the initial.
- * @param {string} surename - The surename from which to extract the initial.
- * @returns {string} The initials of the name and surename (e.g., "JD" for "John Doe").
+ * @param {string} surname - The surname from which to extract the initial.
+ * @returns {string} The initials of the name and surname (e.g., "JD" for "John Doe").
  */
-function extractInitials(name, surename) {
+function extractInitials(name, surname) {
     let initials = '';
 
     if (name) {
         initials += name.charAt(0).toUpperCase();
     }
-    if (surename) {
-        initials += surename.charAt(0).toUpperCase();
+    if (surname) {
+        initials += surname.charAt(0).toUpperCase();
     }
     return initials;
 }

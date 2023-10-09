@@ -24,7 +24,7 @@ function generateLetterListHTML(letter) {
  * 
  * @param {Object} contact - The contact object.
  * @param {string} contact.name - The first name of the contact.
- * @param {string} contact.surename - The surename (or last name) of the contact.
+ * @param {string} contact.surname - The surname (or last name) of the contact.
  * @param {string} [contact.bgcolor] - The background color for the initials. Optional.
  * @param {string} contact.email - The email address of the contact.
  * @param {string} contact.telefon - The phone number of the contact.
@@ -42,7 +42,7 @@ function showContactDetailsHTML(contact, initials, index) {
                 </div>
             </div>
             <div class="contact-detailed-mid">
-                <div class="contact-detailed-name">${contact.name} ${contact.surename}</div>
+                <div class="contact-detailed-name">${contact.name} ${contact.surname}</div>
                 <div class="contact-detailed-edit-delete">
                     <div class="contact-detailed-images" onclick="editContact(${index})"><img class="edit-img" src="./img/edit.png">Edit</div>
                     <div class="contact-detailed-images" onclick="deleteContact(${index})"><img class="delete-img" src="./img/delete.png">Delete</div>
@@ -62,7 +62,7 @@ function showContactDetailsHTML(contact, initials, index) {
  * 
  * @param {Object} contact - The contact details.
  * @param {string} contact.name - First name of the contact.
- * @param {string} contact.surename - Surename of the contact.
+ * @param {string} contact.surname - surname of the contact.
  * @param {string} contact.email - Email address of the contact.
  * @param {string} contact.telefon - Telephone number of the contact.
  * @param {string} [contact.bgcolor] - Background color for the contact initials. If not provided, a random color will be used.
@@ -80,7 +80,7 @@ function showContactDetailsMobileHTML(contact, initials, index) {
                 </div>
             </div>
             <div class="contact-detailed-mid">
-                <div class="contact-detailed-name">${contact.name} ${contact.surename}</div>
+                <div class="contact-detailed-name">${contact.name} ${contact.surname}</div>
             </div>
         </div>
         <div class="contact-detailed-information"> Contact Information </div>             
@@ -111,7 +111,7 @@ function showContactDetailsMobileHTML(contact, initials, index) {
  * @param {string} initials - The initials of the contact.
  * @param {Object} contact - The contact details.
  * @param {string} contact.name - The first name of the contact.
- * @param {string} contact.surename - The surename of the contact.
+ * @param {string} contact.surname - The surname of the contact.
  * @param {string} contact.email - The email address of the contact.
  * @param {boolean} isCurrentUser - A flag to determine if the contact is the current user.
  * @returns {string} An HTML string representation of the contact.
@@ -123,7 +123,7 @@ function showContactsHTML(i, color, initials, contact, isCurrentUser) {
         <div class="contact" data-contact-index="${i}" onclick="handleContactClick(${i})">
             <div class="initial" style="background-color: ${color}">${initials}</div>
             <div class="container-name-email">
-                <div class="name">${contact.name} ${contact.surename}${userMarker}</div>
+                <div class="name">${contact.name} ${contact.surname}${userMarker}</div>
                 <div class="email">${contact.email}</div>
             </div>
         </div>

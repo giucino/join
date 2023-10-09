@@ -20,7 +20,7 @@ function createdTaskTemplate() {
  * 
  * @param {Object} contact - The contact to render.
  * @param {string} contact.name - The first name of the contact.
- * @param {string} contact.surename - The surename/last name of the contact.
+ * @param {string} contact.surname - The surname/last name of the contact.
  * @param {string} contact.bgcolor - The background color for the initials container.
  * @param {string} initials - The initials of the contact.
  * @param {boolean} isSelected - A flag indicating if the contact is currently selected.
@@ -28,17 +28,17 @@ function createdTaskTemplate() {
  * @returns {string} - Returns the rendered HTML string.
  * 
  * @example
- * const contact = { name: 'John', surename: 'Doe', bgcolor: '#fafafa' };
+ * const contact = { name: 'John', surname: 'Doe', bgcolor: '#fafafa' };
  * const htmlString = renderAssignedToHTML(contact, 'JD', true, false);
  */
 function renderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
     let userMarker = isCurrentUser ? " (you)" : "";
 
     return /*html*/`
-        <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
+        <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surname}')">
             <div class="select-contact">
                 <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-                <div class="select-name">${contact.name} ${contact.surename}${userMarker}</div>
+                <div class="select-name">${contact.name} ${contact.surname}${userMarker}</div>
             </div>
             <img class="select-icon" id="selectCheck" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
         </div>
@@ -52,7 +52,7 @@ function renderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
  * @function renderSearchedContactsHTML
  * @param {Object} contact - The contact object containing details of the user.
  * @param {string} contact.name - The first name of the contact.
- * @param {string} contact.surename - The surename of the contact.
+ * @param {string} contact.surname - The surname of the contact.
  * @param {string} contact.bgcolor - Background color for the initials div.
  * @param {string} initials - The initials of the contact.
  * @param {boolean} isSelected - A flag indicating if the contact is selected.
@@ -63,10 +63,10 @@ function renderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser
     let userMarker = isCurrentUser ? " (you)" : "";
 
     return /*html*/`
-        <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surename}')">
+        <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surname}')">
             <div class="select-contact">
                 <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-                <div class="select-name">${contact.name} ${contact.surename}${userMarker}</div>
+                <div class="select-name">${contact.name} ${contact.surname}${userMarker}</div>
             </div>
             <img class="select-icon" id="selectCheck" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
         </div>
