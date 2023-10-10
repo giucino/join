@@ -43,6 +43,24 @@ async function loadTasks() {
 
 
 /**
+ * Retrieves the value of a query parameter from a URL.
+ * @param {string} name - The name of the query parameter to retrieve.
+ * @param {string} [url=window.location.href] - The URL to search for the query parameter (defaults to the current page's URL).
+ * @returns {string|null} The value of the query parameter, or null if it is not found.
+ */
+function getParameterByName(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+let statusFromURL = getParameterByName('status');
+
+
+/**
  * Event listener for the 'submit' event on the element with the ID 'taskForm'.
  * Prevents the default form submission and triggers the creation of a task.
  */
@@ -100,7 +118,6 @@ function validateInput(title, description, dueDate) {
 /**
  * Validates the selections and calls appropriate error methods if selections are invalid.
  * If all selections are valid, it processes the input.
- * 
  * @param {string} title - The title of the item.
  * @param {string} description - The description of the item.
  * @param {string|Date} dueDate - The due date of the item. Can be a string representation of a date or a Date object.
@@ -139,7 +156,6 @@ function processValidInput(title, description, dueDate) {
     const highestId = todos.reduce((maxId, currentTodo) => {
         return currentTodo.id > maxId ? currentTodo.id : maxId;
     }, 0);
-
     const newTodoId = highestId + 1;
 
     const newTodo = {
@@ -147,7 +163,7 @@ function processValidInput(title, description, dueDate) {
         title: title,
         description: description,
         category: selectedCategory, 
-        status: 'todo',
+        status: statusFromURL || 'todo',
         priority: selectedPriority,
         dueDate: dueDate,
         assignedTo: cleanedSelectedContacts,
@@ -161,7 +177,6 @@ function processValidInput(title, description, dueDate) {
 
 /**
  * Completes the task creation by storing the tasks and showing relevant messages.
- * 
  * @throws {Error} Throws an error if there's a problem during task creation completion.
  */
 async function completeTaskCreation() {

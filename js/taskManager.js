@@ -172,7 +172,7 @@ function addTask(status) {
         let overlay = document.querySelector(".task-background-overlay");
         overlay.style.display = "block";
     } else {
-        window.location.href = 'addTask.html';
+        window.location.href = 'addTask.html?status='  + encodeURIComponent(status);
     }
 }
 
