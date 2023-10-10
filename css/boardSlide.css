@@ -94,7 +94,7 @@
 }
 
 .scroll-slide-container {
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     height: 650px;
     width: 448px;
