@@ -95,7 +95,7 @@ async function saveEditedTask(id) {
   todos[id] = element;
   await setItem("tasks", JSON.stringify(todos));
   openEditedTask(element.id);
-  addResetAssignedToSelection();
+  selectedContacts = [];
 }
 
 
