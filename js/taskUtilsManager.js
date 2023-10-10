@@ -93,7 +93,6 @@ function addShowTitleInputError() {
 /**
  * Hides the error message and resets the border color of the title input field
  * in the add task form.
- *
  * @example
  * // Call this function to reset the title input field in the add task form
  * addResetTitleInput();
@@ -107,7 +106,6 @@ function addResetTitleInput() {
 /**
  * Add an event listener to the document's body to handle input events on elements
  * with the 'add-task-description-textfield' class.
- *
  * @param {Event} event - The input event triggered.
  */
 document.body.addEventListener('input', function (event) {
@@ -142,7 +140,6 @@ function addResetDescriptionInput() {
 /**
  * Add an event listener to the document body to capture input events on elements
  * with the 'add-task-description-textfield' class and trigger the 'addResetDescriptionInput' function.
- *
  * @param {Event} event - The input event object.
  */
 document.body.addEventListener('input', function (event) {
@@ -175,7 +172,6 @@ function addResetDateInput() {
 
 /**
  * Attaches an event listener to the document body for the 'input' event.
- *
  * @param {Event} event - The input event object.
  */
 document.body.addEventListener('input', function (event) {
@@ -198,7 +194,6 @@ function addShowPriorityError() {
 
 /**
  * Hides the priority error message element with the specified ID.
- * 
  * @example
  * Example usage:
  * Assuming you have an HTML element with the ID 'addRequiredPriority':

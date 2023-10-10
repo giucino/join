@@ -35,7 +35,6 @@ document.getElementById('logInForm').addEventListener('submit', function (event)
 
 /**
  * Attempts to log in the user with the email and password.
- * 
  * @param {string} email - The user's email.
  * @param {string} password - The user's password.
  * @returns {boolean} - Returns true if the login is successful, false otherwise.
@@ -97,7 +96,6 @@ function handleLogIn() {
 
 /**
  * Extracts the initials from the given name and surname.
- *
  * @param {string} name - The name from which to extract the initial.
  * @param {string} surname - The surname from which to extract the initial.
  * @returns {string} The initials of the name and surname (e.g., "JD" for "John Doe").
@@ -117,7 +115,6 @@ function extractInitials(name, surname) {
 
 /**
  * Saves the logged-in user data to the browser's local storage.
- * 
  * @param {Object} userData - The user data to be saved.
  */
 function saveLoggedInUserData(userData) {

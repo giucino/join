@@ -1,6 +1,5 @@
 /**
  * Creates a success message template.
- * 
  * @returns {string} - The HTML template for a success message overlay.
  */
 function createdTaskTemplate() {
@@ -17,7 +16,6 @@ function createdTaskTemplate() {
 
 /**
  * Renders an assigned contact as an HTML element.
- * 
  * @param {Object} contact - The contact to render.
  * @param {string} contact.name - The first name of the contact.
  * @param {string} contact.surname - The surname/last name of the contact.
@@ -26,7 +24,6 @@ function createdTaskTemplate() {
  * @param {boolean} isSelected - A flag indicating if the contact is currently selected.
  * @param {boolean} isCurrentUser - A flag indicating if the contact is the current user.
  * @returns {string} - Returns the rendered HTML string.
- * 
  * @example
  * const contact = { name: 'John', surname: 'Doe', bgcolor: '#fafafa' };
  * const htmlString = renderAssignedToHTML(contact, 'JD', true, false);
@@ -48,7 +45,6 @@ function renderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
 
 /**
  * Generates an HTML string for a contact based on the provided details.
- * 
  * @function renderSearchedContactsHTML
  * @param {Object} contact - The contact object containing details of the user.
  * @param {string} contact.name - The first name of the contact.
@@ -76,11 +72,9 @@ function renderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser
 
 /**
  * Generates HTML markup for a subtask with the given ID and value.
- * 
  * @param {string|number} subtaskId - The unique identifier for the subtask.
  * @param {string} subtaskValue - The display value of the subtask.
  * @returns {string} The HTML string representing the subtask.
- * 
  * @example
  * let html = createSubtaskHTML(1, "Do laundry");
  * // Returns the HTML markup for the subtask with ID 1 and value "Do laundry".

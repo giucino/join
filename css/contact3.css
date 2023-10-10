@@ -233,17 +233,7 @@
     }
 }
 
-@media(max-height: 900px) {
-    .container {
-        height: 600px;
-    }
-}
-
 @media(max-height: 820px) {
-    .container {
-        height: 600px;
-    }
-
 
     .modal-content-top {
         padding: 12px 47px;
@@ -288,12 +278,6 @@
         position: relative;
         top: 0;
         left: 0;
-    }
-}
-
-@media(max-height: 800px) {
-    .container {
-        height: 500px;
     }
 }
 

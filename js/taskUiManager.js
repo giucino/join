@@ -1,7 +1,6 @@
 /**
  * Applies a specified border color to the container element when the input field inside it gains focus,
  * and another color when it loses focus.
- *
  * @param {string} containerSelector - The CSS selector for the container elements.
  * @param {string} inputSelector - The CSS selector for the input elements inside the containers.
  * @param {string} focusColor - The color to be applied to the container when the input gains focus.
@@ -26,7 +25,6 @@ function addApplyBorderColorOnFocusAndBlur(containerSelector, inputSelector, foc
 
 /**
  * Adds an event listener to handle input events on specific elements and applies border color changes on focus and blur.
- *
  * @param {string} containerSelector - The selector for the container element.
  * @param {string} inputSelector - The selector for the input element.
  * @param {string} focusColor - The border color to apply on focus.
@@ -64,7 +62,6 @@ document.addEventListener('input', (event) => {
  * Attaches an event listener to the 'DOMContentLoaded' event and listens for 'input' events on the document body.
  * If the input event target is a textarea with the id 'addTaskDescription', it adds a change in the textarea's border style
  * on focus and blur input events.
- *
  * @param {Event} event - The 'DOMContentLoaded' event object.
  */
 document.addEventListener('DOMContentLoaded', () => {
@@ -84,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * Adds event listeners to change the border color of a textarea on focus, blur, and input events.
- *
  * @param {HTMLTextAreaElement} textarea - The textarea element to which the event listeners will be added.
  */
 function addChangeTextAreaBorderOnFocusBlurInput(textarea) {
@@ -106,7 +102,6 @@ function addChangeTextAreaBorderOnFocusBlurInput(textarea) {
  * Adds a priority to a button element and updates the selectedPriority variable.
  * This function adds visual effects to the specified button based on its ID and sets
  * the selectedPriority variable accordingly.
- *
  * @param {HTMLElement} button - The button element to add priority to.
  */
 function addPriority(button) {
@@ -128,7 +123,6 @@ function addPriority(button) {
 
 /**
  * Adds highlighting to a button by changing its background color, image source, and text color.
- * 
  * @param {HTMLElement} button - The button element to be highlighted.
  * @param {string} bgColor - The background color to set for the button.
  * @param {string} imageSrc - The source URL for the image to be displayed inside the button.
@@ -144,7 +138,6 @@ function addHighlightButton(button, bgColor, imageSrc) {
 
 /**
  * Retrieves the data of the currently logged-in user from the browser's localStorage.
- * 
  * @returns {Object} The data of the logged-in user as an object, or an empty object if no user is logged in.
  */
 function getLoggedInUserData() {
@@ -176,7 +169,6 @@ async function addRenderAssignedTo() {
 
 /**
  * Renders a list of searched contacts and adds them to the specified container element.
- * 
  * @param {Array} contacts - An array of contact objects to be rendered.
  */
 function addRenderSearchedContact(contacts) {
@@ -295,7 +287,6 @@ function addToggleCategoryContainer() {
 
 /**
  * Sets the selected category and updates the UI accordingly.
- * 
  * @param {string} category - The category to be selected.
  */
 function addCategorySelected(category) {

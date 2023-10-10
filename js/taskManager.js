@@ -10,7 +10,6 @@ async function initAddTask() {
 
 /**
  * Asynchronously loads contacts data from storage and assigns it to the 'contacts' variable.
- * 
  * @throws {Error} Throws an error if there's an issue parsing or loading the data.
  */
 async function addLoadContactsFromStorage() {
@@ -25,7 +24,6 @@ async function addLoadContactsFromStorage() {
 /**
  * Asynchronously loads tasks from local storage and populates the 'todos' array.
  * If loading fails, it logs an error message to the console.
- * 
  * @throws {Error} If there is an issue with parsing the stored tasks.
  */
 async function addLoadTasks() {
@@ -63,7 +61,6 @@ async function addCreateTask() {
 /**
  * Validates the input values for title, description, and due date.
  * If any of these values are missing, it shows corresponding input errors.
- * 
  * @param {string} title - The title input value.
  * @param {string} description - The description input value.
  * @param {string} dueDate - The due date input value.
@@ -85,7 +82,6 @@ function addValidateInput(title, description, dueDate) {
 
 /**
  * Validates user selections for a task before processing the input.
- * 
  * @param {string} title - The title of the task.
  * @param {string} description - The description of the task.
  * @param {Date} dueDate - The due date for the task.
@@ -105,7 +101,6 @@ function addValidateSelections(title, description, dueDate) {
 
 /**
  * Processes valid input and adds a new todo item to the 'todos' array.
- * 
  * @param {string} title - The title of the todo item.
  * @param {string} description - The description of the todo item.
  * @param {string} dueDate - The due date for the todo item.
@@ -142,7 +137,6 @@ function processValidInput(title, description, dueDate) {
  * 2. Displays a message indicating that the task has been created.
  * 3. Closes the opened modal
  * 4. Updates the HTML to reflect the changes.
- * 
  * @throws {Error} Throws an error if an error occurs during local storage operation.
  */
 async function addCompleteTaskCreation() {
@@ -158,7 +152,6 @@ async function addCompleteTaskCreation() {
  * Opens a task form for adding a new task. The behavior depends on the window width:
  * - If the window width is greater than or equal to 768 pixels, it displays a modal with a task form.
  * - If the window width is less than 768 pixels, it redirects to the 'addTask.html' page.
- * 
  * @throws {Error} If the 'taskFormSlider' element is not found in the DOM.
  */
 function addTask(status) {
@@ -191,7 +184,6 @@ function closeAddTaskModal() {
 
 /**
  * Handles the click event on the overlay to close the add task modal.
- * 
  * @param {Event} event - The click event.
  */
 function handleOverlayClick(event) {
@@ -219,7 +211,6 @@ function addShowCreatedTaskMessage() {
 
 /**
  * Filters the contacts list based on a query and renders the matching contacts.
- * 
  * @param {string} query - The search query to filter contacts by.
  */
 function addSearchContacts(query) {
@@ -234,8 +225,7 @@ function addSearchContacts(query) {
 
 
 /**
- * Toggles the selection of a contact based on their name and surname.
- * 
+ * Toggles the selection of a contact based on their name and surname. 
  * @param {string} name - The name of the contact to toggle.
  * @param {string} surname - The surname of the contact to toggle.
  */
@@ -261,7 +251,6 @@ function addToggleContactSelection(name, surname) {
 
 /**
  * Extracts the background colors from an array of selected contact names.
- * 
  * @param {string[]} selectedContacts - An array of contact names to extract background colors from.
  * @returns {string[]} An array of background colors corresponding to the selected contact names.
  */

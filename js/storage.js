@@ -4,7 +4,6 @@ const STORAGE_URL = BACKEND_URL;
 
 /**
  * Sets an item using a key-value pair in the storage.
- * 
  * @param {string} key - The key for the item.
  * @param {*} value - The value to be stored.
  */
@@ -17,7 +16,6 @@ async function setItem(key, value) {
 
 /**
  * Gets the value linked to the given key from storage.
- * 
  * @param {string} key - The key used for searching..
  * @throws {string} - If data with the given key is not found.
  */

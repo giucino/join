@@ -23,7 +23,6 @@ function addAddSubtask() {
 
 /**
  * Handles the 'Enter' key press event for a text input field with the class 'new-subtask-textfield'.
- * 
  * @param {Event} event - The keyboard event object.
  */
 function addHandleSubtaskInput(event) {
@@ -38,7 +37,6 @@ document.addEventListener('keypress', addHandleSubtaskInput);
 
 /**
  * Adds a new subtask to a container and updates the DOM with the new subtask HTML.
- * 
  * @param {string} subtaskId - The unique identifier for the subtask.
  * @param {string} subtaskValue - The title or content of the subtask.
  */
@@ -55,7 +53,6 @@ function addAddSubtaskToContainer(subtaskId, subtaskValue) {
 
 /**
  * Removes a subtask from the subtasks array and the corresponding HTML element from the DOM.
- * 
  * @param {string} subtaskId - The ID of the subtask to be deleted.
  */
 function addDeleteSubtask(subtaskId) {
@@ -76,7 +73,6 @@ function addDeleteSubtask(subtaskId) {
  * Enables editing mode for a subtask element identified by its ID.
  * This function sets the `contentEditable` property of the subtask element to true,
  * allowing the user to edit its content, and gives it focus for immediate editing.
- * 
  * @param {string} subtaskId - The ID of the subtask element to be edited.
  */
 function addEditSubtask(subtaskId) {
@@ -95,7 +91,6 @@ function addEditSubtask(subtaskId) {
 
 /**
  * Disables content editing for a subtask element and performs necessary cleanup actions.
- * 
  * @param {string} subtaskId - The ID of the subtask element to finish editing.
  */
 function addFinishEditing(subtaskId) {
@@ -115,7 +110,6 @@ function addFinishEditing(subtaskId) {
 
 /**
  * Updates the title of a subtask based on user-edited content and saves it.
- * 
  * @param {string} subtaskId - The unique identifier of the subtask to update.
  */
 function addSaveEditedTitle(subtaskId) {
@@ -166,7 +160,6 @@ function addCloseSubtaskInput() {
 
 /**
  * Adds editing-related CSS classes and styles to a given container element.
- * 
  * @param {HTMLElement} container - The container element to which editing classes and styles will be added.
  */
 function addAddEditingClasses(container) {
@@ -199,7 +192,6 @@ function addAddEditingClasses(container) {
 
 /**
  * Removes editing-related CSS classes and styles from a container element.
- * 
  * @param {HTMLElement} container - The container element to remove classes and styles from.
  */
 function addRemoveEditingClasses(container) {

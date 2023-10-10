@@ -1,6 +1,5 @@
 /**
  * Displays the reset content, hiding the specified element and showing the reset content.
- * 
  * @param {string} hideId - The id of the element to hide.
  * @param {string} showId - The id of the element to show.
  */
@@ -62,7 +61,6 @@ function showResetAndRedirect() {
  * Event listener function that handles form submission for password reset.
  * Prevents the default form submission, validates the password reset
  * and triggers the appropriate actions based on the form submission.
- *
  * @param {Event} event - The event object triggered by the form submission.
  */
 function handlePasswordResetSubmission(event) {
@@ -108,7 +106,6 @@ function resetForm() {
 
 /**
  * Retrieves the value of the password input field.
- * 
  * @returns {string} The value of the password input field.
  */
 function getResetPasswordValue() {
@@ -119,7 +116,6 @@ function getResetPasswordValue() {
 
 /**
  * Retrieves the value of the confirm password input field.
- * 
  * @returns {string} The value of the confirm password input field.
  */
 function getResetConfirmPasswordValue() {
@@ -145,11 +141,6 @@ function resetPasswordInputStyles() {
  * Displays the password match error message and highlights the last password input section.
  */
 function showResetMatchError() {
-    // let resetMatchError = document.getElementById('resetMatchError');
-    // if (resetMatchError) {
-    //     resetMatchError.style.display = 'block';
-    // }
-
     let passwordInputSections = document.querySelectorAll('.password-input-section');
     if (passwordInputSections.length > 0) {
         let lastPasswordInputSection = passwordInputSections[passwordInputSections.length - 1];

@@ -33,7 +33,6 @@ function markMobileLink() {
 
 /**
  * Updates the image of a navigation link based on its active state.
- * 
  * @param {HTMLElement} link - The navigation link element.
  */
 function updateLinkImage(link) {
@@ -50,7 +49,6 @@ function updateLinkImage(link) {
 
 /**
  * Updates the image of a navigation link for mobile view based on the link's ID.
- * 
  * @param {HTMLElement} link - The navigation link element.
  * @param {HTMLImageElement} image - The image element within the navigation link.
  */
@@ -75,8 +73,7 @@ function updateMobileLinkImage(link, image) {
 
 
 /**
- * Updates the image of a navigation link for desktop view based on the link's ID.
- * 
+ * Updates the image of a navigation link for desktop view based on the link's ID. 
  * @param {HTMLElement} link - The navigation link element.
  * @param {HTMLImageElement} image - The image element within the navigation link.
  */
@@ -104,7 +101,6 @@ window.addEventListener('resize', markMobileLink);
 
 /**
  * Toggles the display of a menu.
- * 
  * @param {Event} event - The event triggered by the toggle action.
  */
 function toggleMenu(event) {
@@ -126,7 +122,6 @@ function toggleMenu(event) {
 
 /**
  * Closes the menu when clicking outside of it or on certain navigation links.
- * 
  * @param {Event} event - The event triggered by the click action.
  */
 function closeMenuOnClickAndOutside(event) {
@@ -161,7 +156,6 @@ function logOut() {
 
 /**
  * Retrieves the user's initials from local storage.
- * 
  * @returns {string} - User's initials or 'G' if not available.
  */
 function getInitials() {
@@ -191,7 +185,6 @@ function showLoggedInUserInitials() {
 
 /**
  * Opens the provided URL in a new browser tab or window.
- * 
  * @param {string} url - The URL to be opened in a new tab.
  */
 function openInNewTab(url) {
@@ -203,7 +196,6 @@ function openInNewTab(url) {
  * Closes the current browser tab.
  * This function calls the `window.close()` method to close the currently
  * active browser tab or window.
- * 
  * @example
  * Close the current tab
  * closeCurrentTab();
