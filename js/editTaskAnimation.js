@@ -22,7 +22,6 @@ function slideCardAnimationEditTask() {
 
 /** 
  * Starts the task editing process by rendering the task and starting the slide animation.
- * 
  * @param {number} id - The ID of the task to be edited.
  */
 function editTask(id) {
@@ -64,7 +63,6 @@ function updateElementFromInput(element, inputId, prop) {
  * @property {string} [element.priority] - The priority level of the element.
  * @property {Array} [element.assignedTo] - The list of contacts assigned to the element.
  * @property {Array} [element.subtasks] - The list of subtasks associated with the element.
- * 
  * @example
  * updateElementProperties(myTask);
  * @todo: Handle properties like 'selectedCategory', 'selectedPriority', and others
@@ -85,7 +83,6 @@ function updateElementProperties(element) {
 
 /** 
  * Saves the edited task by overwriting its properties and updating the local storage.
- * 
  * @param {number} id - The ID of the task being saved.
  */
 async function saveEditedTask(id) {
@@ -94,13 +91,13 @@ async function saveEditedTask(id) {
   todos[id] = element;
   await setItem("tasks", JSON.stringify(todos));
   openEditedTask(element.id);
+  addResetAssignedToSelection();
 }
 
 
 /**
  * Opens the edited task by rendering the slide card based on the given task id.
  * It also makes the slide card visible and adjusts the relevant container styles.
- *
  * @param {string|number} id - The ID of the task to be opened.
  */
 function openEditedTask(id) {
@@ -116,7 +113,6 @@ function openEditedTask(id) {
  * Loads and highlights the priority of a given task in the UI.
  * The function resets other buttons, identifies the task priority, and then
  * sets the highlight for the respective priority button.
- *
  * @param {Object} task - The task object.
  * @param {string} task.priority - The priority of the task ("high", "medium", or "low").
  */
@@ -153,7 +149,6 @@ function loadSelectedPriority(task) {
 /**
  * Sets the priority based on the clicked button.
  * The function resets other buttons and then sets the highlight for the respective priority button.
- *
  * @param {HTMLElement} button - The clicked priority button.
  */
 function priority(button) {
@@ -193,7 +188,6 @@ function resetButtons() {
 
 /**
  * Highlights a given button by changing its background color, image source, and text color.
- *
  * @param {HTMLElement} button - The button to be highlighted.
  * @param {string} bgColor - The desired background color for the button.
  * @param {string} imageSrc - The source URL for the image to be displayed inside the button.
@@ -241,7 +235,6 @@ document.addEventListener('keypress', handleEditSubtaskInput);
 
 /** 
  * Renders subtasks of a given task for editing.
- * 
  * @param {Object} element - The task object containing subtasks.
  */
 function addSubtaskToEdit(element) {
@@ -261,7 +254,6 @@ function addSubtaskToEdit(element) {
 
 /**
  * Adds contacts to the selected contacts based on the given element's assigned contacts.
- * 
  * @param {Object} element - The element containing assigned contacts.
  */
 function addToSelectedContacts(element) {
@@ -282,7 +274,6 @@ function addToSelectedContacts(element) {
 
 /**
  * Retrieves the logged-in user's data from local storage.
- * 
  * @returns {Object} The logged-in user's data, or an empty object if no data is found.
  */
 function getLoggedInUserData() {
@@ -292,7 +283,6 @@ function getLoggedInUserData() {
 
 /**
  * Asynchronously renders the selected contacts to the UI.
- * 
  * @param {Object} selectedContacts - The list of selected contacts.
  */
 async function loadRenderAssignedTo(selectedContacts) {
@@ -314,7 +304,6 @@ async function loadRenderAssignedTo(selectedContacts) {
 
 /**
  * Renders the searched contacts to the UI.
- * 
  * @param {Array} contacts - The list of contacts to render.
  */
 function loadSearchedContact(contacts) {
@@ -336,7 +325,6 @@ function loadSearchedContact(contacts) {
 
 /** 
  * Search and display contacts based on a given query.
- * 
  * @param {string} query - The query string to search for.
  */
 function loadSearchContacts(query) {
@@ -354,10 +342,8 @@ function loadSearchContacts(query) {
  * Toggles the selection of a contact based on the given name and surname. If the contact is already selected,
  * it will be removed from the selection; otherwise, it will be added to the selection. After toggling the contact
  * selection, various rendering functions are called to update the UI.
- * 
  * @param {string} name - The first name of the contact to be toggled.
  * @param {string} surname - The surname of the contact to be toggled.
- * 
  * @see loadRenderAssignedTo
  * @see loadSearchedContact
  * @see renderDisplayChosenContacts

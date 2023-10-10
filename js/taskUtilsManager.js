@@ -18,12 +18,12 @@ function addResetTaskForm() {
 
 /**
  * Resets the selected contacts, clears the search input field, and updates the UI.
- * This function clears the selectedContacts object, resets the value of the
+ * This function clears the selectedContacts array, resets the value of the
  * search input field with the id 'addSearchInput', and updates the user interface
  * by calling the functions addRenderAssignedTo and addDisplayChosenContacts.
  */
 function addResetAssignedToSelection() {
-    selectedContacts = {};
+    selectedContacts = [];
     let searchInput = document.getElementById('addSearchInput');
     searchInput.value = '';
     addRenderAssignedTo();

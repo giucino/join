@@ -39,11 +39,9 @@ function renderDisplayChosenContacts() {
 
 /**
  * Renders the HTML for a chosen contact with its initials.
- * 
  * @param {Object} contact - The contact information.
  * @param {string} contact.bgcolor - The background color for the initials div.
  * @param {string} initials - The initials of the contact.
- * @returns {string} - The rendered HTML string.
  */
 function renderDisplayChosenContactsHTML(contact, initials) {
     return /*html*/`
@@ -76,12 +74,9 @@ function loadDisplayChosenContacts() {
 
 /**
  * Generiert und gibt einen HTML-String für die Anzeige ausgewählter Kontakte zurück.
- *
  * @param {Object} contact - Das Kontaktobjekt mit notwendigen Informationen.
  * @param {string} contact.bgcolor - Hintergrundfarbe für die Initialen.
  * @param {string} initials - Initialen des Kontakts.
- *
- * @returns {string} HTML-String zur Darstellung des ausgewählten Kontakts.
  */
 function loadDisplayChosenContactsHTML(contact, initials) {
     return /*html*/`
@@ -135,7 +130,6 @@ function editRenderCategorys() {
 
 /**
  * Loads the provided category into the selected category.
- * 
  * @param {Object} element - The element containing category data.
  */
 function loadRenderCategory(element) {
@@ -146,7 +140,6 @@ function loadRenderCategory(element) {
 
 /**
  * Handles the logic when a category is selected.
- * 
  * @param {string} category - The name of the selected category.
  */
 function categorySelected(category) {
@@ -196,7 +189,6 @@ function closeSubtaskInput() {
 
 /**
  * Deletes a subtask based on its ID.
- * 
  * @param {number|string} subtaskId - The ID of the subtask to delete.
  */
 function deleteEditSubtask(indexToDelete) {
@@ -213,7 +205,6 @@ function deleteEditSubtask(indexToDelete) {
 
 /**
  * Allows the user to edit a subtask.
- * 
  * @param {number} i - The index or unique identifier for the subtask.
  */
 function editEditedSubtask(i) {
@@ -233,9 +224,7 @@ function editEditedSubtask(i) {
  * Applies editing classes and styles to the given container. It handles specific 
  * UI changes for entering the editing mode like showing/hiding certain elements 
  * and modifying some styles.
- * 
  * @param {HTMLElement} container - The container element to which editing styles and classes will be applied.
- * 
  * @example
  * let divElement = document.querySelector(".my-container");
  * addEditingClasses(divElement);
@@ -251,7 +240,6 @@ function addEditingClasses(container) {
 
 /**
  * Adds specific CSS classes and styles to the given container element.
- * 
  * @param {HTMLElement} container - The DOM element to which classes and styles will be added.
  */
 function addClasses(container) {
@@ -263,7 +251,6 @@ function addClasses(container) {
 
 /**
  * Sets the display style of a DOM element. *
- * 
  * @param {HTMLElement|null} element - The DOM element to modify.
  * @param {string} value - The CSS display value to set (e.g. 'none', 'block').
  */
@@ -276,13 +263,11 @@ function setDisplay(element, value) {
 
 /**
  * Finishes the editing mode for a given subtask.
- *
  * @param {string|number} i - The unique identifier (or index) for the subtask.
  * This function achieves the following steps:
  * 1. Gets the subtask element with the provided ID and disables its content editing.
  * 2. Removes editing-related classes from the subtask's container.
  * 3. Saves the edited title.
- *
  * @example
  * finishEditing(3);  // finishes editing for the subtask with id '3'
  */
@@ -302,12 +287,10 @@ function finishEditing(i) {
 
 /**
  * Removes a class from the given element and optionally sets a CSS style property and value.
- *
  * @param {HTMLElement} element - The DOM element from which the class will be removed.
  * @param {string} className - The class name to be removed from the element.
  * @param {string} [styleProperty] - The CSS property to set. If not provided, this step is skipped.
  * @param {string} [styleValue=''] - The value for the CSS property. If `styleProperty` is provided but `styleValue` isn't, it sets the property value to an empty string.
- *
  * @example
  * removeClassAndStyle(document.querySelector('.my-div'), 'hide', 'display', 'block');
  */
@@ -328,7 +311,6 @@ function removeClassAndStyle(element, className, styleProperty, styleValue) {
  * - Resets the borderBottom style.
  * - Changes the display styles for the child elements with the classes:
  *   ".edit-subtask-dot", ".edit-save-subtask-button", ".edit-delete-subtask-button", and ".separator3".
- *
  * @param {HTMLElement} container - The container element from which editing-related classes and styles are to be removed.
  */
 function removeEditingClasses(container) {
@@ -346,7 +328,6 @@ function removeEditingClasses(container) {
  * Saves the edited title of the current task.
  * If the current task is not defined or has no subtasks,
  * an error is displayed in the console.
- * 
  * @throws {Error} If currentTask is not defined or has no subtasks.
  */
 function saveEditedTitle() {
@@ -362,11 +343,9 @@ function saveEditedTitle() {
 /**
  * Extracts background colors from an element's assignedTo array by matching
  * first and last names with a list of contacts.
- *
  * @param {Object} element - The element to extract colors from.
  * @param {string[]} element.assignedTo - An array of full names assigned to the element.
  * @param {Object[]} contacts - An array of contact objects with name and bgcolor properties.
- * @returns {string[]} An array of background colors corresponding to the assigned names.
  */
 function extractColor(element) {
     const colors = [];
