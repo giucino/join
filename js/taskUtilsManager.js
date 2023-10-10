@@ -23,7 +23,7 @@ function addResetTaskForm() {
  * by calling the functions addRenderAssignedTo and addDisplayChosenContacts.
  */
 function addResetAssignedToSelection() {
-    selectedContacts = {};
+    selectedContacts = [];
     let searchInput = document.getElementById('addSearchInput');
     searchInput.value = '';
     addRenderAssignedTo();
