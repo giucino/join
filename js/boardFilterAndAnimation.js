@@ -1,6 +1,5 @@
 /**
  * Filter tasks based on a search term and status.
- * 
  * @param {string} searchTerm - The search term to filter tasks.
  * @param {string} status - The status to filter tasks.
  * @returns {Task[]} Array of filtered tasks.
@@ -66,7 +65,6 @@ document.addEventListener("DOMContentLoaded", function () {
  * Handles the click event for the reset button in the search functionality.
  * Clears the search input field, hides the reset button, and triggers the filter update.
  * Resets the search input field and triggers the filter update when the reset button is clicked.
- * 
  * @listens click
  * @param {Event} event - The click event.
  */
@@ -123,7 +121,6 @@ function slideCardAnimation() {
 
 /**
  * Render and slide open the task card.
- * 
  * @param {number} id - ID of the task to render in the card.
  */
 function slideCard(id) {
@@ -136,7 +133,6 @@ function slideCard(id) {
 
 /**
  * Generates the HTML markup for the slide card.
- * 
  * @param {number} id - ID of the task to generate markup for.
  * @returns {string} HTML markup for the slide card.
  */
@@ -157,7 +153,6 @@ function renderSlideCard(id) {
 
 /**
  * Remove a task from the 'todos' list and update the UI.
- * 
  * @param {number} id - ID of the task to delete.
  */
 function deleteTask(id) {
@@ -177,7 +172,6 @@ function deleteTask(id) {
 
 /**
  * Updates the 'id' property for each item in the 'todos' array.
- * 
  * @example
  * Assuming todos = [{id: 0}, {id: 1}]
  * updateIDs();
@@ -193,7 +187,6 @@ function updateIDs() {
 
 /**
  * Deletes the specified card element from the document based on the provided ID.
- * 
  * @param {string|number} id - The ID of the card element to be removed.
  */
 function deleteCard(id) {
@@ -206,7 +199,6 @@ function deleteCard(id) {
 
 /**
  * Calculates the progress of a todo item based on its subtasks.
- *
  * @param {Array} todos - The array of todo items.
  * @param {number} todoId - The ID of the todo item for which to calculate progress.
  * @returns {number} The progress percentage of the todo item.
@@ -222,7 +214,6 @@ function calculateProgress(todos, todoId) {
 
 /**
  * Updates the status of a specific subtask and pushes the updated data.
- * 
  * @param {number} taskId - ID of the task.
  * @param {number} subtaskIndex - Index of the subtask to be updated.
  * @param {boolean} isChecked - New status of the subtask.
@@ -240,7 +231,6 @@ function updateSubtaskStatus(todoId, subtaskId, isChecked) {
 
 /**
  * Updates the progress bar for a specific todo item based on the current progress.
- * 
  * @param {Array<Object>} todos - The array of todo objects.
  * @param {string} todoId - The ID of the todo item to update the progress bar for.
  */
@@ -255,7 +245,6 @@ function updateProgressBar(todos, todoId) {
 
 /**
  * Renders a list of assigned elements with a maximum number of contacts to show.
- * 
  * @param {Element} element - The element to render.
  * @returns {string} The rendered HTML content.
  */
@@ -269,7 +258,6 @@ function renderAssigned(element) {
 
 /**
  * Filters out undefined values from the 'assignedTo' array and retrieves the 'bgcolor'.
- * 
  * @param {Object} element - The input element containing 'assignedTo' and 'bgcolor' properties.
  * @param {Array<string>} element.assignedTo - An array of assignedTo values.
  * @param {string} element.bgcolor - The background color to be retrieved.
@@ -285,7 +273,6 @@ function filterAndColor(element) {
 
 /**
  * Renders a list of contacts with customized background colors and maximum items to display.
- * 
  * @param {Array} contacts - An array of contact objects to render.
  * @param {Array} bgcolors - An array of background colors corresponding to each contact.
  * @param {number} max - The maximum number of contacts to render.
@@ -306,7 +293,6 @@ function renderContacts(contacts, bgcolors, max) {
 
 /**
  * Renders additional contacts with a specified left position and remaining count.
- * 
  * @param {number} leftPosition - The left position for rendering the additional contacts.
  * @param {number} remaining - The number of remaining additional contacts to render.
  * @returns {string} The HTML representation of additional contacts, or an empty string if no additional contacts are to be rendered.
@@ -319,7 +305,6 @@ function renderAdditionalContacts(leftPosition, remaining) {
 
 /**
  * Generates HTML for a specific assigned user.
- * 
  * @param {string} additionalClass - Additional CSS class for the user.
  * @param {string} bgcolor - Background color for the user's badge.
  * @param {string} initials - Initials of the assigned user.
@@ -336,7 +321,6 @@ function generateAssignedHTML(additionalClass, bgcolor, initials) {
 
 /**
  * Generates the HTML representation of a subtask and counts completed subtasks.
- * 
  * @param {Object} element - The parent task containing subtasks.
  * @returns {Object} An object containing the generated HTML and the count of completed subtasks.
  */
@@ -360,7 +344,6 @@ function renderSubtask(element) {
 
 /**
  * Gets the background color based on the category.
- * 
  * @param {string} category - The category of the task.
  * @returns {string} The background color for the category.
  */
@@ -378,7 +361,6 @@ function getCategoryBackgroundColor(category) {
 
 /**
  * Returns the appropriate display style based on the count of all tasks.
- * 
  * @param {number} allTasksCount - The total number of tasks.
  * @returns {string} - Returns 'none' if there are no tasks, otherwise 'block'.
  */
@@ -389,7 +371,6 @@ function getSubtasksDisplayStyle(allTasksCount) {
 
 /**
  * Renders the assigned users for a task in the slide view.
- * 
  * @param {Object} element - The task element containing its details.
  * @returns {string} The generated HTML string for assigned users.
  */

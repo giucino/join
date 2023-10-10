@@ -1,6 +1,5 @@
 /**
  * Resets all fields and selections in the task form to their default values.
- * 
  * - Clears the input fields for task title, task description, and due date.
  * - Resets the buttons, assigned-to selection, category selection, and subtasks.
  */
@@ -18,7 +17,6 @@ function resetTaskForm() {
 /**
  * Resets the selected contacts and clears the search input.
  * Also calls functions to re-render the assigned contacts and display the chosen ones.
- * 
  * @example
  * resetAssignedToSelection();
  */
@@ -33,9 +31,7 @@ function resetAssignedToSelection() {
 
 /**
  * Resets the category selection by clearing the selected category and updating the associated DOM elements.
- * 
  * @see {@link https://jsdoc.app/|JSDoc}
- * 
  * @example
  * Assume there's a category currently selected and displayed in the UI.
  * resetCategorySelection();

@@ -1,7 +1,6 @@
 /**
  * Initializes the task by loading contacts, tasks, assigned names, and categories.
  * This function performs asynchronous operations to fetch and render necessary data.
- *
  * @throws {Error} Throws an error if any of the asynchronous operations fail.
  */
 async function initTask() {
@@ -16,7 +15,6 @@ async function initTask() {
  * Asynchronously loads contacts from storage.
  * Parses the stored JSON data for 'contacts' key and assigns it to the contacts variable.
  * Logs an error to the console if any exception occurs during the loading or parsing process.
- * 
  * @throws {Error} Throws an error if there's an issue loading or parsing the 'contacts' data.
  */
 async function loadContactsFromStorage() {
@@ -30,7 +28,6 @@ async function loadContactsFromStorage() {
 
 /**
  * Asynchronously loads tasks from backend.
- *
  * @throws {Error} When there's an issue parsing the tasks from JSON.
  */
 async function loadTasks() {
@@ -72,9 +69,7 @@ document.getElementById('taskForm').addEventListener('submit', function (event) 
 /**
  * Asynchronously creates a task using the values from the provided input fields.
  * Before initializing the task, it validates the input values.
- * 
  * @throws Will throw an error if the input validation fails.
- * 
  * @example
  * createTask().then(() => {
  *     console.log('Task created successfully!');
@@ -95,7 +90,6 @@ async function createTask() {
  * Validates the provided input values for title, description, and dueDate.
  * Shows appropriate error messages if any of the values are missing.
  * If all values are valid, it triggers validation for selections.
- *
  * @param {string} title - The title of the task or item.
  * @param {string} description - The description or details of the task.
  * @param {string} dueDate - The due date for the task in a specified format (e.g., 'YYYY-MM-DD').
@@ -136,16 +130,12 @@ function validateSelections(title, description, dueDate) {
 
 /**
  * Processes and adds a valid todo item to the list.
- *
  * @param {string} title - Title of the new todo.
  * @param {string} description - Description of the new todo.
  * @param {Date|string} dueDate - Due date of the new todo. Can be a Date object or a string representation.
- *
  * @example
  * processValidInput('Finish Assignment', 'Complete the math assignment by end of the week', '2023-10-07');
- *
  * @throws {Error} If any required parameter is not provided or invalid.
- *
  * @see {@link extractBgcolor} for details on how background colors are determined.
  * @see {@link completeTaskCreation} to understand the post-todo-creation process.
  *
@@ -204,13 +194,10 @@ function showCreatedTaskMessage() {
 /**
  * Searches through the list of contacts for matches based on the given query.
  * Filters contacts whose name or surname starts with the provided query.
- *
  * @param {string} query - The search term to match against contact names and surnames.
- *
  * @example
  * Assume `contacts` is a global array containing contact objects with `name` and `surname` properties.
  * searchContacts('John'); // will call `renderSearchedContact` with all contacts named John or with a surname starting with John.
- *
  * @throws {TypeError} - If the contacts array or its individual items do not have the expected structure, the function might throw.
  * (Note: The actual function provided does not have explicit error handling, so this is a speculative error type.)
  */
@@ -226,14 +213,11 @@ function searchContacts(query) {
 
 /**
  * Toggles the selection state of a contact in the list based on their name and surname.
- *
  * @param {string} name - The first name of the contact.
  * @param {string} surname - The surname of the contact.
- * 
  * @example
  * Assuming there's a contact {id: 1, name: 'John', surname: 'Doe'} in the `contacts` array
  * toggleContactSelection('John', 'Doe');
- * 
  */
 function toggleContactSelection(name, surname) {
     const contact = contacts.find(c => c.name === name && c.surname === surname);
@@ -257,18 +241,14 @@ function toggleContactSelection(name, surname) {
 
 /**
  * Extracts background colors from the provided list of selected contact names.
- * 
  * @param {string[]} selectedContacts - An array of contact names, where each name is in the format "name surname".
  * @returns {string[]} - An array of background colors corresponding to the provided contact names.
- * 
  * @example
  * const contacts = [
  *    { name: 'John', surname: 'Doe', bgcolor: '#ff0000' },
  *    { name: 'Jane', surname: 'Doe', bgcolor: '#00ff00' }
  * ];
- * 
  * extractBgcolor(['John Doe', 'Jane Doe']); // returns ['#ff0000', '#00ff00']
- * 
  */
 function extractBgcolor(selectedContacts) {
     const bgcolors = [];

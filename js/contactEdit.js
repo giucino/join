@@ -1,6 +1,5 @@
 /**
  * Edits the specified contact.
- * 
  * @param {number} index - The index of the contact to edit.
  */
 function editContact(index) {
@@ -20,7 +19,6 @@ function editContact(index) {
 
 /**
  * Generates the edit modal for a specific contact.
- * 
  * @param {number} index - The index of the contact to edit.
  */
 function generateEditContactModal(index) {
@@ -58,7 +56,6 @@ function closeEditModal() {
 
 /**
  * Deletes the specified contact after user confirmation.
- * 
  * @param {number} index - The index of the contact to delete.
  */
 async function deleteContact(index) {
@@ -120,7 +117,6 @@ async function saveNewContact() {
 
 /**
  * Validates the name input for new contacts.
- * 
  * @param {HTMLInputElement} fullNameInput - The input element containing the full name.
  * @returns {Object} An object containing the first and last name.
  */
@@ -134,7 +130,6 @@ function validateNameParts(fullNameInput) {
 
 /**
  * Extracts the first and last name from a full name string.
- * 
  * @param {string} fullName - The full name string.
  * @returns {Object} An object containing the first and last name.
  */
@@ -146,7 +141,6 @@ function extractNameParts(fullName) {
 
 /**
  * Validates the contact fields for correctness.
- * 
  * @param {string} newName - The first name.
  * @param {string} newEmail - The email address.
  * @param {string} newTelefon - The phone number.
@@ -175,7 +169,6 @@ function validateContactFields(newName, newEmail, newTelefon) {
 
 /**
  * Checks if all the provided fields have values.
- *
  * @param {string} newName - The new name value.
  * @param {string} newEmail - The new email value.
  * @param {string} newTelefon - The new telephone value.
@@ -188,7 +181,6 @@ function areAllFieldsFilled(newName, newEmail, newTelefon) {
 
 /**
  * Checks if the provided name is valid based on a regular expression pattern.
- *
  * @param {string} newName - The name to validate.
  * @returns {boolean} Returns true if the name is valid; otherwise, false.
  */
@@ -200,7 +192,6 @@ function isValidName(newName) {
 
 /**
  * Checks if the provided email address is valid based on a regular expression pattern.
- *
  * @param {string} email - The email address to validate.
  * @returns {boolean} Returns true if the email is valid; otherwise, false.
  */
@@ -212,7 +203,6 @@ function isValidEmail(email) {
 
 /**
  * Checks if the provided phone number is valid based on a regular expression pattern.
- *
  * @param {string} phone - The phone number to validate.
  * @returns {boolean} Returns true if the phone number is valid; otherwise, false.
  */
@@ -224,7 +214,6 @@ function isValidPhoneNumber(phone) {
 
 /**
  * Clears the form fields after saving a contact.
- * 
  * @param {HTMLInputElement} fullNameInput - The input element for full name.
  * @param {HTMLInputElement} newEmailInput - The input element for email.
  * @param {HTMLInputElement} newTelefonInput - The input element for phone number.
@@ -260,7 +249,6 @@ function createNewContactObject(newName, newsurname, newEmail, newTelefon) {
 
 /**
  * Saves a contact to the contacts array and updates local storage.
- * 
  * @param {Object} newContact - The contact object to save.
  */
 async function saveContact(newContact) {
@@ -273,7 +261,6 @@ async function saveContact(newContact) {
 
 /**
  * Updates an existing contact in the contacts array.
- * 
  * @param {number} index - The index of the contact to update.
  */
 async function updateContact(index) {
@@ -297,7 +284,6 @@ async function updateContact(index) {
 
 /**
  * Creates an updated contact object based on the original contact and new data.
- * 
  * @param {Object} originalContact - The original contact object.
  * @param {string} newName - The updated first name.
  * @param {string} newsurname - The updated last name.
@@ -320,7 +306,6 @@ function createUpdatedContactObject(originalContact, newName, newsurname, newEma
 
 /**
  * Updates a contact in the contacts array and saves the updated list to local storage.
- * 
  * @param {number} index - The index of the contact to update.
  * @param {Object} updatedContact - The updated contact object.
  */

@@ -1,13 +1,12 @@
 /**
  * Generates an HTML link for changing the status of an element.
- * 
  * @param {Object} element - The element to which the status link belongs.
  * @param {string} status - The desired status to set when the link is clicked.
  * @param {string} label - The label or text to display on the link.
  */
 function getStatusLinkHTML(element, status, label) {
     if(element.status === status) {
-        return ''; // Wenn der aktuelle Status dem Link-Status entspricht, gib nichts zurück (d.h. blende den Link aus)
+        return ''; 
     }
     return `<a href="#" onclick="moveToMobile(${element.id}, '${status}')">${label}</a>`;
 }
@@ -15,7 +14,6 @@ function getStatusLinkHTML(element, status, label) {
 
 /**
  * Move a task with the specified ID to a new status for mobile.
- * 
  * @param {number} id - The ID of the task to be moved.
  * @param {string} status - The new status to assign to the task.
  */
@@ -34,7 +32,6 @@ function moveToMobile(id, status) {
 
 /**
  * Renders the subtasks for a task in the slide view.
- * 
  * @param {Object} element - The task element containing its details.
  * @param {number} id - The ID of the task element.
  */
@@ -55,7 +52,6 @@ function renderSlideSubtask(element, id) {
 
 /**
  * Generates the overall task HTML representation.
- * 
  * @param {Object} element - The task data.
  * @param {string} priorityImageSrc - The source URL of the priority image.
  * @param {string} assignedToHTML - The HTML representation of assigned users.

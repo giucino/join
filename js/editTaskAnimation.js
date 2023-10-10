@@ -23,7 +23,6 @@ function editTask(id) {
 
 /**
  * Aktualisiert das gegebene Eigenschaft des Elements mit dem Wert eines Input-Elements.
- *
  * @param {HTMLElement} element - Das zu aktualisierende Element.
  * @param {string} inputId - Die ID des Input-Elements, von dem der Wert abgerufen werden soll.
  * @param {string} prop - Die Eigenschaft des Elements, die aktualisiert werden soll.
@@ -35,7 +34,6 @@ function updateElementFromInput(element, inputId, prop) {
 
 /**
  * Updates the properties of a given element based on various input sources.
- * 
  * @param {Object} element - The element object to be updated.
  * @property {string} [element.title] - The title of the element.
  * @property {string} [element.description] - The description of the element.
@@ -205,6 +203,12 @@ function addNewSubtask() {
 }
 
 
+/**
+ * Handles the Enter key press event on the edit-new-subtask textfield.
+ * If the Enter key is pressed and the target element has the 'edit-new-subtask-textfield' class,
+ * it prevents the default Enter key behavior, adds a new subtask, and blurs the active element.
+ * @param {KeyboardEvent} event - The keyboard event object.
+ */
 function handleEditSubtaskInput(event) {
   if (event.key === 'Enter' && event.target.classList.contains('edit-new-subtask-textfield')) {
     event.preventDefault();

@@ -1,6 +1,5 @@
 /**
  * Renders the HTML content for the "Add Task" modal.
- * 
  * @returns {string} The HTML content of the modal.
  */
 function renderAddTask() {
@@ -145,7 +144,6 @@ function renderAddTask() {
 
 /**
  * Creates a success message template.
- * 
  * @returns {string} - The HTML template for a success message overlay.
  */
 function addCreatedTaskTemplate() {
@@ -162,7 +160,6 @@ function addCreatedTaskTemplate() {
 
 /**
  * Renders a contact as HTML with optional selection and current user indicator.
- * 
  * @param {object} contact - The contact object with properties like name, surname, and bgcolor.
  * @param {string} initials - The initials to display.
  * @param {boolean} isSelected - Whether the contact is selected.
@@ -186,7 +183,6 @@ function addRenderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
 
 /**
  * Generates HTML markup for rendering a contact in a search result.
- * 
  * @param {Object} contact - The contact information.
  * @param {string} contact.name - The contact's first name.
  * @param {string} contact.surname - The contact's last name.
@@ -213,7 +209,6 @@ function addRenderSearchedContactsHTML(contact, initials, isSelected, isCurrentU
 
 /**
  * Generates HTML for a subtask container with edit and delete buttons.
- *
  * @param {string} subtaskId - The ID of the subtask container.
  * @param {string} subtaskValue - The value/content of the subtask.
  * @returns {string} The HTML markup for the subtask container.

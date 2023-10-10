@@ -1,6 +1,5 @@
 /**
  * Applies border color on focus and blur events to elements within a container.
- *
  * @param {string} containerSelector - CSS selector for the container elements.
  * @param {string} inputSelector - CSS selector for the input elements within the container.
  * @param {string} focusColor - CSS color value applied to the container border when the input is focused.
@@ -60,15 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * Changes the border color of a textarea element based on focus, blur, and input events.
- *
  * @param {HTMLTextAreaElement} textarea - The textarea element whose border color needs to be modified.
- * 
  * @example
- *
- * // Assuming you have a textarea with the id 'myTextarea'
+ * Assuming you have a textarea with the id 'myTextarea'
  * const textarea = document.getElementById('myTextarea');
  * changeTextAreaBorderOnFocusBlurInput(textarea);
- * 
  */
 function changeTextAreaBorderOnFocusBlurInput(textarea) {
     textarea.addEventListener('focus', () => {
@@ -97,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * Sets the priority based on the button clicked. Resets other buttons and hides any priority errors.
- *
  * @param {HTMLElement} button - The button element that was clicked to set the priority.
  * @throws {Error} Throws an error if the button ID does not match any expected priority.
  */
@@ -120,7 +114,6 @@ function priority(button) {
 
 /**
  * Highlights a button by changing its background color, image source, and text color.
- *
  * @param {HTMLElement} button - The button to highlight.
  * @param {string} bgColor - The background color to apply to the button.
  * @param {string} imageSrc - The image source URL for the button's inner image.
@@ -136,7 +129,6 @@ function highlightButton(button, bgColor, imageSrc) {
 
 /**
  * Retrieves the logged-in user's data from local storage.
- * 
  * @returns {Object} The logged-in user's data, or an empty object if no data is found.
  */
 function getLoggedInUserData() {
@@ -146,18 +138,15 @@ function getLoggedInUserData() {
 
 /**
  * Asynchronously renders the contacts assigned to the user.
- *
  * It fetches the logged-in user data, gets the container for loading contacts,
  * and iterates over the list of contacts to render each contact's assigned information.
  * For each contact, it generates the initials from their name and surname, checks if the contact
  * is selected or if it matches the logged-in user's email, and then updates the container's HTML.
- *
  * @requires getLoggedInUserData - A function to fetch the logged-in user's data.
  * @requires renderAssignedToHTML - A function to generate the HTML representation of a contact's assigned data.
  * @throws {Error} Throws an error if any issues arise while rendering.
- *
  * @example
- * // Assuming all required functions and global variables are present and correctly set up:
+ * Assuming all required functions and global variables are present and correctly set up:
  * renderAssignedTo();
  */
 async function renderAssignedTo() {
@@ -182,19 +171,16 @@ async function renderAssignedTo() {
  * It goes through each contact, computes the initials from their name and surname,
  * checks if the contact is selected and if the contact is the current logged in user,
  * and finally uses another function `renderSearchedContactsHTML` to update the DOM.
- * 
  * @param {Object[]} contacts - An array of contact objects.
  * @param {string} contacts[].name - First name of the contact.
  * @param {string} contacts[].surname - Last name (or surname) of the contact.
  * @param {string} contacts[].email - Email address of the contact.
  * @param {number} contacts[].id - Unique ID of the contact.
- * 
  * @example
  * const contacts = [
  *   { id: 1, name: 'John', surname: 'Doe', email: 'john.doe@example.com' },
  *   { id: 2, name: 'Jane', surname: 'Smith', email: 'jane.smith@example.com' }
  * ];
- * 
  * renderSearchedContact(contacts);
  */
 function renderSearchedContact(contacts) {
@@ -218,9 +204,8 @@ function renderSearchedContact(contacts) {
  * Toggles the visibility of the "assignedToContainer" and synchronizes 
  * the display of the "contactsContainer" accordingly. 
  * Also manages the 'expanded' class of the "assignedToDropdown".
- *
  * @example
- * // To toggle the display of the containers
+ * To toggle the display of the containers
  * toggleAssignedToContainer();
  */
 function toggleAssignedToContainer() {
@@ -243,7 +228,6 @@ function toggleAssignedToContainer() {
  * Display the chosen contacts on the page by appending them to
  * the 'chosenContacts' container. For each chosen contact, their initials
  * are displayed with a specified background color.
- * 
  * Assumes the following:
  * 1. An HTML container with the id 'chosenContacts' exists in the DOM.
  * 2. The `contacts` array exists in the current scope, with each contact
@@ -276,7 +260,6 @@ function displayChosenContacts() {
  * Renders categories into the `loadedCategories` DOM element.
  * Each category will be displayed in a div with the class "category".
  * When a category is clicked, the `categorySelected` function is called with the category name as an argument.
- * 
  * @requires categories - An array of objects where each object should have a 'categoryName' property.
  */
 function renderCategorys() {
@@ -323,7 +306,6 @@ function toggleCategoryContainer() {
 
 /**
  * Updates the UI based on the selected category.
- *
  * @param {string} category - The category that has been selected.
  */
 function categorySelected(category) {

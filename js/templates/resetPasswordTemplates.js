@@ -1,6 +1,5 @@
 /**
  * Generates the HTML content for the "Forgot Password" form.
- * 
  * @returns {string} - The generated HTML content for the form.
  */
 function generateForgotContent() {
@@ -37,7 +36,6 @@ function generateForgotContent() {
 
 /**
  * Creates the HTML template for the "Forgot Password" overlay message.
- * 
  * @returns {string} - The generated HTML content for the overlay message.
  */
 function createForgotTemplate() {
@@ -54,7 +52,6 @@ function createForgotTemplate() {
 
 /**
  * Generates the HTML content for the "Reset Password" form.
- * 
  * @returns {string} - The generated HTML content for the reset form.
  */
 function generateResetContent() {
@@ -95,7 +92,6 @@ function generateResetContent() {
 
 /**
  * Creates the HTML template for the "Reset Password" overlay message.
- * 
  * @returns {string} - The generated HTML content for the overlay message.
  */
 function createResetTemplate() {
