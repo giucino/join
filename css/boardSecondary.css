@@ -144,3 +144,63 @@
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+.negativ-gap {
+    position: relative;
+    left: -7px;
+}
+
+.negativ-gap--7 {
+    position: relative;
+    left: -7px;
+}
+
+.negativ-gap--14 {
+    position: relative;
+    left: -14px;
+}
+
+.negativ-gap--21 {
+    position: relative;
+    left: -21px;
+}
+
+.negativ-gap--28 {
+    position: relative;
+    left: -28px;
+}
+
+.prio-icon {
+    box-sizing: border-box;
+    display: flex;
+    width: 32px;
+    height: 32px;
+    padding: 10px 18px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.task-slide-delete:hover .task-slide-delete-edit-img {
+    content: url('../img/delete_hover.png');
+}
+
+.task-slide-delete:hover .task-slide-delete-text {
+    color: #005DFF;
+    font-weight: 700;
+}
+
+.task-slide-placeholder {
+    width: 0px;
+    height: 24px;
+    border: 1px solid #D1D1D1;
+}
+
+.task-slide-edit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
