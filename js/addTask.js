@@ -2,7 +2,6 @@
  * Initializes the task by loading contacts, tasks, assigned names, and categories.
  * This function performs asynchronous operations to fetch and render necessary data.
  *
- * @returns {Promise<void>} A promise that resolves once all initialization steps are complete.
  * @throws {Error} Throws an error if any of the asynchronous operations fail.
  */
 async function initTask() {

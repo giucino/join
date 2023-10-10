@@ -72,10 +72,14 @@ function updateElementProperties(element) {
   updateElementFromInput(element, "edit-task-title", "title");
   updateElementFromInput(element, "edit-task-description", "description");
   updateElementFromInput(element, "edit-due-date", "dueDate");
-  element.status = element.status; 
+  element.status = element.status;
   element.category = selectedCategory;
   element.priority = selectedPriority;
-  element.assignedTo = selectedContacts.filter(contact => contact !== undefined);
+  if (Array.isArray(selectedContacts)) {
+    element.assignedTo = selectedContacts.filter(contact => contact !== undefined);
+  } else {
+    console.error("selectedContacts is not an array:", selectedContacts);
+  }
   element.bgcolor = extractColor(element);
   element.subtasks = processAndSaveSubtasks(element);
 }
@@ -104,8 +108,8 @@ function openEditedTask(id) {
   const slideCard = document.getElementById('task-slide');
   slideCard.innerHTML = renderSlideCard(id);
   document.getElementById('task-slide').classList.remove('d-none');
-  document.getElementById('slide-container').classList.add('open-task');  
-  
+  document.getElementById('slide-container').classList.add('open-task');
+
 }
 
 
@@ -118,30 +122,30 @@ function openEditedTask(id) {
  */
 function loadSelectedPriority(task) {
   const priorities = {
-      high: {
-          buttonId: "edit-prio-urgent",
-          color: "#FF3D00",
-          img: "./img/prio_high_active.png"
-      },
-      medium: {
-          buttonId: "edit-prio-medium",
-          color: "#FFA800",
-          img: "./img/prio_medium_active.png"
-      },
-      low: {
-          buttonId: "edit-prio-low",
-          color: "#7AE229",
-          img: "./img/prio_low_active.png"
-      }
+    high: {
+      buttonId: "edit-prio-urgent",
+      color: "#FF3D00",
+      img: "./img/prio_high_active.png"
+    },
+    medium: {
+      buttonId: "edit-prio-medium",
+      color: "#FFA800",
+      img: "./img/prio_medium_active.png"
+    },
+    low: {
+      buttonId: "edit-prio-low",
+      color: "#7AE229",
+      img: "./img/prio_low_active.png"
+    }
   };
 
   resetButtons();
 
   if (priorities[task.priority]) {
-      const prio = priorities[task.priority];
-      const button = document.getElementById(prio.buttonId);
-      highlightButton(button, prio.color, prio.img);
-      selectedPriority = task.priority;
+    const prio = priorities[task.priority];
+    const button = document.getElementById(prio.buttonId);
+    highlightButton(button, prio.color, prio.img);
+    selectedPriority = task.priority;
   }
 }
 
@@ -210,7 +214,7 @@ function addNewSubtask() {
   const subtaskContainer = document.getElementById("edit-subtask-add-container");
 
   if (!currentSelectedTask.subtasks) {
-      currentSelectedTask.subtasks = [];
+    currentSelectedTask.subtasks = [];
   }
 
   const newSubtaskId = currentSelectedTask.subtasks.length + 1;
@@ -225,9 +229,9 @@ function addNewSubtask() {
 
 function handleEditSubtaskInput(event) {
   if (event.key === 'Enter' && event.target.classList.contains('edit-new-subtask-textfield')) {
-      event.preventDefault();
-      addNewSubtask();
-      document.activeElement.blur();
+    event.preventDefault();
+    addNewSubtask();
+    document.activeElement.blur();
   }
 }
 document.addEventListener('keypress', handleEditSubtaskInput);
@@ -258,7 +262,7 @@ function addSubtaskToEdit(element) {
  */
 function addToSelectedContacts(element) {
   const assigneds = element.assignedTo;
-  
+
   for (let name of assigneds) {
     const contact = contacts.find(c => `${c.name} ${c.surname}` === name);
     if (contact) {
@@ -290,7 +294,7 @@ async function loadRenderAssignedTo(selectedContacts) {
 
   let assignedToContainer = document.getElementById('edit-loaded-contacts');
   assignedToContainer.innerHTML = '';
-  
+
   for (let i = 0; i < contacts.length; i++) {
     let contact = contacts[i];
     let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
@@ -313,12 +317,12 @@ function loadSearchedContact(contacts) {
   loadAssignedToContainer.innerHTML = '';
 
   for (let i = 0; i < contacts.length; i++) {
-      let contact = contacts[i];
-      let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
-      const isSelected = selectedContacts[contact.id] || false;
-      let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
+    let contact = contacts[i];
+    let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
+    const isSelected = selectedContacts[contact.id] || false;
+    let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
 
-      loadAssignedToContainer.innerHTML += loadRenderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser);
+    loadAssignedToContainer.innerHTML += loadRenderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser);
   }
 }
 
@@ -329,10 +333,10 @@ function loadSearchedContact(contacts) {
  */
 function loadSearchContacts(query) {
   let filteredContacts = contacts.filter(contact => {
-      return (
-          contact.name.toLowerCase().startsWith(query.toLowerCase()) ||
-          contact.surname.toLowerCase().startsWith(query.toLowerCase())
-      );
+    return (
+      contact.name.toLowerCase().startsWith(query.toLowerCase()) ||
+      contact.surname.toLowerCase().startsWith(query.toLowerCase())
+    );
   });
   loadSearchedContact(filteredContacts);
 }
@@ -352,7 +356,7 @@ function loadToggleContactSelection(name, surname) {
   const contact = contacts.find(c => c.name === name && c.surname === surname);
 
   if (!contact) {
-      return;
+    return;
   }
 
   if (selectedContacts[contact.id]) {
@@ -375,15 +379,15 @@ function toggleContactSelection(name, surname) {
   const contact = contacts.find(c => c.name === name && c.surname === surname);
 
   if (!contact) {
-      return;
+    return;
   }
   const contactId = contact.id;
   const contactKey = `${contact.name} ${contact.surname}`;
 
   if (selectedContacts[contactId]) {
-      delete selectedContacts[contactId];
+    delete selectedContacts[contactId];
   } else {
-      selectedContacts[contactId] = contactKey;
+    selectedContacts[contactId] = contactKey;
   }
   loadRenderAssignedTo(selectedContacts);
   loadSearchedContact(contacts);
