@@ -112,7 +112,7 @@ function addValidateSelections(title, description, dueDate) {
  */
 function processValidInput(title, description, dueDate) {
     const extractedBgcolors = addExtractBgcolor(selectedContacts);
-    const cleanedSelectedContacts =  Object.values(selectedContacts).filter(contact => contact !== null && contact !== undefined);
+    const cleanedSelectedContacts = selectedContacts.filter(contact => contact !== null && contact !== undefined);   
     const highestId = todos.reduce((maxId, currentTodo) => {
         return currentTodo.id > maxId ? currentTodo.id : maxId;
     }, 0);
@@ -267,8 +267,8 @@ function addToggleContactSelection(name, surname) {
  */
 function addExtractBgcolor(selectedContacts) {
     const bgcolors = [];
-    const validContacts = Object.values(selectedContacts).filter(contactName => contactName);
-
+    const validContacts = selectedContacts.filter(contactName => contactName);
+    
     for (const contactName of validContacts) {
         const foundContact = contacts.find(c => `${c.name} ${c.surname}` === contactName);
         if (foundContact && foundContact.bgcolor) {

@@ -23,7 +23,7 @@ function resetTaskForm() {
  * resetAssignedToSelection();
  */
 function resetAssignedToSelection() {
-    selectedContacts = {};
+    selectedContacts = [];
     let searchInput = document.getElementById('searchInput');
     searchInput.value = '';
     renderAssignedTo();

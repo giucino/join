@@ -8,8 +8,7 @@
     height: 928px;
     overflow-y: auto;
     flex-shrink: 0;
-    margin-top: 97px;
-    margin-left: 234px;
+    margin: 97px 0 70px 234px;
 }
 
 .hide-it {
