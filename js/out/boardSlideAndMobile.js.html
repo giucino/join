@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: registerUi.js</title>
+    <title>JSDoc: Source: boardSlideAndMobile.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: registerUi.js</h1>
+    <h1 class="page-title">Source: boardSlideAndMobile.js</h1>
 
     
 
@@ -26,316 +26,132 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>let passwordMatchError = document.getElementById('signUpMatchError');
-
-
-/**
- * Retrieves the value of the password input field.
+            <pre class="prettyprint source linenums"><code>/**
+ * Generates an HTML link for changing the status of an element.
  * 
- * @returns {string} The value of the password input field.
+ * @param {Object} element - The element to which the status link belongs.
+ * @param {string} status - The desired status to set when the link is clicked.
+ * @param {string} label - The label or text to display on the link.
  */
-function getPasswordInputValue() {
-    let passwordInput = document.getElementById('password');
-    return passwordInput.value;
+function getStatusLinkHTML(element, status, label) {
+    if(element.status === status) {
+        return ''; // Wenn der aktuelle Status dem Link-Status entspricht, gib nichts zurück (d.h. blende den Link aus)
+    }
+    return `&lt;a href="#" onclick="moveToMobile(${element.id}, '${status}')">${label}&lt;/a>`;
 }
 
 
 /**
- * Retrieves the value of the confirm password input field.
+ * Move a task with the specified ID to a new status for mobile.
  * 
- * @returns {string} The value of the confirm password input field.
+ * @param {number} id - The ID of the task to be moved.
+ * @param {string} status - The new status to assign to the task.
  */
-function getConfirmPasswordInputValue() {
-    let confirmPasswordInput = document.getElementById('confirmPassword');
-    return confirmPasswordInput.value;
-}
-
-
-/**
- * Resets the style of the form inputs and hides the password match error message.
- */
-function resetSignUpFormStyle() {
-    let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
-    signUpInfoBoxes.forEach(box => {
-        box.style.borderColor = '#D1D1D1';
-    });
-}
-
-
-/**
- * Displays the password match error message and highlights the last sign-up info box.
- */
-function showPasswordMatchError() {
-    passwordMatchError.style.display = 'block';
-    let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
-    let lastSignUpInfoBox = signUpInfoBoxes[signUpInfoBoxes.length - 1];
-    lastSignUpInfoBox.style.borderColor = '#FF8190';
-}
-
-
-/**
- * Applies a shake animation to the password input frame element.
- */
-function shakePasswordInput() {
-    let passwordInput = document.getElementById('sign-up-input-frame');
-    passwordInput.classList.add('shake-password');
-
-    setTimeout(() => {
-        passwordInput.classList.remove('shake-password');
-    }, 500);
-}
-
-
-/**
- * Hides the password match error text.
- */
-function errorTextSignUp() {
-    passwordMatchError.style.display = 'none';
-}
-let confirmPassword = document.getElementById('confirmPassword');
-confirmPassword.addEventListener('input', errorTextSignUp);
-
-
-/**
- * Resets the input fields of the registration form.
- */
-function resetForm() {
-    username.value = '';
-    email.value = '';
-    password.value = '';
-    confirmPassword.value = '';
-}
-
-
-/**
- * Adds blur event listeners to sign-up input sections.
- * Changes the border color of the input section when focused and blurred.
- */
-function addFocusBlurEvents() {
-    let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
-    signUpInfoBoxes.forEach(box => {
-        let input = box.querySelector('.sign-up-text-input');
-
-        input.addEventListener('focus', () => {
-            box.style.borderColor = '#4589FF';
-        });
-
-        input.addEventListener('blur', () => {
-            box.style.borderColor = '#D1D1D1';
-        });
-    });
-}
-document.addEventListener('DOMContentLoaded', addFocusBlurEvents);
-
-
-/**
- * Toggle the checked state of the privacy check checkbox.
- */
-function togglePrivacyCheck() {
-    isChecked = !isChecked;
-    if (isChecked) {
-        setCheckedState();
+function moveToMobile(id, status) {
+    let currentMobiletask = todos.find((task) => task.id === id);
+    if (currentMobiletask) {
+        currentMobiletask.status = status;
+        pushData();
+        loadData();
+        refreshHTML();
     } else {
-        setUncheckedState();
+        console.error('Task with ID', id, 'not found.');
     }
 }
 
 
 /**
-* The privacy check element.
-
-* @type {HTMLImageElement}
-*/
-const privacyCheck = document.getElementById('privacyCheck');
-privacyCheck.addEventListener('click', togglePrivacyCheck);
-
-
-/**
- * Sets the checked state for the privacy check checkbox and adds/removes event listeners for hover effects.
- */
-function setCheckedState() {
-    privacyCheck.src = 'img/checked.png';
-    privacyCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
-    privacyCheck.removeEventListener('mouseleave', removeHoverCheckedBackground);
-    privacyCheck.addEventListener('mouseenter', applyHoverCheckedBackground);
-    privacyCheck.addEventListener('mouseleave', removeHoverCheckedBackground);
-}
-
-
-/**
- * Sets the unchecked state for the privacy check checkbox and adds/removes event listeners for hover effects.
- */
-function setUncheckedState() {
-    privacyCheck.src = 'img/check-button.png';
-    privacyCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
-    privacyCheck.removeEventListener('mouseleave', removeHoverCheckedBackground);
-    privacyCheck.addEventListener('mouseenter', applyHoverButtonBackground);
-    privacyCheck.addEventListener('mouseleave', removeHoverButtonBackground);
-}
-
-
-/**
- * Apply a hover background image to the privacy check checkbox when checked.
- */
-function applyHoverCheckedBackground() {
-    privacyCheck.style.backgroundImage = 'url(../img/hover_checked.png)';
-}
-
-
-/**
- * Apply a hover background image to the privacy check checkbox when unchecked.
- */
-function applyHoverButtonBackground() {
-    privacyCheck.style.backgroundImage = 'url(../img/check-button-hover.png)';
-}
-
-
-/**
- * Remove the hover background image from the privacy check checkbox when checked.
- */
-function removeHoverCheckedBackground() {
-    privacyCheck.style.backgroundImage = 'none';
-}
-
-
-/**
- * Remove the hover background image from the privacy check checkbox when unchecked.
- */
-function removeHoverButtonBackground() {
-    privacyCheck.style.backgroundImage = 'none';
-}
-
-
-let passwordInput = document.getElementById('password');
-let passwordIcon = document.getElementById('passwordIcon');
-let confirmPasswordInput = document.getElementById('confirmPassword');
-let confirmPasswordIcon = document.getElementById('confirmPasswordIcon');
-
-
-/**
- * Handle the visibility icon based on the input value.
+ * Renders the subtasks for a task in the slide view.
  * 
- * @param {HTMLElement} inputElement - The password input element.
- * @param {HTMLElement} iconElement - The visibility icon element.
+ * @param {Object} element - The task element containing its details.
+ * @param {number} id - The ID of the task element.
  */
-function handlePasswordInput(inputElement, iconElement) {
-    if (inputElement.value.length > 0) {
-        if (inputElement.type === 'password') {
-            iconElement.src = 'img/visibility_off.png';
-        } else {
-            iconElement.src = 'img/visibility.png';
+function renderSlideSubtask(element, id) {
+    let subtasksHTML = '';
+    if (element.subtasks &amp;&amp; Array.isArray(element.subtasks)) {
+        for (let i = 0; i &lt; element.subtasks.length; i++) {
+            const subtask = element.subtasks[i];
+            if (subtask.title) {
+                subtasksHTML += renderSlideSubtaskHTML(subtask, i, id);
+                updateHTML();
+            };
         }
-    } else {
-        iconElement.src = 'img/lock.png';
     }
+    return subtasksHTML;
 }
 
 
 /**
- * Event listener for the password input field.
- * Calls the handlePasswordInput function to update the visibility icon.
- */
-passwordInput.addEventListener('input', function () {
-    handlePasswordInput(passwordInput, passwordIcon);
-});
-
-
-/**
- * Event listener for the confirm-password input field.
- * Calls the handlePasswordInput function to update the visibility icon.
- */
-confirmPasswordInput.addEventListener('input', function () {
-    handlePasswordInput(confirmPasswordInput, confirmPasswordIcon);
-});
-
-
-/**
- * Toggles the visibility of a password input field and updates the icon.
+ * Generates the overall task HTML representation.
  * 
- * @param {HTMLInputElement} inputElement - The password input element to toggle.
- * @param {HTMLImageElement} iconElement - The icon element associated with the input.
+ * @param {Object} element - The task data.
+ * @param {string} priorityImageSrc - The source URL of the priority image.
+ * @param {string} assignedToHTML - The HTML representation of assigned users.
+ * @param {string} progressBar - The HTML representation of the progress bar.
+ * @param {string} numberTasks - The HTML representation of the number of tasks.
+ * @param {string} allTasks - The HTML representation of all tasks.
  */
-function togglePasswordVisibility(inputElement, iconElement) {
-    if (inputElement.type === 'password') {
-        inputElement.type = 'text';
-        iconElement.src = 'img/visibility.png';
-    } else {
-        inputElement.type = 'password';
-        iconElement.src = 'img/visibility_off.png';
-    }
-}
-
-
-/**
- * Event listener for the password input field.
- * Calls the togglePasswordVisibility function to update the password visibility.
- */
-passwordIcon.addEventListener('click', function () {
-    togglePasswordVisibility(passwordInput, passwordIcon);
-});
-
-
-/**
- * Event listener for the confirm-password input field.
- * Calls the togglePasswordVisibility function to update the password visibility.
- */
-confirmPasswordIcon.addEventListener('click', function () {
-    togglePasswordVisibility(confirmPasswordInput, confirmPasswordIcon);
-});
-
-
-/**
- * Creates a success message template.
- * 
- * @returns {string} - The HTML template for a success message overlay.
- */
-function createSuccessMessageTemplate() {
-    return /*html*/ `
-        &lt;div id="successOverlay" class="overlay">
-            &lt;div class="success-message">
-                &lt;p>You Signed Up successfully&lt;/p>
+function renderSlideCardHTML(
+  element,
+  priorityImageSrc,
+  assignedToHTML,
+  subtasksHTML
+) {
+  const backgroundColor = getCategoryBackgroundColor(element.category);
+  return /*html*/ `
+    &lt;div id="slide-container" class="slide-container">
+        &lt;div id="task-slide-container${element.id}" class="task-slide-container" onclick="event.stopPropagation()">
+            &lt;div class="task-slide-headline">
+                &lt;div class="task-slide-headline-left" style="background-color: ${backgroundColor};">&lt;span class="task-slide-category">${element.category}&lt;/span>&lt;/div>
+                &lt;div id="task-slide-close" onclick="closeCard(${element.id}), loadData()" class="task-slide-headline-right">&lt;img src="./img/close.png" alt="Schließen">&lt;/div>
+            &lt;/div>
+            &lt;div class="scroll-slide-container">
+                &lt;span id="task-slide-title" class="task-slide-title">${element.title}&lt;/span>
+                &lt;span id="task-slide-description" class="task-slide-description">${element.description}&lt;/span>
+                &lt;div class="task-slide-due-date-container">
+                    &lt;span class="task-slide-due-date">Due date: &lt;/span>
+                    &lt;span id="task-slide-due-date" class="task-slide-due-date-date">${element.dueDate}&lt;/span>
+                &lt;/div>
+                &lt;div class="task-slide-prio-container">
+                    &lt;span class="task-slide-prio-text">Priority: &lt;/span>
+                    &lt;div class="task-slide-prio-text-img">
+                        &lt;span class="task-slide-prio-text-">${element.priority}&lt;/span>
+                        &lt;img id="task-slide-prio-img" src="${priorityImageSrc}" alt="">
+                    &lt;/div>
+                &lt;/div>
+                &lt;div class="task-slide-assigned-container">
+                    &lt;span class="task-slide-assigned-test">Assigned To:&lt;/span>                    
+                    &lt;div class="task-slide-assigned-user-container">
+                        &lt;div class="task-slide-assigned-user-contact">
+                            ${assignedToHTML}
+                            &lt;button class="task-slide-btn" type="checkbox" disabled>&lt;/button>
+                        &lt;/div>
+                    &lt;/div>
+                &lt;/div>
+                &lt;div class="task-slide-subtasks-container">
+                    &lt;span class="task-slide-subtasks-text">Subtasks&lt;/span>
+                    &lt;div class="task-slide-subtasks-tasks" id="subtasksContainer">
+                        ${subtasksHTML}
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+            &lt;div class="task-slide-delete-edit-container">
+                &lt;div class="task-slide-delete" onclick="deleteTask(${element.id})">
+                    &lt;img class="task-slide-delete-edit-img" src="./img/delete.png" alt="">
+                    &lt;span class="task-slide-delete-text">Delete&lt;/span>
+                &lt;/div>
+                &lt;div class="task-slide-placeholder">&lt;/div>
+                &lt;div class="task-slide-edit" onclick="editTask(${element.id})">
+                    &lt;img class="task-slide-delete-edit-img" src="./img/edit.png" alt="">
+                    &lt;span class="task-slide-edit-text">Edit&lt;/span>
+                &lt;/div>
             &lt;/div>
         &lt;/div>
+    &lt;/div>
+    
     `;
 }
-
-
-/**
- * Shows a success message overlay and redirects to the index page.
- */
-function showSuccessMessageAndRedirect() {
-    document.body.innerHTML += createSuccessMessageTemplate();
-
-    setTimeout(function () {
-        let successOverlay = document.getElementById('successOverlay');
-        document.body.removeChild(successOverlay);
-
-        window.location.href = 'index.html';
-    }, 1600);
-}
-
-
-/**
- * Displays an error message indicating that the email is already registered.
- */
-function showEmailAlreadyRegisteredError() {
-    let emailExists = document.getElementById('emailExistsError');
-    emailExists.style.display = 'block';
-    let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
-    let lastSignUpInfoBox = signUpInfoBoxes[signUpInfoBoxes.length - 1];
-    lastSignUpInfoBox.style.borderColor = '#FF8190';
-}
-
-
-/**
- * Hides the password match error text.
- */
-function errorEmailExists() {
-    let emailExists = document.getElementById('emailExistsError');
-    emailExists.style.display = 'none';
-}
-let newEmail = document.getElementById('confirmPassword');
-newEmail.addEventListener('input', errorEmailExists);</code></pre>
+</code></pre>
         </article>
     </section>
 

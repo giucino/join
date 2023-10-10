@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: registerUi.js</title>
+    <title>JSDoc: Source: editTaskAnimation.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: registerUi.js</h1>
+    <h1 class="page-title">Source: editTaskAnimation.js</h1>
 
     
 
@@ -26,316 +26,397 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>let passwordMatchError = document.getElementById('signUpMatchError');
+            <pre class="prettyprint source linenums"><code>let currentSelectedTask;
+let updatedSubtasks = [];
+let currentTaskId;
 
 
 /**
- * Retrieves the value of the password input field.
+ * Slideanimation for the task card.
+ */
+function slideCardAnimationEditTask() {
+  const editTaskSlide = document.getElementById("edit-task-slide");
+  const editSlideContainer = document.getElementById("edit-slide-container");
+  if (editSlideContainer) {
+    editSlideContainer.classList.add("edit-slide-in");
+    editTaskSlide.classList.remove("d-none");
+  } else {
+    console.error(
+      "Das Element mit der ID 'edit-slide-container' wurde nicht gefunden."
+    );
+  }
+}
+
+
+/** 
+ * Starts the task editing process by rendering the task and starting the slide animation.
+ * @param {number} id - The ID of the task to be edited.
+ */
+function editTask(id) {
+  const slideEditTask = document.getElementById("task-slide");
+  slideEditTask.innerHTML = renderEditTask(id);
+  slideCardAnimationEditTask();
+  const element = todos[id];
+  currentTaskId = id;
+  currentSelectedTask = element;
+  addSubtaskToEdit(element);
+  loadSelectedPriority(element);
+  loadDisplayChosenContacts();
+  addToSelectedContacts(element);
+  loadRenderCategory(element);
+}
+
+
+/**
+ * Aktualisiert das gegebene Eigenschaft des Elements mit dem Wert eines Input-Elements.
+ *
+ * @param {HTMLElement} element - Das zu aktualisierende Element.
+ * @param {string} inputId - Die ID des Input-Elements, von dem der Wert abgerufen werden soll.
+ * @param {string} prop - Die Eigenschaft des Elements, die aktualisiert werden soll.
+ */
+function updateElementFromInput(element, inputId, prop) {
+  element[prop] = document.getElementById(inputId).value;
+}
+
+
+/**
+ * Updates the properties of a given element based on various input sources.
  * 
- * @returns {string} The value of the password input field.
+ * @param {Object} element - The element object to be updated.
+ * @property {string} [element.title] - The title of the element.
+ * @property {string} [element.description] - The description of the element.
+ * @property {string|Date} [element.dueDate] - The due date of the element.
+ * @property {string} [element.status] - The current status of the element.
+ * @property {string} [element.category] - The category of the element.
+ * @property {string} [element.priority] - The priority level of the element.
+ * @property {Array} [element.assignedTo] - The list of contacts assigned to the element.
+ * @property {Array} [element.subtasks] - The list of subtasks associated with the element.
+ * @example
+ * updateElementProperties(myTask);
+ * @todo: Handle properties like 'selectedCategory', 'selectedPriority', and others
+ * which aren't passed as function arguments but are used in the function.
  */
-function getPasswordInputValue() {
-    let passwordInput = document.getElementById('password');
-    return passwordInput.value;
+function updateElementProperties(element) {
+  updateElementFromInput(element, "edit-task-title", "title");
+  updateElementFromInput(element, "edit-task-description", "description");
+  updateElementFromInput(element, "edit-due-date", "dueDate");
+  element.status = element.status;
+  element.category = selectedCategory;
+  element.priority = selectedPriority;
+  element.assignedTo = selectedContacts.filter(contact => contact !== undefined);
+  element.bgcolor = extractColor(element);
+  element.subtasks = processAndSaveSubtasks(element);
+}
+
+
+/** 
+ * Saves the edited task by overwriting its properties and updating the local storage.
+ * @param {number} id - The ID of the task being saved.
+ */
+async function saveEditedTask(id) {
+  const element = todos[id];
+  updateElementProperties(element);
+  todos[id] = element;
+  await setItem("tasks", JSON.stringify(todos));
+  openEditedTask(element.id);
+  selectedContacts = [];
 }
 
 
 /**
- * Retrieves the value of the confirm password input field.
- * 
- * @returns {string} The value of the confirm password input field.
+ * Opens the edited task by rendering the slide card based on the given task id.
+ * It also makes the slide card visible and adjusts the relevant container styles.
+ * @param {string|number} id - The ID of the task to be opened.
  */
-function getConfirmPasswordInputValue() {
-    let confirmPasswordInput = document.getElementById('confirmPassword');
-    return confirmPasswordInput.value;
+function openEditedTask(id) {
+  const slideCard = document.getElementById('task-slide');
+  slideCard.innerHTML = renderSlideCard(id);
+  document.getElementById('task-slide').classList.remove('d-none');
+  document.getElementById('slide-container').classList.add('open-task');
+
 }
 
 
 /**
- * Resets the style of the form inputs and hides the password match error message.
+ * Loads and highlights the priority of a given task in the UI.
+ * The function resets other buttons, identifies the task priority, and then
+ * sets the highlight for the respective priority button.
+ * @param {Object} task - The task object.
+ * @param {string} task.priority - The priority of the task ("high", "medium", or "low").
  */
-function resetSignUpFormStyle() {
-    let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
-    signUpInfoBoxes.forEach(box => {
-        box.style.borderColor = '#D1D1D1';
-    });
-}
-
-
-/**
- * Displays the password match error message and highlights the last sign-up info box.
- */
-function showPasswordMatchError() {
-    passwordMatchError.style.display = 'block';
-    let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
-    let lastSignUpInfoBox = signUpInfoBoxes[signUpInfoBoxes.length - 1];
-    lastSignUpInfoBox.style.borderColor = '#FF8190';
-}
-
-
-/**
- * Applies a shake animation to the password input frame element.
- */
-function shakePasswordInput() {
-    let passwordInput = document.getElementById('sign-up-input-frame');
-    passwordInput.classList.add('shake-password');
-
-    setTimeout(() => {
-        passwordInput.classList.remove('shake-password');
-    }, 500);
-}
-
-
-/**
- * Hides the password match error text.
- */
-function errorTextSignUp() {
-    passwordMatchError.style.display = 'none';
-}
-let confirmPassword = document.getElementById('confirmPassword');
-confirmPassword.addEventListener('input', errorTextSignUp);
-
-
-/**
- * Resets the input fields of the registration form.
- */
-function resetForm() {
-    username.value = '';
-    email.value = '';
-    password.value = '';
-    confirmPassword.value = '';
-}
-
-
-/**
- * Adds blur event listeners to sign-up input sections.
- * Changes the border color of the input section when focused and blurred.
- */
-function addFocusBlurEvents() {
-    let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
-    signUpInfoBoxes.forEach(box => {
-        let input = box.querySelector('.sign-up-text-input');
-
-        input.addEventListener('focus', () => {
-            box.style.borderColor = '#4589FF';
-        });
-
-        input.addEventListener('blur', () => {
-            box.style.borderColor = '#D1D1D1';
-        });
-    });
-}
-document.addEventListener('DOMContentLoaded', addFocusBlurEvents);
-
-
-/**
- * Toggle the checked state of the privacy check checkbox.
- */
-function togglePrivacyCheck() {
-    isChecked = !isChecked;
-    if (isChecked) {
-        setCheckedState();
-    } else {
-        setUncheckedState();
+function loadSelectedPriority(task) {
+  const priorities = {
+    high: {
+      buttonId: "edit-prio-urgent",
+      color: "#FF3D00",
+      img: "./img/prio_high_active.png"
+    },
+    medium: {
+      buttonId: "edit-prio-medium",
+      color: "#FFA800",
+      img: "./img/prio_medium_active.png"
+    },
+    low: {
+      buttonId: "edit-prio-low",
+      color: "#7AE229",
+      img: "./img/prio_low_active.png"
     }
+  };
+
+  resetButtons();
+
+  if (priorities[task.priority]) {
+    const prio = priorities[task.priority];
+    const button = document.getElementById(prio.buttonId);
+    highlightButton(button, prio.color, prio.img);
+    selectedPriority = task.priority;
+  }
 }
 
 
 /**
-* The privacy check element.
-
-* @type {HTMLImageElement}
-*/
-const privacyCheck = document.getElementById('privacyCheck');
-privacyCheck.addEventListener('click', togglePrivacyCheck);
-
-
-/**
- * Sets the checked state for the privacy check checkbox and adds/removes event listeners for hover effects.
+ * Sets the priority based on the clicked button.
+ * The function resets other buttons and then sets the highlight for the respective priority button.
+ * @param {HTMLElement} button - The clicked priority button.
  */
-function setCheckedState() {
-    privacyCheck.src = 'img/checked.png';
-    privacyCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
-    privacyCheck.removeEventListener('mouseleave', removeHoverCheckedBackground);
-    privacyCheck.addEventListener('mouseenter', applyHoverCheckedBackground);
-    privacyCheck.addEventListener('mouseleave', removeHoverCheckedBackground);
+function priority(button) {
+  resetButtons();
+
+  if (button.id === "edit-prio-urgent") {
+    highlightButton(button, "#FF3D00", "./img/prio_high_active.png");
+    selectedPriority = "high";
+  } else if (button.id === "edit-prio-medium") {
+    highlightButton(button, "#FFA800", "./img/prio_medium_active.png");
+    selectedPriority = "medium";
+  } else if (button.id === "edit-prio-low") {
+    highlightButton(button, "#7AE229", "./img/prio_low_active.png");
+    selectedPriority = "low";
+  }
+}
+
+
+/** 
+ * Resets the style of the priority buttons to their default state.
+ */
+function resetButtons() {
+  selectedPriority = "";
+
+  let buttons = document.querySelectorAll(".edit-priority-choice-inner");
+  for (let i = 0; i &lt; buttons.length; i++) {
+    let btn = buttons[i];
+    btn.classList.remove("highlighted");
+    btn.style.backgroundColor = "";
+    btn.style.color = "black";
+
+    let originalImage = btn.querySelector(".edit-priority-choice-inner-pic img");
+    originalImage.src = "./img/" + originalImage.getAttribute("data-image");
+  }
 }
 
 
 /**
- * Sets the unchecked state for the privacy check checkbox and adds/removes event listeners for hover effects.
+ * Highlights a given button by changing its background color, image source, and text color.
+ * @param {HTMLElement} button - The button to be highlighted.
+ * @param {string} bgColor - The desired background color for the button.
+ * @param {string} imageSrc - The source URL for the image to be displayed inside the button.
  */
-function setUncheckedState() {
-    privacyCheck.src = 'img/check-button.png';
-    privacyCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
-    privacyCheck.removeEventListener('mouseleave', removeHoverCheckedBackground);
-    privacyCheck.addEventListener('mouseenter', applyHoverButtonBackground);
-    privacyCheck.addEventListener('mouseleave', removeHoverButtonBackground);
+function highlightButton(button, bgColor, imageSrc) {
+  button.classList.add("highlighted");
+  button.style.backgroundColor = bgColor;
+  let image = button.querySelector(".edit-priority-choice-inner-pic img");
+  image.src = imageSrc;
+  button.style.color = "white";
 }
 
 
-/**
- * Apply a hover background image to the privacy check checkbox when checked.
+/** 
+ * Adds a new subtask to the UI based on the value of the input field.
  */
-function applyHoverCheckedBackground() {
-    privacyCheck.style.backgroundImage = 'url(../img/hover_checked.png)';
+function addNewSubtask() {
+  const subInput = document.getElementById('edit-subtask-input');
+  const subInputValue = subInput.value.trim();
+  const subtaskContainer = document.getElementById("edit-subtask-add-container");
+
+  if (!currentSelectedTask.subtasks) {
+    currentSelectedTask.subtasks = [];
+  }
+
+  const newSubtaskId = currentSelectedTask.subtasks.length + 1;
+  subtaskContainer.innerHTML += subtaskToAddHTML(subInputValue, newSubtaskId);
+
+  currentSelectedTask.subtasks.push({ id: newSubtaskId, title: subInputValue, status: false });
+
+  subInput.value = '';
+  closeSubtaskInput();
 }
 
 
-/**
- * Apply a hover background image to the privacy check checkbox when unchecked.
- */
-function applyHoverButtonBackground() {
-    privacyCheck.style.backgroundImage = 'url(../img/check-button-hover.png)';
+function handleEditSubtaskInput(event) {
+  if (event.key === 'Enter' &amp;&amp; event.target.classList.contains('edit-new-subtask-textfield')) {
+    event.preventDefault();
+    addNewSubtask();
+    document.activeElement.blur();
+  }
 }
+document.addEventListener('keypress', handleEditSubtaskInput);
 
 
-/**
- * Remove the hover background image from the privacy check checkbox when checked.
+/** 
+ * Renders subtasks of a given task for editing.
+ * @param {Object} element - The task object containing subtasks.
  */
-function removeHoverCheckedBackground() {
-    privacyCheck.style.backgroundImage = 'none';
-}
-
-
-/**
- * Remove the hover background image from the privacy check checkbox when unchecked.
- */
-function removeHoverButtonBackground() {
-    privacyCheck.style.backgroundImage = 'none';
-}
-
-
-let passwordInput = document.getElementById('password');
-let passwordIcon = document.getElementById('passwordIcon');
-let confirmPasswordInput = document.getElementById('confirmPassword');
-let confirmPasswordIcon = document.getElementById('confirmPasswordIcon');
-
-
-/**
- * Handle the visibility icon based on the input value.
- * 
- * @param {HTMLElement} inputElement - The password input element.
- * @param {HTMLElement} iconElement - The visibility icon element.
- */
-function handlePasswordInput(inputElement, iconElement) {
-    if (inputElement.value.length > 0) {
-        if (inputElement.type === 'password') {
-            iconElement.src = 'img/visibility_off.png';
-        } else {
-            iconElement.src = 'img/visibility.png';
-        }
-    } else {
-        iconElement.src = 'img/lock.png';
+function addSubtaskToEdit(element) {
+  let subtasksHTML = "";
+  if (element.subtasks &amp;&amp; Array.isArray(element.subtasks)) {
+    for (let i = 0; i &lt; element.subtasks.length; i++) {
+      const subtask = element.subtasks[i];
+      if (subtask.title) {
+        subtasksHTML += subtaskToEditHTML(subtask, i);
+      }
     }
+    const subtaskContainer = document.getElementById("edit-subtask-add-container");
+    subtaskContainer.innerHTML = subtasksHTML;
+  }
 }
 
 
 /**
- * Event listener for the password input field.
- * Calls the handlePasswordInput function to update the visibility icon.
+ * Adds contacts to the selected contacts based on the given element's assigned contacts.
+ * @param {Object} element - The element containing assigned contacts.
  */
-passwordInput.addEventListener('input', function () {
-    handlePasswordInput(passwordInput, passwordIcon);
-});
+function addToSelectedContacts(element) {
+  const assigneds = element.assignedTo;
 
-
-/**
- * Event listener for the confirm-password input field.
- * Calls the handlePasswordInput function to update the visibility icon.
- */
-confirmPasswordInput.addEventListener('input', function () {
-    handlePasswordInput(confirmPasswordInput, confirmPasswordIcon);
-});
-
-
-/**
- * Toggles the visibility of a password input field and updates the icon.
- * 
- * @param {HTMLInputElement} inputElement - The password input element to toggle.
- * @param {HTMLImageElement} iconElement - The icon element associated with the input.
- */
-function togglePasswordVisibility(inputElement, iconElement) {
-    if (inputElement.type === 'password') {
-        inputElement.type = 'text';
-        iconElement.src = 'img/visibility.png';
-    } else {
-        inputElement.type = 'password';
-        iconElement.src = 'img/visibility_off.png';
+  for (let name of assigneds) {
+    const contact = contacts.find(c => `${c.name} ${c.surname}` === name);
+    if (contact) {
+      if (!selectedContacts[contact.id]) {
+        selectedContacts[contact.id] = `${contact.name} ${contact.surname}`;
+      }
     }
+  }
+  loadRenderAssignedTo(selectedContacts);
+  loadDisplayChosenContacts();
 }
 
 
 /**
- * Event listener for the password input field.
- * Calls the togglePasswordVisibility function to update the password visibility.
+ * Retrieves the logged-in user's data from local storage.
+ * @returns {Object} The logged-in user's data, or an empty object if no data is found.
  */
-passwordIcon.addEventListener('click', function () {
-    togglePasswordVisibility(passwordInput, passwordIcon);
-});
-
-
-/**
- * Event listener for the confirm-password input field.
- * Calls the togglePasswordVisibility function to update the password visibility.
- */
-confirmPasswordIcon.addEventListener('click', function () {
-    togglePasswordVisibility(confirmPasswordInput, confirmPasswordIcon);
-});
-
-
-/**
- * Creates a success message template.
- * 
- * @returns {string} - The HTML template for a success message overlay.
- */
-function createSuccessMessageTemplate() {
-    return /*html*/ `
-        &lt;div id="successOverlay" class="overlay">
-            &lt;div class="success-message">
-                &lt;p>You Signed Up successfully&lt;/p>
-            &lt;/div>
-        &lt;/div>
-    `;
+function getLoggedInUserData() {
+  return JSON.parse(localStorage.getItem('loggedInUser')) || {};
 }
 
 
 /**
- * Shows a success message overlay and redirects to the index page.
+ * Asynchronously renders the selected contacts to the UI.
+ * @param {Object} selectedContacts - The list of selected contacts.
  */
-function showSuccessMessageAndRedirect() {
-    document.body.innerHTML += createSuccessMessageTemplate();
+async function loadRenderAssignedTo(selectedContacts) {
+  let loggedInUserData = getLoggedInUserData();
 
-    setTimeout(function () {
-        let successOverlay = document.getElementById('successOverlay');
-        document.body.removeChild(successOverlay);
+  let assignedToContainer = document.getElementById('edit-loaded-contacts');
+  assignedToContainer.innerHTML = '';
 
-        window.location.href = 'index.html';
-    }, 1600);
+  for (let i = 0; i &lt; contacts.length; i++) {
+    let contact = contacts[i];
+    let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
+    const isSelected = selectedContacts[contact.id] || false;
+    let isCurrentUser = loggedInUserData &amp;&amp; contact.email === loggedInUserData.email;
+
+    assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected, isCurrentUser);
+  }
 }
 
 
 /**
- * Displays an error message indicating that the email is already registered.
+ * Renders the searched contacts to the UI.
+ * @param {Array} contacts - The list of contacts to render.
  */
-function showEmailAlreadyRegisteredError() {
-    let emailExists = document.getElementById('emailExistsError');
-    emailExists.style.display = 'block';
-    let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
-    let lastSignUpInfoBox = signUpInfoBoxes[signUpInfoBoxes.length - 1];
-    lastSignUpInfoBox.style.borderColor = '#FF8190';
+function loadSearchedContact(contacts) {
+  let loggedInUserData = getLoggedInUserData();
+
+  let loadAssignedToContainer = document.getElementById('edit-loaded-contacts');
+  loadAssignedToContainer.innerHTML = '';
+
+  for (let i = 0; i &lt; contacts.length; i++) {
+    let contact = contacts[i];
+    let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
+    const isSelected = selectedContacts[contact.id] || false;
+    let isCurrentUser = loggedInUserData &amp;&amp; contact.email === loggedInUserData.email;
+
+    loadAssignedToContainer.innerHTML += loadRenderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser);
+  }
+}
+
+
+/** 
+ * Search and display contacts based on a given query.
+ * @param {string} query - The query string to search for.
+ */
+function loadSearchContacts(query) {
+  let filteredContacts = contacts.filter(contact => {
+    return (
+      contact.name.toLowerCase().startsWith(query.toLowerCase()) ||
+      contact.surname.toLowerCase().startsWith(query.toLowerCase())
+    );
+  });
+  loadSearchedContact(filteredContacts);
 }
 
 
 /**
- * Hides the password match error text.
+ * Toggles the selection of a contact based on the given name and surname. If the contact is already selected,
+ * it will be removed from the selection; otherwise, it will be added to the selection. After toggling the contact
+ * selection, various rendering functions are called to update the UI.
+ * @param {string} name - The first name of the contact to be toggled.
+ * @param {string} surname - The surname of the contact to be toggled.
+ * @see loadRenderAssignedTo
+ * @see loadSearchedContact
+ * @see renderDisplayChosenContacts
  */
-function errorEmailExists() {
-    let emailExists = document.getElementById('emailExistsError');
-    emailExists.style.display = 'none';
+function loadToggleContactSelection(name, surname) {
+  const contact = contacts.find(c => c.name === name &amp;&amp; c.surname === surname);
+
+  if (!contact) {
+    return;
+  }
+
+  if (selectedContacts[contact.id]) {
+    delete selectedContacts[contact.id];
+  } else {
+    selectedContacts[contact.id] = `${contact.name} ${contact.surname}`;
+  }
+  loadRenderAssignedTo(selectedContacts);
+  loadSearchedContact(contacts);
+  renderDisplayChosenContacts();
 }
-let newEmail = document.getElementById('confirmPassword');
-newEmail.addEventListener('input', errorEmailExists);</code></pre>
+
+
+/** 
+ * Toggles the selection state of a given contact.
+ * @param {string} name - The first name of the contact.
+ * @param {string} surname - The surname of the contact.
+ */
+function toggleContactSelection(name, surname) {
+  const contact = contacts.find(c => c.name === name &amp;&amp; c.surname === surname);
+
+  if (!contact) {
+    return;
+  }
+  const contactId = contact.id;
+  const contactKey = `${contact.name} ${contact.surname}`;
+
+  if (selectedContacts[contactId]) {
+    delete selectedContacts[contactId];
+  } else {
+    selectedContacts[contactId] = contactKey;
+  }
+  loadRenderAssignedTo(selectedContacts);
+  loadSearchedContact(contacts);
+  renderDisplayChosenContacts();
+}</code></pre>
         </article>
     </section>
 

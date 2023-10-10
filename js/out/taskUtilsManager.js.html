@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: registerUi.js</title>
+    <title>JSDoc: Source: taskUtilsManager.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: registerUi.js</h1>
+    <h1 class="page-title">Source: taskUtilsManager.js</h1>
 
     
 
@@ -26,316 +26,254 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>let passwordMatchError = document.getElementById('signUpMatchError');
-
-
-/**
- * Retrieves the value of the password input field.
- * 
- * @returns {string} The value of the password input field.
+            <pre class="prettyprint source linenums"><code>/**
+ * Clears the input fields and resets various elements on the task creation form.
+ * - Clears the task title input field.
+ * - Clears the task description input field.
+ * - Clears the due date input field.
+ * - Calls functions to reset buttons, assigned to selection, category selection, and subtasks.
  */
-function getPasswordInputValue() {
-    let passwordInput = document.getElementById('password');
-    return passwordInput.value;
+function addResetTaskForm() {
+    document.getElementById('addTaskTitle').value = '';
+    document.getElementById('addTaskDescription').value = '';
+    document.getElementById('addDueDate').value = '';
+    addResetButtons();
+    addResetAssignedToSelection();
+    addResetCategorySelection();
+    addResetSubtasks();
 }
 
 
 /**
- * Retrieves the value of the confirm password input field.
- * 
- * @returns {string} The value of the confirm password input field.
+ * Resets the selected contacts, clears the search input field, and updates the UI.
+ * This function clears the selectedContacts array, resets the value of the
+ * search input field with the id 'addSearchInput', and updates the user interface
+ * by calling the functions addRenderAssignedTo and addDisplayChosenContacts.
  */
-function getConfirmPasswordInputValue() {
-    let confirmPasswordInput = document.getElementById('confirmPassword');
-    return confirmPasswordInput.value;
+function addResetAssignedToSelection() {
+    selectedContacts = [];
+    let searchInput = document.getElementById('addSearchInput');
+    searchInput.value = '';
+    addRenderAssignedTo();
+    addDisplayChosenContacts();
 }
 
 
 /**
- * Resets the style of the form inputs and hides the password match error message.
+ * Resets the selected category and updates the UI display.
+ * Clears the selected category and hides the category display, 
+ * while displaying the select text.
  */
-function resetSignUpFormStyle() {
-    let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
-    signUpInfoBoxes.forEach(box => {
-        box.style.borderColor = '#D1D1D1';
-    });
+function addResetCategorySelection() {
+    selectedCategory = '';
+    let selectedCategoryDisplay = document.getElementById('addSelectedCategoryDisplay');
+    selectedCategoryDisplay.textContent = '';
+
+    let selectText = document.querySelector('.select-text');
+    selectText.style.display = 'inline';
 }
 
 
 /**
- * Displays the password match error message and highlights the last sign-up info box.
+ * Clears the subtasks array, resets the subtasks container, and closes the subtask input.
  */
-function showPasswordMatchError() {
-    passwordMatchError.style.display = 'block';
-    let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
-    let lastSignUpInfoBox = signUpInfoBoxes[signUpInfoBoxes.length - 1];
-    lastSignUpInfoBox.style.borderColor = '#FF8190';
+function addResetSubtasks() {
+    subtasks = [];
+    let subtasksContainer = document.getElementById('addSubtask-add-container');
+    let subtasksInput = document.getElementById('addSubtaskInput');
+    subtasksContainer.innerHTML = '';
+    subtasksInput.value = '';
+    addCloseSubtaskInput();
 }
 
 
 /**
- * Applies a shake animation to the password input frame element.
+ * Resets the selected priority and clears highlighting and styles for priority choice buttons.
  */
-function shakePasswordInput() {
-    let passwordInput = document.getElementById('sign-up-input-frame');
-    passwordInput.classList.add('shake-password');
+function addResetButtons() {
+    selectedPriority = '';
 
-    setTimeout(() => {
-        passwordInput.classList.remove('shake-password');
-    }, 500);
-}
+    let buttons = document.querySelectorAll('.priority-choice-inner');
+    for (let i = 0; i &lt; buttons.length; i++) {
+        let btn = buttons[i];
+        btn.classList.remove('highlighted');
+        btn.style.backgroundColor = '';
+        btn.style.color = 'black';
 
-
-/**
- * Hides the password match error text.
- */
-function errorTextSignUp() {
-    passwordMatchError.style.display = 'none';
-}
-let confirmPassword = document.getElementById('confirmPassword');
-confirmPassword.addEventListener('input', errorTextSignUp);
-
-
-/**
- * Resets the input fields of the registration form.
- */
-function resetForm() {
-    username.value = '';
-    email.value = '';
-    password.value = '';
-    confirmPassword.value = '';
-}
-
-
-/**
- * Adds blur event listeners to sign-up input sections.
- * Changes the border color of the input section when focused and blurred.
- */
-function addFocusBlurEvents() {
-    let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
-    signUpInfoBoxes.forEach(box => {
-        let input = box.querySelector('.sign-up-text-input');
-
-        input.addEventListener('focus', () => {
-            box.style.borderColor = '#4589FF';
-        });
-
-        input.addEventListener('blur', () => {
-            box.style.borderColor = '#D1D1D1';
-        });
-    });
-}
-document.addEventListener('DOMContentLoaded', addFocusBlurEvents);
-
-
-/**
- * Toggle the checked state of the privacy check checkbox.
- */
-function togglePrivacyCheck() {
-    isChecked = !isChecked;
-    if (isChecked) {
-        setCheckedState();
-    } else {
-        setUncheckedState();
+        let originalImage = btn.querySelector('.priority-choice-inner-pic img');
+        originalImage.src = './img/' + originalImage.getAttribute('data-image');
     }
 }
 
 
 /**
-* The privacy check element.
-
-* @type {HTMLImageElement}
-*/
-const privacyCheck = document.getElementById('privacyCheck');
-privacyCheck.addEventListener('click', togglePrivacyCheck);
-
-
-/**
- * Sets the checked state for the privacy check checkbox and adds/removes event listeners for hover effects.
+ * Adds an error message and changes the border color of the title input element
+ * to indicate that a title is required.
  */
-function setCheckedState() {
-    privacyCheck.src = 'img/checked.png';
-    privacyCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
-    privacyCheck.removeEventListener('mouseleave', removeHoverCheckedBackground);
-    privacyCheck.addEventListener('mouseenter', applyHoverCheckedBackground);
-    privacyCheck.addEventListener('mouseleave', removeHoverCheckedBackground);
+function addShowTitleInputError() {
+    let titleError = document.getElementById('addRequiredTitle');
+    titleError.style.display = 'block';
+    let titleInput = document.querySelector('.add-task-titel-textcontainer');
+    titleInput.style.borderColor = '#FF8190';
 }
 
 
 /**
- * Sets the unchecked state for the privacy check checkbox and adds/removes event listeners for hover effects.
+ * Hides the error message and resets the border color of the title input field
+ * in the add task form.
+ *
+ * @example
+ * // Call this function to reset the title input field in the add task form
+ * addResetTitleInput();
  */
-function setUncheckedState() {
-    privacyCheck.src = 'img/check-button.png';
-    privacyCheck.removeEventListener('mouseenter', applyHoverCheckedBackground);
-    privacyCheck.removeEventListener('mouseleave', removeHoverCheckedBackground);
-    privacyCheck.addEventListener('mouseenter', applyHoverButtonBackground);
-    privacyCheck.addEventListener('mouseleave', removeHoverButtonBackground);
+function addResetTitleInput() {
+    let titleError = document.getElementById('addRequiredTitle');
+    titleError.style.display = 'none';
 }
 
 
 /**
- * Apply a hover background image to the privacy check checkbox when checked.
+ * Add an event listener to the document's body to handle input events on elements
+ * with the 'add-task-description-textfield' class.
+ *
+ * @param {Event} event - The input event triggered.
  */
-function applyHoverCheckedBackground() {
-    privacyCheck.style.backgroundImage = 'url(../img/hover_checked.png)';
-}
-
-
-/**
- * Apply a hover background image to the privacy check checkbox when unchecked.
- */
-function applyHoverButtonBackground() {
-    privacyCheck.style.backgroundImage = 'url(../img/check-button-hover.png)';
-}
-
-
-/**
- * Remove the hover background image from the privacy check checkbox when checked.
- */
-function removeHoverCheckedBackground() {
-    privacyCheck.style.backgroundImage = 'none';
-}
-
-
-/**
- * Remove the hover background image from the privacy check checkbox when unchecked.
- */
-function removeHoverButtonBackground() {
-    privacyCheck.style.backgroundImage = 'none';
-}
-
-
-let passwordInput = document.getElementById('password');
-let passwordIcon = document.getElementById('passwordIcon');
-let confirmPasswordInput = document.getElementById('confirmPassword');
-let confirmPasswordIcon = document.getElementById('confirmPasswordIcon');
-
-
-/**
- * Handle the visibility icon based on the input value.
- * 
- * @param {HTMLElement} inputElement - The password input element.
- * @param {HTMLElement} iconElement - The visibility icon element.
- */
-function handlePasswordInput(inputElement, iconElement) {
-    if (inputElement.value.length > 0) {
-        if (inputElement.type === 'password') {
-            iconElement.src = 'img/visibility_off.png';
-        } else {
-            iconElement.src = 'img/visibility.png';
-        }
-    } else {
-        iconElement.src = 'img/lock.png';
+document.body.addEventListener('input', function (event) {
+    if (event.target.classList.contains('add-task-titel-textfield')) {
+        addResetTitleInput();
     }
+});
+
+
+/**
+ * Displays an error message and highlights the description input field
+ * when a required description is missing.
+ */
+function addShowDescriptionInputError() {
+    let descriptionError = document.getElementById('addRequiredDescription');
+    descriptionError.style.display = 'block';
+    let descriptionInput = document.querySelector('.add-task-description-textfield');
+    descriptionInput.style.borderColor = '#FF8190';
 }
 
 
 /**
- * Event listener for the password input field.
- * Calls the handlePasswordInput function to update the visibility icon.
+ * Hides the error message related to a required description input
+ * and resets the border color of the description input field.
  */
-passwordInput.addEventListener('input', function () {
-    handlePasswordInput(passwordInput, passwordIcon);
-});
+function addResetDescriptionInput() {
+    let descriptionError = document.getElementById('addRequiredDescription');
+    descriptionError.style.display = 'none';
+}
 
 
 /**
- * Event listener for the confirm-password input field.
- * Calls the handlePasswordInput function to update the visibility icon.
+ * Add an event listener to the document body to capture input events on elements
+ * with the 'add-task-description-textfield' class and trigger the 'addResetDescriptionInput' function.
+ *
+ * @param {Event} event - The input event object.
  */
-confirmPasswordInput.addEventListener('input', function () {
-    handlePasswordInput(confirmPasswordInput, confirmPasswordIcon);
-});
-
-
-/**
- * Toggles the visibility of a password input field and updates the icon.
- * 
- * @param {HTMLInputElement} inputElement - The password input element to toggle.
- * @param {HTMLImageElement} iconElement - The icon element associated with the input.
- */
-function togglePasswordVisibility(inputElement, iconElement) {
-    if (inputElement.type === 'password') {
-        inputElement.type = 'text';
-        iconElement.src = 'img/visibility.png';
-    } else {
-        inputElement.type = 'password';
-        iconElement.src = 'img/visibility_off.png';
+document.body.addEventListener('input', function (event) {
+    if (event.target.classList.contains('add-task-description-textfield')) {
+        addResetDescriptionInput();
     }
+});
+
+
+/**
+ * Displays an error message and highlights the date input field when a required date is missing.
+ */
+function addShowDateInputError() {
+    let dateError = document.getElementById('addRequiredDate');
+    dateError.style.display = 'block';
+    let dateInput = document.querySelector('.due-date-input-container');
+    dateInput.style.borderColor = '#FF8190';
 }
 
 
 /**
- * Event listener for the password input field.
- * Calls the togglePasswordVisibility function to update the password visibility.
+ * Hides the date error message and resets the border color of the date input container
+ * if the date input is not focused.
  */
-passwordIcon.addEventListener('click', function () {
-    togglePasswordVisibility(passwordInput, passwordIcon);
+function addResetDateInput() {
+    let dateError = document.getElementById('addRequiredDate');
+    dateError.style.display = 'none';
+}
+
+
+/**
+ * Attaches an event listener to the document body for the 'input' event.
+ *
+ * @param {Event} event - The input event object.
+ */
+document.body.addEventListener('input', function (event) {
+    if (event.target.id === 'addDueDate') {
+        addResetDateInput();
+    }
 });
 
 
 /**
- * Event listener for the confirm-password input field.
- * Calls the togglePasswordVisibility function to update the password visibility.
+ * Displays an error message for a required priority field in a user interface.
+ * This function retrieves an HTML element with the ID 'addRequiredPriority' and sets its
+ * style to 'block', making it visible as an error message.
  */
-confirmPasswordIcon.addEventListener('click', function () {
-    togglePasswordVisibility(confirmPasswordInput, confirmPasswordIcon);
-});
+function addShowPriorityError() {
+    let priorityError = document.getElementById('addRequiredPriority');
+    priorityError.style.display = 'block';
+}
 
 
 /**
- * Creates a success message template.
+ * Hides the priority error message element with the specified ID.
  * 
- * @returns {string} - The HTML template for a success message overlay.
+ * @example
+ * Example usage:
+ * Assuming you have an HTML element with the ID 'addRequiredPriority':
+ * &lt;div id="addRequiredPriority">This is an error message&lt;/div>
+ * addHidePriorityError();
  */
-function createSuccessMessageTemplate() {
-    return /*html*/ `
-        &lt;div id="successOverlay" class="overlay">
-            &lt;div class="success-message">
-                &lt;p>You Signed Up successfully&lt;/p>
-            &lt;/div>
-        &lt;/div>
-    `;
+function addHidePriorityError() {
+    let priorityError = document.getElementById('addRequiredPriority');
+    priorityError.style.display = 'none';
 }
 
 
 /**
- * Shows a success message overlay and redirects to the index page.
+ * Displays an error message and updates the border color of a category dropdown input
+ * to indicate that a category selection is required.
  */
-function showSuccessMessageAndRedirect() {
-    document.body.innerHTML += createSuccessMessageTemplate();
-
-    setTimeout(function () {
-        let successOverlay = document.getElementById('successOverlay');
-        document.body.removeChild(successOverlay);
-
-        window.location.href = 'index.html';
-    }, 1600);
+function addShowSelectCategoryError() {
+    let assignedError = document.getElementById('addRequiredCategory');
+    assignedError.style.display = 'block';
+    let assignedInput = document.querySelector('.category-dropdown');
+    assignedInput.style.borderColor = '#FF8190';
 }
 
 
 /**
- * Displays an error message indicating that the email is already registered.
+ * Hides the category error message, resets the border color of the category input field,
+ * and checks if the input is not in focus to apply the reset.
  */
-function showEmailAlreadyRegisteredError() {
-    let emailExists = document.getElementById('emailExistsError');
-    emailExists.style.display = 'block';
-    let signUpInfoBoxes = document.querySelectorAll('.sign-up-info-box');
-    let lastSignUpInfoBox = signUpInfoBoxes[signUpInfoBoxes.length - 1];
-    lastSignUpInfoBox.style.borderColor = '#FF8190';
+function addResetSelectCategory() {
+    let categoryError = document.getElementById('addRequiredCategory');
+    categoryError.style.display = 'none';
+
+    let categoryInput = document.querySelector('.category-choicefield')
+    categoryInput.style.borderColor = '#D1D1D1';
 }
 
 
 /**
- * Hides the password match error text.
+ * Sets up an event listener for click events on the body of the document.
+ * When any element with the class `category-dropdown` is clicked, this script calls the 
+ * `addResetSelectCategory` function to handle the category reset logic.
  */
-function errorEmailExists() {
-    let emailExists = document.getElementById('emailExistsError');
-    emailExists.style.display = 'none';
-}
-let newEmail = document.getElementById('confirmPassword');
-newEmail.addEventListener('input', errorEmailExists);</code></pre>
+document.body.addEventListener('click', function (event) {
+    if (event.target.classList.contains('category-dropdown')) {
+        addResetSelectCategory();
+    }
+});</code></pre>
         </article>
     </section>
 
