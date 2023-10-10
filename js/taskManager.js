@@ -148,6 +148,7 @@ function processValidInput(title, description, dueDate) {
 async function addCompleteTaskCreation() {
     await setItem('tasks', JSON.stringify(todos));
     addShowCreatedTaskMessage();
+    addResetTaskForm();
     closeAddTaskModal();
     updateHTML();
 }
@@ -196,6 +197,7 @@ function closeAddTaskModal() {
 function handleOverlayClick(event) {
     if (event.target.classList.contains("task-background-overlay")) {
         closeAddTaskModal();
+        addResetTaskForm();
     }
 }
 document.querySelector(".task-background-overlay").addEventListener("click", handleOverlayClick);
