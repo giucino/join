@@ -23,10 +23,6 @@ function showEditContactsButtonsMobile() {
     let header = document.getElementById('contact-detailed-head');
     header.classList.add('hide-it');
     elements.classList.remove('hide-it');
-    let invisibleDiv = document.createElement('div');
-    invisibleDiv.id = 'invisibleDiv';
-    invisibleDiv.onclick = closeButtonsMobile;
-    document.body.appendChild(invisibleDiv);
 }
 
 
@@ -48,6 +44,4 @@ function closeButtonsMobile() {
     let header = document.getElementById('contact-detailed-head');
     header.classList.remove('hide-it');
     element.classList.add('hide-it');
-    let invisibleDiv = document.getElementById('invisibleDiv');
-    document.body.removeChild(invisibleDiv);
 }

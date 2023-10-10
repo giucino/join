@@ -75,11 +75,7 @@ function updateElementProperties(element) {
   element.status = element.status;
   element.category = selectedCategory;
   element.priority = selectedPriority;
-  if (Array.isArray(selectedContacts)) {
-    element.assignedTo = selectedContacts.filter(contact => contact !== undefined);
-  } else {
-    console.error("selectedContacts is not an array:", selectedContacts);
-  }
+  element.assignedTo = selectedContacts.filter(contact => contact !== undefined);
   element.bgcolor = extractColor(element);
   element.subtasks = processAndSaveSubtasks(element);
 }
