@@ -391,3 +391,15 @@
     flex-direction: column;
     gap: 24px;
 }
+
+@media (max-width: 480px) {
+    .scroll-slide-edit-container {
+        transform: scale(0.6);
+    }
+    .edit-add-task-buttons {
+        position: relative;
+        bottom: 110px;
+        right: 8px;
+        transform: scale(0.8);
+    }
+}

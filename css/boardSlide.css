@@ -112,8 +112,11 @@
 
 @media(max-width: 480px) {
     .task-slide-container {
-        transform: scale(0.7);
-        position: unset;
+        transform: scale(0.5);
+        height: 600px;
+        position: absolute;
+        margin-top: 32px;
+        padding: 20px 8px;
     }
 
     .scroll-slide-container {
@@ -142,15 +145,19 @@
 
 @media(max-width: 768px) {
     .edit-task-slide-container {
-        width: unset;
+        width: 90%;
     }
 }
 
 @media(max-width: 480px) {
     .edit-task-slide-container {
         transform: scale(0.6);
-        top: -150px;
-        left: -100px;
+        height: 500px;
+        position: absolute;
+        margin-top: 32px;
+        padding: 20px 8px;
+        gap: unset;
+        flex-shrink: unset;
     }
 }
 
