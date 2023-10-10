@@ -3,23 +3,6 @@ let updatedSubtasks = [];
 let currentTaskId;
 
 
-/**
- * Slideanimation for the task card.
- */
-function slideCardAnimationEditTask() {
-  const editTaskSlide = document.getElementById("edit-task-slide");
-  const editSlideContainer = document.getElementById("edit-slide-container");
-  if (editSlideContainer) {
-    editSlideContainer.classList.add("edit-slide-in");
-    editTaskSlide.classList.remove("d-none");
-  } else {
-    console.error(
-      "Das Element mit der ID 'edit-slide-container' wurde nicht gefunden."
-    );
-  }
-}
-
-
 /** 
  * Starts the task editing process by rendering the task and starting the slide animation.
  * @param {number} id - The ID of the task to be edited.
@@ -27,7 +10,6 @@ function slideCardAnimationEditTask() {
 function editTask(id) {
   const slideEditTask = document.getElementById("task-slide");
   slideEditTask.innerHTML = renderEditTask(id);
-  slideCardAnimationEditTask();
   const element = todos[id];
   currentTaskId = id;
   currentSelectedTask = element;
