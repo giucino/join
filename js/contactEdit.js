@@ -147,20 +147,24 @@ function extractNameParts(fullName) {
  * @returns {boolean} True if all fields are valid, false otherwise.
  */
 function validateContactFields(newName, newEmail, newTelefon) {
+    document.getElementById("error-msg").textContent = "";
+    document.getElementById("email-error").textContent = "";
+    document.getElementById("phone-error").textContent = "";
+
     if (!areAllFieldsFilled(newName, newEmail, newTelefon)) {
-        alert("Please fill out all fields.");
+        document.getElementById("error-msg").textContent = "Please fill out all fields.";
         return false;
     }
     if (!isValidName(newName)) {
-        alert("Invalid name format. Names should only contain letters and at least your first name is required.");
+        document.getElementById("error-msg").textContent = "Invalid name format. Names should only contain letters and at least your first name is required.";
         return false;
     }
     if (!isValidEmail(newEmail)) {
-        alert("Please enter a valid email address.");
+        document.getElementById("email-error").textContent = "Please enter a valid email address.";
         return false;
     }
     if (!isValidPhoneNumber(newTelefon)) {
-        alert("Please enter only numbers in the phone number field.");
+        document.getElementById("phone-error").textContent = "Please enter only numbers in the phone number field.";
         return false;
     }
     return true;

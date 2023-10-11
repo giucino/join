@@ -13,6 +13,7 @@ async function initContact() {
     initLetters();
     await showContacts();
     removeEmptyLetters();
+    /* await reloadContacts(); */
 }
 
 
@@ -262,3 +263,74 @@ function closeModalBackEditContact(event) {
         overlay.style.display = "none";
     }
 }
+
+/* let contacts = [
+    {
+        bgcolor: '#00BEE8',
+        id: 0,
+        name: 'Anna',
+        surname: 'Schmidt',
+        email: 'anna.schmidt@example.com',
+        telefon: '1234567890'
+    },
+    {
+        bgcolor: '#00BEE8',
+        id: 1,
+        name: 'Max',
+        surname: 'Müller',
+        email: 'max.mueller@example.com',
+        telefon: '234567890'
+    },
+    {
+        bgcolor: '#1FD7C1',
+        id: 2,
+        name: 'Sophie',
+        surname: 'Wagner',
+        email: 'sophie.wagner@example.com',
+        telefon: '3456789012'
+    },
+    {
+        bgcolor: '#6E52FF',
+        id: 3,
+        name: 'Paul',
+        surname: 'Becker',
+        email: 'paul.becker@example.com',
+        telefon: '456789012'
+    },
+    {
+        bgcolor: '#9327FF',
+        id: 4,
+        name: 'Laura',
+        surname: 'Hoffmann',
+        email: 'laura.hoffmann@example.com',
+        telefon: '567890123'
+    },
+    {
+        bgcolor: '#C3FF2B',
+        id: 5,
+        name: 'Felix',
+        surname: 'Schulz',
+        email: 'felix.schulz@example.com',
+        telefon: '6789012345'
+    },
+    {
+        bgcolor: '#FFA35E',
+        id: 6,
+        name: 'Emilia',
+        surname: 'Koch',
+        email: 'emilia.koch@example.com',
+        telefon: '7890123456',
+    }
+];
+
+let allContacts = [...contacts];
+contacts = allContacts;
+
+async function reloadContacts() {
+    try {
+        await setItem('contacts', JSON.stringify(contacts));
+        console.log('Contacts:', allContacts);
+    } catch (e) {
+        console.error('Loading error:', e);
+    }
+} */
