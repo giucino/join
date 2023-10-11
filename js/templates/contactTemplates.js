@@ -150,7 +150,7 @@ function generateAddContactModalHTML() {
                 </div>
                 <div class="modal-input-row">
                     <div class="modal-input-frame">
-                        <input class="modal-input-field" required type="text" id="fullName" placeholder="Name">
+                        <input class="modal-input-field" required type="text" id="fullName" placeholder="Name" pattern="[A-Za-z].*" title="Das erste Zeichen muss ein Buchstabe sein.">
                         <img class="modal-input-icon" src="img/person.png" alt="Name">
                     </div>
                     <div class="modal-input-frame">
@@ -214,7 +214,7 @@ function generateEditContactModalHTML(index, initials, contact) {
          </div>
          <div class="modal-input-row">
              <div class="modal-input-frame">
-                     <input class="modal-input-field" required type="text" id="editFullName" placeholder="Name">
+                     <input class="modal-input-field" required type="text" id="editFullName" placeholder="Name" pattern="[A-Za-z].*" title="Das erste Zeichen muss ein Buchstabe sein.">
                      <img class="modal-input-icon" src="img/person.png" alt="Name"> 
              </div>
              <div class="modal-input-frame">
@@ -223,7 +223,7 @@ function generateEditContactModalHTML(index, initials, contact) {
                  <img class="modal-input-icon" src="img/mail.png" alt="Email">
              </div>
              <div class="modal-input-frame">
-                 <input class="modal-input-field" required type="email" id="editNewTelefon" placeholder="Phone">
+                 <input class="modal-input-field" required type="number" id="editNewTelefon" placeholder="Phone">
                  <img class="modal-input-icon" src="img/call.svg" alt="Phone">
              </div>
          </div>
