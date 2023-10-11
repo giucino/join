@@ -178,7 +178,7 @@
 }
 
 
-@media(max-width: 1200px) {
+@media(min-height: 800px) and (max-width: 1024px) {
     .summery-container {
         padding-bottom: 180px;
     }
@@ -191,7 +191,7 @@
     }
 
     .summery-container {
-        padding-top: 16px;
+        padding-top: 8px;
         height: unset;
     }
 
