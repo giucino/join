@@ -10,21 +10,29 @@
     margin-bottom: 20px;
 }
 
-.add-task-container::-webkit-scrollbar {
-    width: 10px;
+.add-task-container::-webkit-scrollbar,
+.loaded-categories::-webkit-scrollbar,
+.loaded-contacts::-webkit-scrollbar {
+    width: 6px;
 }
 
-.add-task-container::-webkit-scrollbar-track{
+.add-task-container::-webkit-scrollbar-track,
+.loaded-categories::-webkit-scrollbar-track,
+.loaded-contacts::-webkit-scrollbar-track {
     border-radius: 30px;
     background: #f1f1f1;
 }
 
-.add-task-container::-webkit-scrollbar-thumb{
-    background: #888;
+.add-task-container::-webkit-scrollbar-thumb,
+.loaded-categories::-webkit-scrollbar-thumb,
+.loaded-contacts::-webkit-scrollbar-thumb {
+    background: #4589FF;
 }
 
-.add-task-container::-webkit-scrollbar-thumb:hover{
-    background: #555;
+.add-task-container::-webkit-scrollbar-thumb:hover,
+.loaded-categories::-webkit-scrollbar-thumb:hover,
+.loaded-contacts::-webkit-scrollbar-thumb:hover {
+    background: #005DFF;
 }
 
 .add-task-container-first {
