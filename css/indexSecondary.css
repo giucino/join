@@ -307,3 +307,12 @@
         width: 90%;
     }
 }
+
+@media (max-width: 360px) {
+    .logo-small {
+        width: 33px;
+        height: 47px;
+        left: -15%;
+        top: -10%;
+    }
+}
