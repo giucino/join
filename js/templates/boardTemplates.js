@@ -296,8 +296,8 @@ function generateTasksHTML(element, priorityImageSrc, assignedToHTML, progressBa
         <div class="content-container-inner">
             <div class="card-header">
                 <div class="board-category" style="background-color: ${backgroundColor};">${element.category}</div>
-                <div id="dropdown-mobile" class="dropdown hide" onclick="event.stopPropagation()">
-                    <img src="./img/hamburger_menu.svg" alt="Dropdown Trigger">
+                <div id="dropdown-mobile" class="dropdown hide">
+                    <img src="./img/hamburger_menu.svg" alt="Dropdown Trigger" onclick="event.stopPropagation()">
                     <div class="dropdown-content">
                         ${getStatusLinkHTML(element, 'todo', 'Todo')}
                         ${getStatusLinkHTML(element, 'inprogress', 'In progress')}
