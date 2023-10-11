@@ -199,6 +199,7 @@ function getRandomColor() {
  * Opens the modal to add new contacts.
  */
 function openModal() {
+    document.body.style.overflow = 'hidden';
     let modalHTML = generateAddContactModalHTML();
     let modalContainer = document.getElementById("contactModal");
     modalContainer.innerHTML = modalHTML;
@@ -219,6 +220,7 @@ function closeModal() {
     modal.classList.remove('modal-slide-in');
     modal.classList.add('modal-slide-out');
     overlay.style.display = "none";
+    document.body.style.overflow = 'auto';
 }
 
 
@@ -233,6 +235,7 @@ function closeModalBackAddContact(event) {
         modal.classList.remove('modal-slide-in');
         modal.classList.add('modal-slide-out');
         overlay.style.display = "none";
+        document.body.style.overflow = 'auto';
     }
 }
 
@@ -246,6 +249,7 @@ function closeModalEdit() {
     modal.classList.remove('editModal-slide-in');
     modal.classList.add('editModal-slide-out');
     overlay.style.display = "none";
+    document.body.style.overflow = 'auto';
 }
 
 
@@ -260,5 +264,6 @@ function closeModalBackEditContact(event) {
         modal.classList.remove('editModal-slide-in');
         modal.classList.add('editModal-slide-out');
         overlay.style.display = "none";
+        document.body.style.overflow = 'auto';
     }
 }

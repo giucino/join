@@ -91,6 +91,7 @@ function closeCard() {
         document.getElementById("task-slide").classList.add("d-none");
         document.getElementById("noscroll").classList.remove("noscroll");
     }, 100);
+    document.body.style.overflow = 'auto';
 }
 
 
@@ -124,6 +125,7 @@ function slideCardAnimation() {
  * @param {number} id - ID of the task to render in the card.
  */
 function slideCard(id) {
+    document.body.style.overflow = 'hidden';
     const slideCard = document.getElementById("task-slide");
     slideCard.innerHTML = renderSlideCard(id);
     slideCardAnimation();

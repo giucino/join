@@ -8,6 +8,7 @@ let currentTaskId;
  * @param {number} id - The ID of the task to be edited.
  */
 function editTask(id) {
+  document.body.style.overflow = 'hidden';
   const slideEditTask = document.getElementById("task-slide");
   slideEditTask.innerHTML = renderEditTask(id);
   const element = todos[id];
@@ -72,6 +73,7 @@ async function saveEditedTask(id) {
   await setItem("tasks", JSON.stringify(todos));
   openEditedTask(element.id);
   selectedContacts = [];
+  document.body.style.overflow = 'auto';
 }
 
 

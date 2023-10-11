@@ -33,6 +33,7 @@ function generateEditContactModal(index) {
  * Opens the edit modal.
  */
 function openEditModal() {
+    document.body.style.overflow = 'hidden';
     let modal = document.getElementById("editModal");
     let overlay = document.querySelector(".background-overlay");
     modal.style.display = "flex";
@@ -51,6 +52,7 @@ function closeEditModal() {
     modal.classList.remove('editModal-slide-in');
     modal.classList.add('editModal-slide-out');
     overlay.style.display = "none";
+    document.body.style.overflow = 'auto';
 }
 
 

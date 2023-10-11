@@ -155,6 +155,7 @@ async function addCompleteTaskCreation() {
  * @throws {Error} If the 'taskFormSlider' element is not found in the DOM.
  */
 function addTask(status) {
+    document.body.style.overflow = 'hidden';
     selectedStatus = status;
     if (window.innerWidth >= 768) {
         let modal = document.getElementById('taskFormSlider');
@@ -179,6 +180,7 @@ function closeAddTaskModal() {
     modal.classList.add('edditModal-slide-out');
     let overlay = document.querySelector(".task-background-overlay");
     overlay.style.display = "none";
+    document.body.style.overflow = 'auto';
 }
 
 
