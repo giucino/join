@@ -158,15 +158,9 @@ function generateAddContactModalHTML() {
                             autocomplete="email" placeholder="Email">
                         <img class="modal-input-icon" src="img/mail.png" alt="Email">
                     </div>
-                    <div class="error-container">
-                        <div id="email-error" class="error-message"></div>
-                    </div>
                     <div class="modal-input-frame">
                         <input class="modal-input-field" required type="number" id="newTelefon" placeholder="Phone">
                         <img class="modal-input-icon" src="img/call.svg" alt="Phone">
-                    </div>
-                    <div class="error-container">
-                        <div id="phone-error" class="error-message"></div>
                     </div>
                 </div>
                 <div class="add-contact-buttons">
@@ -181,9 +175,6 @@ function generateAddContactModalHTML() {
                         </button>
                     </div>
                 </div>
-                <div class="error-container">
-                    <div id="error-msg" class="error-message"></div>
-                </div>               
             </div>
         </div>
     `;
@@ -232,7 +223,7 @@ function generateEditContactModalHTML(index, initials, contact) {
                  <button onclick="deleteContact(${index})" class="button-clear">
                      <div class="button-clear-text">Delete</div>
                  </button>
-                 <button id="updateContactBtn" class="button-create-task" onclick="updateContact()">
+                 <button id="updateContactBtn" class="button-create-task">
                      <div class="button-create-task-text">Save</div>
                      <div class="button-create-task-pic"> <img src="./img/check.svg"></div>
                  </button>
