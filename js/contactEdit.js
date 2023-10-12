@@ -149,24 +149,20 @@ function extractNameParts(fullName) {
  * @returns {boolean} True if all fields are valid, false otherwise.
  */
 function validateContactFields(newName, newEmail, newTelefon) {
-    document.getElementById("error-msg").textContent = "";
-    document.getElementById("email-error").textContent = "";
-    document.getElementById("phone-error").textContent = "";
-
     if (!areAllFieldsFilled(newName, newEmail, newTelefon)) {
-        document.getElementById("error-msg").textContent = "Please fill out all fields.";
+        alert("Please fill out all fields.");
         return false;
     }
     if (!isValidName(newName)) {
-        document.getElementById("error-msg").textContent = "Invalid name format. Names should only contain letters and at least your first name is required.";
+        alert("Invalid name format. Names should only contain letters and at least your first name is required.");
         return false;
     }
     if (!isValidEmail(newEmail)) {
-        document.getElementById("email-error").textContent = "Please enter a valid email address.";
+        alert("Please enter a valid email address.");
         return false;
     }
     if (!isValidPhoneNumber(newTelefon)) {
-        document.getElementById("phone-error").textContent = "Please enter only numbers in the phone number field.";
+        alert("Please enter only numbers in the phone number field.");
         return false;
     }
     return true;
@@ -284,7 +280,7 @@ async function updateContact(index) {
     }
     let originalContact = contacts[index];
     let updatedContact = createUpdatedContactObject(originalContact, newName, newsurname, newEmail, newTelefon);
-    updateAndSaveContact(index, updatedContact);
+    await updateAndSaveContact(index, updatedContact);
 }
 
 
