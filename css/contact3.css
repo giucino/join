@@ -101,6 +101,17 @@ input::-webkit-inner-spin-button {
         right: 30px;
         bottom: 90px;
     }
+
+    /* Für Webkit-basierte Browser (wie Chrome und Safari) */
+    ::-webkit-scrollbar {
+        width: 0;
+    }
+
+    /* Für Firefox */
+    html {
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+    }
 }
 
 @media(max-width: 1180px) {
