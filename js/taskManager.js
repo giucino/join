@@ -268,3 +268,25 @@ function addExtractBgcolor(selectedContacts) {
     }
     return bgcolors;
 }
+
+
+/**
+ * Event listener for the 'input' event to handle the 'addDueDate' input field.
+ * Sets the minimum date to the current date and ensures selected dates are not in the past.
+ * @param {Event} event - The input event object.
+ */
+document.addEventListener('input', function (event) {
+    let addDueDateInput = event.target;
+
+    if (addDueDateInput && addDueDateInput.id === 'addDueDate') {
+        let today = new Date().toISOString().split('T')[0];
+        addDueDateInput.min = today;
+        
+        addDueDateInput.addEventListener('change', function () {
+            let selectedDate = addDueDateInput.value;
+            if (selectedDate < today) {
+                addDueDateInput.value = today;
+            }
+        });
+    }
+});

@@ -360,4 +360,26 @@ function extractColor(element) {
         colors.push(contact ? contact.bgcolor : '');
     }
     return colors;
-}  
+} 
+
+
+/**
+ * Event listener for the 'input' event to handle the 'edit-due-date' input field.
+ * Sets the minimum date to the current date and ensures selected dates are not in the past.
+ * @param {Event} event - The input event object.
+ */
+document.addEventListener('input', function (event) {
+    let editDueDateInput = event.target;
+
+    if (editDueDateInput && editDueDateInput.id === 'edit-due-date') {
+        let today = new Date().toISOString().split('T')[0];
+        editDueDateInput.min = today;
+        
+        editDueDateInput.addEventListener('change', function () {
+            let selectedDate = editDueDateInput.value;
+            if (selectedDate < today) {
+                editDueDateInput.value = today;
+            }
+        });
+    }
+});

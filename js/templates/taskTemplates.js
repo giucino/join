@@ -3,6 +3,8 @@
  * @returns {string} The HTML content of the modal.
  */
 function renderAddTask() {
+    const currentDate = new Date().toISOString().split('T')[0];
+
     return /* html */ `
 <div class="float-add-task-container">
     <div class="header">
@@ -32,7 +34,7 @@ function renderAddTask() {
                     Due date
                 </div>
                 <div class="due-date-input-container">
-                    <input id="addDueDate" class="due-date-textfield" type="date" min="2023-10-13">
+                    <input id="addDueDate" class="due-date-textfield" type="date">
                 </div>
                 <div id="addRequiredDate" class="add-task-field-required">
                     This field is required

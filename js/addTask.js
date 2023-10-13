@@ -265,7 +265,8 @@ function extractBgcolor(selectedContacts) {
 
 
 /**
- * 
+ * Sets up the 'dueDate' input field by setting the minimum date to the current date.
+ * Listens for changes to ensure selected dates are not in the past.
  */
 document.addEventListener('DOMContentLoaded', function () {
     let today = new Date().toISOString().split('T')[0];
