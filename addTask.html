@@ -45,7 +45,7 @@
                         Due date
                     </div>
                     <div class="due-date-input-container">
-                        <input id="dueDate" class="due-date-textfield" type="date"  min="2023-10-13">
+                        <input id="dueDate" class="due-date-textfield" type="date">
                     </div>
                     <div id="requiredDate" class="add-task-field-required">
                         This field is required
@@ -154,7 +154,8 @@
         </div>
     </form>
 
-    <div id="contactModal" onclick="closeModalBackAddContact(event)" class="modal"></div>
+    <form id="contactModal" onclick="closeModalBackAddContact(event)" class="modal" onsubmit="saveNewContact(); return false;"></form>
+
     <div id="add-background-overlay" class="background-overlay"></div>
 
     <script src="./js/app.js"></script>

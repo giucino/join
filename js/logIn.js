@@ -57,8 +57,8 @@ function logIn(email, password) {
 
 
 /**
- * Handles the user login process.
- */
+* Handles the user login process.
+*/
 function handleLogIn() {
     let email = getEmailInputValue();
     let password = getPasswordInputValue();
@@ -70,27 +70,56 @@ function handleLogIn() {
     let isLoggedIn = logIn(email, password);
 
     if (isLoggedIn) {
-        let loggedInUser = contacts.find(contact => contact.email === email && contact.password === password);
-
-        if (loggedInUser) {
-            let initials = extractInitials(loggedInUser.name, loggedInUser.surname);
-
-            let userData = {
-                email: loggedInUser.email,
-                name: loggedInUser.name,
-                surname: loggedInUser.surname,                
-                password: loggedInUser.password,
-                initials: initials,
-                rememberStatus: rememberLogIn,
-                isLoggedIn: true
-            };
-            saveLoggedInUserData(userData);
-            window.location.href = 'summary.html';
-        }
+        handleSuccessfulLogIn(email, password);
     } else {
-        resetFormStyle();
-        showPasswordMatchError();
+        handleFailedLogIn();
     }
+}
+
+
+/**
+* Handles the actions after a successful login.
+* @param {string} email - The user's email.
+* @param {string} password - The user's password.
+*/
+function handleSuccessfulLogIn(email, password) {
+    let loggedInUser = findLoggedInUser(email, password);
+
+    if (loggedInUser) {
+        let initials = extractInitials(loggedInUser.name, loggedInUser.surname);
+
+        let userData = {
+            email: loggedInUser.email,
+            name: loggedInUser.name,
+            surname: loggedInUser.surname,
+            password: loggedInUser.password,
+            initials: initials,
+            rememberStatus: rememberLogIn,
+            isLoggedIn: true
+        };
+        saveLoggedInUserData(userData);
+        window.location.href = 'summary.html';
+    }
+}
+
+
+/**
+Handles the actions after a failed login attempt. 
+*/
+function handleFailedLogIn() {
+    resetFormStyle();
+    showPasswordMatchError();
+}
+
+
+/**
+ * Finds and returns the user object for a given email and password combination.
+ * @param {string} email - The email address of the user.
+ * @param {string} password - The password of the user.
+ * @returns {Object | undefined} The user object if found; otherwise, undefined.
+ */
+function findLoggedInUser(email, password) {
+    return contacts.find(contact => contact.email === email && contact.password === password);
 }
 
 

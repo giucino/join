@@ -17,12 +17,13 @@ function getStatusLinkHTML(element, status, label) {
  * @param {number} id - The ID of the task to be moved.
  * @param {string} status - The new status to assign to the task.
  */
-function moveToMobile(id, status) {
+async function moveToMobile(id, status) {
+    await loadData();
+
     let currentMobiletask = todos.find((task) => task.id === id);
     if (currentMobiletask) {
         currentMobiletask.status = status;
-        pushData();
-        loadData();
+        await pushData();
         refreshHTML();
     } else {
         console.error('Task with ID', id, 'not found.');

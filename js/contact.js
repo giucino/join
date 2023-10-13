@@ -241,19 +241,6 @@ function closeModalBackAddContact(event) {
 
 
 /**
- * Closes the 'editModal' and hides the overlay.
- */
-function closeModalEdit() {
-    let modal = document.getElementById("editModal");
-    let overlay = document.querySelector(".background-overlay");
-    modal.classList.remove('editModal-slide-in');
-    modal.classList.add('editModal-slide-out');
-    overlay.style.display = "none";
-    document.body.style.overflow = 'auto';
-}
-
-
-/**
  * Closes the 'editModal' when clicking outside of its content. 
  * @param {Event} event - The DOM event triggered from the click.
  */

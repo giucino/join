@@ -182,8 +182,8 @@
     animation: shake 0.5s ease-in-out;
 }
 
-/* Media Query für Bildschirmbreite von maximal 768px */
-@media (max-width: 768px) {
+/* Media Query für Bildschirmbreite von maximal 1024px */
+@media (max-width: 1024px) {
     .logo-large {
         width: 100px;
         height: 122px;
@@ -295,12 +295,12 @@
 
 
 /* Media Query für Bildschirmbreite von maximal 450px */
-@media (max-width: 450px) {
+@media (max-width: 600px) {
     .logo-small {
         width: 44px;
         height: 58px;
         left: -10%;
-        top: -5%;
+        top: -7%;
     }
 
     .log-in-container {
@@ -308,11 +308,25 @@
     }
 }
 
-@media (max-width: 360px) {
+/* Media Query für Bildschirmbreite von maximal 540px */
+@media only screen and (max-height: 680px) and (max-width: 540px) {
     .logo-small {
-        width: 33px;
-        height: 47px;
-        left: -15%;
+        width: 34px;
+        height: 48px;
+        left: -9%;
         top: -10%;
+    }
+
+    .sign-up-container {
+        top: auto;
+        bottom: 35px;
+        left: 50%;
+        transform: translateX(-50%);
+        right: unset;
+        width: 272px;
+    }
+
+    .legal-notice-container {
+        bottom: 4px;
     }
 }
