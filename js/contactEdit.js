@@ -98,6 +98,7 @@ function showContactAdded() {
  * Saves a new contact to the contacts array.
  */
 async function saveNewContact() {
+    saveContactBtn.disabled = true;
     let newEmailInput = document.getElementById("newEmail");
     let newTelefonInput = document.getElementById("newTelefon");
     let fullNameInput = document.getElementById("fullName");
