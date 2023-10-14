@@ -65,33 +65,9 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    /* animation: slideInFromBottom 1s ease-in-out forwards; */
+    transform: translate(-50%, -50%) !important;
 }
 
-/* @keyframes slideInFromBottom {
-    from {
-        transform: translate(-50%, 100%);
-    }
-
-    to {
-        transform: translate(-50%, -50%);
-    }
-}
-
-@keyframes slideOutToBottom {
-    from {
-        transform: translate(-50%, -50%);
-    }
-
-    to {
-        transform: translate(-50%, 100%);
-    }
-} */
-
-/* .task-slide-container.animate-out {
-    animation: slideOutToBottom 1s ease-in-out forwards;
-} */
 
 .scroll-slide-container {
     overflow-y: auto;
@@ -138,7 +114,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) !important;
     animation: slideInFromBottom 0s forwards;
 }
 
