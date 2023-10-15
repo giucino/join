@@ -187,17 +187,17 @@ function areAllFieldsFilled(newName, newEmail, newTelefon) {
  * @param {string} newName - The name to validate.
  * @returns {boolean} Returns true if the name is valid; otherwise, false.
  */
-function validateEmail() {
-    const emailInput = document.getElementById('newEmail');
-    const email = emailInput.value;
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    if (!emailRegex.test(email)) {
-        emailInput.setCustomValidity('Please enter a valid email address');
-    } else {
-        emailInput.setCustomValidity('');
-        return email;
+function validateForm() {
+    let emailInput = document.getElementById('newEmail');
+
+    if (!emailInput.checkValidity()) {
+        emailInput.reportValidity();  // Dies löst die Standard-HTML5-Validierungsnachricht aus
+        return false;  // Verhindert das Absenden des Formulars
     }
-     
+
+    // Führen Sie hier weitere Validierungen durch, wenn nötig
+
+    return true;  // Erlaubt das Absenden des Formulars, wenn alle Validierungen bestanden sind
 }
 
 /**

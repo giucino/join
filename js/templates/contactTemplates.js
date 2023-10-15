@@ -154,8 +154,7 @@ function generateAddContactModalHTML() {
                         <img class="modal-input-icon" src="img/person.png" alt="Name">
                     </div>
                     <div class="modal-input-frame">
-                        <input class="modal-input-field" required type="email" id="newEmail" name="email"
-                            autocomplete="email" placeholder="Email">
+                        <input class="modal-input-field" type="email" id="newEmail" placeholder="Email" pattern=".{2,4}" title="Bitte geben Sie eine gültige E-Mail-Adresse ein." required>
                         <img class="modal-input-icon" src="img/mail.png" alt="Email">
                     </div>
                     <div class="modal-input-frame">
@@ -209,8 +208,8 @@ function generateEditContactModalHTML(index, initials, contact) {
                      <img class="modal-input-icon" src="img/person.png" alt="Name"> 
              </div>
              <div class="modal-input-frame">
-                 <input class="modal-input-field" required type="email" pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" id="editNewEmail" name="email" autocomplete="email"
-                     placeholder="Email">
+                 <input class="modal-input-field" type="email" name="email" title="Bitte geben Sie eine gültige E-Mail-Adresse ein." id="editNewEmail" 
+                     placeholder="Email: example@hotmail.com" required>
                  <img class="modal-input-icon" src="img/mail.png" alt="Email">
              </div>
              <div class="modal-input-frame">
