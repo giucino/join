@@ -3,7 +3,6 @@
  * @param {number} index - The index of the contact to edit.
  */
 function editContact(index) {
-    console.log(index);
     let contact = contacts[index];
     openEditModal();
     generateEditContactModal(index);
@@ -102,8 +101,6 @@ function showContactAdded() {
  * Saves a new contact to the contacts array.
  */
 async function saveNewContact() {
-    // const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-
     let newEmailInput = document.getElementById('newEmail');
     let newTelefonInput = document.getElementById("newTelefon");
     let fullNameInput = document.getElementById("fullName");
@@ -112,13 +109,6 @@ async function saveNewContact() {
     let newsurname = nameValidationResult.newsurname;
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
-
-    // // Überprüfung der E-Mail-Adresse
-    // if (!emailRegex.test(newEmail)) {
-    //     // Wenn die E-Mail ungültig ist, brechen Sie die Funktion ab und zeigen Sie ggf. eine Meldung an
-    //     return;
-    // }
-
     let newContact = createNewContactObject(newName, newsurname, newEmail, newTelefon);
     saveContact(newContact);
     clearFormFields(fullNameInput, newEmailInput, newTelefonInput);
@@ -198,7 +188,7 @@ function validateForm() {
         emailInput.reportValidity();
         return false; 
     }
-    return true;  // Erlaubt das Absenden des Formulars, wenn alle Validierungen bestanden sind
+    return true;
 }
 
 /**
