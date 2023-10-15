@@ -209,7 +209,7 @@ function generateEditContactModalHTML(index, initials, contact) {
                      <img class="modal-input-icon" src="img/person.png" alt="Name"> 
              </div>
              <div class="modal-input-frame">
-                 <input class="modal-input-field" required type="email" id="editNewEmail" name="email" autocomplete="email"
+                 <input class="modal-input-field" required type="email" pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" id="editNewEmail" name="email" autocomplete="email"
                      placeholder="Email">
                  <img class="modal-input-icon" src="img/mail.png" alt="Email">
              </div>

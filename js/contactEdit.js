@@ -98,9 +98,9 @@ function showContactAdded() {
  * Saves a new contact to the contacts array.
  */
 async function saveNewContact() {
-    let saveContactBtn = document.getElementById("saveContactBtn");
-    saveContactBtn.disabled = true;
-    let newEmailInput = document.getElementById("newEmail");
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+    let newEmailInput = document.getElementById('newEmail');
     let newTelefonInput = document.getElementById("newTelefon");
     let fullNameInput = document.getElementById("fullName");
     let nameValidationResult = validateNameParts(fullNameInput);
@@ -108,10 +108,13 @@ async function saveNewContact() {
     let newsurname = nameValidationResult.newsurname;
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
-    // let isValidContactFields = validateContactFields(newName, newEmail, newTelefon);
-    // if (!isValidContactFields) {
-    //     return;
-    // }
+
+    // Überprüfung der E-Mail-Adresse
+    if (!emailRegex.test(newEmail)) {
+        // Wenn die E-Mail ungültig ist, brechen Sie die Funktion ab und zeigen Sie ggf. eine Meldung an
+        return;
+    }
+
     let newContact = createNewContactObject(newName, newsurname, newEmail, newTelefon);
     saveContact(newContact);
     clearFormFields(fullNameInput, newEmailInput, newTelefonInput);
@@ -184,11 +187,18 @@ function areAllFieldsFilled(newName, newEmail, newTelefon) {
  * @param {string} newName - The name to validate.
  * @returns {boolean} Returns true if the name is valid; otherwise, false.
  */
-function isValidName(newName) {
-    let namePattern = /^[a-zA-Z][a-zA-Z^0-9!@#$%^&*(),.?":{}|<>']*$/;
-    return namePattern.test(newName);
+function validateEmail() {
+    const emailInput = document.getElementById('newEmail');
+    const email = emailInput.value;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!emailRegex.test(email)) {
+        emailInput.setCustomValidity('Please enter a valid email address');
+    } else {
+        emailInput.setCustomValidity('');
+        return email;
+    }
+     
 }
-
 
 /**
  * Checks if the provided email address is valid based on a regular expression pattern.
