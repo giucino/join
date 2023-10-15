@@ -61,17 +61,17 @@ function closeEditModal() {
  * @param {number} index - The index of the contact to delete.
  */
 async function deleteContact(index) {
-        contacts.splice(index, 1);
-        for (let i = 0; i < contacts.length; i++) {
-            contacts[i].id = i + 1;
-        }
-        await setItem('contacts', JSON.stringify(contacts));
-        let detailsContainer = document.getElementById('contact-details');
-        detailsContainer.innerHTML = '';
-        closeEditModal();
-        initContact();
-        returnToContactsMobile();
+    contacts.splice(index, 1);
+    for (let i = 0; i < contacts.length; i++) {
+        contacts[i].id = i + 1;
     }
+    await setItem('contacts', JSON.stringify(contacts));
+    let detailsContainer = document.getElementById('contact-details');
+    detailsContainer.innerHTML = '';
+    closeEditModal();
+    initContact();
+    returnToContactsMobile();
+}
 
 
 /**
@@ -98,6 +98,7 @@ function showContactAdded() {
  * Saves a new contact to the contacts array.
  */
 async function saveNewContact() {
+    let saveContactBtn = document.getElementById("saveContactBtn");
     saveContactBtn.disabled = true;
     let newEmailInput = document.getElementById("newEmail");
     let newTelefonInput = document.getElementById("newTelefon");
@@ -107,10 +108,10 @@ async function saveNewContact() {
     let newsurname = nameValidationResult.newsurname;
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
-    let isValidContactFields = validateContactFields(newName, newEmail, newTelefon);
-    if (!isValidContactFields) {
-        return;
-    }
+    // let isValidContactFields = validateContactFields(newName, newEmail, newTelefon);
+    // if (!isValidContactFields) {
+    //     return;
+    // }
     let newContact = createNewContactObject(newName, newsurname, newEmail, newTelefon);
     saveContact(newContact);
     clearFormFields(fullNameInput, newEmailInput, newTelefonInput);
@@ -160,7 +161,7 @@ function validateContactFields(newName, newEmail, newTelefon) {
         return false;
     }
     if (!isValidPhoneNumber(newTelefon)) {
-       return false;
+        return false;
     }
     return true;
 }
@@ -221,6 +222,8 @@ function clearFormFields(fullNameInput, newEmailInput, newTelefonInput) {
     fullNameInput.value = "";
     newEmailInput.value = "";
     newTelefonInput.value = "";
+    let saveContactBtn = document.getElementById("saveContactBtn");
+    saveContactBtn.disabled = false;
 }
 
 
@@ -254,8 +257,9 @@ async function saveContact(newContact) {
     contacts.push(newContact);
     await setItem('contacts', JSON.stringify(contacts));
     closeModal();
-    initContact();
+    await initContact();
 }
+
 
 /**
  * Updates an existing contact in the contacts array.
@@ -276,7 +280,7 @@ async function updateContact(index) {
     }
     let originalContact = contacts[index];
     let updatedContact = createUpdatedContactObject(originalContact, newName, newsurname, newEmail, newTelefon);
-    updateAndSaveContact(index, updatedContact);   
+    updateAndSaveContact(index, updatedContact);
 }
 
 
@@ -311,6 +315,6 @@ async function updateAndSaveContact(index, updatedContact) {
     contacts[index] = updatedContact;
     await setItem('contacts', JSON.stringify(contacts));
     closeEditModal();
-    initContact();
+    await initContact();
     showContactDetails(index);
 }

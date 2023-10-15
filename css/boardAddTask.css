@@ -162,11 +162,11 @@
 }
 
 .edditModal-slide-in {
-    animation: float-in 1s ease-in-out forwards;
+    animation: float-in 0.3s ease-in-out forwards;
 }
 
 .edditModal-slide-out {
-    animation: float-out 1s ease-in-out forwards;
+    animation: float-out 0.3s ease-in-out forwards;
 }
 
 @keyframes float-in {

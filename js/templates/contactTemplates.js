@@ -169,7 +169,7 @@ function generateAddContactModalHTML() {
                             Cancel
                             <img class="button-clear-pic" src="./img/cancel-icon.svg">
                         </button>
-                        <button type="submit" id="saveContactBtn" class="button-create-task">
+                        <button type="submit" value="submit" id="saveContactBtn" class="button-create-task">
                             Create contact
                             <img class="button-create-task-pic" src="./img/check.svg">
                         </button>

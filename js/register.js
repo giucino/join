@@ -56,7 +56,6 @@ async function signUpUser() {
     }
 
     if (!isValidUsername(username)) {
-        alert("Ungültiges Namensformat.");
         return;
     }
 
