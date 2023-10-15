@@ -3,16 +3,20 @@
  * @param {number} index - The index of the contact to edit.
  */
 function editContact(index) {
+    console.log(index);
     let contact = contacts[index];
     openEditModal();
     generateEditContactModal(index);
     document.getElementById("editFullName").value = `${contact.name} ${contact.surname}`;
     document.getElementById("editNewEmail").value = contact.email;
     document.getElementById("editNewTelefon").value = contact.telefon;
-    const updateContactBtn = document.getElementById("updateContactBtn");
-    updateContactBtn.onclick = function () {
+
+    const editModalForm = document.getElementById("editModal");
+    editModalForm.onsubmit = function (event) {
+        event.preventDefault();
         updateContact(index);
     };
+
     returnToContactsMobile();
 }
 
@@ -98,7 +102,7 @@ function showContactAdded() {
  * Saves a new contact to the contacts array.
  */
 async function saveNewContact() {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    // const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
     let newEmailInput = document.getElementById('newEmail');
     let newTelefonInput = document.getElementById("newTelefon");
@@ -109,11 +113,11 @@ async function saveNewContact() {
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
 
-    // Überprüfung der E-Mail-Adresse
-    if (!emailRegex.test(newEmail)) {
-        // Wenn die E-Mail ungültig ist, brechen Sie die Funktion ab und zeigen Sie ggf. eine Meldung an
-        return;
-    }
+    // // Überprüfung der E-Mail-Adresse
+    // if (!emailRegex.test(newEmail)) {
+    //     // Wenn die E-Mail ungültig ist, brechen Sie die Funktion ab und zeigen Sie ggf. eine Meldung an
+    //     return;
+    // }
 
     let newContact = createNewContactObject(newName, newsurname, newEmail, newTelefon);
     saveContact(newContact);
@@ -191,12 +195,9 @@ function validateForm() {
     let emailInput = document.getElementById('newEmail');
 
     if (!emailInput.checkValidity()) {
-        emailInput.reportValidity();  // Dies löst die Standard-HTML5-Validierungsnachricht aus
-        return false;  // Verhindert das Absenden des Formulars
+        emailInput.reportValidity();
+        return false; 
     }
-
-    // Führen Sie hier weitere Validierungen durch, wenn nötig
-
     return true;  // Erlaubt das Absenden des Formulars, wenn alle Validierungen bestanden sind
 }
 
@@ -280,17 +281,14 @@ async function updateContact(index) {
     let newTelefonInput = document.getElementById("editNewTelefon");
     let fullNameInput = document.getElementById("editFullName");
     let nameValidationResult = validateNameParts(fullNameInput);
+
     let newName = nameValidationResult.newName;
     let newsurname = nameValidationResult.newsurname;
     let newEmail = newEmailInput.value;
     let newTelefon = newTelefonInput.value;
-    let isValidContactFields = validateContactFields(newName, newEmail, newTelefon);
-    if (!isValidContactFields) {
-        return;
-    }
     let originalContact = contacts[index];
     let updatedContact = createUpdatedContactObject(originalContact, newName, newsurname, newEmail, newTelefon);
-    updateAndSaveContact(index, updatedContact);
+    await updateAndSaveContact(index, updatedContact);
 }
 
 

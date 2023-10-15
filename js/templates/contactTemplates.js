@@ -154,7 +154,7 @@ function generateAddContactModalHTML() {
                         <img class="modal-input-icon" src="img/person.png" alt="Name">
                     </div>
                     <div class="modal-input-frame">
-                        <input class="modal-input-field" type="email" id="newEmail" placeholder="Email" pattern=".{2,4}" title="Bitte geben Sie eine gültige E-Mail-Adresse ein." required>
+                        <input class="modal-input-field" type="email" id="newEmail" placeholder="Email" required>
                         <img class="modal-input-icon" src="img/mail.png" alt="Email">
                     </div>
                     <div class="modal-input-frame">
@@ -222,7 +222,7 @@ function generateEditContactModalHTML(index, initials, contact) {
                  <button onclick="deleteContact(${index})" class="button-clear">
                      <div class="button-clear-text">Delete</div>
                  </button>
-                 <button id="updateContactBtn" class="button-create-task">
+                 <button type="submit" id="updateContactBtn" class="button-create-task">
                      <div class="button-create-task-text">Save</div>
                      <div class="button-create-task-pic"> <img src="./img/check.svg"></div>
                  </button>
@@ -259,7 +259,7 @@ function generateEditContactMobileHTML(index, initials, contact) {
             </div>
             <div class="modal-input-row">
                 <div class="modal-input-frame">
-                        <input class="modal-input-field" required type="text" id="editFullName" placeholder="Name">
+                        <input class="modal-input-field" required type="text" id="editFullName" placeholder="Name" pattern="[A-Za-z].*" title="Das erste Zeichen muss ein Buchstabe sein.">>
                         <img class="modal-input-icon" src="img/person.png" alt="Name"> 
                 </div>
                 <div class="modal-input-frame">
@@ -277,7 +277,7 @@ function generateEditContactMobileHTML(index, initials, contact) {
                     <button onclick="deleteContact(${index})" class="button-clear">
                         <div class="button-clear-text">Delete</div>
                     </button>
-                    <button id="updateContactBtn" class="button-create-task" onclick="updateContact()">
+                    <button type="submit" id="updateContactBtn" class="button-create-task">
                         <div class="button-create-task-text">Save</div>
                         <div class="button-create-task-pic"> <img src="./img/check.svg"></div>
                     </button>
