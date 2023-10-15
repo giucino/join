@@ -81,9 +81,7 @@ async function createTask() {
     const title = document.getElementById('taskTitle').value;
     const description = document.getElementById('taskDescription').value;
     const dueDate = document.getElementById('dueDate').value;
-    processValidInput(title, description, dueDate);
-
-    initTask();
+    validateInput(title, description, dueDate);
 }
 
 
