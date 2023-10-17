@@ -80,8 +80,6 @@
     border-radius: 0px 30px 30px 30px;
     background: var(--white, #FFF);
     color: #4589FF;
-    width: 682px;
-    height: 201px;
 }
 
 .task-urgent-left {
