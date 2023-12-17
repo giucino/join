@@ -9,6 +9,7 @@ main {
 .legal-notice-container {
     gap: 30px;
     margin: 128px 88px 30px 320px;
+    width: 100%;
 }
 
 .legal-notice-header {
@@ -46,57 +47,6 @@ h1 {
 
 .arrow-left-icon:hover {
     background-image: url("../img/arrow-hover.png");
-}
-
-.legal-container-information {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    gap: 35px;
-}
-
-.imprint {
-    color: var(--bg-color, #4589FF);
-    font-size: 33px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 120%;
-}
-
-li {
-    color: #000;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 120%;
-}
-
-.info-section {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    align-self: stretch;
-}
-
-h3 {
-    color: var(--ligth-blue, #005DFF);
-    font-size: 19px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 120%;
-    margin: 0;
-}
-
-p {
-    align-self: stretch;
-    color: #000;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 120%;
-    margin: 0;
 }
 
 h2 {
@@ -137,7 +87,7 @@ h2 {
 
 .header-container-right-user-profile,
 .header-container-help,
-.user-initials-container  {
+.user-initials-container {
     display: none;
 }
 
