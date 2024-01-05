@@ -1,3 +1,7 @@
+/* *, *::before, *::after {
+    box-sizing: border-box;
+} */
+
 .all-content {
     display: flex;
 }
@@ -184,15 +188,7 @@
 }
 
 .modal-content {
-    box-sizing: border-box;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    gap: 32px;
     border-radius: 30px 0px 30px 30px;
-    background: #FFF;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
     position: absolute;
     top: 0;
     right: 0;
@@ -200,25 +196,31 @@
 }
 
 .edit-content {
-    box-sizing: border-box;
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-    gap: 32px;
     border-radius: 0px 30px 30px 30px;
-    background: #FFF;
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
 }
 
+.modal-content, .edit-content {
+    box-sizing: border-box;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 584px;
+    max-width: 584px;
+    gap: 32px;
+    background: #FFF;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+}
+
 .modal-content-top {
+    box-sizing: border-box;
     display: flex;
-    width: 436px;
-    padding: 51px 46px;
+    width: 100%;
+    padding: 81px 46px;
     border-radius: 30px 0px 0px 0px;
     flex-direction: column;
     align-items: center;
@@ -227,8 +229,9 @@
 }
 
 .edit-content-top {
+    box-sizing: border-box;
     display: flex;
-    width: 436px;
+    width: 100%;
     padding: 81px 46px;
     border-radius: 0px 30px 0px 0px;
     flex-direction: column;
@@ -300,7 +303,7 @@
 }
 
 .slide-in {
-    animation: slide-in 1s ease-in-out;
+    animation: slide-in .2s ease-in-out;
 }
 
 @keyframes slide-in {

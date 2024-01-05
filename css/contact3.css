@@ -44,14 +44,14 @@
         background: var(--Ligth-blue, #005DFF);
     }
 
-    #invisibleDiv {
+    /* #invisibleDiv {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         z-Index: 6;
-    }
+    } */
 
     #contact-mobile-buttons {
         cursor: pointer;
@@ -170,11 +170,15 @@
 }
 
 @media(max-width: 768px) {
-    .modal, .edtit-modal {
-        width: 85%;
-        height: 85%;
-        top: 10%;
-        left: 10%;
+    .modal-content, .edit-content {
+        width: 75%;
+        height: 75%;
+        max-height: 80%;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        gap: 0px;
     }
 
     .modal-content, .edit-content {
@@ -185,19 +189,11 @@
         font-size: 42px;
     }
 
-    .initial-big {
-        width: 76px;
-        height: 76px;
-        font-size: 32px;
-    }
-
     .contact-detailed-top {
         gap: 30px;
     }
 
     .modal-content-top, .edit-content-top {
-        width: 80%;
-        padding: 91px 46px;
         border-radius: 30px 30px 0px 0px;
     }
 
@@ -213,38 +209,31 @@
         font-size: 21px;
     }
 
+    .modal-input-row {
+        margin-top: -50px;
+    }
+
     .edit-modal-text {
         display: flex;
     }
-
-    /* .modal-input-row {
-        margin-top: -100px;
-    } */
-
-    /* .add-contact-buttons {
-        margin-top: 30px;
-    } */
 
     #cancelBtn {
         display: none;
     }
 
-    .modal-input-img {
-        top: -100px
+    .modal-input-img, .modal-input-initial {
+        top: -50px
     }
 }
 
-@media(max-width: 485px) {
-    /* .modal-input-frame {
-        width: 290px;
-    } */
-    .modal, .edtit-modal {
-        width: 75%;
-        height: 75%;
+@media(max-width: 500px) {
+
+    .modal-headline {
+        font-size: 40px;
     }
 
-    .add-contact-buttons-inner {
-        flex-direction: column;
+    .modal-text {
+        font-size: 16px;
     }
 }
 
@@ -276,32 +265,13 @@
         height: 36px;
     }
 
-    /* .modal-headline {
+    .modal-headline {
         font-size: 24px;
-    } */
-
-    /* .modal-text {
-        font-size: 16px;
-    } */
-
-    /* .modal-input-img {
-        width: 34px;
-        height: 34px;
-    } */
-
-    .initial-big {
-        width: 52px;
-        height: 52px;
-        font-size: 19px;
     }
 
-    /* .modal-input-img img {
-        width: 34px;
-        height: 34px;
-        position: relative;
-        top: 0;
-        left: 0;
-    } */
+    .modal-text {
+        font-size: 10px;
+    }
 
     .contact-detailed-name {
         font-size: 24px;
@@ -310,27 +280,50 @@
     .contact-detailed-information {
         font-size: 18px;
     }
+
+    .button-clear {
+        width: auto;
+    }
 }
 
-/* @media(max-height: 820px) {
-    .modal-headline {
-        font-size: 24px;
+@media(max-height: 820px) {
+    .modal-content-top, .edit-content-top {
+        padding: 41px 26px;
     }
 
-    .modal-text {
-        font-size: 16px;
-    }
-
-    .modal-input-img {
-        width: 34px;
-        height: 34px;
+    .modal-input-img, .modal-input-initial {
+        width: 64px;
+        height: 64px;
+        top: -30px;
     }
 
     .modal-input-img img {
-        width: 34px;
-        height: 34px;
-        position: relative;
-        top: 0;
-        left: 0;
+        left: 22px;
+        top: 22px;
+        width: 32px;
+        height: 32px;
     }
-} */
+
+    .edit-initial-big {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+
+    .modal-input-row {
+        gap: 10px;
+    }
+
+    .button-create-task {
+        font-size: 18px;
+    }
+
+    .button-clear-text {
+        font-size: 18px;
+        padding: 0px 0px;
+    }
+
+    .button-clear {
+        width: auto;
+    }
+}

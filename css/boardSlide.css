@@ -72,7 +72,7 @@
         height: 600px;
         position: absolute;
         margin-top: 32px;
-        padding: 20px 20px;
+        /* padding: 20px 20px; */
     }
 
     .edit-slide-conteiner {
@@ -90,10 +90,10 @@
     }
 
     .edit-task-slide-container {
-        transform: scale(0.6);
-        height: 500px;
+        /* transform: scale(0.6); */
+        height: 600px;
         position: absolute;
-        margin-top: 32px;
+        /* margin-top: 32px; */
         gap: unset;
         flex-shrink: unset;
     }

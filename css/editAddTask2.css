@@ -394,8 +394,9 @@
 
 @media (max-width: 480px) {
     .scroll-slide-edit-container {
-        transform: scale(0.6);
+        transform: scale(0.8);
     }
+
     .edit-add-task-buttons {
         position: relative;
         bottom: 130px;

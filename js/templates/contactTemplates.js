@@ -202,8 +202,10 @@ function generateEditContactModalHTML(index, initials, contact) {
 
         </div>
         <div class="modal-input-container">
-            <div class="edit-initial-big" style="background-color: ${contact.bgcolor}">
+            <div class="modal-input-initial">
+                <div class="edit-initial-big" style="background-color: ${contact.bgcolor}">
                 ${initials}
+                </div>
             </div>
             <div class="modal-input-row">
                 <div class="modal-input-frame">
