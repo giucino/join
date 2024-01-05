@@ -20,16 +20,13 @@ header {
 }
 
 .header-container-right {
-    width: 433px;
     height: 56px;
     flex-shrink: 0;
     display: flex;
     align-items: center;
+    gap: 20px;
 }
 
-.help {
-    margin-right: 18px;
-}
 
 #header-container-right-text {
     width: 301px;
@@ -56,17 +53,14 @@ header {
 .header-container-right-user {
     display: flex;
     align-items: center;
-    gap: 16px;
     z-index: 1;
     position: relative;
 }
 
 .header-container-right-user-profile {
-    width: 56px;
     height: 56px;
     display: flex;
     align-items: center;
-    gap: 16px;
     cursor: pointer;
 }
 
@@ -111,10 +105,6 @@ header {
     border-radius: 50%;
 }
 
-.user-initials:hover {
-    background-color: #B5DBFF;
-}
-
 #logoutBtn {
     position: fixed;
     top: 96px;
@@ -128,7 +118,6 @@ header {
     border-radius: 20px 0px 20px 20px;
     background: var(--white, #FFF);
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.20);
-    /* z-index: 4; */
     display: none;
 }
 
@@ -171,7 +160,7 @@ header {
 
     .header-container-right {
         position: absolute;
-        right: -15px;
+        right: 25px;
     }
 
     #header-container-right-text {

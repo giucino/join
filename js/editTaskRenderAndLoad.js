@@ -19,6 +19,31 @@ function loadToggleAssignedToContainer() {
 
 
 /**
+ * Event handler for the global click event.
+ * Closes contact-related dropdowns and containers if the click is outside
+ * the assigned-to-choicefield and contact containers.
+ * */
+document.addEventListener('click', function (event) {
+    let assignedToContainer = document.querySelector('.edit-assigned-to-choicefield');
+    let isClickInside = assignedToContainer ? assignedToContainer.contains(event.target) : false;
+    let isContact = event.target.closest('.contact-container');
+
+    if (!isClickInside && !isContact) {
+        let loadedContacts = document.getElementById('edit-loaded-contacts');
+        let contactsContainer = document.querySelector('.edit-contacts-container');
+        let assignedToDropdown = document.querySelector('.edit-assigned-to-dropdown');
+
+        if (loadedContacts && contactsContainer && assignedToDropdown) {
+            loadedContacts.style.display = 'none';
+            assignedToDropdown.classList.remove('expanded');
+            contactsContainer.style.display = 'none';
+        }
+    }
+});
+
+
+
+/**
  * Renders and displays the selected contacts.
  */
 function renderDisplayChosenContacts() {
@@ -106,7 +131,7 @@ function loadToggleCategoryContainer() {
     } else {
         editCategoryContainer.style.display = 'block';
         editCategoryDropdown.classList.add('expanded');
-        editRenderCategorys();
+        editRenderCategories();
     }
 }
 
@@ -114,7 +139,7 @@ function loadToggleCategoryContainer() {
 /**
  * Renders the categories for editing.
  */
-function editRenderCategorys() {
+function editRenderCategories() {
     let editCategoryContainer = document.getElementById('edit-loaded-categories');
     editCategoryContainer.innerHTML = '';
 
@@ -360,7 +385,7 @@ function extractColor(element) {
         colors.push(contact ? contact.bgcolor : '');
     }
     return colors;
-} 
+}
 
 
 /**
@@ -374,7 +399,7 @@ document.addEventListener('input', function (event) {
     if (editDueDateInput && editDueDateInput.id === 'edit-due-date') {
         let today = new Date().toISOString().split('T')[0];
         editDueDateInput.min = today;
-        
+
         editDueDateInput.addEventListener('change', function () {
             let selectedDate = editDueDateInput.value;
             if (selectedDate < today) {

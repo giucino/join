@@ -55,10 +55,10 @@ function renderAddTask() {
                     </div>
                 </button>
                 <button type="button" onclick="addPriority(this)" id="addPrioMedium"
-                    class="priority-choice-inner prio-medium">
+                    class="priority-choice-inner prio-medium selected">
                     Medium
                     <div class="priority-choice-inner-pic">
-                        <img src="./img/prio-medium.png" id="addPrioMediumImg" class="original-image"
+                        <img src="./img/prio_medium_active.png" id="addPrioMediumImg" class="original-image"
                             data-image="prio-medium.png">
                     </div>
                 </button>
@@ -91,10 +91,6 @@ function renderAddTask() {
             <div class="contacts-container">
                 <div id="addLoadedContacts" class="loaded-contacts">
                 </div>
-                <button id="addContactBtn" onclick="openModal()" class="add-person-btn" type="button">
-                    Add new contact
-                    <img src="./img/person_add.svg" class="button-icon">
-                </button>
             </div>
             <div id="addChosenContacts" class="chosen-contacts"></div>
         </div>
@@ -169,7 +165,7 @@ function addCreatedTaskTemplate() {
  * @returns {string} The HTML representation of the contact with optional selection and user indicator.
  */
 function addRenderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
-        let userMarker = isCurrentUser ? " (you)" : "";
+    let userMarker = isCurrentUser ? " (you)" : "";
 
     return /*html*/`
         <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="addToggleContactSelection('${contact.name}', '${contact.surname}')">
@@ -195,7 +191,7 @@ function addRenderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
  * @returns {string} The HTML markup for rendering the contact.
  */
 function addRenderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser) {
-        let userMarker = isCurrentUser ? " (you)" : "";
+    let userMarker = isCurrentUser ? " (you)" : "";
 
     return /*html*/`
         <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="addToggleContactSelection('${contact.name}', '${contact.surname}')">

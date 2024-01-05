@@ -66,10 +66,10 @@
                         </div>
                     </button>
                     <button type="button" onclick="priority(this)" id="prioMedium"
-                        class="priority-choice-inner prio-medium">
+                        class="priority-choice-inner prio-medium selected">
                         Medium
                         <div class="priority-choice-inner-pic">
-                            <img src="./img/prio-medium.png" id="prioMediumImg" class="original-image"
+                            <img src="./img/prio_medium_active.png" id="prioMediumImg" class="original-image"
                                 data-image="prio-medium.png">
                         </div>
                     </button>
@@ -101,10 +101,6 @@
                 <div class="contacts-container">
                     <div id="loadedContacts" class="loaded-contacts">
                     </div>
-                    <button id="addContactBtn" onclick="openModal()" class="add-person-btn" type="button">
-                        Add new contact
-                        <img src="./img/person_add.svg" class="button-icon">
-                    </button>
                 </div>
                 <div id="chosenContacts" class="chosen-contacts"></div>
             </div>
@@ -131,11 +127,14 @@
                     Subtasks
                 </div>
                 <div class="add-subtask-input">
-                    <input onclick="openSubtaskInput()" type="text" id="subtaskInput" class="new-subtask-textfield" placeholder="Add new subtask">
+                    <input onclick="openSubtaskInput()" type="text" id="subtaskInput" class="new-subtask-textfield"
+                        placeholder="Add new subtask">
                     <img onclick="openSubtaskInput()" class="open-subtask-button" src="./img/open_subtask.png">
-                    <img onclick="closeSubtaskInput()" class="add-subtask-button hidden" id="closeSubtask" src="./img/close_subtask.png"> 
-                    <span class="separator" id="separator">|</span> 
-                    <img onclick="addSubtask()" class="add-subtask-button hidden" id="addNewSubtask" src="./img/add_subtask.png">
+                    <img onclick="closeSubtaskInput()" class="add-subtask-button hidden" id="closeSubtask"
+                        src="./img/close_subtask.png">
+                    <span class="separator" id="separator">|</span>
+                    <img onclick="addSubtask()" class="add-subtask-button hidden" id="addNewSubtask"
+                        src="./img/add_subtask.png">
                 </div>
                 <div id="subtask-add-container" class="subtask-add-container"></div>
             </div>
@@ -154,7 +153,8 @@
         </div>
     </form>
 
-    <form id="contactModal" onclick="closeModalBackAddContact(event)" class="modal" onsubmit="saveNewContact(); return false;"></form>
+    <form id="contactModal" onclick="closeModalBackAddContact(event)" class="modal"
+        onsubmit="saveNewContact(); return false;"></form>
 
     <div id="add-background-overlay" class="background-overlay"></div>
 
@@ -171,4 +171,5 @@
     <script src="./js/includeHTML.js"></script>
     <script src="./js/uiHelpers.js"></script>
 </body>
+
 </html>

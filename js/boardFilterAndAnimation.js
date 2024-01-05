@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (searchValue !== "") {
             setFilter();
             resetButton.style.display = "block";
-        } 
+        }
         else {
             setFilter();
             resetButton.style.display = "none";
@@ -71,9 +71,9 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
     function handleResetButtonClick() {
         let searchText = document.getElementById("input-field");
-        searchText.value = "";  
+        searchText.value = "";
         resetButton.style.display = "none";
-        setFilter(); 
+        setFilter();
     }
 
     let resetButton = document.getElementById("reset-search");
@@ -93,6 +93,20 @@ function closeCard() {
     document.body.style.overflow = 'auto';
 }
 
+/**
+ * Close the task card with a slide out animation.
+ */
+function closeEditCard() {
+    const slideEditTask = document.getElementById("task-slide");
+
+    slideEditTask.innerHTML = '';
+    slideEditTask.classList.add('d-none');
+
+    document.body.style.overflow = 'auto';
+    currentTaskId = null;
+    currentSelectedTask = null;
+}
+
 
 /**
  * Sets up a global click event listener to close the card if the click occurs outside of its content. 
@@ -100,7 +114,7 @@ function closeCard() {
  * element with the ID `slide-container`. If it is, the `closeCard` function is called to close or 
  * hide the card.
  */
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     const slideContainer = document.getElementById("slide-container");
     if (slideContainer && event.target === slideContainer) {
         closeCard();

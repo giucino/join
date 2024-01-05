@@ -294,25 +294,26 @@
 }
 
 
-/* Media Query für Bildschirmbreite von maximal 450px */
+/* Media Query für Bildschirmbreite von maximal 600px */
 @media (max-width: 600px) {
+    .log-in-container {
+        width: 90%;
+    }
+}
+
+/* Media Query für Bildschirmbreite von maximal 450px */
+@media (max-width: 450px) {
     .logo-small {
         width: 44px;
         height: 58px;
-        left: -10%;
-        top: -7%;
-    }
-
-    .log-in-container {
-        width: 90%;
     }
 }
 
 /* Media Query für Bildschirmbreite von maximal 540px */
 @media only screen and (max-height: 680px) and (max-width: 540px) {
     .logo-small {
-        width: 34px;
-        height: 48px;
+        width: 44px;
+        height: 58px;
         left: -9%;
         top: -10%;
     }

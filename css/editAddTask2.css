@@ -398,7 +398,7 @@
     }
     .edit-add-task-buttons {
         position: relative;
-        bottom: 110px;
+        bottom: 130px;
         right: 8px;
         transform: scale(0.8);
     }

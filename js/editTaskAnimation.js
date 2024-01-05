@@ -58,7 +58,6 @@ function updateElementProperties(element) {
   element.priority = selectedPriority;
   element.assignedTo = selectedContacts.filter(contact => contact !== undefined);
   element.bgcolor = extractColor(element);
-  element.subtasks = processAndSaveSubtasks(element);
 }
 
 
@@ -87,7 +86,6 @@ function openEditedTask(id) {
   slideCard.innerHTML = renderSlideCard(id);
   document.getElementById('task-slide').classList.remove('d-none');
   document.getElementById('slide-container').classList.add('open-task');
-
 }
 
 

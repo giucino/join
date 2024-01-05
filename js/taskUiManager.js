@@ -99,15 +99,43 @@ function addChangeTextAreaBorderOnFocusBlurInput(textarea) {
 
 
 /**
- * Adds a priority to a button element and updates the selectedPriority variable.
- * This function adds visual effects to the specified button based on its ID and sets
- * the selectedPriority variable accordingly.
- * @param {HTMLElement} button - The button element to add priority to.
+ * Sets the priority based on the button clicked. Resets other buttons and hides any priority errors.
+ * @param {HTMLElement} button 
  */
 function addPriority(button) {
     addResetButtons();
     addHidePriorityError();
+    addRemoveSelectedClassFromButtons();
+    addAddSelectedClassToButton(button);
+    addUpdatePriorityAndHighlightButton(button);
+}
 
+
+/**
+ * Removes the selected class from all buttons.
+ */
+function addRemoveSelectedClassFromButtons() {
+    let buttons = document.getElementsByClassName('priority-choice-inner');
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('selected');
+    }
+}
+
+
+/**
+ * Adds the selected class to the button that was clicked.
+ * @param {HTMLElement} button 
+ */
+function addAddSelectedClassToButton(button) {
+    button.classList.add('selected');
+}
+
+
+/**
+ * Updates the priority based on the button clicked and highlights the button.
+ * @param {HTMLElement} button 
+ */
+function addUpdatePriorityAndHighlightButton(button) {
     if (button.id === 'addPrioUrgent') {
         addHighlightButton(button, '#FF3D00', './img/prio_high_active.png');
         selectedPriority = 'high';
@@ -118,6 +146,7 @@ function addPriority(button) {
         addHighlightButton(button, '#7AE229', './img/prio_low_active.png');
         selectedPriority = 'low';
     }
+    selectedPriority = button.id.slice(7).toLowerCase();
 }
 
 
@@ -134,6 +163,16 @@ function addHighlightButton(button, bgColor, imageSrc) {
     image.src = imageSrc;
     button.style.color = 'white';
 }
+
+
+// /**
+//  * Event listener for the 'DOMContentLoaded' event.
+//  * Sets the default task priority to 'Medium' once the HTML document is fully loaded and parsed.
+//  */
+// document.addEventListener('click', function() {
+//     let mediumPriorityButton = document.getElementById('addPrioMedium');
+//     addPriority(mediumPriorityButton);
+// });
 
 
 /**
@@ -213,6 +252,47 @@ function addToggleAssignedToContainer() {
 
 
 /**
+ * Event handler for the global click event.
+ * Closes contact-related dropdowns and containers if the click is outside
+ * the assigned-to-choicefield and contact containers.
+ * */
+// document.addEventListener('click', function (event) {
+//     let assignedToContainer = document.querySelector('.assigned-to-choicefield');
+//     let isClickInside = assignedToContainer.contains(event.target);
+//     let isContact = event.target.closest('.contact-container');
+
+//     if (!isClickInside && !isContact) {
+//         let loadedContacts = document.getElementById('addLoadedContacts');
+//         let contactsContainer = document.querySelector('.contacts-container');
+//         let assignedToDropdown = document.querySelector('.assigned-to-dropdown');
+
+//         loadedContacts.style.display = 'none';
+//         assignedToDropdown.classList.remove('expanded');
+//         contactsContainer.style.display = 'none';
+//     }
+// });
+
+
+document.addEventListener('click', function (event) {
+    let assignedToContainer = document.querySelector('.assigned-to-choicefield');
+    let isClickInside = assignedToContainer ? assignedToContainer.contains(event.target) : false;
+    let isContact = event.target.closest('.contact-container');
+
+    if (!isClickInside && !isContact) {
+        let loadedContacts = document.getElementById('addLoadedContacts');
+        let contactsContainer = document.querySelector('.contacts-container');
+        let assignedToDropdown = document.querySelector('.assigned-to-dropdown');
+
+        if (loadedContacts && contactsContainer && assignedToDropdown) {
+            loadedContacts.style.display = 'none';
+            assignedToDropdown.classList.remove('expanded');
+            contactsContainer.style.display = 'none';
+        }
+    }
+});
+
+
+/**
  * Updates the chosenContactsContainer with selected contacts.
  * This function iterates through the `contacts` array and checks if each contact
  * is selected based on the `selectedContacts` object. If a contact is selected,
@@ -245,7 +325,7 @@ function addDisplayChosenContacts() {
  * each of which can be clicked to trigger the "addCategorySelected" function with the
  * selected category name.
  */
-function addRenderCategorys() {
+function addRenderCategories() {
     let categoryContainer = document.getElementById('addLoadedCategories');
     categoryContainer.innerHTML = '';
 
@@ -280,9 +360,27 @@ function addToggleCategoryContainer() {
     } else {
         categoryContainer.style.display = 'block';
         categoryDropdown.classList.add('expanded');
-        addRenderCategorys();
+        addRenderCategories();
     }
 }
+
+
+/**
+ * Event handler for the global click event.
+ * Closes category-related dropdowns and containers if the click is outside
+ * the category-choicefield and category containers.
+ * */
+document.addEventListener('click', function (event) {
+    let categoryContainer = document.querySelector('.category-choicefield');
+    let isClickInside = categoryContainer ? categoryContainer.contains(event.target) : false;
+
+    if (!isClickInside) {
+        let loadedCategory = document.getElementById('addLoadedCategories');
+
+        if (loadedCategory)
+            loadedCategory.style.display = 'none';
+    }
+});
 
 
 /**

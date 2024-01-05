@@ -7,7 +7,7 @@ async function initTask() {
     await loadContactsFromStorage();
     await loadTasks();
     await renderAssignedTo();
-    renderCategorys();
+    renderCategories();
 }
 
 
@@ -236,6 +236,8 @@ function toggleContactSelection(name, surname) {
     renderSearchedContact(contacts);
     displayChosenContacts();
 }
+
+document.addEventListener('click', toggleContactSelection)
 
 
 /**

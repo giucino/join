@@ -1,18 +1,41 @@
-.container {
-    display: inline-flex;
-    padding: 20px;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    width: 456px;
-    height: 928px;
-    overflow-y: auto;
-    flex-shrink: 0;
-    margin: 97px 0 70px 234px;
+.all-content {
+    display: flex;
 }
 
-.hide-it {
-    display: none;
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px;
+    gap: 16px;
+    width: 456px;
+    height: calc(100% - 167px);
+    flex-shrink: 0;
+    margin: 97px 0 70px 234px;
+    position: fixed;
+}
+
+.container-contact-all {
+    overflow-y: auto;
+    height: 100%;
+    padding-right: 24px;
+}
+
+.container-contact-all::-webkit-scrollbar {
+    width: 6px;
+}
+
+.container-contact-all::-webkit-scrollbar-track {
+    border-radius: 30px;
+    background: #f1f1f1;
+}
+
+.container-contact-all::-webkit-scrollbar-thumb {
+    background: #4589FF;
+}
+
+.container-contact-all::-webkit-scrollbar-thumb:hover {
+    background: #005DFF;
 }
 
 .letter-title-underline {
@@ -23,7 +46,6 @@
 
 .add-person-button {
     display: flex;
-    cursor: pointer;
     width: 332px;
     height: 56px;
     padding: 16px 10px;
@@ -83,7 +105,6 @@
     width: 352px;
     padding: 15px 24px;
     align-items: center;
-    justify-content: space-between;
     gap: 35px;
     border-radius: 10px;
     background: #FFF;
@@ -131,15 +152,24 @@
     line-height: 120%;
 }
 
-.modal,
+.modal {
+    display: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 60;
+}
+
 .edit-modal {
     display: none;
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 60;
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    z-index: 60;
 }
 
 .background-overlay {
@@ -159,7 +189,7 @@
     flex-direction: column;
     align-items: center;
     height: 100%;
-    gap: 65px;
+    gap: 32px;
     border-radius: 30px 0px 30px 30px;
     background: #FFF;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
@@ -175,7 +205,7 @@
     flex-direction: column;
     align-items: center;
     height: 100%;
-    gap: 65px;
+    gap: 32px;
     border-radius: 0px 30px 30px 30px;
     background: #FFF;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
@@ -188,7 +218,7 @@
 .modal-content-top {
     display: flex;
     width: 436px;
-    padding: 91px 46px;
+    padding: 51px 46px;
     border-radius: 30px 0px 0px 0px;
     flex-direction: column;
     align-items: center;
@@ -199,7 +229,7 @@
 .edit-content-top {
     display: flex;
     width: 436px;
-    padding: 91px 46px;
+    padding: 81px 46px;
     border-radius: 0px 30px 0px 0px;
     flex-direction: column;
     align-items: center;
@@ -211,10 +241,13 @@
     position: absolute;
     right: 24px;
     top: 24px;
-    width: 17.5px;
-    height: 17.5px;
-    padding: 4px;
+    width: 28px;
+    height: 28px;
     cursor: pointer;
+}
+
+.close:hover {
+    content: url('../img/close_edit_hover.png');
 }
 
 .initial {
@@ -235,17 +268,14 @@
 .container-name-email {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
     gap: 5px;
 }
 
-.all-content {
-    display: flex;
-}
-
 #contact-details {
-    padding: 100px;
-    margin-top: 100px;
+    position: fixed;
+    top: 200px;
+    left: 800px;
+    overflow: hidden;
 }
 
 .contact-detailed-container {
@@ -258,7 +288,7 @@
 .contact-detailed-edit-delete {
     display: flex;
     align-items: flex-start;
-    gap: 60px;
+    gap: 16px;
 }
 
 .contact-detailed-text {
@@ -284,11 +314,11 @@
 }
 
 .modal-slide-in {
-    animation: modalSlideIn 1s ease-in-out forwards;
+    animation: modalSlideIn .2s ease-in-out forwards;
 }
 
 .modal-slide-out {
-    animation: modalSlideOut 1s ease-in-out forwards;
+    animation: modalSlideOut .2s ease-in-out forwards;
 }
 
 @keyframes modalSlideIn {
@@ -313,11 +343,11 @@
 }
 
 .editModal-slide-in {
-    animation: editModalSlideIn 1s ease-in-out forwards;
+    animation: editModalSlideIn .2s ease-in-out forwards;
 }
 
 .editModal-slide-out {
-    animation: editModalSlideOut 1s ease-in-out forwards;
+    animation: editModalSlideOut .2s ease-in-out forwards;
 }
 
 @keyframes editModalSlideIn {
@@ -341,10 +371,6 @@
     }
 }
 
-.editModal-slide-out {
-    animation: editModalSlideOut 1s ease-in-out forwards;
-}
-
 @keyframes editModalSlideInMobile {
     0% {
         transform: translateX(-100px);
@@ -364,28 +390,4 @@
         transform: translateX(-1000px);
         display: none;
     }
-}
-
-.contact-detailed-images {
-    display: flex;
-    cursor: pointer;
-    justify-content: center;
-    align-items: flex-end;
-    gap: 6px;
-    width: 24px;
-    height: 24px;
-    color: #2A3647;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 120%;
-    cursor: pointer;
-}
-
-.contact-detailed-images:hover .edit-img {
-    content: url('../img/edit_hover.png');
-}
-
-.contact-detailed-images:hover .delete-img {
-    content: url('../img/delete_hover.png');
 }

@@ -116,10 +116,6 @@ function renderEditTask(id) {
                     <div class="edit-contacts-container">
                         <div id="edit-loaded-contacts" class="loaded-contacts">
                         </div>
-                        <button id="edit-addContactBtn" onclick="openModal()" class="add-person-btn">
-                            Add new contact
-                            <img src="./img/person_add.svg" class="button-icon">
-                        </button>
                     </div>
                     <div id="edit-chosen-contacts" class="chosen-contacts"></div>
                     <div class="edit-subtasks-container">

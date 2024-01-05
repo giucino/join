@@ -1,89 +1,137 @@
-.contact-detailed-images-mobile:hover {
-    color: var(--bg-color, #4589FF);
-}
-
-.contact-added {
-    position: fixed;
-    left: 50%;
-    width: 360px;
-    bottom: -1000px;
-    height: 74px;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding: 8px;
-    border-radius: 20px;
-    background: var(--version-2-main-color, #4589FF);
-    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
-    color: var(--white, #FFF);
-    font-family: Open Sans;
-    font-size: 23px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 120%;
-    transition: bottom 0.5s;
-    display: none;
-    transform: translateX(-50%);
-    z-index: 60;
-}
-
-.show {
-    bottom: 50%;
-    display: flex;
-    transform: translate(-50%, -50%);
-}
-
-.container::-webkit-scrollbar {
-    width: 6px;
-}
-
-.container::-webkit-scrollbar-track {
-    border-radius: 30px;
-    background: #f1f1f1;
-}
-
-.container::-webkit-scrollbar-thumb {
-    background: #4589FF;
-}
-
-.container::-webkit-scrollbar-thumb:hover {
-    background: #005DFF;
-}
-
-.error-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.error-message {
-    color: red;
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
 @media(max-width: 1200px) {
-    .modal {
-        display: none;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+    .container {
+        width: 75%;
+        padding: 32px 52px;
+    }
+
+    #contact-details {
+        display: none !important;
+    }
+
+    .container-contact-all {
         width: 100%;
     }
 
-    .modal-content {
-        position: static;
+    .letter-title-underline {
+        width: 90%;
     }
 
-    #closeContactModalBtn {
-        position: relative;
-        top: -85px;
-        right: -255px;
+    #contact-details-mobile {
+        display: none;
+        position: absolute;
+        top: 0;
+        margin-top: 95px;
+        margin-left: 236px;
+        padding: 40px;
+    }
+
+    .contact-detailed-images-head {
+        position: fixed;
+        bottom: 100px;
+        right: 100px;
+        border-radius: 10px;
+        background: var(--Ligth-blue, #4589FF);
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        display: inline-flex;
+        padding: 16px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+    }
+
+    .contact-detailed-images-head:hover {
+        background: var(--Ligth-blue, #005DFF);
+    }
+
+    #invisibleDiv {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-Index: 6;
+    }
+
+    #contact-mobile-buttons {
+        cursor: pointer;
+        position: fixed;
+        bottom: 100px;
+        right: 100px;
+        padding: 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        border-radius: 20px 20px 0px 20px;
+        background: var(--white, #FFF);
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        z-index: 10;
+        display: none;
+        animation-name: slideFromRight;
+        animation-duration: 0.1s;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes slideFromRight {
+        from {
+            right: -150px;
+        }
+
+        to {
+            right: 20px;
+        }
+    }
+
+    @keyframes slideOutRight {
+        from {
+            right: 20px;
+        }
+
+        to {
+            right: -150px;
+        }
+    }
+
+    .contact-detailed-images-mobile {
+        display: flex;
+        width: 96px;
+        padding: 8px;
+        z-index: 1000;
+        align-items: center;
+        gap: 8px;
+        color: #2A3647;
+        font-family: Open Sans;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+    }
+
+    .contact-detailed-images-mobile img {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+    }
+
+    .contact-detailed-mobile-return {
+        cursor: pointer;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        position: fixed;
+        top: 130px;
+        right: 20px;
+        background-image: url("../img/arrow-left-line.png");
+        background-size: cover;
+        transition: background-image 0.1s ease-in-out;
+    }
+
+    .contact-detailed-mobile-return:hover {
+        background-image: url("../img/arrow-hover.png");
+    }
+
+    .container {
+        height: calc(100% - 195px);
     }
 
     #contact-mobile-buttons {
@@ -96,191 +144,175 @@ input::-webkit-inner-spin-button {
         bottom: 90px;
     }
 
+    .addContactBtnText {
+        display: none;
+    }
+
     .add-person-button {
-        position: fixed;
-        right: 30px;
-        bottom: 90px;
-    }
-
-    /* Für Webkit-basierte Browser (wie Chrome und Safari) */
-    ::-webkit-scrollbar {
-        width: 0;
-    }
-
-    /* Für Firefox */
-    html {
-        scrollbar-width: thin;
-        scrollbar-color: transparent transparent;
+        position: absolute;
+        right: 85px;
+        bottom: 30px;
+        padding: 16px;
+        width: auto;
     }
 }
 
-@media(max-width: 1180px) {
-    .container {
-        padding: 20px;
-        width: 600px;
+@media(max-width: 1024px) {
+    #contact-details-mobile {
+        margin-left: 0;
     }
-}
 
-@media(max-width: 890px) {
     .container {
         padding: 20px;
-        width: 500px;
-        margin-left: 100px;
+        width: 100vw;
+        margin-left: 10px;
     }
 }
 
 @media(max-width: 768px) {
-    .container {
-        margin-left: 0;
-        width: 402px;
+    .modal, .edtit-modal {
+        width: 85%;
+        height: 85%;
+        top: 10%;
+        left: 10%;
     }
 
-    #contact-details-mobile {
-        margin-left: -30px;
-    }
-}
-
-@media(max-width: 540px) {
-    .edit-content-top {
-        width: 371px;
+    .modal-content, .edit-content {
+        border-radius: 30px 30px 30px 30px;
     }
 
-    .modal-content-top {
-        width: 371px;
+    .contact-detailed-name {
+        font-size: 42px;
     }
 
-    #closeEditModalBtn {
-        right: -221px;
+    .initial-big {
+        width: 76px;
+        height: 76px;
+        font-size: 32px;
     }
 
-    #closeContactModalBtn {
-        right: -221px;
+    .contact-detailed-top {
+        gap: 30px;
+    }
+
+    .modal-content-top, .edit-content-top {
+        width: 80%;
+        padding: 91px 46px;
+        border-radius: 30px 30px 0px 0px;
+    }
+
+    .modal-logo img {
+        display: none;
+    }
+
+    .modal-headline {
+        font-size: 47px;
+    }
+
+    .modal-text {
+        font-size: 21px;
+    }
+
+    .edit-modal-text {
+        display: flex;
+    }
+
+    /* .modal-input-row {
+        margin-top: -100px;
+    } */
+
+    /* .add-contact-buttons {
+        margin-top: 30px;
+    } */
+
+    #cancelBtn {
+        display: none;
+    }
+
+    .modal-input-img {
+        top: -100px
     }
 }
 
 @media(max-width: 485px) {
-    .edit-content-top {
+    /* .modal-input-frame {
         width: 290px;
-    }
-
-    .modal-content-top {
-        width: 290px;
-    }
-
-    .modal-input-frame {
-        width: 290px;
+    } */
+    .modal, .edtit-modal {
+        width: 75%;
+        height: 75%;
     }
 
     .add-contact-buttons-inner {
         flex-direction: column;
     }
-
-    #closeEditModalBtn {
-        right: -172px;
-    }
-
-    #closeContactModalBtn {
-        right: -172px;
-    }
 }
 
 @media(max-width: 450px) {
     .container {
-        margin-left: -21px;
-        width: 340px;
+        padding: 10px;
     }
 
-    .container-contact-all {
-        width: auto;
-    }
-
-    .contact-detailed-name {
-        font-size: 36px;
-    }
-
-    .contact {
-        width: 260px;
-        gap: 0;
-    }
-
-    .modal-content-top {
-        padding: 6px 22px;
-        gap: 2px;
-    }
-
-    .edit-content-top {
-        padding: 6px 22px;
-        gap: 2px;
-    }
-
-    #closeContactModalBtn {
-        top: 0;
-    }
-
-    #closeEditModalBtn {
-        top: 0;
-    }
-
-    .modal-headline {
-        font-size: 24px;
-    }
-
-    .modal-text {
-        font-size: 16px;
-    }
-
-    .modal-input-img {
-        width: 34px;
-        height: 34px;
-    }
-
-    .initial-big {
-        width: 46px;
-        height: 46px;
-        font-size: 19px;
-    }
-
-    .modal-input-img img {
-        width: 34px;
-        height: 34px;
-        position: relative;
-        top: 0;
-        left: 0;
-    }
-}
-
-@media(max-width: 360px) {
-    .container {
-        margin-left: -21px;
-        width: 323px;
-        padding: 4px;
+    .add-person-button {
+        bottom: 10px;
+        right: 60px;
     }
 
     .contact {
         width: 250px;
     }
+
+    .name {
+        font-size: 16px;
+    }
+
+    .email {
+        font-size: 14px;
+    }
+
+    .initial {
+        font-size: 12px;
+        width: 36px;
+        height: 36px;
+    }
+
+    /* .modal-headline {
+        font-size: 24px;
+    } */
+
+    /* .modal-text {
+        font-size: 16px;
+    } */
+
+    /* .modal-input-img {
+        width: 34px;
+        height: 34px;
+    } */
+
+    .initial-big {
+        width: 52px;
+        height: 52px;
+        font-size: 19px;
+    }
+
+    /* .modal-input-img img {
+        width: 34px;
+        height: 34px;
+        position: relative;
+        top: 0;
+        left: 0;
+    } */
+
+    .contact-detailed-name {
+        font-size: 24px;
+    }
+
+    .contact-detailed-information {
+        font-size: 18px;
+    }
 }
 
-@media(max-height: 820px) {
-
-    .modal-content-top {
-        padding: 12px 47px;
-        gap: 2px;
-    }
-
-    .edit-content-top {
-        padding: 12px 47px;
-        gap: 2px;
-    }
-
-    #closeContactModalBtn {
-        top: 0;
-    }
-
-    #closeEditModalBtn {
-        top: 0;
-    }
-
+/* @media(max-height: 820px) {
     .modal-headline {
         font-size: 24px;
     }
@@ -294,12 +326,6 @@ input::-webkit-inner-spin-button {
         height: 34px;
     }
 
-    .initial-big {
-        width: 46px;
-        height: 46px;
-        font-size: 19px;
-    }
-
     .modal-input-img img {
         width: 34px;
         height: 34px;
@@ -307,10 +333,4 @@ input::-webkit-inner-spin-button {
         top: 0;
         left: 0;
     }
-}
-
-@media(max-height: 675px) {
-    .container {
-        height: 400px;
-    }
-}
+} */

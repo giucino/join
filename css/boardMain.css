@@ -231,7 +231,7 @@ body::-webkit-scrollbar-thumb:hover {
     }
 }
 
-@media(max-width: 1020px){
+@media(max-width: 1024px){
     .board-container {
         position: static;
         justify-content: center;

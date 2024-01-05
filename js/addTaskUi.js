@@ -92,13 +92,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /**
  * Sets the priority based on the button clicked. Resets other buttons and hides any priority errors.
- * @param {HTMLElement} button - The button element that was clicked to set the priority.
- * @throws {Error} Throws an error if the button ID does not match any expected priority.
+ * @param {HTMLElement} button 
  */
 function priority(button) {
     resetButtons();
     hidePriorityError();
+    removeSelectedClassFromButtons();
+    addSelectedClassToButton(button);
+    updatePriorityAndHighlightButton(button);
+}
 
+
+/**
+ * Removes the selected class from all buttons.
+ */
+function removeSelectedClassFromButtons() {
+    let buttons = document.getElementsByClassName('priority-choice-inner');
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('selected');
+    }
+}
+
+
+/**
+ * Adds the selected class to the button that was clicked.
+ * @param {HTMLElement} button 
+ */
+function addSelectedClassToButton(button) {
+    button.classList.add('selected');
+}
+
+
+/**
+ * Updates the priority based on the button clicked and highlights the button.
+ * @param {HTMLElement} button 
+ */
+function updatePriorityAndHighlightButton(button) {
     if (button.id === 'prioUrgent') {
         highlightButton(button, '#FF3D00', './img/prio_high_active.png');
         selectedPriority = 'high';
@@ -109,6 +138,7 @@ function priority(button) {
         highlightButton(button, '#7AE229', './img/prio_low_active.png');
         selectedPriority = 'low';
     }
+    selectedPriority = button.id.slice(4).toLowerCase();
 }
 
 
@@ -225,6 +255,28 @@ function toggleAssignedToContainer() {
 
 
 /**
+ * Event handler for the global click event.
+ * Closes contact-related dropdowns and containers if the click is outside
+ * the assigned-to-choicefield and contact containers.
+ * */
+document.addEventListener('click', function (event) {
+    let assignedToContainer = document.querySelector('.assigned-to-choicefield');
+    let isClickInside = assignedToContainer.contains(event.target);
+    let isContact = event.target.closest('.contact-container');
+
+    if (!isClickInside && !isContact) {
+        let loadedContacts = document.getElementById('loadedContacts');
+        let contactsContainer = document.querySelector('.contacts-container');
+        let assignedToDropdown = document.querySelector('.assigned-to-dropdown');
+
+        loadedContacts.style.display = 'none';
+        assignedToDropdown.classList.remove('expanded');
+        contactsContainer.style.display = 'none';
+    }
+});
+
+
+/**
  * Display the chosen contacts on the page by appending them to
  * the 'chosenContacts' container. For each chosen contact, their initials
  * are displayed with a specified background color.
@@ -262,7 +314,7 @@ function displayChosenContacts() {
  * When a category is clicked, the `categorySelected` function is called with the category name as an argument.
  * @requires categories - An array of objects where each object should have a 'categoryName' property.
  */
-function renderCategorys() {
+function renderCategories() {
     let categoryContainer = document.getElementById('loadedCategories');
     categoryContainer.innerHTML = '';
 
@@ -299,9 +351,25 @@ function toggleCategoryContainer() {
         categoryContainer.style.display = 'block';
         categoryDropdown.classList.add('expanded');
         categoryDropdown.style.borderBottom = "1px solid #4589FF";
-        renderCategorys();
+        renderCategories();
     }
 }
+
+
+/**
+ * Event handler for the global click event.
+ * Closes category-related dropdowns and containers if the click is outside
+ * the category-choicefield and category containers.
+ * */
+document.addEventListener('click', function (event) {
+    let categoryContainer = document.querySelector('.category-choicefield');
+    let isClickInside = categoryContainer.contains(event.target);
+
+    if (!isClickInside) {
+        let loadedCategory = document.getElementById('loadedCategories');
+        loadedCategory.style.display = 'none';
+    }
+});
 
 
 /**

@@ -105,6 +105,26 @@
 .chosen-contacts {
     display: flex;
     gap: 8px;
+    overflow-x: auto;
+    width: 90%;
+    cursor: pointer;
+}
+
+.chosen-contacts::-webkit-scrollbar {
+    height: 4px;
+}
+
+.chosen-contacts::-webkit-scrollbar-track {
+    border-radius: 30px;
+    background: #f1f1f1;
+}
+
+.chosen-contacts::-webkit-scrollbar-thumb {
+    background: #4589FF;
+}
+
+.chosen-contacts::-webkit-scrollbar-thumb:hover {
+    background: #005DFF;
 }
 
 .category,

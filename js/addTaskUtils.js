@@ -73,6 +73,7 @@ function resetButtons() {
     for (let i = 0; i < buttons.length; i++) {
         let btn = buttons[i];
         btn.classList.remove('highlighted');
+        btn.classList.remove('selected');
         btn.style.backgroundColor = '';
         btn.style.color = 'black';
 

@@ -168,7 +168,6 @@ function showContactDetailsContent(detailsContainer, index) {
     if (!isContainerVisible) {
         detailsContainer.classList.add('slide-in');
     }
-
     isContainerVisible = true;
 }
 

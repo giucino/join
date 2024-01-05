@@ -72,7 +72,7 @@ function renderSlideCardHTML(
         <div id="task-slide-container${element.id}" class="task-slide-container" onclick="event.stopPropagation()">
             <div class="task-slide-headline">
                 <div class="task-slide-headline-left" style="background-color: ${backgroundColor};"><span class="task-slide-category">${element.category}</span></div>
-                <div id="task-slide-close" onclick="closeCard(${element.id}), loadData()" class="task-slide-headline-right"><img src="./img/close.png" alt="Schließen"></div>
+                <div id="task-slide-close" onclick="closeCard(${element.id}), loadData()" class="task-slide-headline-right"><img src="./img/close_subtask.png" alt="Schließen"></div>
             </div>
             <div class="scroll-slide-container">
                 <span id="task-slide-title" class="task-slide-title">${element.title}</span>
