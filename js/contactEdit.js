@@ -15,7 +15,6 @@ function editContact(index) {
         event.preventDefault();
         updateContact(index);
     };
-
     returnToContactsMobile();
 }
 
@@ -83,7 +82,7 @@ async function deleteContact(index) {
 function showContactAdded() {
     let contactAddedContainer = document.getElementById('contactAddedContainer');
     contactAddedContainer.innerHTML = /*html*/ `    <div> Contact successfully created </div> 
-                                                    <div> <img src="./img/vector.svg"></div> `;
+                                                    <div> <img class="success-icon" src="./img/vector.svg"></div> `;
     contactAddedContainer.style.display = 'flex';
     setTimeout(() => {
         contactAddedContainer.classList.add('show');

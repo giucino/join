@@ -164,6 +164,16 @@ function loadRenderCategory(element) {
 
 
 /**
+ * Loads the provided due date into the selected date.
+ * @param {Object} element - The element containing task data.
+ */
+function loadTaskDate(element) {
+    const date = element.dueDate;
+    selectedDate = date;
+}
+
+
+/**
  * Handles the logic when a category is selected.
  * @param {string} category - The name of the selected category.
  */

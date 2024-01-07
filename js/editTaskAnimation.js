@@ -19,6 +19,7 @@ function editTask(id) {
   loadDisplayChosenContacts();
   addToSelectedContacts(element);
   loadRenderCategory(element);
+  loadTaskDate(element);
 }
 
 
@@ -283,7 +284,7 @@ async function loadRenderAssignedTo(selectedContacts) {
     const isSelected = selectedContacts[contact.id] || false;
     let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
 
-    assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected, isCurrentUser);
+    assignedToContainer.innerHTML += loadRenderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser);
   }
 }
 
@@ -324,32 +325,32 @@ function loadSearchContacts(query) {
 }
 
 
-/**
- * Toggles the selection of a contact based on the given name and surname. If the contact is already selected,
- * it will be removed from the selection; otherwise, it will be added to the selection. After toggling the contact
- * selection, various rendering functions are called to update the UI.
- * @param {string} name - The first name of the contact to be toggled.
- * @param {string} surname - The surname of the contact to be toggled.
- * @see loadRenderAssignedTo
- * @see loadSearchedContact
- * @see renderDisplayChosenContacts
- */
-function loadToggleContactSelection(name, surname) {
-  const contact = contacts.find(c => c.name === name && c.surname === surname);
+// /**
+//  * Toggles the selection of a contact based on the given name and surname. If the contact is already selected,
+//  * it will be removed from the selection; otherwise, it will be added to the selection. After toggling the contact
+//  * selection, various rendering functions are called to update the UI.
+//  * @param {string} name - The first name of the contact to be toggled.
+//  * @param {string} surname - The surname of the contact to be toggled.
+//  * @see loadRenderAssignedTo
+//  * @see loadSearchedContact
+//  * @see renderDisplayChosenContacts
+//  */
+// function loadToggleContactSelection(name, surname) {
+//   const contact = contacts.find(c => c.name === name && c.surname === surname);
 
-  if (!contact) {
-    return;
-  }
+//   if (!contact) {
+//     return;
+//   }
 
-  if (selectedContacts[contact.id]) {
-    delete selectedContacts[contact.id];
-  } else {
-    selectedContacts[contact.id] = `${contact.name} ${contact.surname}`;
-  }
-  loadRenderAssignedTo(selectedContacts);
-  loadSearchedContact(contacts);
-  renderDisplayChosenContacts();
-}
+//   if (selectedContacts[contact.id]) {
+//     delete selectedContacts[contact.id];
+//   } else {
+//     selectedContacts[contact.id] = `${contact.name} ${contact.surname}`;
+//   }
+//   loadRenderAssignedTo(selectedContacts);
+//   loadSearchedContact(contacts);
+//   renderDisplayChosenContacts();
+// }
 
 
 /** 
@@ -357,7 +358,7 @@ function loadToggleContactSelection(name, surname) {
  * @param {string} name - The first name of the contact.
  * @param {string} surname - The surname of the contact.
  */
-function toggleContactSelection(name, surname) {
+function loadToggleContactSelection(name, surname) {
   const contact = contacts.find(c => c.name === name && c.surname === surname);
 
   if (!contact) {

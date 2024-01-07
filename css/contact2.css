@@ -105,7 +105,7 @@
     padding: 16px 10px;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 4px;
     border-radius: 10px;
     border: 1px solid #647188;
     background: var(--white, #FFF);
@@ -146,10 +146,10 @@
 
 .button-create-task {
     display: flex;
-    padding: 16px 10px;
-    justify-content: center;
+    padding: 16px 10px 16px 40px;
+    justify-content: space-between;
     align-items: center;
-    gap: 4px;
+    gap: 30px;
     border-radius: 10px;
     background: var(--version-2-main-color, #4589FF);
     cursor: pointer;
@@ -206,7 +206,8 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 24px;
+    gap: 32px;
+    margin-bottom: 8%;
 }
 
 .modal-input-img {
@@ -239,7 +240,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 20px;
+    gap: 24px;
 }
 
 .modal-input-frame {

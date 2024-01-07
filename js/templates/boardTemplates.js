@@ -57,7 +57,7 @@ function renderEditTask(id) {
                             Due date
                         </div>
                         <div class="edit-due-date-input-container">
-                            <input id="edit-due-date" class="edit-due-date-textfield" type="date">
+                            <input value="${task.dueDate}" id="edit-due-date" class="edit-due-date-textfield" type="date">
                         </div>
                         <div id="edit-required-date" class="edit-add-task-field-required">
                             This field is required
@@ -159,27 +159,7 @@ function loadRenderSearchedContactsHTML(contact, initials, isSelected, isCurrent
     let userMarker = isCurrentUser ? " (you)" : "";
 
     return /*html*/`
-      <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surname}')">
-          <div class="select-contact">
-              <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-              <div class="select-name">${contact.name} ${contact.surname}${userMarker}</div>
-          </div>
-          <img class="select-icon" id="edit-select-check" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
-      </div>`;
-}
-
-
-/**
- * Renders the HTML for a given contact, including initials and selected state.
- * @param {Object} contact - The contact to render.
- * @param {string} initials - The initials of the contact.
- * @param {boolean} isSelected - Whether the contact is selected or not.
- */
-function renderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
-    let userMarker = isCurrentUser ? " (you)" : "";
-
-    return /* html */`
-      <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="toggleContactSelection('${contact.name}', '${contact.surname}')">
+      <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="loadToggleContactSelection('${contact.name}', '${contact.surname}')">
           <div class="select-contact">
               <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
               <div class="select-name">${contact.name} ${contact.surname}${userMarker}</div>

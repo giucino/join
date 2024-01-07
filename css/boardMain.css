@@ -7,11 +7,11 @@ body {
     border-radius: 30px;
 }
 
-.visibility{
+.visibility {
     display: none !important;
 }
 
-.noscroll::-webkit-scrollbar{
+.noscroll::-webkit-scrollbar {
     display: none;
 }
 
@@ -100,7 +100,7 @@ body::-webkit-scrollbar-thumb:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex: 1  0;
+    flex: 1 0;
 }
 
 .input-field::placeholder {
@@ -197,6 +197,7 @@ body::-webkit-scrollbar-thumb:hover {
     gap: 24px;
     flex: 1 0 0;
     align-self: stretch;
+    cursor: grab;
 }
 
 @media(max-width: 1440px) {
@@ -206,6 +207,7 @@ body::-webkit-scrollbar-thumb:hover {
         justify-content: center;
         padding: 236px 10px 50px 10px;
     }
+
     .scroll-container {
         display: flex;
         height: 350px;
@@ -214,33 +216,41 @@ body::-webkit-scrollbar-thumb:hover {
         overflow-x: scroll;
         cursor: grab;
     }
-    .grabbing{
+
+    .grabbing {
         cursor: grabbing;
     }
+
     .scroll-container::-webkit-scrollbar {
         display: none;
     }
-    .task-container{
+
+    .task-container {
         width: unset;
         align-items: unset;
     }
-    .drag-area{
+
+    .drag-area {
         align-items: center;
         flex-direction: row;
         height: unset;
     }
 }
 
-@media(max-width: 1024px){
+@media(max-width: 1024px) {
     .board-container {
         position: static;
         justify-content: center;
         padding: 236px 18px 100px 18px;
     }
+
     .scroll-container {
         width: 570px;
+        border-radius: 10px;
+        box-shadow: 3px 0px 0px 0px rgba(0, 0, 0, 0.08);
     }
-    .search-add-task-container{
+
+    .search-add-task-container {
         padding-left: 18px;
         left: unset;
     }
@@ -252,6 +262,7 @@ body::-webkit-scrollbar-thumb:hover {
         justify-content: center;
         padding: 66px 10px 150px 10px;
     }
+
     .scroll-container {
         width: 570px;
     }
@@ -297,7 +308,6 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .content-container {
-    cursor: pointer;
     box-sizing: border-box;
     display: flex;
     width: 250px;
@@ -327,7 +337,6 @@ body::-webkit-scrollbar-thumb:hover {
     }
 }
 
-
 .board-category {
     box-sizing: border-box;
     height: 27px;
@@ -339,7 +348,6 @@ body::-webkit-scrollbar-thumb:hover {
     gap: 10px;
     border-radius: 8px;
     color: white;
-    
 }
 
 .title-content {
@@ -349,7 +357,7 @@ body::-webkit-scrollbar-thumb:hover {
     gap: 8px;
     align-self: stretch;
     border-radius: 10px;
-    
+    overflow: hidden;
 }
 
 .title {
@@ -359,7 +367,6 @@ body::-webkit-scrollbar-thumb:hover {
     font-style: normal;
     font-weight: 700;
     line-height: 120%;
-
 }
 
 .prio-container {
@@ -391,5 +398,4 @@ body::-webkit-scrollbar-thumb:hover {
     border-radius: 58px;
     border: 1px solid #FFF;
     color: white;
-
 }

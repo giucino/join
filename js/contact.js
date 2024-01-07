@@ -3,6 +3,8 @@ let colors = ['#0038FF', '#00BEE8', '#1FD7C1', '#6E52FF', '#9327FF', '#9747FF', 
 let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
     'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
+let isContainerVisible = false;
+
 
 /**
  * main function to initialize the whole site
@@ -120,9 +122,6 @@ function removeEmptyLetters() {
 }
 
 
-let isContainerVisible = false;
-
-
 /**
  * Shows the details of a contact based on its index.
  * @param {number} index - The index of the contact whose details should be displayed.
@@ -134,7 +133,9 @@ function showContactDetails(index) {
 
     showContactDetailsContent(detailsContainer, index);
 
-    selectedContactElement.classList.add('contact-selected');
+    if (window.matchMedia("(min-width: 1200px)").matches) {
+        selectedContactElement.classList.add('contact-selected');
+    }
     handleAnimationEnd(detailsContainer);
 }
 
@@ -148,7 +149,6 @@ function resetAllContactsSelection() {
         contactElement.classList.remove('contact-selected');
     });
 }
-
 
 
 /**
