@@ -1,24 +1,24 @@
 .scroll-slide-container::-webkit-scrollbar,
-.scroll-slide-edit-container::-webkit-scrollbar,
+.edit-add-task-container::-webkit-scrollbar,
 .add-task-content::-webkit-scrollbar {
     width: 6px;
 }
 
 .scroll-slide-container::-webkit-scrollbar-track,
-.scroll-slide-edit-container::-webkit-scrollbar-track,
+.edit-add-task-container::-webkit-scrollbar-track,
 .add-task-content::-webkit-scrollbar-track {
     border-radius: 30px;
     background: #f1f1f1;
 }
 
 .scroll-slide-container::-webkit-scrollbar-thumb,
-.scroll-slide-edit-container::-webkit-scrollbar-thumb,
+.edit-add-task-container::-webkit-scrollbar-thumb,
 .add-task-content::-webkit-scrollbar-thumb {
     background: #4589FF;
 }
 
 .scroll-slide-container::-webkit-scrollbar-thumb:hover,
-.scroll-slide-edit-container::-webkit-scrollbar-thumb:hover,
+.edit-add-task-container::-webkit-scrollbar-thumb:hover,
 .add-task-content::-webkit-scrollbar-thumb:hover {
     background: #005DFF;
 }
@@ -189,21 +189,21 @@
     }
 }
 
-/***** Media Query für Bildschirmbreite von maximal 1024px ******/
+/***** Media Query für Bildschirmbreite von maximal 1600px ******/
 @media(max-width: 1600px) {
     .add-task-content {
         height: 70%;
     }
 }
 
-/***** Media Query für Bildschirmhöhe von 600px oder mehr ******/
+/***** Media Query für Bildschirmhöhe von 791px oder mehr ******/
 @media screen and (min-height: 791px) and (max-height: 999px) {
     .add-task-content {
         height: 70%;
     }
 }
 
-/***** Media Query für Bildschirmhöhe von 600px oder mehr ******/
+/***** Media Query für Bildschirmhöhe von 1000px oder mehr ******/
 @media screen and (min-height: 1000px) {
     .add-task-content {
         height: 75%;

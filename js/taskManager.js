@@ -181,6 +181,7 @@ function closeAddTaskModal() {
     let overlay = document.querySelector(".task-background-overlay");
     overlay.style.display = "none";
     document.body.style.overflow = 'auto';
+    selectedContacts = [];
 }
 
 

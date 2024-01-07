@@ -84,14 +84,14 @@ document.addEventListener("DOMContentLoaded", function () {
 /**
  * Close the task card with a slide out animation.
  */
-function closeCard() {
-    document.getElementById("slide-container").classList.remove("slide-in-board");
-    setTimeout(() => {
-        document.getElementById("task-slide").classList.add("d-none");
-        document.getElementById("noscroll").classList.remove("noscroll");
-    }, 100);
-    document.body.style.overflow = 'auto';
-}
+// function closeCard() {
+//     document.getElementById("slide-container").classList.remove("slide-in-board");
+//     setTimeout(() => {
+//         document.getElementById("task-slide").classList.add("d-none");
+//         // document.getElementById("noscroll").classList.remove("noscroll");
+//     }, 100);
+//     document.body.style.overflow = 'auto';
+// }
 
 /**
  * Close the task card with a slide out animation.
@@ -114,23 +114,50 @@ function closeEditCard() {
  * element with the ID `slide-container`. If it is, the `closeCard` function is called to close or 
  * hide the card.
  */
-document.addEventListener("click", function (event) {
-    const slideContainer = document.getElementById("slide-container");
-    if (slideContainer && event.target === slideContainer) {
+// document.addEventListener("click", function (event) {
+//     const slideContainer = document.getElementById("slide-container");
+//     if (slideContainer && event.target === slideContainer) {
+//         closeCard();
+//     }
+// });
+
+/**
+ * Closes the add task modal and hides the overlay.
+ */
+function closeCard() {
+    let modal = document.getElementById("task-slide");
+    modal.classList.remove('.edit-task-slide-in');
+    modal.classList.add('.edit-task-slide-out');
+    let overlay = document.querySelector(".task-slide-overlay");
+    overlay.style.display = "none";
+    document.body.style.overflow = 'auto';
+}
+
+
+/**
+ * Handles the click event on the overlay to close the add task modal.
+ * @param {Event} event - The click event.
+ */
+function handleOverlayClick(event) {
+    if (event.target.classList.contains("task-slide-overlay")) {
         closeCard();
     }
-});
+}
+document.querySelector(".task-slide-overlay").addEventListener("click", handleOverlayClick);
+
 
 
 /**
  * Triggers the slide in animation for the task card.
  */
 function slideCardAnimation() {
-    document.getElementById("task-slide").classList.remove("d-none");
+    // document.getElementById("task-slide").classList.remove("d-none");
     setTimeout(() => {
         document.getElementById("slide-container").classList.add("slide-in-board");
     }, 50);
 }
+
+
 
 
 /**
@@ -141,8 +168,14 @@ function slideCard(id) {
     document.body.style.overflow = 'hidden';
     const slideCard = document.getElementById("task-slide");
     slideCard.innerHTML = renderSlideCard(id);
-    slideCardAnimation();
-    document.getElementById("noscroll").classList.add("noscroll");
+    slideCard.style.display = "block";
+    slideCard.classList.remove('edit-task-slide-out');
+    slideCard.classList.add('edit-task-slide-in');
+    let overlay = document.querySelector(".task-slide-overlay");
+    overlay.style.display = "block";
+    // slideCardAnimation();
+
+    // document.getElementById("noscroll").classList.add("noscroll");
 }
 
 

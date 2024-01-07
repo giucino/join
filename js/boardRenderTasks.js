@@ -231,7 +231,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let container = document.querySelector('.scroll-container');
 
-
   container.addEventListener('mousedown', function (e) {
     container.classList.add('grabbing');
     isMouseDown = true;
@@ -342,7 +341,6 @@ function startDragging(id) {
  */
 function allowDrop(ev) {
   ev.preventDefault();
-
 }
 
 

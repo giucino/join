@@ -1,16 +1,3 @@
-.edit-category-choicefield:hover {
-    border-bottom: 1px solid var(--bg-color);
-}
-
-.edit-category-dropdown {
-    display: flex;
-    justify-content: space-between;
-    width: 440px;
-    padding: 12px 16px;
-    cursor: pointer;
-}
-
-.edit-loaded-categories,
 .edit-loaded-contacts {
     display: none;
     width: 100%;
@@ -18,23 +5,20 @@
     height: 250px;
 }
 
-.edit-chosen-contacts {
+.chosen {
     display: flex;
     gap: 8px;
+    width: 90%;
+    cursor: pointer;
 }
 
-.edit-category, .select-name {
+.select-name {
     cursor: pointer;
     padding: 12px 16px;
     font-size: 19px;
     font-style: normal;
     font-weight: 400;
     line-height: 120%;
-}
-
-.edit-category:hover {
-    background: #D2E3FF;
-    border-radius: 10px;
 }
 
 .edit-select-text {
@@ -73,43 +57,9 @@
     width: 100%;
 }
 
-.edit-add-person-button {
-    display: flex;
-    width: 97%;
-    height: 56px;
-    padding: 16px 10px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 10px;
-    border: 1px solid var(--version-2-main-color, #4589FF);
-    background: var(--version-2-main-color, #4589FF);
-    color: var(--white, #FFF);
-    font-size: 23px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 120%;
-    cursor: pointer;
-    margin: 5px 0;
-}
-
-.edit-add-person-button:hover {
-    background: #005DFF;
-}
-
-.edit-add-person-button:active {
-    background-color: #FFFFFF;
-    color: var(--bg-color, #4589FF);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-}
-
-.edit-add-person-button:active .edit-button-icon {
-    content: url('../img/person_add_active.png');
-}
-
 .edit-subtasks-container {
     display: flex;
-    width: 440px;
+    width: 100%;
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
@@ -202,6 +152,7 @@
 
 .edit-subtask-container {
     display: flex;
+    align-items: center;
 }
 
 .edit-subtask-container:hover {
@@ -228,7 +179,10 @@
 .edit-subtask-value {
     border: none;
     outline: none;
-    width: 100%;
+    max-height: 1.2em;
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
 }
 
 .hover-content {
@@ -300,45 +254,6 @@
     gap: 25px;
 }
 
-.edit-button-clear {
-    display: flex;
-    width: 116px;
-    padding: 16px 10px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 10px;
-    border: 1px solid #647188;
-    background: var(--white, #FFF);
-    cursor: pointer;
-    color: #647188;
-    font-size: 23px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 120%;
-}
-
-.edit-button-clear:hover {
-    transition: ease-in-out 100ms;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    color: var(--bg-color, #4589FF);
-    border: 1px solid var(--bg-color, #4589FF);
-}
-
-.edit-button-clear:hover .edit-button-clear-pic {
-    content: url('../img/cancel_icon_hover.png');
-}
-
-.edit-button-clear:active {
-    color: var(--btn-hover, #005DFF);
-    border: 1px solid var(--btn-hover, #005DFF);
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-}
-
-.edit-button-clear:active .edit-button-clear-pic {
-    content: url('../img/cancel_icon_active.png');
-}
-
 .edit-button-create-task {
     display: flex;
     padding: 16px 10px;
@@ -370,37 +285,14 @@
     content: url('../img/check_active.png');
 }
 
-.border-bottom{
+.border-bottom {
     border-bottom: 1px solid #D1D1D1;
 }
 
-.d-none{
+.d-none {
     display: none;
 }
 
-.inline-flex{
+.inline-flex {
     display: inline-flex;
-}
-
-.scroll-slide-edit-container {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: 650px;
-    width: 448px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-@media (max-width: 480px) {
-    .scroll-slide-edit-container {
-        transform: scale(0.8);
-    }
-
-    .edit-add-task-buttons {
-        position: relative;
-        bottom: 130px;
-        right: 8px;
-        transform: scale(0.8);
-    }
 }

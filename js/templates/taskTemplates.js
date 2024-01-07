@@ -3,8 +3,6 @@
  * @returns {string} The HTML content of the modal.
  */
 function renderAddTask() {
-    const currentDate = new Date().toISOString().split('T')[0];
-
     return /* html */ `
 <div class="float-add-task-container">
     <div class="header">
@@ -151,29 +149,6 @@ function addCreatedTaskTemplate() {
                 <p>Task added to board</p>
                 <img class="send-check" src="./img/added_task.png" alt="">
             </div>
-        </div>
-    `;
-}
-
-
-/**
- * Renders a contact as HTML with optional selection and current user indicator.
- * @param {object} contact - The contact object with properties like name, surname, and bgcolor.
- * @param {string} initials - The initials to display.
- * @param {boolean} isSelected - Whether the contact is selected.
- * @param {boolean} isCurrentUser - Whether the contact is the current user.
- * @returns {string} The HTML representation of the contact with optional selection and user indicator.
- */
-function addRenderAssignedToHTML(contact, initials, isSelected, isCurrentUser) {
-    let userMarker = isCurrentUser ? " (you)" : "";
-
-    return /*html*/`
-        <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="addToggleContactSelection('${contact.name}', '${contact.surname}')">
-            <div class="select-contact">
-                <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-                <div class="select-name">${contact.name} ${contact.surname}${userMarker}</div>
-            </div>
-            <img class="select-icon" id="addSelectCheck" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
         </div>
     `;
 }

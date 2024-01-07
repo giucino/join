@@ -16,7 +16,7 @@ function editTask(id) {
   currentSelectedTask = element;
   addSubtaskToEdit(element);
   loadSelectedPriority(element);
-  loadDisplayChosenContacts();
+  renderDisplayChosenContacts();
   addToSelectedContacts(element);
   loadRenderCategory(element);
   loadTaskDate(element);
@@ -24,10 +24,10 @@ function editTask(id) {
 
 
 /**
- * Aktualisiert das gegebene Eigenschaft des Elements mit dem Wert eines Input-Elements.
- * @param {HTMLElement} element - Das zu aktualisierende Element.
- * @param {string} inputId - Die ID des Input-Elements, von dem der Wert abgerufen werden soll.
- * @param {string} prop - Die Eigenschaft des Elements, die aktualisiert werden soll.
+ * Updates the properties of a given element based on the value of an input field
+ * @param {HTMLElement} element - The element object to be updated.
+ * @param {string} inputId - The ID of the input field.
+ * @param {string} prop - The property of the element to be updated.
  */
 function updateElementFromInput(element, inputId, prop) {
   element[prop] = document.getElementById(inputId).value;
@@ -255,7 +255,7 @@ function addToSelectedContacts(element) {
     }
   }
   loadRenderAssignedTo(selectedContacts);
-  loadDisplayChosenContacts();
+  renderDisplayChosenContacts();
 }
 
 
@@ -323,34 +323,6 @@ function loadSearchContacts(query) {
   });
   loadSearchedContact(filteredContacts);
 }
-
-
-// /**
-//  * Toggles the selection of a contact based on the given name and surname. If the contact is already selected,
-//  * it will be removed from the selection; otherwise, it will be added to the selection. After toggling the contact
-//  * selection, various rendering functions are called to update the UI.
-//  * @param {string} name - The first name of the contact to be toggled.
-//  * @param {string} surname - The surname of the contact to be toggled.
-//  * @see loadRenderAssignedTo
-//  * @see loadSearchedContact
-//  * @see renderDisplayChosenContacts
-//  */
-// function loadToggleContactSelection(name, surname) {
-//   const contact = contacts.find(c => c.name === name && c.surname === surname);
-
-//   if (!contact) {
-//     return;
-//   }
-
-//   if (selectedContacts[contact.id]) {
-//     delete selectedContacts[contact.id];
-//   } else {
-//     selectedContacts[contact.id] = `${contact.name} ${contact.surname}`;
-//   }
-//   loadRenderAssignedTo(selectedContacts);
-//   loadSearchedContact(contacts);
-//   renderDisplayChosenContacts();
-// }
 
 
 /** 

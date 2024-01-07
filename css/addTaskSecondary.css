@@ -29,7 +29,6 @@
     background-color: #4589FF;
     border-radius: 10px;
     color: white;
-    color: white;
 }
 
 .contact-container.selected .select-icon {
@@ -105,7 +104,7 @@
 .chosen-contacts {
     display: flex;
     gap: 8px;
-    overflow-x: auto;
+    overflow: auto;
     width: 90%;
     cursor: pointer;
 }
@@ -125,6 +124,13 @@
 
 .chosen-contacts::-webkit-scrollbar-thumb:hover {
     background: #005DFF;
+}
+
+.chosen {
+    display: flex;
+    gap: 8px;
+    width: 90%;
+    cursor: pointer;
 }
 
 .category,

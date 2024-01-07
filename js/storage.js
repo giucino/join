@@ -28,7 +28,7 @@ async function getItem(key) {
     });
 }
 
-let selectedPriority = '';
+let selectedPriority = 'medium';
 let selectedCategory = '';
 let selectedStatus = '';
 let selectedContacts = [];

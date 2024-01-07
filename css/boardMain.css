@@ -61,19 +61,6 @@ body::-webkit-scrollbar-thumb:hover {
     gap: 35px;
 }
 
-@media(max-width: 650px) {
-    .search-add-task {
-        display: flex;
-        justify-content: center;
-    }
-
-    .search-add-task-container {
-        position: static;
-        padding: 94px 0 0 10px;
-        justify-content: center;
-    }
-}
-
 .input-conteiner {
     width: 280px;
     height: 32px;
@@ -86,12 +73,6 @@ body::-webkit-scrollbar-thumb:hover {
 
 .input-conteiner:focus-within {
     border-color: #005DFF;
-}
-
-@media(max-width: 650px) {
-    .input-conteiner {
-        width: auto;
-    }
 }
 
 .input-field {
@@ -163,12 +144,6 @@ body::-webkit-scrollbar-thumb:hover {
     background: #091931;
 }
 
-@media(max-width: 650px) {
-    .add-btn {
-        display: none;
-    }
-}
-
 .board-container {
     box-sizing: border-box;
     display: flex;
@@ -198,80 +173,6 @@ body::-webkit-scrollbar-thumb:hover {
     flex: 1 0 0;
     align-self: stretch;
     cursor: grab;
-}
-
-@media(max-width: 1440px) {
-    .board-container {
-        position: absolute;
-        flex-direction: column;
-        justify-content: center;
-        padding: 236px 10px 50px 10px;
-    }
-
-    .scroll-container {
-        display: flex;
-        height: 350px;
-        width: 850px;
-        flex: 1;
-        overflow-x: scroll;
-        cursor: grab;
-    }
-
-    .grabbing {
-        cursor: grabbing;
-    }
-
-    .scroll-container::-webkit-scrollbar {
-        display: none;
-    }
-
-    .task-container {
-        width: unset;
-        align-items: unset;
-    }
-
-    .drag-area {
-        align-items: center;
-        flex-direction: row;
-        height: unset;
-    }
-}
-
-@media(max-width: 1024px) {
-    .board-container {
-        position: static;
-        justify-content: center;
-        padding: 236px 18px 100px 18px;
-    }
-
-    .scroll-container {
-        width: 570px;
-        border-radius: 10px;
-        box-shadow: 3px 0px 0px 0px rgba(0, 0, 0, 0.08);
-    }
-
-    .search-add-task-container {
-        padding-left: 18px;
-        left: unset;
-    }
-}
-
-@media(max-width: 650px) {
-    .board-container {
-        position: static;
-        justify-content: center;
-        padding: 66px 10px 150px 10px;
-    }
-
-    .scroll-container {
-        width: 570px;
-    }
-}
-
-@media(max-width: 650px) {
-    .scroll-container {
-        width: 320px;
-    }
 }
 
 .board-headline {
@@ -329,12 +230,6 @@ body::-webkit-scrollbar-thumb:hover {
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
-}
-
-@media(max-width: 1440px) {
-    .content-container {
-        margin: 25px 8px;
-    }
 }
 
 .board-category {
@@ -398,4 +293,97 @@ body::-webkit-scrollbar-thumb:hover {
     border-radius: 58px;
     border: 1px solid #FFF;
     color: white;
+}
+
+@media(max-width: 1440px) {
+    .board-container {
+        position: absolute;
+        flex-direction: column;
+        justify-content: center;
+        padding: 236px 10px 50px 10px;
+    }
+
+    .scroll-container {
+        display: flex;
+        height: 350px;
+        width: 850px;
+        flex: 1;
+        overflow-x: scroll;
+        cursor: grab;
+    }
+
+    .grabbing {
+        cursor: grabbing;
+    }
+
+    .scroll-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .task-container {
+        width: unset;
+        align-items: unset;
+    }
+
+    .drag-area {
+        align-items: center;
+        flex-direction: row;
+        height: unset;
+    }
+
+    .content-container {
+        margin: 25px 8px;
+    }
+}
+
+
+@media(max-width: 1024px) {
+    .board-container {
+        position: static;
+        justify-content: center;
+        padding: 236px 18px 100px 18px;
+    }
+
+    .scroll-container {
+        width: 570px;
+        border-radius: 10px;
+        box-shadow: 3px 0px 0px 0px rgba(0, 0, 0, 0.08);
+    }
+
+    .search-add-task-container {
+        padding-left: 18px;
+        left: unset;
+    }
+}
+
+
+@media(max-width: 650px) {
+    .search-add-task {
+        display: flex;
+        justify-content: center;
+    }
+
+    .search-add-task-container {
+        position: static;
+        padding: 94px 0 0 10px;
+        justify-content: center;
+    }
+
+    .input-conteiner {
+        width: auto;
+    }
+
+    .add-btn {
+        display: none;
+    }
+
+    .board-container {
+        position: static;
+        justify-content: center;
+        padding: 66px 10px 150px 10px;
+    }
+
+    .scroll-container {
+        width: 320px;
+    }
 }

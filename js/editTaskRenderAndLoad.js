@@ -42,7 +42,6 @@ document.addEventListener('click', function (event) {
 });
 
 
-
 /**
  * Renders and displays the selected contacts.
  */
@@ -69,41 +68,6 @@ function renderDisplayChosenContacts() {
  * @param {string} initials - The initials of the contact.
  */
 function renderDisplayChosenContactsHTML(contact, initials) {
-    return /*html*/`
-        <div class="chosen-contact">
-            <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-        </div>
-    `;
-}
-
-
-/**
- * Loads and displays the chosen contacts.
- */
-function loadDisplayChosenContacts() {
-    const chosenContactsContainer = document.getElementById('edit-chosen-contacts');
-    let htmlContent = '';
-
-    for (let id in selectedContacts) {
-        if (selectedContacts.hasOwnProperty(id)) {
-            let contact = contacts.find(c => c.id === parseInt(id));
-            if (contact) {
-                let initials = `${contact.name.charAt(0)}${contact.surname.charAt(0)}`.toUpperCase();
-                htmlContent += loadDisplayChosenContactsHTML(contact, initials);
-            }
-        }
-    }
-    chosenContactsContainer.innerHTML = htmlContent;
-}
-
-
-/**
- * Generiert und gibt einen HTML-String für die Anzeige ausgewählter Kontakte zurück.
- * @param {Object} contact - Das Kontaktobjekt mit notwendigen Informationen.
- * @param {string} contact.bgcolor - Hintergrundfarbe für die Initialen.
- * @param {string} initials - Initialen des Kontakts.
- */
-function loadDisplayChosenContactsHTML(contact, initials) {
     return /*html*/`
         <div class="chosen-contact">
             <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>

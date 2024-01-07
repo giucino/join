@@ -165,16 +165,6 @@ function addHighlightButton(button, bgColor, imageSrc) {
 }
 
 
-// /**
-//  * Event listener for the 'DOMContentLoaded' event.
-//  * Sets the default task priority to 'Medium' once the HTML document is fully loaded and parsed.
-//  */
-// document.addEventListener('click', function() {
-//     let mediumPriorityButton = document.getElementById('addPrioMedium');
-//     addPriority(mediumPriorityButton);
-// });
-
-
 /**
  * Retrieves the data of the currently logged-in user from the browser's localStorage.
  * @returns {Object} The data of the logged-in user as an object, or an empty object if no user is logged in.
@@ -201,7 +191,7 @@ async function addRenderAssignedTo() {
         let isSelected = selectedContacts[contact.id] || false;
         let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
 
-        assignedToContainer.innerHTML += addRenderAssignedToHTML(contact, initials, isSelected, isCurrentUser);
+        assignedToContainer.innerHTML += addRenderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser);
     }
 }
 
@@ -249,28 +239,6 @@ function addToggleAssignedToContainer() {
     contactsContainer.style.display = assignedToContainer.style.display;
     addRenderAssignedTo();
 }
-
-
-/**
- * Event handler for the global click event.
- * Closes contact-related dropdowns and containers if the click is outside
- * the assigned-to-choicefield and contact containers.
- * */
-// document.addEventListener('click', function (event) {
-//     let assignedToContainer = document.querySelector('.assigned-to-choicefield');
-//     let isClickInside = assignedToContainer.contains(event.target);
-//     let isContact = event.target.closest('.contact-container');
-
-//     if (!isClickInside && !isContact) {
-//         let loadedContacts = document.getElementById('addLoadedContacts');
-//         let contactsContainer = document.querySelector('.contacts-container');
-//         let assignedToDropdown = document.querySelector('.assigned-to-dropdown');
-
-//         loadedContacts.style.display = 'none';
-//         assignedToDropdown.classList.remove('expanded');
-//         contactsContainer.style.display = 'none';
-//     }
-// });
 
 
 document.addEventListener('click', function (event) {

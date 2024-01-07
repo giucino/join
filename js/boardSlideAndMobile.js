@@ -5,8 +5,8 @@
  * @param {string} label - The label or text to display on the link.
  */
 function getStatusLinkHTML(element, status, label) {
-    if(element.status === status) {
-        return ''; 
+    if (element.status === status) {
+        return '';
     }
     return `<a href="#" onclick="moveToMobile(${element.id}, '${status}')">${label}</a>`;
 }
@@ -60,14 +60,9 @@ function renderSlideSubtask(element, id) {
  * @param {string} numberTasks - The HTML representation of the number of tasks.
  * @param {string} allTasks - The HTML representation of all tasks.
  */
-function renderSlideCardHTML(
-  element,
-  priorityImageSrc,
-  assignedToHTML,
-  subtasksHTML
-) {
-  const backgroundColor = getCategoryBackgroundColor(element.category);
-  return /*html*/ `
+function renderSlideCardHTML(element, priorityImageSrc, assignedToHTML, subtasksHTML) {
+    const backgroundColor = getCategoryBackgroundColor(element.category);
+    return /*html*/ `
     <div id="slide-container" class="slide-container">
         <div id="task-slide-container${element.id}" class="task-slide-container" onclick="event.stopPropagation()">
             <div class="task-slide-headline">
@@ -117,6 +112,5 @@ function renderSlideCardHTML(
             </div>
         </div>
     </div>
-    
     `;
 }

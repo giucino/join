@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   getGreeting('day-time');
   getGreeting('mobile-day-time');
 });
@@ -12,7 +12,7 @@ function getGreeting(id) {
   const dayTime = document.getElementById(id);
   const currentHour = new Date().getHours();
   const isGuest = isGuestUser();
-  
+
   morning(dayTime, currentHour, isGuest);
   afternoon(dayTime, currentHour, isGuest);
   evening(dayTime, currentHour, isGuest);
@@ -28,7 +28,7 @@ function getGreeting(id) {
  * @param {number} currentHour - The current hour of the day.
  * @param {boolean} isGuest - Indicates whether the user is a guest or not.
  */
-function morning(dayTime, currentHour, isGuest){
+function morning(dayTime, currentHour, isGuest) {
   if (currentHour >= 5 && currentHour < 12) {
     if (isGuest) {
       dayTime.innerHTML = "Good morning";
@@ -45,7 +45,7 @@ function morning(dayTime, currentHour, isGuest){
  * @param {number} currentHour - The current hour of the day.
  * @param {boolean} isGuest - Indicates whether the user is a guest or not.
  */
-function afternoon(dayTime, currentHour, isGuest){
+function afternoon(dayTime, currentHour, isGuest) {
   if (currentHour >= 12 && currentHour < 18) {
     if (isGuest) {
       dayTime.innerHTML = "Good afternoon";
@@ -62,13 +62,13 @@ function afternoon(dayTime, currentHour, isGuest){
  * @param {number} currentHour - The current hour of the day.
  * @param {boolean} isGuest - Indicates whether the user is a guest or not.
  */
-function evening(dayTime, currentHour, isGuest){
+function evening(dayTime, currentHour, isGuest) {
   if (currentHour >= 18 && currentHour < 24)
     if (isGuest) {
       dayTime.innerHTML = "Good evening";
     } else {
       dayTime.innerHTML = "Good evening, ";
-  }
+    }
 }
 
 
@@ -90,7 +90,6 @@ function toggleActiveClass() {
     mobileContainer.classList.remove('d-none');
   }
 }
-
 toggleActiveClass();
 
 window.addEventListener('resize', toggleActiveClass);
@@ -145,14 +144,14 @@ function showGreeting(isGuest) {
  * Hides or shows the user's name based on their guest status.
  * @param {boolean} isGuest - Indicates whether the user is a guest or not.
  */
-function hideUserName(isGuest) { 
+function hideUserName(isGuest) {
   const userDesktop = document.getElementById('user-name');
   const userMobile = document.getElementById('user-name-mobile');
   if (isGuestUser(isGuest)) {
     userDesktop.classList.add('d-none');
     userMobile.classList.add('d-none');
-  } else{
+  } else {
     userDesktop.classList.remove('d-none');
     userMobile.classList.remove('d-none');
-  }  
+  }
 }

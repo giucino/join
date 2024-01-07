@@ -33,7 +33,7 @@ function renderEditTask(id) {
     return /* html */ `
         <div id="edit-slide-container" class="edit-slide-container">
             <form id="edit-taskForm" onsubmit="saveEditedTask(${id}); return false;" class="edit-task-slide-container">
-                <div class="edit-add-task-container scroll-slide-edit-container">
+                <div class="edit-add-task-container">
                     <div class="edit-add-task-container-first">
                         <div class="edit-add-task-container-titel">
                             <div class="edit-add-task-titel-textcontainer">
@@ -117,7 +117,7 @@ function renderEditTask(id) {
                         <div id="edit-loaded-contacts" class="loaded-contacts">
                         </div>
                     </div>
-                    <div id="edit-chosen-contacts" class="chosen-contacts"></div>
+                    <div id="edit-chosen-contacts" class="chosen"></div>
                     <div class="edit-subtasks-container">
                         <div class="edit-subtasks-header">
                             Subtasks
@@ -219,7 +219,6 @@ function processAndSaveSubtasks(task) {
             console.error("Subtask mit dem Index", index, "wurde nicht gefunden.");
         }
     });
-
     return updatedSubtasks;
 }
 

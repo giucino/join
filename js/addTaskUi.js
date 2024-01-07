@@ -173,7 +173,7 @@ function getLoggedInUserData() {
  * For each contact, it generates the initials from their name and surname, checks if the contact
  * is selected or if it matches the logged-in user's email, and then updates the container's HTML.
  * @requires getLoggedInUserData - A function to fetch the logged-in user's data.
- * @requires renderAssignedToHTML - A function to generate the HTML representation of a contact's assigned data.
+ * @requires renderSearchedContactsHTML - A function to generate the HTML representation of a contact's assigned data.
  * @throws {Error} Throws an error if any issues arise while rendering.
  * @example
  * Assuming all required functions and global variables are present and correctly set up:
@@ -191,7 +191,7 @@ async function renderAssignedTo() {
         let isSelected = selectedContacts[contact.id] || false;
         let isCurrentUser = loggedInUserData && contact.email === loggedInUserData.email;
 
-        assignedToContainer.innerHTML += renderAssignedToHTML(contact, initials, isSelected, isCurrentUser);
+        assignedToContainer.innerHTML += renderSearchedContactsHTML(contact, initials, isSelected, isCurrentUser);
     }
 }
 

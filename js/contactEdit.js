@@ -185,7 +185,7 @@ function validateForm() {
 
     if (!emailInput.checkValidity()) {
         emailInput.reportValidity();
-        return false; 
+        return false;
     }
     return true;
 }
