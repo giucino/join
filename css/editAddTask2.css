@@ -291,11 +291,10 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 75%;
+        width: 90%;
     }
 
     .edit-task-slide-container {
-        height: 80%;
         padding: 30px 30px;
     }
 
@@ -340,5 +339,21 @@
     .edit-button-create-task {
         font-size: 18px;
         padding: 8px 6px;
+    }
+}
+
+@media(max-width: 425px) {
+    .edit-task-slide-container {
+        padding: 20px 10px;
+    }
+
+    .edit-priority-choice-inner {
+        font-size: 12px;
+        padding: 12px 6px;
+    }
+
+    .edit-priority-choice-inner-pic img {
+        width: 10px;
+        height: 8.51px;
     }
 }

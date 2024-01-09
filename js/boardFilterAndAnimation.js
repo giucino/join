@@ -100,7 +100,7 @@ function closeCard() {
  * @param {Event} event - The DOM event triggered from the click.
  */
 function closeSlideCard(event) {
-    if (event.target.classList.contains('task-slide')) {
+    if (event.target.classList.contains('task-slide') || event.target.classList.contains('slide-container')) {
         const slideCard = document.getElementById("task-slide");
         let overlay = document.querySelector(".task-slide-overlay");
 
