@@ -33,6 +33,7 @@ function renderEditTask(id) {
     return /* html */ `
         <div id="edit-slide-container" class="edit-slide-container">
             <form id="edit-taskForm" onsubmit="saveEditedTask(${id}); return false;" class="edit-task-slide-container">
+            <div id="close-edit" onclick="closeEditCard()" class="task-slide-headline-right"><img src="./img/close_subtask.png" alt="Schließen"></div>
                 <div class="edit-add-task-container">
                     <div class="edit-add-task-container-first">
                         <div class="edit-add-task-container-titel">

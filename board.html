@@ -23,10 +23,8 @@
     <link rel="stylesheet" href="./css/addTaskThird.css">
     <link rel="icon" type="image/png" href="./img/join_logo_blue.png">
 </head>
-<!-- id="noscroll" -->
-<body onload="init(), updateHTML(), initAddTask()"> 
-    <!-- <div w3-include-html="./templates/boardSlide.html"></div> -->
-    <!-- <div w3-include-html="./templates/editTaskSlide.html"></div> -->
+
+<body onload="init(), updateHTML(), initAddTask()">
     <div w3-include-html="./templates/header.html"></div>
     <div w3-include-html="./templates/aside.html"></div>
     <div class="search-add-task">
@@ -93,12 +91,13 @@
         </div>
     </div>
 
-    <div id="task-slide" class="task-slide"></div>
+    <div onclick="closeSlideCard(event)" id="task-slide" class="task-slide"></div>
+    <div id="edit-task-slide" class="task-slide"></div>
     <div class="task-slide-overlay"></div>
 
     <form id="taskFormSlider"></form>
     <div class="task-background-overlay"></div>
-    
+
     <div id="contactAddedContainer" class="contact-added"></div>
 
     <script src="./js/includeHTML.js"></script>

@@ -1,9 +1,39 @@
+.edit-slide-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 528px;
+    max-width: 528px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.edit-task-slide-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 90%;
+    max-height: 90%;
+    width: 100%;
+    padding: 48px 40px;
+    gap: 24px;
+    border-radius: 30px;
+    background: #FFF;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.2);
+}
+
 .edit-add-task-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     height: 100%;
+    width: 100%;
     overflow: auto;
+    overflow-x: hidden;
     gap: 24px;
 }
 
@@ -37,6 +67,7 @@
     gap: 10px;
     display: inline-flex;
     cursor: pointer;
+    width: 95%;
 }
 
 .edit-add-task-titel-textcontainer:hover {
@@ -89,8 +120,7 @@
 }
 
 .edit-add-task-description-textfield {
-    width: 100%;
-    max-width: 400px;
+    width: 90%;
     min-height: 90px;
     color: black;
     font-family: 'Open sans', sans-serif;
@@ -187,6 +217,7 @@
     justify-content: center;
     align-items: center;
     gap: 16px;
+    width: 100%;
 }
 
 .edit-priority-choice-inner {
@@ -249,7 +280,7 @@
 
 .edit-assigned-to-choicefield {
     display: flex;
-    width: 100%;
+    width: 97%;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--style, #D1D1D1);
@@ -354,4 +385,18 @@
 
 .edit-contact-container.selected:hover {
     background: #005DFF;
+}
+
+.edit-loaded-contacts {
+    display: none;
+    width: 100%;
+    overflow-y: scroll;
+    height: 250px;
+}
+
+.chosen {
+    display: flex;
+    gap: 8px;
+    width: 90%;
+    cursor: pointer;
 }

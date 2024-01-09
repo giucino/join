@@ -9,8 +9,11 @@ let currentTaskId;
  */
 function editTask(id) {
   document.body.style.overflow = 'hidden';
-  const slideEditTask = document.getElementById("task-slide");
+  const slideTask = document.getElementById("task-slide");
+  slideTask.style.opacity = "0";
+  const slideEditTask = document.getElementById("edit-task-slide");
   slideEditTask.innerHTML = renderEditTask(id);
+  slideEditTask.style.display = "block";
   const element = todos[id];
   currentTaskId = id;
   currentSelectedTask = element;
@@ -69,11 +72,14 @@ function updateElementProperties(element) {
 async function saveEditedTask(id) {
   const element = todos[id];
   updateElementProperties(element);
+  const slideEditTask = document.getElementById("edit-task-slide");
+  slideEditTask.style.display = "none";
   todos[id] = element;
   await setItem("tasks", JSON.stringify(todos));
   openEditedTask(element.id);
   selectedContacts = [];
-  document.body.style.overflow = 'auto';
+  currentTaskId = null;
+  currentSelectedTask = null;
 }
 
 
@@ -84,9 +90,19 @@ async function saveEditedTask(id) {
  */
 function openEditedTask(id) {
   const slideCard = document.getElementById('task-slide');
+  slideCard.style.opacity = "1";
   slideCard.innerHTML = renderSlideCard(id);
-  document.getElementById('task-slide').classList.remove('d-none');
-  document.getElementById('slide-container').classList.add('open-task');
+}
+
+
+/**
+ * Closes the edit task slide and makes the slide card visible.
+ */
+function closeEditCard() {
+  const slideEditTask = document.getElementById("edit-task-slide");
+  slideEditTask.style.display = "none";
+  const slideCard = document.getElementById('task-slide');
+  slideCard.style.opacity = "1";
 }
 
 

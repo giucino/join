@@ -32,23 +32,6 @@ body::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
-.add-task-content::-webkit-scrollbar {
-    width: 10px;
-}
-
-.add-task-content::-webkit-scrollbar-track {
-    border-radius: 30px;
-    background: #f1f1f1;
-}
-
-.add-task-content::-webkit-scrollbar-thumb {
-    background: #888;
-}
-
-.add-task-content::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
 .search-add-task-container {
     display: flex;
     position: absolute;

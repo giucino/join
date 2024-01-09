@@ -220,7 +220,6 @@
 
 /* Media Query für Bildschirmbreite von maximal 768px */
 @media(max-width: 768px) {
-
     #taskForm {
         display: flex;
         justify-content: center;
