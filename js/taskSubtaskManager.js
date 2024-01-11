@@ -13,7 +13,7 @@ function addAddSubtask() {
     }
     subtaskIdCounter++;
 
-    let subtaskId = 'subtask-' + subtaskIdCounter;
+    let subtaskId = subtaskIdCounter;
 
     addAddSubtaskToContainer(subtaskId, subtaskValue);
     subtaskInput.value = '';

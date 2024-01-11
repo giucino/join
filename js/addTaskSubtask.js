@@ -13,7 +13,7 @@ function addSubtask() {
     }
     subtaskIdCounter++;
 
-    let subtaskId = 'subtask-' + subtaskIdCounter;
+    let subtaskId = subtaskIdCounter;
 
     addSubtaskToContainer(subtaskId, subtaskValue);
     subtaskInput.value = '';
@@ -87,7 +87,7 @@ function editSubtask(subtaskId) {
     if (subtaskElement) {
         subtaskElement.contentEditable = true;
         subtaskElement.focus();
-}
+    }
 
     let subtaskContainer = document.getElementById(`subtask-container-${subtaskId}`);
     if (subtaskContainer) {

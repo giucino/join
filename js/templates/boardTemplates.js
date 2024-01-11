@@ -145,7 +145,7 @@ function renderEditTask(id) {
                     </div>
                 </div>                
             </form>
-        </div>
+        </div> 
     `;
 }
 

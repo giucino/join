@@ -190,16 +190,39 @@ function closeSubtaskInput() {
  * Deletes a subtask based on its ID.
  * @param {number|string} subtaskId - The ID of the subtask to delete.
  */
-function deleteEditSubtask(indexToDelete) {
-    let task = currentSelectedTask;
-    if (indexToDelete >= 0 && indexToDelete < task.subtasks.length) {
-        task.subtasks.splice(indexToDelete, 1);
-        let subtaskElement = document.getElementById(`subtask-container-${indexToDelete}`);
-        if (subtaskElement) {
-            subtaskElement.remove();
+// function deleteEditSubtask(indexToDelete) {
+//     let task = currentSelectedTask;
+//     if (indexToDelete >= 0 && indexToDelete < task.subtasks.length) {
+//         task.subtasks.splice(indexToDelete, 1);
+//         let subtaskElement = document.getElementById(`subtask-container-${indexToDelete}`);
+//         if (subtaskElement) {
+//             subtaskElement.remove();
+//         }
+//     }
+// }
+
+
+function deleteEditSubtask(subtaskId) {
+    if (currentSelectedTask && currentSelectedTask.subtasks) {
+        let indexToDelete = currentSelectedTask.subtasks.findIndex(subtask => subtask.id === subtaskId);
+
+        if (indexToDelete !== -1) {
+            currentSelectedTask.subtasks.splice(indexToDelete, 1);
+
+            let subtaskElement = document.getElementById(subtaskId);
+            if (subtaskElement) {
+                subtaskElement.parentElement.parentElement.remove();
+                return true;  // Erfolgreich gelöscht
+            }
         }
     }
+
+    return false;  // Nicht gefunden oder nicht gelöscht
 }
+
+
+
+
 
 
 /**

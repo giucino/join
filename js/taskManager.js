@@ -182,6 +182,7 @@ function closeAddTaskModal() {
     overlay.style.display = "none";
     document.body.style.overflow = 'auto';
     selectedContacts = [];
+    subtasks = [];
 }
 
 
