@@ -11,9 +11,7 @@ function addSubtask() {
     if (!subtaskValue) {
         return;
     }
-    subtaskIdCounter++;
-
-    let subtaskId = subtaskIdCounter;
+    let subtaskId = subtaskIdCounter++;
 
     addSubtaskToContainer(subtaskId, subtaskValue);
     subtaskInput.value = '';
@@ -66,9 +64,9 @@ function deleteSubtask(subtaskId) {
     if (indexToDelete !== -1) {
         subtasks.splice(indexToDelete, 1);
 
-        let subtaskElement = document.getElementById(subtaskId);
+        let subtaskElement = document.getElementById(`subtask-container-${subtaskId}`);
         if (subtaskElement) {
-            subtaskElement.parentElement.parentElement.remove();
+            subtaskElement.remove();
         }
     }
 }
@@ -82,7 +80,7 @@ function deleteSubtask(subtaskId) {
  * editSubtask('subtask1');  // This will make the "subtask1" element editable and add editing classes to its container.
  */
 function editSubtask(subtaskId) {
-    let subtaskElement = document.getElementById(subtaskId);
+    let subtaskElement = document.getElementById(`subtask-${subtaskId}`);
 
     if (subtaskElement) {
         subtaskElement.contentEditable = true;
@@ -105,7 +103,7 @@ function editSubtask(subtaskId) {
  * finishEditing('subtask-1');
  */
 function finishEditing(subtaskId) {
-    let subtaskElement = document.getElementById(subtaskId);
+    let subtaskElement = document.getElementById(`subtask-${subtaskId}`);
 
     if (subtaskElement) {
         subtaskElement.contentEditable = false;
@@ -130,7 +128,7 @@ function finishEditing(subtaskId) {
  * saveEditedTitle('subtask1');
  */
 function saveEditedTitle(subtaskId) {
-    let subtaskElement = document.getElementById(subtaskId);
+    let subtaskElement = document.getElementById(`subtask-${subtaskId}`);
     let editedTitle = subtaskElement.textContent;
 
     let editedSubtask = subtasks.find(subtask => subtask.id === subtaskId);

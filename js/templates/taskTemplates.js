@@ -188,19 +188,19 @@ function addRenderSearchedContactsHTML(contact, initials, isSelected, isCurrentU
  */
 function addCreateSubtaskHTML(subtaskId, subtaskValue) {
     return /*html*/`
-        <div id="add-subtask-container-${subtaskId}" class="subtask-container">
+        <div id="subtask-container-${subtaskId}" class="subtask-container">
             <div class="subtask-item">
                 <span class="subtask-dot"></span>           
-                <span id="${subtaskId}" data-subtask-id="${subtaskId}" class="subtask-value" contenteditable="false">${subtaskValue}</span>
+                <span id="subtask-${subtaskId}" data-subtask-id="${subtaskId}" class="subtask-value" contenteditable="false">${subtaskValue}</span>
             </div>
             <div class="hover-content">
-                <img onclick="addEditSubtask('${subtaskId}')" src="./img/edit_subtask.png" class="edit-subtask-button">
+                <img onclick="addEditSubtask(${subtaskId})" src="./img/edit_subtask.png" class="edit-subtask-button">
                 <span class="separator2" id="separator2">|</span> 
-                <img onclick="addDeleteSubtask('${subtaskId}')" data-subtask-id="${subtaskId}" src="./img/delete_subtask.png" class="delete-subtask-button">
+                <img onclick="addDeleteSubtask(${subtaskId})" data-subtask-id="${subtaskId}" src="./img/delete_subtask.png" class="delete-subtask-button">
             </div>
-            <img onclick="addDeleteSubtask('${subtaskId}')" data-subtask-id="${subtaskId}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
+            <img onclick="addDeleteSubtask(${subtaskId})" data-subtask-id="${subtaskId}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
             <span class="separator3" id="separator3">|</span> 
-            <img onclick="addFinishEditing('${subtaskId}')" src="./img/add_subtask.png" class="save-subtask-button">
+            <img onclick="addFinishEditing(${subtaskId})" src="./img/add_subtask.png" class="save-subtask-button">
         </div>
     `;
 }

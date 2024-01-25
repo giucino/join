@@ -188,41 +188,17 @@ function closeSubtaskInput() {
 
 /**
  * Deletes a subtask based on its ID.
- * @param {number|string} subtaskId - The ID of the subtask to delete.
+ * @param {*} indexToDelete - The ID of the subtask to delete.
  */
-// function deleteEditSubtask(indexToDelete) {
-//     let task = currentSelectedTask;
-//     if (indexToDelete >= 0 && indexToDelete < task.subtasks.length) {
-//         task.subtasks.splice(indexToDelete, 1);
-//         let subtaskElement = document.getElementById(`subtask-container-${indexToDelete}`);
-//         if (subtaskElement) {
-//             subtaskElement.remove();
-//         }
-//     }
-// }
+function deleteEditSubtask(indexToDelete) {
+    let currentTask = todos[currentTaskId];
+    currentTask.subtasks.splice(indexToDelete, 1);
 
-
-function deleteEditSubtask(subtaskId) {
-    if (currentSelectedTask && currentSelectedTask.subtasks) {
-        let indexToDelete = currentSelectedTask.subtasks.findIndex(subtask => subtask.id === subtaskId);
-
-        if (indexToDelete !== -1) {
-            currentSelectedTask.subtasks.splice(indexToDelete, 1);
-
-            let subtaskElement = document.getElementById(subtaskId);
-            if (subtaskElement) {
-                subtaskElement.parentElement.parentElement.remove();
-                return true;  // Erfolgreich gelöscht
-            }
-        }
+    let subtaskElement = document.getElementById(`subtask-container-${indexToDelete}`);
+    if (subtaskElement) {
+        subtaskElement.remove();
     }
-
-    return false;  // Nicht gefunden oder nicht gelöscht
 }
-
-
-
-
 
 
 /**
@@ -230,7 +206,7 @@ function deleteEditSubtask(subtaskId) {
  * @param {number} i - The index or unique identifier for the subtask.
  */
 function editEditedSubtask(i) {
-    let subtaskElement = document.getElementById(i);
+    let subtaskElement = document.getElementById(`subtask-value-${i}`);
     if (subtaskElement) {
         subtaskElement.contentEditable = true;
         subtaskElement.focus();
@@ -270,7 +246,6 @@ function addClasses(container) {
 }
 
 
-
 /**
  * Sets the display style of a DOM element. *
  * @param {HTMLElement|null} element - The DOM element to modify.
@@ -293,12 +268,12 @@ function setDisplay(element, value) {
  * @example
  * finishEditing(3);  // finishes editing for the subtask with id '3'
  */
-function finishEditing(i) {
-    let subtaskElement = document.getElementById(i);
+function finishEditing(index) {
+    let subtaskElement = document.getElementById(`subtask-value-${index}`);
     if (subtaskElement) {
         subtaskElement.contentEditable = false;
     }
-    let subtaskContainer = document.getElementById(`subtask-container-${i}`);
+    let subtaskContainer = document.getElementById(`subtask-container-${index}`);
 
     if (subtaskContainer) {
         removeEditingClasses(subtaskContainer);

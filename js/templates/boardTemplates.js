@@ -4,21 +4,21 @@
  * @param {string} subtask.title - The title of the subtask.
  * @param {number} i - The index or ID associated with the subtask, used for data attributes and action handlers.
  */
-function subtaskToEditHTML(subtask, i) {
-    return /*html*/ `
-        <div id="subtask-container-${i}" class="edit-subtask-container">
+function subtaskToEditHTML(index, subtaskValue) {
+    return /*html*/`
+        <div id="subtask-container-${index}" class="edit-subtask-container">
             <div class="edit-subtask-item">
                 <span id="editDot" class="edit-subtask-dot"></span>           
-                <span id="${i}" class="edit-subtask-value" data-index="${i}" contenteditable="false" value="${subtask.title}">${subtask.title}</span>
+                <span id="subtask-value-${index}" class="edit-subtask-value" contenteditable="true">${subtaskValue}</span>
             </div>
             <div class="hover-content">
-                <img onclick="editEditedSubtask(${i})" data-index="${i}" src="./img/edit_subtask.png" class="edit-edit-subtask-button">
+                <img onclick="editEditedSubtask(${index})" src="./img/edit_subtask.png" class="edit-edit-subtask-button">
                 <span class="separator2" id="separator2">|</span> 
-                <img onclick="deleteEditSubtask(${i})" data-index="${i}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
+                <img onclick="deleteEditSubtask(${index})" data-index="${index}" src="./img/delete_subtask.png" class="edit-delete-subtask-button">
             </div>
-            <img onclick="deleteEditSubtask(${i})" data-index="${i}" src="./img/delete_subtask.png" class="edit-edit-delete-subtask-button">
+            <img onclick="deleteEditSubtask(${index})" data-index="${index}" src="./img/delete_subtask.png" class="edit-edit-delete-subtask-button">
             <span class="separator3" id="separator3">|</span> 
-            <img onclick="finishEditing(${i})" data-index="${i}" src="./img/add_subtask.png" class="edit-save-subtask-button">
+            <img onclick="finishEditing(${index})" data-index="${index}" src="./img/add_subtask.png" class="edit-save-subtask-button">
         </div>
     `;
 }
@@ -160,13 +160,13 @@ function loadRenderSearchedContactsHTML(contact, initials, isSelected, isCurrent
     let userMarker = isCurrentUser ? " (you)" : "";
 
     return /*html*/`
-      <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="loadToggleContactSelection('${contact.name}', '${contact.surname}')">
-          <div class="select-contact">
-              <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
-              <div class="select-name">${contact.name} ${contact.surname}${userMarker}</div>
-          </div>
-          <img class="select-icon" id="edit-select-check" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
-      </div>`;
+        <div class="contact-container ${isSelected ? 'selected' : ''}" onclick="loadToggleContactSelection('${contact.name}', '${contact.surname}')">
+            <div class="select-contact">
+                <div class="initial" style="background-color: ${contact.bgcolor}">${initials}</div>
+                <div class="select-name">${contact.name} ${contact.surname}${userMarker}</div>
+            </div>
+            <img class="select-icon" id="edit-select-check" src="${isSelected ? 'img/check_contact.png' : 'img/check-button.png'}"  alt="Check Button">
+        </div>`;
 }
 
 
@@ -180,7 +180,7 @@ function subtaskToAddHTML(subInputValue, i) {
         <div id="subtask-container-${i}" class="edit-subtask-container">
             <div class="edit-subtask-item">
                 <span id="editDot" class="edit-subtask-dot"></span>           
-                <span id="${i}" class="edit-subtask-value" data-subtask-id="${i}" contenteditable="false">${subInputValue}</span>
+                <span id="subtask-value-${i}" class="edit-subtask-value" data-subtask-id="${i}" contenteditable="false">${subInputValue}</span>
             </div>
             <div class="hover-content">
                 <img onclick="editEditedSubtask(${i})" data-subtask-id="${i}" src="./img/edit_subtask.png" class="edit-edit-subtask-button">
@@ -192,35 +192,6 @@ function subtaskToAddHTML(subInputValue, i) {
             <img onclick="finishEditing(${i})" data-subtask-id="${i}" src="./img/add_subtask.png" class="edit-save-subtask-button">
         </div>
     `;
-}
-
-
-/**
- * Processes and saves subtasks based on elements with the class "edit-subtask-value".
- * @param {Object} task - The main task object that contains the subtasks.
- * @param {Array} task.subtasks - The list of subtasks. Each subtask is an object with at least a "title" attribute.
- */
-function processAndSaveSubtasks(task) {
-    let subtaskElements = document.querySelectorAll('.edit-subtask-value');
-    let updatedSubtasks = [];
-
-    subtaskElements.forEach((element, index) => {
-        let editedTitle = element.innerText;
-
-        if (index >= 0 && index < task.subtasks.length) {
-            let editedSubtask = task.subtasks[index];
-            editedSubtask.title = editedTitle;
-
-            let updatedTitle = {
-                title: editedTitle,
-                status: false
-            };
-            updatedSubtasks.push(updatedTitle);
-        } else {
-            console.error("Subtask mit dem Index", index, "wurde nicht gefunden.");
-        }
-    });
-    return updatedSubtasks;
 }
 
 

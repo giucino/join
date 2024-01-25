@@ -62,6 +62,7 @@ function updateElementProperties(element) {
   element.priority = selectedPriority;
   element.assignedTo = selectedContacts.filter(contact => contact !== undefined);
   element.bgcolor = extractColor(element);
+  element.subtasks = processAndSaveSubtasks(element);
 }
 
 
@@ -213,7 +214,8 @@ function addNewSubtask() {
   const newSubtaskId = currentSelectedTask.subtasks.length + 1;
   subtaskContainer.innerHTML += subtaskToAddHTML(subInputValue, newSubtaskId);
 
-  currentSelectedTask.subtasks.push({ id: newSubtaskId, title: subInputValue, status: false });
+  // currentSelectedTask.subtasks.push({ id: newSubtaskId, title: subInputValue, status: false });
+  currentSelectedTask.subtasks.push({ title: subInputValue, status: false });
 
   subInput.value = '';
   closeSubtaskInput();
@@ -241,16 +243,15 @@ document.addEventListener('keypress', handleEditSubtaskInput);
  * @param {Object} element - The task object containing subtasks.
  */
 function addSubtaskToEdit(element) {
-  let subtasksHTML = "";
-  if (element.subtasks && Array.isArray(element.subtasks)) {
+  const subtasksContainer = document.getElementById("edit-subtask-add-container");
+  subtasksContainer.innerHTML = "";
+
+  if (element && element.subtasks && element.subtasks.length > 0) {
     for (let i = 0; i < element.subtasks.length; i++) {
       const subtask = element.subtasks[i];
-      if (subtask.title) {
-        subtasksHTML += subtaskToEditHTML(subtask, i);
-      }
+      const subtaskHTML = subtaskToEditHTML(i, subtask.title);
+      subtasksContainer.innerHTML += subtaskHTML;
     }
-    const subtaskContainer = document.getElementById("edit-subtask-add-container");
-    subtaskContainer.innerHTML = subtasksHTML;
   }
 }
 
@@ -363,4 +364,33 @@ function loadToggleContactSelection(name, surname) {
   loadRenderAssignedTo(selectedContacts);
   loadSearchedContact(contacts);
   renderDisplayChosenContacts();
+}
+
+
+/**
+ * Processes and saves subtasks based on elements with the class "edit-subtask-value".
+ * @param {Object} task - The main task object that contains the subtasks.
+ * @param {Array} task.subtasks - The list of subtasks. Each subtask is an object with at least a "title" attribute.
+ */
+function processAndSaveSubtasks(task) {
+  let subtaskElements = document.querySelectorAll('.edit-subtask-value');
+  let updatedSubtasks = [];
+
+  subtaskElements.forEach((element, index) => {
+      let editedTitle = element.innerText;
+
+      if (index >= 0 && index < task.subtasks.length) {
+          let editedSubtask = task.subtasks[index];
+          editedSubtask.title = editedTitle;
+
+          let updatedTitle = {
+              title: editedTitle,
+              status: false
+          };
+          updatedSubtasks.push(updatedTitle);
+      } else {
+          console.error("Subtask mit dem Index", index, "wurde nicht gefunden.");
+      }
+  });
+  return updatedSubtasks;
 }

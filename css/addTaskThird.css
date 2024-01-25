@@ -17,7 +17,7 @@
 .subtask-value {
     border: none;
     outline: none;
-    max-height: 1.2em;
+    max-height: 1.4em;
     overflow: hidden;
     display: inline-block;
     white-space: nowrap;

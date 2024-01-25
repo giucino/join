@@ -11,9 +11,8 @@ function addAddSubtask() {
     if (!subtaskValue) {
         return;
     }
-    subtaskIdCounter++;
+    let subtaskId = subtaskIdCounter++;
 
-    let subtaskId = subtaskIdCounter;
 
     addAddSubtaskToContainer(subtaskId, subtaskValue);
     subtaskInput.value = '';
@@ -56,14 +55,14 @@ function addAddSubtaskToContainer(subtaskId, subtaskValue) {
  * @param {string} subtaskId - The ID of the subtask to be deleted.
  */
 function addDeleteSubtask(subtaskId) {
-    const indexToDelete = subtasks.findIndex(subtask => subtask.id === subtaskId);
+    let indexToDelete = subtasks.findIndex(subtask => subtask.id === subtaskId);
 
     if (indexToDelete !== -1) {
         subtasks.splice(indexToDelete, 1);
 
-        let subtaskElement = document.getElementById(subtaskId);
+        let subtaskElement = document.getElementById(`subtask-container-${subtaskId}`);
         if (subtaskElement) {
-            subtaskElement.parentElement.parentElement.remove();
+            subtaskElement.remove();
         }
     }
 }
@@ -76,13 +75,13 @@ function addDeleteSubtask(subtaskId) {
  * @param {string} subtaskId - The ID of the subtask element to be edited.
  */
 function addEditSubtask(subtaskId) {
-    let subtaskElement = document.getElementById(subtaskId);
+    let subtaskElement = document.getElementById(`subtask-${subtaskId}`);
 
     if (subtaskElement) {
         subtaskElement.contentEditable = true;
         subtaskElement.focus();
     }
-    let subtaskContainer = document.getElementById(`add-subtask-container-${subtaskId}`);
+    let subtaskContainer = document.getElementById(`subtask-container-${subtaskId}`);
     if (subtaskContainer) {
         addAddEditingClasses(subtaskContainer);
     }
@@ -94,13 +93,13 @@ function addEditSubtask(subtaskId) {
  * @param {string} subtaskId - The ID of the subtask element to finish editing.
  */
 function addFinishEditing(subtaskId) {
-    let subtaskElement = document.getElementById(subtaskId);
+    let subtaskElement = document.getElementById(`subtask-${subtaskId}`);
 
     if (subtaskElement) {
         subtaskElement.contentEditable = false;
     }
 
-    let subtaskContainer = document.getElementById(`add-subtask-container-${subtaskId}`);
+    let subtaskContainer = document.getElementById(`subtask-container-${subtaskId}`);
     if (subtaskContainer) {
         addRemoveEditingClasses(subtaskContainer);
     }
@@ -113,7 +112,7 @@ function addFinishEditing(subtaskId) {
  * @param {string} subtaskId - The unique identifier of the subtask to update.
  */
 function addSaveEditedTitle(subtaskId) {
-    let subtaskElement = document.getElementById(subtaskId);
+    let subtaskElement = document.getElementById(`subtask-${subtaskId}`);
     let editedTitle = subtaskElement.textContent;
 
     let editedSubtask = subtasks.find(subtask => subtask.id === subtaskId);
